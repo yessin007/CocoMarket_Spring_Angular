@@ -1,4 +1,6 @@
-<h1>COCO Marketplace</h1>
+
+<h1>COCO Marketplace</h1><img src="https://i.postimg.cc/GmJ72QLm/Coco-market-icon.png" style="width:100px;height:100px;">
+
     <p>
       It is an application for managing listings, optimizing product visibility,
       finding new opportunities, analyzing data and growing market opportunities.
