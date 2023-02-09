@@ -1,4 +1,5 @@
-<h1>COCO Marketplace</h1><img src="https://user-images.githubusercontent.com/91993395/217961499-aba9d8aa-1c5b-4bb2-8481-a8dcef7088a9.png">
+
+<h1>COCO Marketplace</h1><img src="https://i.postimg.cc/GmJ72QLm/Coco-market-icon.png">
 
     <p>
       It is an application for managing listings, optimizing product visibility,
