@@ -4,6 +4,15 @@
       It is an application for managing listings, optimizing product visibility,
       finding new opportunities, analyzing data and growing market opportunities.
     </p>
+    <h2>Group Members:</h2>
+    <ul><strong>
+        <li>Racem Ben Amar</li>
+        <li>Ahmed Lasmar</li>
+        <li>Ahmed Mellouli</li>
+        <li>Yessin Khlif</li>
+        <li>Radhwen Rmili</li>
+        <li>Maram Arfaoui</li>
+    </strong></ul>
     <h2>Types of actors on the site:</h2>
     <ul>
       <li>Anonymous: anonymous users can add products to their cart and enter the payment tunnel resulting in the automatic creation of a seller account. They can also create an account without going through the payment tunnel.</li>
