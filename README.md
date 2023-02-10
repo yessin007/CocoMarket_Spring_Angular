@@ -6,12 +6,12 @@
     </p>
     <h2>Group Members:</h2>
     <ul><strong>
-        <li>Racem Ben Amar</li>
-        <li>Ahmed Lasmar</li>
-        <li>Ahmed Mellouli</li>
-        <li>Yessin Khlif</li>
-        <li>Radhwen Rmili</li>
-        <li>Maram Arfaoui</li>
+        <li><a href="">Racem Ben Amar</a></li>
+        <li><a href="https://github.com/Ahmed-lasmar">Ahmed Lasmar</a></li>
+        <li><a href="">Ahmed Mellouli</a></li>
+        <li><a href="">Yessin Khlif</a></li>
+        <li><a href="">Radhwen Rmili</a></li>
+        <li><a href="">Maram Arfaoui</a></li>
     </strong></ul>
     <h2>Types of actors on the site:</h2>
     <ul>
