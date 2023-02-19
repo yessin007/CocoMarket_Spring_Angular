@@ -4,6 +4,7 @@ package com.example.coco_spring.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Data
@@ -18,10 +19,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+    private String lastName;
     private String username;
     private String email;
     private String password;
-    private String adres;
+    private String address;
+    @Temporal (TemporalType.DATE)
+    private Date dayOfBirth;
+    private String token;
+    private String cin;
+    private String telNum;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles",
