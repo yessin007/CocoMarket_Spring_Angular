@@ -12,7 +12,8 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
+
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
