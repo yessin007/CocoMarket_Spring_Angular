@@ -1,4 +1,4 @@
-package com.example.coco_spring.Entity;
+package com.example.coco_spring.entity;
 
 import lombok.Getter;
 import lombok.Setter;

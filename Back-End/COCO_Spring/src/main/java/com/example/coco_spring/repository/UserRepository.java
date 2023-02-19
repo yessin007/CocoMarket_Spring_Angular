@@ -1,7 +1,7 @@
-package com.example.coco_spring.Repository;
+package com.example.coco_spring.repository;
 
 
-import com.example.coco_spring.Entity.User;
+import com.example.coco_spring.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
