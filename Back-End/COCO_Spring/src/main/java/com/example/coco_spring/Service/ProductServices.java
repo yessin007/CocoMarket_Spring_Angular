@@ -1,8 +1,8 @@
 package com.example.coco_spring.Service;
 
 
-import com.example.coco_spring.entity.Product;
-import com.example.coco_spring.repository.ProductRepository;
+import com.example.coco_spring.Entity.Product;
+import com.example.coco_spring.Repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

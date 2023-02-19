@@ -1,10 +1,8 @@
-package com.example.coco_spring.controller;
+package com.example.coco_spring.Controller;
 
-import com.example.coco_spring.entity.Role;
-import com.example.coco_spring.entity.User;
-import com.example.coco_spring.Service.UserService;
-import com.example.coco_spring.repository.RoleRepository;
-import com.example.coco_spring.repository.UserRepository;
+import com.example.coco_spring.Entity.*;
+import com.example.coco_spring.Service.*;
+import com.example.coco_spring.Repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

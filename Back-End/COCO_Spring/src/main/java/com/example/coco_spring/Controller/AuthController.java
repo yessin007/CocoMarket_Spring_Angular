@@ -1,9 +1,7 @@
-package com.example.coco_spring.controller;
+package com.example.coco_spring.Controller;
 
-import com.example.coco_spring.entity.Role;
-import com.example.coco_spring.entity.User;
-import com.example.coco_spring.repository.RoleRepository;
-import com.example.coco_spring.repository.UserRepository;
+import com.example.coco_spring.Entity.*;
+import com.example.coco_spring.Repository.*;
 import com.example.coco_spring.payload.LoginDto;
 import com.example.coco_spring.payload.SignUpDto;
 import org.springframework.beans.factory.annotation.Autowired;

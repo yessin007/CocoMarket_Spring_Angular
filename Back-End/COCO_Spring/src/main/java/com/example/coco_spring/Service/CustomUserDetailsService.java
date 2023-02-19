@@ -2,8 +2,8 @@ package com.example.coco_spring.Service;
 
 
 
-import com.example.coco_spring.entity.User;
-import com.example.coco_spring.repository.UserRepository;
+import com.example.coco_spring.Entity.User;
+import com.example.coco_spring.Repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
