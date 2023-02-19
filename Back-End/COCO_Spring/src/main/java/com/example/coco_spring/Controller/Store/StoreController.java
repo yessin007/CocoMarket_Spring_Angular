@@ -1,7 +1,6 @@
 package com.example.coco_spring.Controller.Store;
 
-import com.example.coco_spring.Entity.AfterSaleServices;
-import com.example.coco_spring.Entity.Store;
+import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Service.Store.StoreService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -10,18 +9,19 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api/store")
 public class StoreController {
     StoreService storeService ;
     @PostMapping("/addStore")
     public Store add(@RequestBody Store store)  {
-        Store store1 =storeService.add(store);
-        return store1;
+
+        return storeService.add(store);
     }
-    @GetMapping("/getStore")
+    @GetMapping("/get_all_Stores")
     public List<Store> findAll() {
         return storeService.findAll();
     }
-    @PostMapping("/updateStore")
+    @PutMapping("/updateStore")
     public Store update (@RequestBody Store store)  {
         return storeService.update(store);
     }
@@ -33,5 +33,10 @@ public class StoreController {
     @GetMapping("/findStoreByName/{storeName}")
     public Store findStoreByName(@PathVariable("storeName") String storeName){
         return storeService.findStoreByName(storeName);
+    }
+
+    @GetMapping("/getStore/{storeId}")
+    public Store findStore(@PathVariable("storeId") Long storeId) {
+        return storeService.retrieveItem(storeId);
     }
 }
