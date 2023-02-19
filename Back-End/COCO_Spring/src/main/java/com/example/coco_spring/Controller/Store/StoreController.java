@@ -10,27 +10,28 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api/Store")
 public class StoreController {
     StoreService storeService ;
-    @PostMapping("/addStore")
+    @PostMapping("/add")
     public Store add(@RequestBody Store store)  {
         Store store1 =storeService.add(store);
         return store1;
     }
-    @GetMapping("/getStore")
+    @GetMapping("/get")
     public List<Store> findAll() {
         return storeService.findAll();
     }
-    @PostMapping("/updateStore")
+    @PostMapping("/update")
     public Store update (@RequestBody Store store)  {
         return storeService.update(store);
     }
 
-    @DeleteMapping("/deleteStore/{storeId}")
+    @DeleteMapping("/delete/{storeId}")
     public void delete(@PathVariable("storeId") Long storeId){
         storeService.delete(storeId);
     }
-    @GetMapping("/findStoreByName/{storeName}")
+    @GetMapping("/findByName/{storeName}")
     public Store findStoreByName(@PathVariable("storeName") String storeName){
         return storeService.findStoreByName(storeName);
     }
