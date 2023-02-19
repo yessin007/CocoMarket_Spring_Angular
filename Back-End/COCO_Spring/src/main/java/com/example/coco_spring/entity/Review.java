@@ -10,7 +10,6 @@ import java.util.Date;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @RequiredArgsConstructor
 public class Review {
     @Id
