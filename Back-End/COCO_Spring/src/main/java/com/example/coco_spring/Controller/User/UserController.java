@@ -35,8 +35,7 @@ public class UserController {
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
     @PostMapping("/")
-    public ResponseEntity<User> createUser(@RequestBody User user,@RequestBody Role role) {
-        user.setRoles(Collections.singleton(role));
+    public ResponseEntity<User> createUser(@RequestBody User user) {
         userService.createUser(user);
         return ResponseEntity.ok().body(user);
     }

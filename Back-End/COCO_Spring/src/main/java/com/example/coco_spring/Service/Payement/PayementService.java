@@ -22,7 +22,7 @@ public class PayementService implements ICRUDService<Payement,Long> , IPayementS
 
     @Override
     public Payement retrieveItem(Long idItem) {
-        return null;
+        return payementRepository.findById(idItem).get();
     }
 
     @Override

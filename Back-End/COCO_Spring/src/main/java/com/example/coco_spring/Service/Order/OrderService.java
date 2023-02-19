@@ -21,7 +21,7 @@ public class OrderService implements ICRUDService<Order,Long> , IOrderService {
 
     @Override
     public Order retrieveItem(Long idItem) {
-        return null;
+        return orderRepository.findById(idItem).get();
     }
 
     @Override
