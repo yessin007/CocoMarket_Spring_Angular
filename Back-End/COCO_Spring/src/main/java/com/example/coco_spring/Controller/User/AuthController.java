@@ -1,4 +1,4 @@
-package com.example.coco_spring.Controller;
+package com.example.coco_spring.Controller.User;
 
 import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Repository.*;

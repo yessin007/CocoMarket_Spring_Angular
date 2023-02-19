@@ -1,9 +1,11 @@
-package com.example.coco_spring.Service;
+package com.example.coco_spring.Service.Product;
 
 
-import com.example.coco_spring.Entity.Product;
-import com.example.coco_spring.Repository.ProductRepository;
+import com.example.coco_spring.Entity.*;
+import com.example.coco_spring.Repository.*;
+import com.example.coco_spring.Service.Product.IProductServices;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,8 +13,9 @@ import java.io.IOException;
 import java.util.List;
 
 @Service
+@Slf4j
 @AllArgsConstructor
-public class ProductServices implements IProductServices{
+public class ProductServices implements IProductServices {
     ProductRepository productRepository;
 
     @Override

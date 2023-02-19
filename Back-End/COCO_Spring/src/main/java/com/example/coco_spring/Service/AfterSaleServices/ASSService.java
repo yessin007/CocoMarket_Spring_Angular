@@ -1,19 +1,24 @@
 package com.example.coco_spring.Service.AfterSaleServices;
 
-import com.example.coco_spring.Entity.AfterSaleServices;
-import com.example.coco_spring.Repository.AfterSaleServicesRepository;
-import com.example.coco_spring.Service.ICRUDService;
+import com.example.coco_spring.Entity.*;
+import com.example.coco_spring.Repository.*;
+import com.example.coco_spring.Service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 @AllArgsConstructor
-public class ASSService implements ICRUDService<AfterSaleServices, Long> {
+public class ASSService implements ICRUDService<AfterSaleServices, Long> , IASSService{
    AfterSaleServicesRepository afterSaleServicesRepository ;
     @Override
     public List<AfterSaleServices> findAll() {
         return afterSaleServicesRepository.findAll();
+    }
+
+    @Override
+    public AfterSaleServices retrieveItem(Long idItem) {
+        return null;
     }
 
     @Override
@@ -28,15 +33,8 @@ afterSaleServicesRepository.deleteById(serviceId);
     }
 
     @Override
-    public AfterSaleServices update(AfterSaleServices ass1, Long serviceId) throws Exception {
-        if(afterSaleServicesRepository.findById(serviceId).isPresent()){
-
-            AfterSaleServices afterSaleServicesToUpdate = afterSaleServicesRepository.findById(serviceId).get();
-            afterSaleServicesToUpdate.setDescription(ass1.getDescription());
-            afterSaleServicesToUpdate.setStore(ass1.getStore());
-            return afterSaleServicesRepository.save(afterSaleServicesToUpdate);
-        }
-        throw new Exception("after sale service does not exist !");
+    public AfterSaleServices update(AfterSaleServices Classe2) {
+        return null;
     }
 
 }
