@@ -2,19 +2,17 @@ package com.example.coco_spring.Controller.Cart;
 
 import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Repository.*;
-import com.example.coco_spring.Service.*;
 import com.example.coco_spring.Service.Cart.CartService;
-import com.example.coco_spring.Service.Cart.ICartService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
 @AllArgsConstructor
-@RequestMapping("/cart")
+@RequestMapping("/api/cart/")
 public class CartController {
 
     CartService cartService;
-    ICartService iCartService;
+
 
     @GetMapping("/retrive_all_carts")
     public List<Cart> retrieveCartList(){
@@ -28,7 +26,7 @@ public class CartController {
 
     @PostMapping("/add_cart")
     public Cart addCart(@RequestBody Cart cart){
-        return cartService.addccart(cart);
+        return cartService.add(cart);
     }
 
     @PutMapping("/update_cart")

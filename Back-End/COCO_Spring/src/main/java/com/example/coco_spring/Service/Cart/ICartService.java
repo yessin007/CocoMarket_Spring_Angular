@@ -4,5 +4,5 @@ import com.example.coco_spring.Entity.Cart;
 
 public interface ICartService {
 
-    Cart addccart(Cart cart);
+
 }
