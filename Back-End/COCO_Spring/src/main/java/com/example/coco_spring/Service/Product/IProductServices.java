@@ -1,4 +1,4 @@
-package com.example.coco_spring.Service;
+package com.example.coco_spring.Service.Product;
 
 
 

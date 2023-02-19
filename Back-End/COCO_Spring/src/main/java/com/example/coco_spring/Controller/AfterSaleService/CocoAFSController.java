@@ -21,9 +21,9 @@ ASSService assService ;
     public List<AfterSaleServices> findAll() {
         return assService.findAll();
     }
-    @PutMapping("/{id}")
-    public AfterSaleServices update (@RequestBody AfterSaleServices afterSaleServices,@PathVariable("id") Long serviceId) throws Exception {
-        return assService.update(afterSaleServices,serviceId);
+    @PutMapping("/tt")
+    public AfterSaleServices update (@RequestBody AfterSaleServices afterSaleServices)  {
+        return assService.update(afterSaleServices);
     }
 
     @DeleteMapping("/{id}")

@@ -13,6 +13,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
+@Table( name = "Carts")
 public class Cart implements Serializable {
 
     @Id

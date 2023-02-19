@@ -1,15 +1,13 @@
-package com.example.coco_spring.Controller;
+package com.example.coco_spring.Controller.Product;
 
 
 
-import com.example.coco_spring.Service.*;
 import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Repository.*;
 
+import com.example.coco_spring.Service.Product.ProductServices;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 

@@ -11,6 +11,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
+@Table( name = "Payements")
 public class Payement implements Serializable{
 
     @Id

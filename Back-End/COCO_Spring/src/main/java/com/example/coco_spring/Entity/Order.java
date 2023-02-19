@@ -10,6 +10,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
+@Table( name = "Orders")
 public class Order implements Serializable {
 
     @Id
