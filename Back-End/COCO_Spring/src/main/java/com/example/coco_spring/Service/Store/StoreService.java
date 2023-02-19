@@ -1,48 +1,45 @@
 package com.example.coco_spring.Service.Store;
 
-import com.example.coco_spring.Entity.Store;
-import com.example.coco_spring.Repository.StoreRepository;
-import com.example.coco_spring.Service.ICRUDService;
+import com.example.coco_spring.Entity.*;
+import com.example.coco_spring.Repository.*;
+import com.example.coco_spring.Service.*;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
+@Slf4j
 @AllArgsConstructor
 public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
     StoreRepository storeRepository;
     @Override
     public List<Store> findAll() {
+
         return storeRepository.findAll();
     }
 
     @Override
-    public Store add(Store store) {
-        storeRepository.save(store);
+    public Store retrieveItem(Long idItem) {
         return null;
     }
 
     @Override
-    public void delete(Long storeId) {
- storeRepository.deleteById(storeId);
+    public Store add(Store store) {
+
+        return storeRepository.save(store);
     }
 
     @Override
-    public Store update(Store store, Long storeId) throws Exception  {
+    public void delete(Long storeId) {
 
-            if(storeRepository.findById(storeId).isPresent()){
+        storeRepository.deleteById(storeId);
+    }
 
-                Store storeToUpdate = storeRepository.findById(storeId).get();
-                storeToUpdate.setStoreName(store.getStoreName());
-                storeToUpdate.setStoreLocation(store.getStoreLocation());
-                storeToUpdate.setContactInformation(store.getContactInformation());
-                storeToUpdate.setStoreDescription(store.getStoreDescription());
-                storeToUpdate.setCategory(store.getCategory());
-                storeToUpdate.setStoreEmailAddress(store.getStoreEmailAddress());
-                return storeRepository.save(storeToUpdate);
-            }
-            throw new Exception("store does not exist !");
-        }
+    @Override
+    public Store update(Store store) {
+        return storeRepository.save(store);
+    }
 
     @Override
     public Store findStoreByName(String storeName) {

@@ -4,6 +4,9 @@ import com.example.coco_spring.Entity.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
-public interface AfterSaleServicesRepository extends JpaRepository<AfterSaleServices,Long> {
+public interface RoleRepository extends JpaRepository<Role, Long> {
+    Optional<Role> findByName(String name);
 }

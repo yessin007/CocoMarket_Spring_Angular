@@ -21,9 +21,9 @@ public class StoreController {
     public List<Store> findAll() {
         return storeService.findAll();
     }
-    @PutMapping("/updateStore/{storeId}")
-    public Store update (@RequestBody Store store,@PathVariable("storeId") Long storeId) throws Exception {
-        return storeService.update(store,storeId);
+    @PostMapping("/updateStore")
+    public Store update (@RequestBody Store store)  {
+        return storeService.update(store);
     }
 
     @DeleteMapping("/deleteStore/{storeId}")
