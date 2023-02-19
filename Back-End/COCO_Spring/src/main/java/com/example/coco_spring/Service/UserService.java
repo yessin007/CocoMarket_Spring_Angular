@@ -2,13 +2,19 @@ package com.example.coco_spring.Service;
 
 import com.example.coco_spring.Entity.User;
 import com.example.coco_spring.Repository.UserRepository;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@EnableScheduling
+@AllArgsConstructor
+@Slf4j
 public class UserService {
     @Autowired
     private UserRepository userRepository;
