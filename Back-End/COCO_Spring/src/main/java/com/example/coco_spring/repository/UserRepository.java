@@ -1,6 +1,7 @@
 package com.example.coco_spring.repository;
 
 
+
 import com.example.coco_spring.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
