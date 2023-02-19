@@ -1,7 +1,7 @@
 package com.example.coco_spring.Service;
 
-import com.example.coco_spring.entity.User;
-import com.example.coco_spring.repository.UserRepository;
+import com.example.coco_spring.Entity.User;
+import com.example.coco_spring.Repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

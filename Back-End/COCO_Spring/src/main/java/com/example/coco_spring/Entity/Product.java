@@ -1,10 +1,9 @@
-package com.example.coco_spring.entity;
+package com.example.coco_spring.Entity;
 
 
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
 

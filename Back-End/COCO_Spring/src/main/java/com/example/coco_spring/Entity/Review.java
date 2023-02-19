@@ -1,4 +1,4 @@
-package com.example.coco_spring.entity;
+package com.example.coco_spring.Entity;
 
 
 import lombok.*;
