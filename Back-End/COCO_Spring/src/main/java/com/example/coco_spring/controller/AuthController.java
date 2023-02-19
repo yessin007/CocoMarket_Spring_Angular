@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -62,12 +63,24 @@ public class AuthController {
         // create user object
         User user = new User();
         user.setName(signUpDto.getName());
+        user.setLastName(signUpDto.getLastName());
         user.setUsername(signUpDto.getUsername());
         user.setEmail(signUpDto.getEmail());
         user.setPassword(passwordEncoder.encode(signUpDto.getPassword()));
+        user.setAddress(signUpDto.getAddress());
+        user.setDayOfBirth(signUpDto.getDayOfBirth());
+        user.setCin(signUpDto.getCin());
+        user.setTelNum(signUpDto.getTelNum());
 
-        Role roles = roleRepository.findByName("ROLE_ADMIN").get();
-        user.setRoles(Collections.singleton(roles));
+        // get the role object from the database
+        Optional<Role> roleOptional = roleRepository.findById(signUpDto.getRoleId());
+        if (!roleOptional.isPresent()) {
+            System.out.println("Role not found");
+        }
+
+        // set the role object to the user object
+        Role role = roleOptional.get();
+        user.setRoles(Collections.singleton(role));
 
         userRepository.save(user);
 
