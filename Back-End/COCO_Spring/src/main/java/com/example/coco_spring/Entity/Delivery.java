@@ -1,12 +1,18 @@
 package com.example.coco_spring.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Delivery {
 
     @Id
@@ -16,6 +22,8 @@ public class Delivery {
     private String clientLocation;
     private String signature;
     private Date creationDate;
+    @Enumerated(EnumType.STRING)
     private Status statut;
+    @Enumerated(EnumType.STRING)
     private Option option;
 }
