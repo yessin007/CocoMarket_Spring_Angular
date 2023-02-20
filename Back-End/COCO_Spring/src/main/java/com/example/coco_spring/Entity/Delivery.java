@@ -18,9 +18,11 @@ public class Delivery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long deliveryId;
+
     private Double priceDelivery;
     private String clientLocation;
     private String signature;
+    @Temporal (TemporalType.DATE)
     private Date creationDate;
     @Enumerated(EnumType.STRING)
     private Status statut;

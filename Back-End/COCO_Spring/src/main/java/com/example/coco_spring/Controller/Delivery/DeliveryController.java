@@ -25,7 +25,8 @@ public class DeliveryController {
     }
 
     @PostMapping("/add_delivery")
-    public Delivery addDelivery(@RequestBody Delivery delivery){
+
+    public Delivery addDelivery(@RequestBody Delivery delivery ){
 
         return deliveryService.add(delivery);
     }
