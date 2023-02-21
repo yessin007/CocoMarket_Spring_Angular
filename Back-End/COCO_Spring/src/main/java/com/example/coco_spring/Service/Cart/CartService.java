@@ -45,9 +45,4 @@ public class CartService implements ICRUDService<Cart,Long> , ICartService {
     }
 
 
-
-    @Override
-    public Cart addccart(Cart cart) {
-        return cartRepsitory.save(cart);
-    }
 }

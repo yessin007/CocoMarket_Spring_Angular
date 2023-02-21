@@ -4,37 +4,42 @@ import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Repository.*;
 import com.example.coco_spring.Service.*;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
+@Slf4j
 @AllArgsConstructor
 public class ASSService implements ICRUDService<AfterSaleServices, Long> , IASSService{
    AfterSaleServicesRepository afterSaleServicesRepository ;
     @Override
     public List<AfterSaleServices> findAll() {
+
         return afterSaleServicesRepository.findAll();
     }
 
     @Override
     public AfterSaleServices retrieveItem(Long idItem) {
-        return null;
+
+        return afterSaleServicesRepository.findById(idItem).get();
     }
 
     @Override
     public AfterSaleServices add(AfterSaleServices ass1) {
-         afterSaleServicesRepository.save(ass1);
-        return null;
+
+        return afterSaleServicesRepository.save(ass1);
     }
 
     @Override
     public void delete(Long serviceId) {
-afterSaleServicesRepository.deleteById(serviceId);
+
+        afterSaleServicesRepository.deleteById(serviceId);
     }
 
     @Override
-    public AfterSaleServices update(AfterSaleServices Classe2) {
-        return null;
+    public AfterSaleServices update(AfterSaleServices afterSaleServices) {
+        return afterSaleServicesRepository.save(afterSaleServices);
     }
 
 }

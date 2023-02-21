@@ -21,7 +21,7 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
 
     @Override
     public Store retrieveItem(Long idItem) {
-        return null;
+        return storeRepository.findById(idItem).get();
     }
 
     @Override
