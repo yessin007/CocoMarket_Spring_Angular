@@ -30,18 +30,19 @@ public class AnnounceService implements ICRUDService<Announce,Long>, IAnnounceSe
     }
 
     @Override
-    public Announce add(Announce class1) {
-        return null;
+    public Announce add(Announce announce) {
+
+        return announceRepository.save(announce);
     }
 
     @Override
-    public void delete(Long aLong) {
-
+    public void delete(Long announceId) {
+        announceRepository.deleteById(announceId);
     }
 
     @Override
-    public Announce update(Announce Classe1) {
-        return null;
+    public Announce update(Announce announce) {
+        return announceRepository.save(announce);
     }
 
     public Announce addAnnounce(MultipartFile image, String announceTitle, Date announceStartDate, Date announceExpiryDate,String targetAudience) throws IOException {

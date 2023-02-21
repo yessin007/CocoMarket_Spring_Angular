@@ -19,6 +19,7 @@ public class Provider {
     private long providerId;
     private String providerName;
     private long providerPrice;
+    @Temporal (TemporalType.DATE)
     private Date estimationDate;
     @Enumerated(EnumType.STRING)
     private ProviderRate providerRate;
