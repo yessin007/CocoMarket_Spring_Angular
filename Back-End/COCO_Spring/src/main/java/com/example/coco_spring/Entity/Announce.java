@@ -13,14 +13,18 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Provider {
+public class Announce {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long providerId;
-    private String providerName;
-    private long providerPrice;
-    @Temporal (TemporalType.DATE)
-    private Date estimationDate;
-    @Enumerated(EnumType.STRING)
-    private ProviderRate providerRate;
+    private Long announceId;
+    private String announceTitle;
+
+    @Lob
+    private byte[] images;
+
+    private Date announceStartDate;
+    private Date announceExpiryDate;
+    private String targetAudience;
+    private int views;
+    private int clicks;
 }
