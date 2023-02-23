@@ -29,5 +29,5 @@ public class Delivery {
     @Enumerated(EnumType.STRING)
     private Status statut;
     @Enumerated(EnumType.STRING)
-    private Option option;
+    private DeliveryOption deliveryOption;
 }
