@@ -1,22 +1,9 @@
 package com.example.coco_spring.Entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
-
-
-import javax.persistence.*;
-
-@Setter
-@Getter
-@Entity
-@Table(name = "roles")
-public class Role {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @Column(length = 60)
-    private String name;
+public enum Role {
+    ROLE_ADMIN,
+    ROLE_SELLER,
+    ROLE_BUYER,
+    ROLE_PROVIDER,
+    ROLE_MODERATOR
 }
