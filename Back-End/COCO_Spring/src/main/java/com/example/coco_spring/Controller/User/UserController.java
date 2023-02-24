@@ -32,7 +32,6 @@ public class UserController {
         return user.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
     }
     private UserRepository userRepository;
-    private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
     @PostMapping("/")
     public ResponseEntity<User> createUser(@RequestBody User user) {
