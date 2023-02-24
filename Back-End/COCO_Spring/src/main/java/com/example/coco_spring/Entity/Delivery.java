@@ -14,7 +14,6 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table( name = "Deliver")
 
 public class Delivery {
 
@@ -30,5 +29,5 @@ public class Delivery {
     @Enumerated(EnumType.STRING)
     private Status statut;
     @Enumerated(EnumType.STRING)
-    private Option option;
+    private DeliveryOption deliveryOption;
 }
