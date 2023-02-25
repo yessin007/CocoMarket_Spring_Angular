@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -31,4 +32,6 @@ public class Store implements Serializable {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,mappedBy ="store" )
     private Set<AfterSaleServices> afterSaleServicess;
+    @ManyToMany(cascade = CascadeType.ALL)
+    List<Product> products;
 }
