@@ -29,11 +29,12 @@ public class ProductController {
                               @RequestParam("quantity") Long quantity,@RequestParam("model") MultipartFile model,
                               @RequestParam("video") MultipartFile video,@RequestParam("price") float price,
                               @RequestParam("date")  @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateOfProduct,
-                                @RequestParam("discount") float discount,
+                                @RequestParam("discount") float discount,@RequestParam("brand") String brand,
                               @RequestParam("yearsOfWarranty") int yearsOfWarranty,@RequestParam("productCategory") ProductCategory productCategory) throws IOException {
 
         Product product = new Product();
         product.setProductName(poductName);
+        product.setBrand(brand);
         product.setImages(image.getBytes());
         product.setReference(reference);
         product.setDescription(description);
