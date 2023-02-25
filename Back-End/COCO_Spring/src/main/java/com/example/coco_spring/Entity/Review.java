@@ -20,5 +20,7 @@ public class Review {
     private boolean verified;
     @Temporal(TemporalType.DATE)
     private Date dateOfReview;
+    @ManyToOne
+    User user;
 
 }
