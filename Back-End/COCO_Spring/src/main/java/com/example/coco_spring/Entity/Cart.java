@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,6 +21,11 @@ public class Cart implements Serializable {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long cartId;
     private Long productQuantity;
-
+    @OneToMany(cascade = CascadeType.ALL)
+    List<Product> products;
+    @OneToOne(mappedBy = "cart")
+    User user;
+    @OneToOne
+    Order order;
 
 }

@@ -38,5 +38,8 @@ public class Product {
     ProductCategory productCategory;
     @OneToMany(cascade = CascadeType.ALL)
     List<Review> reviews;
+    @ManyToMany(mappedBy = "products",cascade = CascadeType.ALL)
+    List<Store> stores;
+    
 
 }
