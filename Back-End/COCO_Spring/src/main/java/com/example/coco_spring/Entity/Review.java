@@ -18,6 +18,7 @@ public class Review {
     private String reviewTitle;
     private String reviewText;
     private boolean verified;
+    private float rating;
     @Temporal(TemporalType.DATE)
     private Date dateOfReview;
     @ManyToOne
