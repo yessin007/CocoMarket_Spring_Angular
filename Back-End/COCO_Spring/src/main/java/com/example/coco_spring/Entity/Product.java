@@ -31,12 +31,16 @@ public class Product {
     private float price;
     @Temporal(TemporalType.DATE)
     private Date dateOfProduct;
-    private float rating;
     private float discount;
     private int yearsOfWarranty;
     @Enumerated(EnumType.STRING)
     ProductCategory productCategory;
     @OneToMany(cascade = CascadeType.ALL)
     List<Review> reviews;
+    @ManyToMany(mappedBy = "products",cascade = CascadeType.ALL)
+    List<Store> stores;
+    @OneToMany(cascade = CascadeType.ALL)
+    List<LikeDislikeProduct> likeDislikeProducts;
+
 
 }

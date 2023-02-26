@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,4 +24,6 @@ public class Provider {
     private Date estimationDate;
     @Enumerated(EnumType.STRING)
     private ProviderRate providerRate;
+    @OneToMany(mappedBy = "provider",cascade = CascadeType.ALL)
+    List<Delivery> deliveries;
 }

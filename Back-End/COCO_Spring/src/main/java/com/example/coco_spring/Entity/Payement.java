@@ -22,4 +22,8 @@ public class Payement implements Serializable{
     private String payementMethod;
     private String bankTransferStatus;
     private String transactionStatus;
+    @OneToOne(mappedBy = "payement")
+    Order order;
+    @OneToOne(mappedBy = "payement")
+    User user;
 }
