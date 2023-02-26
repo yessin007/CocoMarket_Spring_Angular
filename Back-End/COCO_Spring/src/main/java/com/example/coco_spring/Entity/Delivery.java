@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -30,4 +31,8 @@ public class Delivery {
     private Status statut;
     @Enumerated(EnumType.STRING)
     private DeliveryOption deliveryOption;
+    @ManyToOne
+    Provider provider;
+    @OneToMany(mappedBy = "delivery",cascade = CascadeType.ALL)
+    List<Order> orders;
 }
