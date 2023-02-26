@@ -25,6 +25,12 @@ public class Order implements Serializable {
     private Long deliveryId;
     private Long payementId;
 
+    @ManyToOne
+    Delivery delivery;
+
+    @OneToOne
+    Payement payement;
+
 
 
 }
