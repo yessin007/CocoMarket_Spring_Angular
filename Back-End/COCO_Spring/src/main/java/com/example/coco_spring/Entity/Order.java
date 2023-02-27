@@ -1,4 +1,5 @@
 package com.example.coco_spring.Entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,6 +25,13 @@ public class Order implements Serializable {
     private Float amountBill;
     private Long deliveryId;
     private Long payementId;
+
+    @JsonIgnore
+    @ManyToOne
+    Delivery delivery;
+    @JsonIgnore
+    @OneToOne
+    Payement payement;
 
 
 

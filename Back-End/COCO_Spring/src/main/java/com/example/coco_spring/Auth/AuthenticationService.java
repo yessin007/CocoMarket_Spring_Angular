@@ -1,6 +1,6 @@
 package com.example.coco_spring.Auth;
 
-import com.example.coco_spring.Entity.Role;
+
 import com.example.coco_spring.Entity.Token;
 import com.example.coco_spring.Entity.TokenType;
 import com.example.coco_spring.Entity.User;
