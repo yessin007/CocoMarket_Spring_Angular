@@ -10,16 +10,6 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/api")
 @RestController
 public class LocationController {
-    /*@PostMapping("/map")
-    public String geocode() throws IOException, InterruptedException, ApiException {
-        GeoApiContext context = new GeoApiContext.Builder()
-                .apiKey("AIzaSyAEWKCXdWuNYu5Knz-FCYJvgKJO0UFRHh8\n")
-                .build();
-        GeocodingResult[] results = GeocodingApi.geocode(context, "france").await();
-        LatLng location = results[0].geometry.location;
-        return "Latitude: " + location.lat + ", Longitude: " + location.lng;
-*/
-
     //@Scheduled(fixedRate = 30000) // Run every 30s
     @GetMapping("/map")
     public ResponseEntity<String> getGeolocation() {
