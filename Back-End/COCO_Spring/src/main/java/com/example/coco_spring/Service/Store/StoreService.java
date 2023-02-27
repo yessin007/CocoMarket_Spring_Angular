@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
     StoreRepository storeRepository;
+    ProductRepository productRepository;
     @Override
     public List<Store> findAll() {
 
@@ -45,4 +46,13 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
     public Store findStoreByName(String storeName) {
         return storeRepository.findBystoreName(storeName);
     }
+
+    @Override
+    public void AffectProductToStore(Long storId, Long productId) {
+        Store store = storeRepository.findById(storId).get();
+        Product product =productRepository.findById(productId).get();
+        store.getProducts().add(product);
+        storeRepository.save(store);
+    }
+
 }
