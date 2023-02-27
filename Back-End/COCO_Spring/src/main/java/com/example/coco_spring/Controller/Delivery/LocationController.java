@@ -9,7 +9,7 @@ import java.io.IOException;
 
 @RequestMapping("/api")
 @RestController
-public class MapController {
+public class LocationController {
     /*@PostMapping("/map")
     public String geocode() throws IOException, InterruptedException, ApiException {
         GeoApiContext context = new GeoApiContext.Builder()
@@ -19,12 +19,12 @@ public class MapController {
         LatLng location = results[0].geometry.location;
         return "Latitude: " + location.lat + ", Longitude: " + location.lng;
 */
+
+    //@Scheduled(fixedRate = 30000) // Run every 30s
     @GetMapping("/map")
     public void getGeolocation() throws InterruptedException, IOException {
         WebClient webClient = WebClient.create();
-
         String url = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAvHALSEQwNE3b-b7eHSZIDv-KK1wr7CRQ";
-
         Mono<String> result = webClient.post()
                 .uri(url)
                 .retrieve()
@@ -33,6 +33,5 @@ public class MapController {
             // Traitement des résultats de la réponse
             System.out.println(response);
         });
-
     }
 }
