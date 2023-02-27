@@ -1,5 +1,6 @@
 package com.example.coco_spring.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,8 @@ public class Provider {
     private Date estimationDate;
     @Enumerated(EnumType.STRING)
     private ProviderRate providerRate;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "provider",cascade = CascadeType.ALL)
     List<Delivery> deliveries;
 }
