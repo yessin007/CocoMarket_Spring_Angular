@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IMPCocoService {
     public Store findStoreByName(String storeName);
+    public void AffectProductToStore(Long storId ,Long productId);
+
 }
