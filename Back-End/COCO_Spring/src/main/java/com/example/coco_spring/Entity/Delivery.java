@@ -1,5 +1,6 @@
 package com.example.coco_spring.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,8 +32,11 @@ public class Delivery {
     private Status statut;
     @Enumerated(EnumType.STRING)
     private DeliveryOption deliveryOption;
+    @JsonIgnore
     @ManyToOne
     Provider provider;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "delivery",cascade = CascadeType.ALL)
     List<Order> orders;
 }
