@@ -6,12 +6,15 @@ import com.example.coco_spring.Service.Order.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/order/")
 public class OrderController {
 
     OrderService orderService;
+    private final OrderRepository orderRepository;
 
     @GetMapping("/retrive_all_orders")
     public List<Order> retrieveOrderList(){
@@ -36,6 +39,12 @@ public class OrderController {
     @DeleteMapping("/delete_order/{orderId}")
     public void deleteOrder(@PathVariable("orderId") Long orderId){
         orderService.delete(orderId);
+    }
+
+
+    @GetMapping("/orderslistbyprovider")
+    public Map<String,List<Order>> displayOrdersByProvider() {
+        return orderService.displayOrdersByProvider();
     }
 
 }
