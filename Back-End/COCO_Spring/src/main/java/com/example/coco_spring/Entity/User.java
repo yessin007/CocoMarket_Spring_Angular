@@ -57,6 +57,13 @@ public class User implements UserDetails {
     }
 
     @Override
+    public String getUsername(){
+        return this.name;
+    }
+    public void setUsername(String username){
+        this.name = username;
+    }
+    @Override
     public boolean isAccountNonExpired() {
         return true;
     }

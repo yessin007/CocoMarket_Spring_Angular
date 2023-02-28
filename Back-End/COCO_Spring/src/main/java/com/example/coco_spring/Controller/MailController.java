@@ -1,6 +1,8 @@
 package com.example.coco_spring.Controller;
 
+import com.example.coco_spring.Entity.User;
 import com.example.coco_spring.Service.EmailService;
+import com.example.coco_spring.Service.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +17,7 @@ import javax.mail.MessagingException;
 public class MailController {
     @Autowired
     private EmailService emailService;
+    private UserService     userService;
 
     /*@PostMapping
     public ResponseEntity<String> sendMail() throws MessagingException {
@@ -41,5 +44,13 @@ public class MailController {
         String message = "This is a test email sent from a Spring Boot application using Thymeleaf templates.";
         emailService.sendEmail(to, subject, message);
         return ResponseEntity.ok("Mail sending to "+m);
+    }
+
+    @PostMapping("/wel/{mail}/{id}")
+    public String sendWel(@PathVariable("mail") String m,@PathVariable("id") Long id) throws MessagingException {
+        //User u = userService.getUserById(id).get();
+        String mes = "test";
+        emailService.sendWelcomeEmail(m,"3aslema",mes);
+        return "c bon";
     }
 }
