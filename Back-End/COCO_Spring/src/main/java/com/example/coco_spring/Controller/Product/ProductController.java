@@ -19,10 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @AllArgsConstructor
@@ -92,4 +89,26 @@ public class ProductController {
     public void deleteProduct(@PathVariable("id") Long id){
         productServices.deleteProduct(id);
     }
+
+
+
+    @GetMapping(value = "/compare",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Map<Float,Product> comparePrices(@RequestParam("product") String productName) {
+        List<Product> productsByPrice = new ArrayList<>();
+        List<Product> productsByName = productRepository.findByProductName(productName);
+        Map<Float,Product> productByStore=new HashMap<>();
+
+        Collections.sort(productsByName, new Comparator<Product>() {
+            public int compare(Product p1, Product p2) {
+                return Double.compare(p1.getPrice(), p2.getPrice());
+            }
+        });
+        for(Product product:productsByName){
+            productByStore.put(product.getPrice(), product);
+
+        }
+        return productByStore;
+    }
+
+
 }

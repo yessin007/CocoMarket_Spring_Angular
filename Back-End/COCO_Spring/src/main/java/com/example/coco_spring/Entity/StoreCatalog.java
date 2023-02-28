@@ -1,4 +1,5 @@
 package com.example.coco_spring.Entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,4 +23,11 @@ public class StoreCatalog implements Serializable {
     private String catalogDescription;
 
     private Date date;
+
+
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "storeCatalog")
+    private Store store;
+
 }

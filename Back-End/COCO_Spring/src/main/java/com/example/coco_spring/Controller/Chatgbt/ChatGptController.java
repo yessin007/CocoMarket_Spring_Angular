@@ -32,7 +32,4 @@ public class ChatGptController {
 		resultList.replaceAll(s -> s.replaceAll("^\\d+\\.\\s*", ""));
 		return ResponseEntity.ok(resultList);
 	}
-	
-
-	
 }

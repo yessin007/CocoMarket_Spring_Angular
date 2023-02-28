@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -14,6 +15,7 @@ import java.util.List;
 public class PayementService implements ICRUDService<Payement,Long> , IPayementService {
 
     PayementRepository payementRepository;
+    OrderRepository orderRepository;
 
     @Override
     public List<Payement> findAll() {
@@ -40,5 +42,21 @@ public class PayementService implements ICRUDService<Payement,Long> , IPayementS
     @Override
     public Payement update(Payement payement) {
         return payementRepository.save(payement);
+    }
+
+    @Override
+    public Order findByPaymentDate(Date date) {
+
+        return payementRepository.findByPaymentDate(date);
+    }
+
+    @Override
+    public void assignOrderToPayment(Long orderId, Long paymentId) {
+        Order order = orderRepository.findById(orderId).get();
+        Payement payement = payementRepository.findById(paymentId).get();
+        order.setPayement(payement);
+        orderRepository.save(order);
+
+
     }
 }
