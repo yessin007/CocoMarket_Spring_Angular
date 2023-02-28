@@ -5,6 +5,7 @@ import com.example.coco_spring.Repository.*;
 import com.example.coco_spring.Service.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,5 +55,12 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
         store.getProducts().add(product);
         storeRepository.save(store);
     }
+
+    @Override
+    public List<Product> getProductsByStore(Long storeId) {
+        Store store = storeRepository.findById(storeId).orElseThrow();
+        return store.getProducts();
+    }
+
 
 }
