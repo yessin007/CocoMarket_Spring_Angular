@@ -41,5 +41,10 @@ public class StoreCatalogController {
         return storeCatalogService.retrieveItem(idItem);
     }
 
+    @PutMapping("/affecterStoreCatalogAStore/{catalogId}/{storeId}")
+    public void affecterStoreCatalogAStore(@PathVariable("catalogId") Long catalogId,@PathVariable("storeId") Long storeId){
+        storeCatalogService.affecterStoreCatalogAStore(catalogId,storeId);
+    }
+
 
 }
