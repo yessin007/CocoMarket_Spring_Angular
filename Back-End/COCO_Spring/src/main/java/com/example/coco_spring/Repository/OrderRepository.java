@@ -15,4 +15,9 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 
     //Show Orders list of every Provider
     List<Order> findByDelivery_Provider_ProviderName(String name);
+
+
+
+
+
 }
