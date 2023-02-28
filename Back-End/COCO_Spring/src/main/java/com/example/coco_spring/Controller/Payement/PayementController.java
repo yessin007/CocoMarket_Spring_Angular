@@ -3,7 +3,10 @@ package com.example.coco_spring.Controller.Payement;
 
 import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Service.Payement.PayementService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 import java.util.List;
 import com.example.coco_spring.Repository.*;
 import com.example.coco_spring.Service.*;
@@ -39,5 +42,17 @@ public class PayementController {
     @DeleteMapping("/delete_payement/{payementId}")
     public void deletePayement(@PathVariable("payementId") Long payementId){
         payementService.delete(payementId);
+    }
+
+    @GetMapping("/findOrderByPayementDate")
+    public Order findByPayementDate(@RequestParam("date")  @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        return payementService.findByPaymentDate(date);
+    }
+
+    @PutMapping("/assignOrderToPayment/{orderId}/{paymentId}")
+    public void assignOrderToPayment(@PathVariable("orderId") Long orderId,@PathVariable("paymentId") Long paymentId){
+        payementService.assignOrderToPayment(orderId, paymentId);
+
+
     }
 }
