@@ -1,7 +1,9 @@
 package com.example.coco_spring.Controller.Delivery;
 
 import com.example.coco_spring.Entity.Delivery;
+import com.example.coco_spring.Repository.OrderRepository;
 import com.example.coco_spring.Service.Delivery.DeliveryService;
+import com.example.coco_spring.Service.Order.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +14,8 @@ import java.util.List;
 @RequestMapping("/api/delivery/")
 public class DeliveryController {
     DeliveryService deliveryService;
+    private final OrderRepository orderRepository;
+
     @GetMapping("/retrive_all_deliveries")
     public List<Delivery> retrieveDeliveryList(){
 
@@ -42,5 +46,15 @@ public class DeliveryController {
 
         deliveryService.delete(deliveryId);
     }
+    @PutMapping("/assignDeliveryToOrder/{orderId}/{deliveryId}")
+    public void assignDeliveryToOrder(@PathVariable("orderId") Long orderId,@PathVariable("deliveryId") Long deliveryId){
+        deliveryService.assignDeliveryToOrder(orderId,deliveryId);
+    }
 
-}
+    @PutMapping("/assignProviderDelivery/{deliveryId}/{providerId}")
+    public void assignProviderDelivery(@PathVariable("deliveryId") Long deliveryId,@PathVariable("providerId") Long providerId){
+        deliveryService.assignProviderDelivery(deliveryId,providerId);
+
+    }
+
+    }

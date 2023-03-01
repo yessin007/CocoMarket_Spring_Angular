@@ -1,9 +1,11 @@
 package com.example.coco_spring.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,12 +37,17 @@ public class Product {
     private int yearsOfWarranty;
     @Enumerated(EnumType.STRING)
     ProductCategory productCategory;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
     List<Review> reviews;
+    @JsonIgnore
     @ManyToMany(mappedBy = "products",cascade = CascadeType.ALL)
     List<Store> stores;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
     List<LikeDislikeProduct> likeDislikeProducts;
+
+
 
 
 }
