@@ -11,11 +11,6 @@ public interface IMPCocoService {
     public Store findStoreByName(String storeName);
     public void AffectProductToStore(Long storId ,Long productId);
     public List<Product> getProductsByStore(Long storeId);
-    public Map<String, Integer> getSalesStatisticsForStoreByMonth(Long storeId);
-    public List<Order> findAllByStoreId(Long storeId) ;
-    public List<Product> findProductsByStoreId(Long storeId) ;
-
-    public Map<Product, Integer> getMonthlySalesByProductAndStore(Store store, int year, int month) ;
 
 
 }
