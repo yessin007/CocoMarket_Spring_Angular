@@ -35,5 +35,22 @@ public class EmailService {
         messageHelper.setText(content, true);
         mailSender.send(mimeMessage);
     }
+
+    public void sendWelcomeEmail(String to, String subject, String message) throws MessagingException {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
+        messageHelper.setSubject(subject);
+        messageHelper.setTo(to);
+
+        Context context = new Context();
+        context.setVariable("subject", subject);
+        context.setVariable("message", message);
+        //String content = templateEngine.process("email-template", context);
+        String content = templateEngine.process("welcomeMail", context);
+
+
+        messageHelper.setText(content, true);
+        mailSender.send(mimeMessage);
+    }
 }
 
