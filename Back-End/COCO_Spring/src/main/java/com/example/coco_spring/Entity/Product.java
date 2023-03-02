@@ -48,15 +48,5 @@ public class Product {
     List<LikeDislikeProduct> likeDislikeProducts;
 
 
-    public List<Cart> getCarts() {
-        List<Cart> carts = new ArrayList<>();
-        for (Order order : this.getOrders()) {
-            Cart cart = order.getCart();
-            if (cart != null && !carts.contains(cart)) {
-                carts.add(cart);
-            }
-        }
-        return carts;
-    }
 
 }
