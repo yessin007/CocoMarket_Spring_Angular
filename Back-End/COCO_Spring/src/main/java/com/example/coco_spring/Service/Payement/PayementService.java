@@ -68,31 +68,4 @@ public class PayementService implements ICRUDService<Payement,Long> , IPayementS
     }
 
 
-    @Value("k_test_51MfpbjFZqNx8XmmhC1sHRKoes1AgZ98bQTRXs27ztbjZ6X4mBaV5X2oAif5LaLmSkQSqZEi7bUyFe4ukscn5Jjy200DlYLAV3X")
-    private String API_SECET_KEY;
-    public void StripeService() {
-
-    }
-
-    public String createCharge(String email, String token, int amount) {
-
-        String chargeId = null;
-
-        try {
-            Stripe.apiKey = API_SECET_KEY;
-
-            Map<String, Object> chargeParams = new HashMap<>();
-            chargeParams.put("description","Charge for "+email);
-            chargeParams.put("currency","usd");
-            chargeParams.put("amount",amount);
-            chargeParams.put("source",token);
-
-            Charge charge = Charge.create(chargeParams);
-
-            chargeId = charge.getId();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return chargeId;
-    }
 }

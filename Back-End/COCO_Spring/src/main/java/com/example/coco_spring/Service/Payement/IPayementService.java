@@ -11,6 +11,6 @@ public interface IPayementService {
 
     public void assignOrderToPayment(Long orderId, Long paymentId);
 
-    String createCharge(String email, String token, int amount);
-    void StripeService();
+    //String createCharge(String email, String token, int amount);
+   //void StripeService();
 }
