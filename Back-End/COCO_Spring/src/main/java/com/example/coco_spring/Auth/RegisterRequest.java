@@ -15,6 +15,9 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class RegisterRequest {
 
+    @NotBlank(message = "Username is required")
+    private String username;
+
     @NotBlank(message = "First name is required")
     private String firstname;
 
