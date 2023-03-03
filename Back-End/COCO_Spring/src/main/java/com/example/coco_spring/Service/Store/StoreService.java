@@ -8,13 +8,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @Service
 @Slf4j
 @AllArgsConstructor
 public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
     StoreRepository storeRepository;
     ProductRepository productRepository;
+    OrderRepository orderRepository;
+    CartRepsitory cartRepsitory;
     @Override
     public List<Store> findAll() {
 
@@ -61,6 +67,7 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
         Store store = storeRepository.findById(storeId).orElseThrow();
         return store.getProducts();
     }
+
 
 
 }
