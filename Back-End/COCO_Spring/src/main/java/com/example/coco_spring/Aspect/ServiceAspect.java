@@ -1,6 +1,5 @@
 package com.example.coco_spring.Aspect;
 
-import com.example.coco_spring.Service.EmailService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -40,7 +39,7 @@ public class ServiceAspect {
         String methodName = joinPoint.getSignature().getName();
         logger.info("Executing method: " + methodName);
 
-        Object result = null;
+        Object result ;
         try {
             result = joinPoint.proceed();
             logger.info("Method " + methodName + " returned: " + result);
