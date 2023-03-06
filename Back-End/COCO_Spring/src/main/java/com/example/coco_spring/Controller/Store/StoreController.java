@@ -39,10 +39,10 @@ public class StoreController {
     }
 
     @GetMapping("/getStore/{storeId}")
-    public Store findStore(@PathVariable("storeId") Long storeId) {
-        return storeService.retrieveItem(storeId);
+    public Store findStore(@PathVariable("storeId") Long storeId,String storeName) {
+        return storeService.findStoreByName(storeName);
     }
-    @PostMapping("/affectproducttostore/{ids}/{idp}")
+    @PutMapping("/affectproducttostore/{ids}/{idp}")
     public void AffectProductToStore(@PathVariable("ids") Long storeId,@PathVariable("idp")  Long productId){
         storeService.AffectProductToStore(storeId,productId);
     }
