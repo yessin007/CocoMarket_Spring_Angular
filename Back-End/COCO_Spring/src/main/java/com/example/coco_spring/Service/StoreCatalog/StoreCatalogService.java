@@ -9,12 +9,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 @Slf4j
 @AllArgsConstructor
 public class StoreCatalogService implements ICRUDService<StoreCatalog,Long>,IStoreCatalogService {
 
     StoreCatalogRepository storeCatalogRepository;
+    StoreRepository storeRepository;
 
     @Override
     public List<StoreCatalog> findAll() {
@@ -43,5 +46,13 @@ public class StoreCatalogService implements ICRUDService<StoreCatalog,Long>,ISto
     @Override
     public StoreCatalog update(StoreCatalog Classe11) {
         return storeCatalogRepository.save(Classe11);
+    }
+
+    @Override
+    public void affecterStoreCatalogAStore(Long catalogId, Long storeId) {
+        StoreCatalog storeCatalog =storeCatalogRepository.findById(catalogId).get();
+        Store store=storeRepository.findById(storeId).get();
+        store.setStoreCatalog(storeCatalog);
+        storeRepository.save(store);
     }
 }

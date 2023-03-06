@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -32,6 +33,11 @@ public class Store implements Serializable {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,mappedBy ="store" )
     private Set<AfterSaleServices> afterSaleServicess;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     List<Product> products;
+
+
+    @JsonIgnore
+    @OneToOne
+    private StoreCatalog storeCatalog;
 }

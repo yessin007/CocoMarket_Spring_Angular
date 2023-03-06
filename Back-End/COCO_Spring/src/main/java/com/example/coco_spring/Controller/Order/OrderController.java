@@ -41,9 +41,9 @@ public class OrderController {
         orderService.delete(orderId);
     }
 
+
     @GetMapping("/orderslistbyprovider")
     public Map<String,List<Order>> displayOrdersByProvider() {
-
         return orderService.displayOrdersByProvider();
     }
 

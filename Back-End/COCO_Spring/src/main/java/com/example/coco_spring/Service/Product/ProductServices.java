@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -35,6 +37,11 @@ public class ProductServices implements IProductServices {
     @Override
     public void deleteProduct(Long productId) {
         productRepository.deleteById(productId);
+    }
+
+
+    public List<Product> findByName(String name) {
+        return productRepository.findByProductName(name);
     }
 
 
