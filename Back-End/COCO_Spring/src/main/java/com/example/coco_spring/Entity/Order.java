@@ -33,6 +33,9 @@ public class Order implements Serializable {
     @OneToOne
     Payement payement;
 
+    @OneToOne
+    Cart cart ;
+
 
 
 }
