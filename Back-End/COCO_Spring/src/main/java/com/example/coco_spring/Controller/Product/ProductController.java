@@ -9,6 +9,7 @@ import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Repository.*;
 
 import com.example.coco_spring.Service.Product.ProductServices;
+import com.example.coco_spring.Service.Store.StoreService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ import java.util.*;
 public class ProductController {
     ProductServices productServices;
     ProductRepository productRepository;
+    StoreService storeService;
     @Autowired
     private ObjectMapper jsonMapper;
     @Autowired private OpenAiApiClient client;
@@ -93,10 +95,10 @@ public class ProductController {
 
 
     @GetMapping(value = "/compare",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Map<Float,Product> comparePrices(@RequestParam("product") String productName) {
+    public Map<String,String> comparePrices(@RequestParam("product") String productName) {
         List<Product> productsByPrice = new ArrayList<>();
         List<Product> productsByName = productRepository.findByProductName(productName);
-        Map<Float,Product> productByStore=new HashMap<>();
+        Map<String,String> productByStore=new HashMap<>();
 
         Collections.sort(productsByName, new Comparator<Product>() {
             public int compare(Product p1, Product p2) {
@@ -104,11 +106,13 @@ public class ProductController {
             }
         });
         for(Product product:productsByName){
-            productByStore.put(product.getPrice(), product);
+            productByStore.put(storeService.getStoreByProductId(product.getProductId()).getStoreName(), product.getProductName());
 
         }
         return productByStore;
     }
-
-
+    @GetMapping("/getstore/{pid}")
+    public Store getStoreByProductId(@PathVariable("pid") Long productId){
+        return storeService.getStoreByProductId(productId);
+    }
 }
