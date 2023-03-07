@@ -46,5 +46,10 @@ public class StoreCatalogController {
         storeCatalogService.affecterStoreCatalogAStore(catalogId,storeId);
     }
 
+    @GetMapping("/findStoreCatalogByName/{catalogName}")
+    public StoreCatalog findStoreCatalogByName(@PathVariable("catalogName") String catalogName){
+        return storeCatalogService.findStoreCatalogByName(catalogName);
+    }
+
 
 }
