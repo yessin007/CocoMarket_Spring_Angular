@@ -1,6 +1,7 @@
 package com.example.coco_spring.Controller.Delivery;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,7 +11,7 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/api")
 @RestController
 public class LocationController {
-    //@Scheduled(fixedRate = 30000) // Run every 30s
+    //@Scheduled(fixedRate = 5000) // Run every 30s
     @GetMapping("/map")
     public ResponseEntity<String> getGeolocation() {
         WebClient webClient = WebClient.create();
