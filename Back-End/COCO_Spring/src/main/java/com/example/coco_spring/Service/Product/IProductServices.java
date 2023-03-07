@@ -20,7 +20,7 @@ public interface IProductServices {
     Product retrieveProduct (Long productId);
 
     void deleteProduct(Long productId);
-    
 
+    public ProductCategory TopProductCategoryByUserThisWeek (User u);// add by Ahmed lasmar for the daily offers mail
 
 }
