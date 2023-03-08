@@ -167,10 +167,21 @@
             <artifactId>jettison</artifactId>
             <version>1.5.3</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
+
+
+        <dependency>
+            <groupId>com.stripe</groupId>
+            <artifactId>stripe-java</artifactId>
+            <version>19.45.0</version>
+        </dependency>
+
+
+
     </dependencies>
 
     <build>
