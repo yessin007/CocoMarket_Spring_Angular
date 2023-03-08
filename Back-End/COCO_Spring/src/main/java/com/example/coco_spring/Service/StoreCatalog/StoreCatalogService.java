@@ -55,4 +55,10 @@ public class StoreCatalogService implements ICRUDService<StoreCatalog,Long>,ISto
         store.setStoreCatalog(storeCatalog);
         storeRepository.save(store);
     }
+
+    @Override
+    public StoreCatalog findStoreCatalogByName(String catalogName) {
+
+        return storeCatalogRepository.findStoreCatalogByCatalogName(catalogName);
+    }
 }
