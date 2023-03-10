@@ -62,5 +62,5 @@ public class StoreController {
         return storeService.addBadWord(b);
     }
 
- 
+
 }
