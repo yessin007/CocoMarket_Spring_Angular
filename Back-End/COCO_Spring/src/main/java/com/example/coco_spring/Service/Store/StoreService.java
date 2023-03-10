@@ -74,6 +74,8 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
 
 
     public BadWords addBadWord(BadWords b ) {
+        return badWordRepo.save(b);
+    }
 
     public Store getStoreByProductId(Long productId){
         List<Store> stores= storeRepository.findAll();
@@ -86,10 +88,6 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
             }
         }
         return null;
-    }
-
-
-        return badWordRepo.save(b);
     }
     public ResponseEntity<?> addPost(PostStore post, Long IdUser) {
 
