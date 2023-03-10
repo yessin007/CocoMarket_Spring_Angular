@@ -35,6 +35,9 @@ public class Product {
     private Date dateOfProduct;
     private float discount;
     private int yearsOfWarranty;
+    @Column(name = "created_at", nullable = false, insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
     @Enumerated(EnumType.STRING)
     ProductCategory productCategory;
     @JsonIgnore

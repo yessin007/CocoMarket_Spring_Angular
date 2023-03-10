@@ -5,6 +5,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.example.coco_spring.Entity.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -16,7 +17,6 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 
     //Show Orders list of every Provider
     List<Order> findByDelivery_Provider_ProviderName(String name);
-
 
 
 }

@@ -32,10 +32,6 @@ public class Order implements Serializable {
     @JsonIgnore
     @OneToOne
     Payement payement;
-
     @OneToOne
     Cart cart ;
-
-
-
 }

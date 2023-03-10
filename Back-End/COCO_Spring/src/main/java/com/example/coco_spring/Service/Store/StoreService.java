@@ -72,7 +72,22 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
         return store.getProducts();
     }
 
+
     public BadWords addBadWord(BadWords b ) {
+
+    public Store getStoreByProductId(Long productId){
+        List<Store> stores= storeRepository.findAll();
+        Product product=productRepository.findById(productId).get();
+        for(Store store:stores){
+            for(Product p: store.getProducts()){
+                if(p.equals(product)){
+                    return store;
+                }
+            }
+        }
+        return null;
+    }
+
 
         return badWordRepo.save(b);
     }
