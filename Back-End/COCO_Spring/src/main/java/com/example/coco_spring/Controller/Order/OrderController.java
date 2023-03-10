@@ -47,4 +47,11 @@ public class OrderController {
         return orderService.displayOrdersByProvider();
     }
 
+
+    @PostMapping("/AssignCartToOrder/{orderId}/{cartId}")
+    public Order AssignCartToOrder(@PathVariable("orderId") Long orderId,@PathVariable("cartId") Long cartId){
+        return orderService.AssignCartToOrder(orderId, cartId);
+    }
+
+
 }

@@ -16,6 +16,8 @@ import java.util.Map;
 public class OrderService implements ICRUDService<Order,Long> , IOrderService {
 
     OrderRepository orderRepository;
+
+    CartRepsitory cartRepsitory;
     @Override
     public List<Order> findAll() {
         return orderRepository.findAll();
@@ -54,5 +56,15 @@ public class OrderService implements ICRUDService<Order,Long> , IOrderService {
 
         }
         return map;
+    }
+
+    @Override
+    public Order AssignCartToOrder(Long orderId, Long cartId) {
+        Cart cart = cartRepsitory.findById(cartId).orElse(null);
+        Order order = orderRepository.findById(orderId).orElse(null);
+
+        order.setCart(cart);
+
+        return orderRepository.save(order);
     }
 }

@@ -43,10 +43,13 @@ public class User implements UserDetails {
     private String telNum;
     @Enumerated(EnumType.STRING)
     private Role roles;
+    @JsonIgnore
     @OneToOne
     Payement payement;
+    @JsonIgnore
     @OneToOne
     Cart cart;
+    @JsonIgnore
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     List<Review> reviews;
     @JsonManagedReference
