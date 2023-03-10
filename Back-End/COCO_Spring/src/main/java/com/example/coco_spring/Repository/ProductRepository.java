@@ -20,8 +20,4 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     ProductCategory findTopProductCategoryByUserThisWeek(Long userId, Date startOfWeek, Date endOfWeek);
     @Query("SELECT p FROM Product p WHERE p.productCategory = :category ORDER BY p.createdAt DESC")
     List<Product> findTop4ProductsByCategoryOrderByRecentlyAdded(@Param("category") ProductCategory category, Pageable pageable);
-
-
-
-
 }
