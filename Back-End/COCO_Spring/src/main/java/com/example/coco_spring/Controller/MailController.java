@@ -2,7 +2,6 @@ package com.example.coco_spring.Controller;
 
 import com.example.coco_spring.Service.EmailService;
 import com.example.coco_spring.Service.SchedulerMailService;
-import com.example.coco_spring.Service.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +16,6 @@ import javax.mail.MessagingException;
 public class MailController {
     @Autowired
     private EmailService emailService;
-    private UserService userService;
     private SchedulerMailService schedulerMailService;
 
     /*@PostMapping
@@ -47,17 +45,17 @@ public class MailController {
         return ResponseEntity.ok("Mail sending to "+m);
     }
 
-    @PostMapping("/wel/{mail}/{id}")
+    /*@PostMapping("/wel/{mail}/{id}")
     public String sendWel(@PathVariable("mail") String m,@PathVariable("id") Long id) throws MessagingException {
         //User u = userService.getUserById(id).get();
         String mes = "test";
         emailService.sendWelcomeEmail(m,"3aslema",mes);
         return "c bon";
-    }
+    }*/
 
     @PostMapping("/off")
     public String sendOff() throws MessagingException {
-        this.schedulerMailService.runScheduledDailyOffre();
+        schedulerMailService.runScheduledDailyOffre();
         return "test Daily Offers Mail done";
     }
 }
