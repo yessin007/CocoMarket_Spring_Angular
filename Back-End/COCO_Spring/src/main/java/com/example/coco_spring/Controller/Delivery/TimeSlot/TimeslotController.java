@@ -1,7 +1,7 @@
-package com.example.coco_spring.Controller.TimeSlot;
+package com.example.coco_spring.Controller.Delivery.TimeSlot;
 
 import com.example.coco_spring.Entity.TimeSlot;
-import com.example.coco_spring.Service.TimeSlot.TimeSlotService;
+import com.example.coco_spring.Service.Delivery.TimeSlot.TimeSlotService;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
