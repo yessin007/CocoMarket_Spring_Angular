@@ -21,6 +21,7 @@ public class OrderService implements ICRUDService<Order,Long> , IOrderService {
     OrderRepository orderRepository;
 
     CartRepsitory cartRepsitory;
+    DiscountCodeRepository discountCodeRepository;
     @Override
     public List<Order> findAll() {
         return orderRepository.findAll();
@@ -70,37 +71,30 @@ public class OrderService implements ICRUDService<Order,Long> , IOrderService {
 
         return orderRepository.save(order);
     }
-/*
-    @Scheduled(fixedRate = 30000) // generate discount every 10 seconds
-    public int generateDiscount() {
-        Random random = new Random();
-
-        int discount = random.nextInt(20); // generate a random discount between 0 and 50 percent
-        System.out.println("Generated discount: " + discount + "%");
-        return discount;
-    }
-
- */
 
 
-    @Scheduled(fixedRate = 10000) // generate discount code every 10 seconds
-    public void generateDiscount() {
-        Random random = new Random();
-        int discount = random.nextInt(50); // generate a random discount between 0 and 50 percent
-        String code = generateDiscountCode(discount); // generate a discount code with the discount value
-        System.out.println("Generated discount code: " + code);
-        System.out.println("Generated discount: " + discount + "%");
-    }
+    public Order OrderAfterDiscount(Long orderId, Long CodePromo){
 
-    private String generateDiscountCode(int discount) {
-        String code = "";
-        Random random = new Random();
-        for (int i = 0; i < 6; i++) { // generate a 6-digit discount code
-            int digit = random.nextInt(10); // generate a random digit between 0 and 9
-            code += digit;
+        Order order = orderRepository.findById(orderId).get();
+
+        DiscountCode discountCode = discountCodeRepository.findById(CodePromo).get();
+        System.out.println(discountCode);
+        if(discountCode != null){
+            if(discountCode.getUsed()==false){
+                float discount = discountCode.getDiscount();
+                float discountedBill = order.getAmountBill()*(1- discount/100) ;
+                order.setAmountBill(discountedBill);
+                orderRepository.save(order);
+                discountCode.setUsed(true);
+                discountCodeRepository.save(discountCode);
+            }else {
+                System.out.println("CodePromo "+discountCode.getCode()+" deja utilisé ! ");
+            }
+        }else {
+            System.out.println("CodePromo n'existe pas");
         }
-        code += "-" + discount + "%"; // add the discount value to the end of the code
-        return code;
+        return order;
     }
+
 
 }

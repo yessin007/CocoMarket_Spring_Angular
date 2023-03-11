@@ -9,4 +9,6 @@ import com.example.coco_spring.Entity.*;
 import java.util.Date;
 import java.util.List;
 public interface DiscountCodeRepository extends JpaRepository<DiscountCode,Long> {
+
+    DiscountCode findByCode(String code);
 }

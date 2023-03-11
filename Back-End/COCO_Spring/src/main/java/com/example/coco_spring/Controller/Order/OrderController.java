@@ -2,6 +2,7 @@ package com.example.coco_spring.Controller.Order;
 
 import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Repository.*;
+import com.example.coco_spring.Service.Order.DiscountCodeService;
 import com.example.coco_spring.Service.Order.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.Map;
 @RequestMapping("/api/order/")
 public class OrderController {
 
+    DiscountCodeService discountCodeService;
     OrderService orderService;
     private final OrderRepository orderRepository;
 
@@ -53,11 +55,15 @@ public class OrderController {
         return orderService.AssignCartToOrder(orderId, cartId);
     }
 
-/*
-    @GetMapping("/discount")
-    public int generateDiscount() {
-        return orderService.generateDiscount();
+    @PostMapping("/BillAfterDiscount/{orderId}/{codePromo}")
+    public Order BillAfterDiscount(@PathVariable("orderId") Long orderId,@PathVariable("codePromo") Long codePromo){
+       return orderService.OrderAfterDiscount(orderId, codePromo);
     }
 
- */
+    @GetMapping("/GenerateCodeAndDiscount")
+    public String generateDiscount() {
+        return "Votre Code Promo est :" + discountCodeService.generateDiscount()+"  Amusez vous !";
+    }
+
+
 }
