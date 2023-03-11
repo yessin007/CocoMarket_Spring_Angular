@@ -23,8 +23,8 @@ public class Cart implements Serializable {
     private Long productQuantity;
     @OneToMany(cascade = CascadeType.ALL)
     List<Product> products;
-    @OneToOne(mappedBy = "cart")
-    User user;
+   /* @OneToOne(mappedBy = "cart")
+    User user;*/
     @OneToOne
     Order order;
 

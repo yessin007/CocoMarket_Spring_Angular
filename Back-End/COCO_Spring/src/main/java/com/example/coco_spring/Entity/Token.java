@@ -1,6 +1,7 @@
 package com.example.coco_spring.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,6 +28,7 @@ public class Token {
     public boolean revoked;
 
     public boolean expired;
+
 
     @JsonBackReference
     @ManyToOne
