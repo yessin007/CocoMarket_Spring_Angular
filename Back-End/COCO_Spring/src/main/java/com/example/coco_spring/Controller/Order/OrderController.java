@@ -53,5 +53,11 @@ public class OrderController {
         return orderService.AssignCartToOrder(orderId, cartId);
     }
 
+/*
+    @GetMapping("/discount")
+    public int generateDiscount() {
+        return orderService.generateDiscount();
+    }
 
+ */
 }
