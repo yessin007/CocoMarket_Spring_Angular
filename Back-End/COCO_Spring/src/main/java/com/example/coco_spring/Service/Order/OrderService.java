@@ -4,11 +4,14 @@ import com.example.coco_spring.Service.*;
 import com.example.coco_spring.Repository.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 @Service
 @Slf4j
@@ -18,6 +21,7 @@ public class OrderService implements ICRUDService<Order,Long> , IOrderService {
     OrderRepository orderRepository;
 
     CartRepsitory cartRepsitory;
+    DiscountCodeRepository discountCodeRepository;
     @Override
     public List<Order> findAll() {
         return orderRepository.findAll();
@@ -67,4 +71,30 @@ public class OrderService implements ICRUDService<Order,Long> , IOrderService {
 
         return orderRepository.save(order);
     }
+
+
+    public Order OrderAfterDiscount(Long orderId, Long CodePromo){
+
+        Order order = orderRepository.findById(orderId).get();
+
+        DiscountCode discountCode = discountCodeRepository.findById(CodePromo).get();
+        System.out.println(discountCode);
+        if(discountCode != null){
+            if(discountCode.getUsed()==false){
+                float discount = discountCode.getDiscount();
+                float discountedBill = order.getAmountBill()*(1- discount/100) ;
+                order.setAmountBill(discountedBill);
+                orderRepository.save(order);
+                discountCode.setUsed(true);
+                discountCodeRepository.save(discountCode);
+            }else {
+                System.out.println("CodePromo "+discountCode.getCode()+" deja utilisé ! ");
+            }
+        }else {
+            System.out.println("CodePromo n'existe pas");
+        }
+        return order;
+    }
+
+
 }
