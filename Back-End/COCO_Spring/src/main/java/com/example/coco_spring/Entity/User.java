@@ -52,9 +52,12 @@ public class User implements UserDetails {
     @JsonIgnore
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     List<Review> reviews;
+
+    @JsonIgnore
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
+
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
     Set<PostStore> postStores;

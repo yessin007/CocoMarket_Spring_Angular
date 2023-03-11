@@ -47,4 +47,7 @@ public class PostStore implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "postStore")
     Set<PostComment> postComments;
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL)
+    Set<User> reportedby;
 }
