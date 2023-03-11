@@ -50,4 +50,8 @@ public class UserController {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("findtheinterestsofbuyers/{userId}")
+    public List<String> findtheinterestsofbuyers(@PathVariable("userId") Long userId){
+        return userService.findtheinterestsofbuyers(userId);
+    }
 }

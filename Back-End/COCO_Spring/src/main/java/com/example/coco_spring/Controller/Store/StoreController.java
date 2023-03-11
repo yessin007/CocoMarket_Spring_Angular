@@ -1,12 +1,15 @@
 package com.example.coco_spring.Controller.Store;
 
 import com.example.coco_spring.Entity.*;
+import com.example.coco_spring.QRCode.QRCodeGenerator;
 import com.example.coco_spring.Service.Product.ProductServices;
 import com.example.coco_spring.Service.Store.StoreService;
+import com.google.zxing.WriterException;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -16,8 +19,10 @@ public class StoreController {
     StoreService storeService ;
     ProductServices productServices ;
     @PostMapping("/addStore")
-    public Store add(@RequestBody Store store)  {
+    public Store add(@RequestBody Store store) throws IOException, WriterException {
 
+
+        QRCodeGenerator.generateQRCode(store);
         return storeService.add(store);
     }
     @GetMapping("/get_all_Stores")
