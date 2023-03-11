@@ -23,7 +23,7 @@ public class PostComment {
 
     Date commentedAt;
 
-
+    @JsonIgnore
     @ManyToOne
     User user; // The user who wants to comment
 
