@@ -8,4 +8,6 @@ import java.util.Map;
 
 public interface IOrderService {
    Map<String,List<Order>> displayOrdersByProvider();
+
+   Order AssignCartToOrder(Long orderId, Long cartId);
 }

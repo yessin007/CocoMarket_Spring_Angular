@@ -51,5 +51,10 @@ public class Product {
     List<LikeDislikeProduct> likeDislikeProducts;
 
 
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
+    @JsonIgnore
+    private Cart cart;
+
 
 }
