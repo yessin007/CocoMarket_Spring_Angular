@@ -19,6 +19,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
          * enable a simple memory-based message broker to carry the chat messages
          * back to the client on destinations prefixed with /chat
          * */
+        config.enableSimpleBroker("/lesson");
+        config.setApplicationDestinationPrefixes("/app");
         config.enableSimpleBroker("/chat");
         /*
         * designates the /app prefix for messages that are bound for
@@ -40,6 +42,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         .setHandshakeHandler(new UserHandshakeHandler())
 
                 .withSockJS();
+
+        registry.addEndpoint("/gs-guide-websocket").withSockJS();
     }
 
 }
