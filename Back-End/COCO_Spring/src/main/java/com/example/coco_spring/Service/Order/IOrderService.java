@@ -7,5 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface IOrderService {
-  public Map<String,List<Order>> displayOrdersByProvider();
+   Map<String,List<Order>> displayOrdersByProvider();
+
+   Order AssignCartToOrder(Long orderId, Long cartId);
 }

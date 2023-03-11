@@ -35,6 +35,9 @@ public class Product {
     private Date dateOfProduct;
     private float discount;
     private int yearsOfWarranty;
+    @Column(name = "created_at", nullable = false, insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
     @Enumerated(EnumType.STRING)
     ProductCategory productCategory;
     @JsonIgnore
@@ -47,6 +50,11 @@ public class Product {
     @OneToMany(cascade = CascadeType.ALL)
     List<LikeDislikeProduct> likeDislikeProducts;
 
+
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
+    @JsonIgnore
+    private Cart cart;
 
 
 }

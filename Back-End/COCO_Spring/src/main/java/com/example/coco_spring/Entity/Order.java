@@ -22,6 +22,7 @@ public class Order implements Serializable {
     private Date orderDate;
     private String orderStatus;
     private String orderAddress;
+    private String codePromo;
     private Float amountBill;
     private Long deliveryId;
     private Long payementId;
@@ -32,10 +33,6 @@ public class Order implements Serializable {
     @JsonIgnore
     @OneToOne
     Payement payement;
-
     @OneToOne
     Cart cart ;
-
-
-
 }

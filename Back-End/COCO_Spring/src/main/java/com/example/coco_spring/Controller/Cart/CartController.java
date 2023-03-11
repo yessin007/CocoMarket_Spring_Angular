@@ -4,15 +4,23 @@ import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Repository.*;
 import com.example.coco_spring.Service.Cart.CartService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.webjars.NotFoundException;
+
+import java.security.Principal;
 import java.util.List;
+import java.util.Map;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/cart/")
 public class CartController {
 
     CartService cartService;
-
+    UserRepository userRepository;
+    CartRepsitory cartRepsitory;
+    ProductRepository productRepository;
 
     @GetMapping("/retrive_all_carts")
     public List<Cart> retrieveCartList(){
@@ -40,5 +48,43 @@ public class CartController {
     }
 
 
+    @PostMapping("/addProductToCart/{cartId}/{productid}")
+    public List<Product> addProductToCart(@PathVariable("cartId") Long cartId,@PathVariable("productid") Long productId){
+        return  cartService.addProductToCart(cartId, productId);
+    }
+
+    @PostMapping("/users/{userId}/{productId}")
+    public List<Product> addProductToCartByUser(@PathVariable("userId") Long userId,
+                                                 @PathVariable("productId") Long productId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User not found with id " + userId));
+        Cart cart = user.getCart();
+
+        if (cart == null) {
+            cart = new Cart();
+            user.setCart(cart);
+        }
+        Product product = productRepository.findById(productId).orElse(null);
+        product.setCart(cart);
+        cart.getProducts().add(product);
+
+        cartRepsitory.save(cart);
+
+        return cart.getProducts();
+    }
+
+
+    @PostMapping("/cart/add")
+    public String addToCart(@RequestParam("productId") Long productId,
+                                           @RequestParam("quantity") int quantity,
+                                           Principal principal) {
+        String username = principal.getName();
+        User user = userRepository.findByUsername(username).get();
+        Product product = productRepository.findById(productId).orElseThrow();
+        Cart cart = user.getCart();
+        cartService.addItem(product, quantity);
+        cartRepsitory.save(cart);
+        return username;
+    }
 
 }

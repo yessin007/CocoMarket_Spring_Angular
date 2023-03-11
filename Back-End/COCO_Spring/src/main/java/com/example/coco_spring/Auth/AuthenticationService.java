@@ -6,12 +6,15 @@ import com.example.coco_spring.Entity.TokenType;
 import com.example.coco_spring.Entity.User;
 import com.example.coco_spring.Repository.TokenRepository;
 import com.example.coco_spring.Repository.UserRepository;
+import com.example.coco_spring.Service.EmailService;
 import com.example.coco_spring.config.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.mail.MessagingException;
 
 @Service
 @RequiredArgsConstructor
@@ -21,8 +24,9 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final EmailService emailService;
 
-    public AuthenticationResponse register(RegisterRequest request) {
+    public AuthenticationResponse register(RegisterRequest request) throws MessagingException {
         var user = User.builder()
                 .username(request.getUsername())
                 .name(request.getFirstname())
@@ -34,6 +38,7 @@ public class AuthenticationService {
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
         saveUserToken(savedUser, jwtToken);
+        emailService.sendWelcomeEmail(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();

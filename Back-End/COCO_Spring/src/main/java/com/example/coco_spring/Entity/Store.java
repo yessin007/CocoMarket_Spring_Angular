@@ -42,4 +42,8 @@ public class Store implements Serializable {
     @JsonIgnore
     @OneToOne
     private StoreCatalog storeCatalog;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    Set<Quiz> quiz; // Quizzes related to course (Unidirectionnelel)
 }
