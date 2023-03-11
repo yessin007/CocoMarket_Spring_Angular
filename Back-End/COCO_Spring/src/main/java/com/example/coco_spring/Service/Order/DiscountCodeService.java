@@ -25,9 +25,8 @@ public class DiscountCodeService {
     @Scheduled(fixedRate = 10000000) // generate discount code every 10 seconds
     public String generateDiscount() {
         Random random = new Random();
-        int discountId = random.nextInt(974557534);
-
-        int discount = random.nextInt(50); // generate a random discount between 0 and 50 percent
+        int discountId = random.nextInt(974557534); // generate a random discountId just to fill the Setter for discountCode Entity
+        int discount = random.nextInt(40); // generate a random discount between 0 and 40 percent
         String code = generateDiscountCode(discount); // generate a discount code with the discount value
         DiscountCode discountCode = new DiscountCode((long)discountId,code,discount,false); // create a new discount code object
         discountCodeRepository.save(discountCode); // save the discount code to the database
