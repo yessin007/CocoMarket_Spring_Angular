@@ -68,6 +68,10 @@ public class User implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     Set<PostComment> postComments;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
+    Set<Answer> answers;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

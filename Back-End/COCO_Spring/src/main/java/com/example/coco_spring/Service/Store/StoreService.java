@@ -9,13 +9,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Slf4j
 @AllArgsConstructor
 public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
     StoreRepository storeRepository;
+    QuizzRepository quizzRepository;
+
+    UserRepository userRepository;
     ProductRepository productRepository;
     OrderRepository orderRepository;
     CartRepsitory cartRepsitory;
@@ -173,6 +178,20 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
              */
             //}
             return ResponseEntity.status(HttpStatus.FAILED_DEPENDENCY).body("Bads Word Detected");
+    }
+
+
+    public void createQuizz(Quiz Q, Long idCourse,Long idUser)  {
+        Store c = storeRepository.findById(idCourse).get();
+        User usr = userRepository.findById(idUser).get();
+
+        Set<Quiz> quiz = new HashSet<>();
+        quiz.add(Q);
+        c.getQuiz().add(Q);
+
+        storeRepository.flush();
+        quizzRepository.save(Q);
+
     }
 
 }
