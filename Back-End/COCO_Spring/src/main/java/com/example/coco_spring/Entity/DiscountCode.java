@@ -18,4 +18,7 @@ public class DiscountCode implements Serializable {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long DiscountCodeId;
+    private String code;
+    private Integer discount;
+    private Boolean Used;
 }
