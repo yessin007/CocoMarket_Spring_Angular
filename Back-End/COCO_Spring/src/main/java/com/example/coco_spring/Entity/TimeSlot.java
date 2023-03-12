@@ -18,7 +18,6 @@ public class TimeSlot {
     private LocalTime startTime;
 
     private LocalTime endTime;
-
     private LocalDate deliveryDate;
     @Column(name = "available")
     private boolean available;
