@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.*;
 
+
 @Service
 @Slf4j
 @AllArgsConstructor
@@ -38,7 +39,32 @@ public class ProductServices implements IProductServices {
     public void deleteProduct(Long productId) {
         productRepository.deleteById(productId);
     }
-
+    public double calculateProductInsurance(Long productId) {
+        Product product=productRepository.findById(productId).get();
+        if (product == null) {
+            throw new IllegalArgumentException("Product cannot be null");
+        }
+        double premium = 0;
+        int yearsOfWarranty = product.getYearsOfWarranty();
+        if (yearsOfWarranty == 1) {
+            premium += 0.05 * product.getPrice();
+        } else if (yearsOfWarranty > 1 && yearsOfWarranty <= 3) {
+            premium += 0.03 * product.getPrice();
+        } else if (yearsOfWarranty > 3 && yearsOfWarranty <= 5) {
+            premium += 0.02 * product.getPrice();
+        }
+        Date currentDate = new Date();
+        double ageInMonths = (currentDate.getTime() - product.getDateOfProduct().getTime()) / (1000.0 * 60 * 60 * 24 * 30);
+        double price = product.getPrice();
+        if (ageInMonths < 6 && price > 1000) {
+            premium += 0.08 * price;
+        } else if (ageInMonths >= 6 && ageInMonths < 12 && price > 500) {
+            premium += 0.05 * price;
+        } else if (ageInMonths >= 12 && price > 200) {
+            premium += 0.02 * price;
+        }
+        return premium;
+    }
 
     public List<Product> findByName(String name) {
         return productRepository.findByProductName(name);
