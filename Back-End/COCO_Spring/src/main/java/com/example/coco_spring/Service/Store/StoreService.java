@@ -183,16 +183,7 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
 
             postCommentRepo.save(postComment);
             return ResponseEntity.ok().body(postComment);      }else
-            /*
-             * Set<PostComment> pc = p.getPostComments(); pc.add(postComment);
-             * p.setPostComments(pc); postRepo.save(p);
-             *
-             * Set<PostComment> pu = u.getPostComments(); pu.add(postComment);
-             * u.setPostComments(pu); userRepo.save(u);
-             *
-             *
-             */
-            //}
+
             return ResponseEntity.status(HttpStatus.FAILED_DEPENDENCY).body("Bads Word Detected");
     }
     public PostLike addLike_to_Post(PostLike postLike, Long idPost, Long id) {
