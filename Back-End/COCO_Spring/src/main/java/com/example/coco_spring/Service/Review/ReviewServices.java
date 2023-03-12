@@ -1,18 +1,16 @@
 package com.example.coco_spring.Service.Review;
 
-import com.example.coco_spring.Entity.LikeDislikeProduct;
-import com.example.coco_spring.Entity.Product;
-import com.example.coco_spring.Entity.ProductRate;
-import com.example.coco_spring.Entity.Review;
-import com.example.coco_spring.Repository.LikeDislikeInterface;
+import com.example.coco_spring.Entity.*;
+import com.example.coco_spring.Repository.LikeDislikeRepository;
 import com.example.coco_spring.Repository.ProductRepository;
 import com.example.coco_spring.Repository.ReviewRepository;
-import com.example.coco_spring.Service.Review.IReviewServices;
+import com.example.coco_spring.Repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,7 +19,8 @@ import java.util.List;
 public class ReviewServices implements IReviewServices {
     ProductRepository productRepository;
     ReviewRepository reviewRepository;
-    LikeDislikeInterface likeDislikeInterface;
+    LikeDislikeRepository likeDislikeRepository;
+    UserRepository userRepository;
     @Transactional
     public Review affectReviewToProduct(Long productId,Review review){
         Product product=productRepository.findById(productId).get();
@@ -30,10 +29,50 @@ public class ReviewServices implements IReviewServices {
         return reviewRepository.save(review);
     }
     @Transactional
-    public void LikeDislikeProduct (Long productId, LikeDislikeProduct likeDislikeProduct){
+    public void userLikesProduct (Long productId, Long userId){
+        User user=userRepository.findById(userId).get();
         Product product=productRepository.findById(productId).get();
+        List<LikeDislikeProduct> likeDislikeProductList=product.getLikeDislikeProducts();
+        if(user.getLikeDislikeProduct()!=null){
+            for(LikeDislikeProduct ldp:likeDislikeProductList){
+                if(ldp.getId()==user.getLikeDislikeProduct().getId()){
+                    likeDislikeProductList.remove(ldp);
+                    likeDislikeRepository.delete(ldp);
+                }
+            }
+            product.setLikeDislikeProducts(likeDislikeProductList);
+            productRepository.save(product);
+
+        }
+        LikeDislikeProduct likeDislikeProduct=new LikeDislikeProduct();
+        likeDislikeProduct.setProductRate(ProductRate.LIKE);
+        user.setLikeDislikeProduct(likeDislikeProduct);
         product.getLikeDislikeProducts().add(likeDislikeProduct);
-        likeDislikeInterface.save(likeDislikeProduct);
+        likeDislikeRepository.save(likeDislikeProduct);
+        userRepository.save(user);
+        productRepository.save(product);
+    }
+    @Transactional
+    public void userDislikesProduct (Long productId, Long userId){
+        Product product=productRepository.findById(productId).get();
+        User user=userRepository.findById(userId).get();
+        List<LikeDislikeProduct> likeDislikeProductList=product.getLikeDislikeProducts();
+        if(user.getLikeDislikeProduct()!=null){
+            for(LikeDislikeProduct ldp:likeDislikeProductList){
+                if(ldp.getId()==user.getLikeDislikeProduct().getId()){
+                    likeDislikeProductList.remove(ldp);
+                    likeDislikeRepository.delete(ldp);
+                }
+            }
+            product.setLikeDislikeProducts(likeDislikeProductList);
+            productRepository.save(product);z
+        }
+        LikeDislikeProduct likeDislikeProduct=new LikeDislikeProduct();
+        likeDislikeProduct.setProductRate(ProductRate.DISLIKE);
+        user.setLikeDislikeProduct(likeDislikeProduct);
+        product.getLikeDislikeProducts().add(likeDislikeProduct);
+        likeDislikeRepository.save(likeDislikeProduct);
+        userRepository.save(user);
         productRepository.save(product);
     }
     public int numberOfLikes(Long productId){
