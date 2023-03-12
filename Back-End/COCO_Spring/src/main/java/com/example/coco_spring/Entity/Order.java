@@ -17,14 +17,12 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long orderId;
-    private Long cartId;
     @Temporal (TemporalType.DATE)
     private Date orderDate;
     private String orderStatus;
     private String orderAddress;
-    private String codePromo;
     private Float amountBill;
-    private Long payementId;
+
 
     @JsonIgnore
     @ManyToOne

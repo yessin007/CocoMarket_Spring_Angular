@@ -52,17 +52,17 @@ public class PayementService implements ICRUDService<Payement,Long> , IPayementS
     }
 
     @Override
-    public Order findByPaymentDate(Date date) {
+    public List<Order> findByPaymentDate(Date date) {
 
         return payementRepository.findByPaymentDate(date);
     }
 
     @Override
-    public void assignOrderToPayment(Long orderId, Long paymentId) {
+    public Order assignOrderToPayment(Long orderId, Long paymentId) {
         Order order = orderRepository.findById(orderId).get();
         Payement payement = payementRepository.findById(paymentId).get();
         order.setPayement(payement);
-        orderRepository.save(order);
+        return orderRepository.save(order);
 
 
     }
