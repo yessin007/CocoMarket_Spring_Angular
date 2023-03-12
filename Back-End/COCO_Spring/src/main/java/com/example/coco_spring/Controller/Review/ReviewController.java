@@ -18,9 +18,13 @@ public class ReviewController {
     public Review affectReviewToProduct(@PathVariable("idprod") Long productId,@RequestBody Review review){
             return reviewServices.affectReviewToProduct(productId,review);
     }
-    @PostMapping("/affectlikedisliketo/{idprod}")
-    public void LikeDislikeProduct (@PathVariable("idprod") Long productId,@RequestBody LikeDislikeProduct likeDislikeProduct){
-        reviewServices.LikeDislikeProduct(productId,likeDislikeProduct);
+    @PostMapping("{userId}/like/{idprod}")
+    public void likeProduct (@PathVariable("idprod") Long productId,@PathVariable("userId") Long idProd){
+        reviewServices.userLikesProduct(productId,idProd);
+    }
+    @PostMapping("{userId}/dislike/{idprod}")
+    public void dislikeProduct (@PathVariable("idprod") Long productId,@PathVariable("userId") Long idProd){
+        reviewServices.userDislikesProduct(productId,idProd);
     }
     @GetMapping("/getnbrlikes/{idprod}")
     public int numberOfLikes(@PathVariable("idprod") Long productId){

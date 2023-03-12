@@ -18,6 +18,7 @@ public class Order implements Serializable {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long orderId;
     private Long cartId;
+    private String productReference;
     @Temporal (TemporalType.DATE)
     private Date orderDate;
     private String orderStatus;
@@ -32,6 +33,6 @@ public class Order implements Serializable {
     @JsonIgnore
     @OneToOne
     Payement payement;
-    @OneToOne
+    @OneToOne(mappedBy = "order")
     Cart cart ;
 }

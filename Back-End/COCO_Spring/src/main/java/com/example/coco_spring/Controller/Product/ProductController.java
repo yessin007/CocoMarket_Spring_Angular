@@ -34,8 +34,8 @@ public class ProductController {
     private ObjectMapper jsonMapper;
     @Autowired private OpenAiApiClient client;
 
-    @GetMapping("/findmatchingaiproducts/{req}")
-    public ResponseEntity<List<Product>> chatWithGpt3(@PathVariable("req") String message) throws Exception {
+    @GetMapping("/findmatchingaiproducts")
+    public ResponseEntity<List<Product>> chatWithGpt3(@RequestParam String message) throws Exception {
         var completion = CompletionRequest.defaultWith("give me a list products which description is"+message);
         var postBodyJson = jsonMapper.writeValueAsString(completion);
         var responseBody = client.postToOpenAiApi(postBodyJson, OpenAiApiClient.OpenAiService.GPT_3);
@@ -59,7 +59,6 @@ public class ProductController {
                               @RequestParam("reference") String reference,@RequestParam("description") String description,
                               @RequestParam("quantity") Long quantity,@RequestParam("model") MultipartFile model,
                               @RequestParam("video") MultipartFile video,@RequestParam("price") float price,
-                              @RequestParam("date")  @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateOfProduct,
                                 @RequestParam("discount") float discount,@RequestParam("brand") String brand,
                               @RequestParam("yearsOfWarranty") int yearsOfWarranty,@RequestParam("productCategory") ProductCategory productCategory) throws IOException {
 
@@ -73,7 +72,6 @@ public class ProductController {
         product.setModel(model.getBytes());
         product.setVideo(video.getBytes());
         product.setPrice(price);
-        product.setDateOfProduct(dateOfProduct);
         product.setDiscount(discount);
         product.setYearsOfWarranty(yearsOfWarranty);
         product.setProductCategory(productCategory);
@@ -113,7 +111,7 @@ public class ProductController {
     }
 
     @GetMapping("/insuranceprice/{idprod}")
-    public double calculateProductInsurance(@RequestParam("idprod") Long productId) {
+    public double calculateProductInsurance(@PathVariable("idprod") Long productId) {
         return productServices.calculateProductInsurance(productId);
     }
 }

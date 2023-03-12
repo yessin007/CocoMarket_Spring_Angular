@@ -33,7 +33,7 @@ public class Cart implements Serializable {
     @JsonIgnore
     @OneToOne
     Order order;
-@JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products = new ArrayList<>();
 
