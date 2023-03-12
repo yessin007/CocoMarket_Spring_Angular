@@ -9,6 +9,7 @@ import java.lang.String;
 
 import com.example.coco_spring.Entity.*;
 import com.stripe.model.Charge;
+import com.stripe.param.ChargeCreateParams;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,20 +23,27 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 @Service
 @Slf4j
-@AllArgsConstructor
-@Component
+
 @Configuration
 public class StripePayment {
 
 
     @Value("${stripe.key.secret}")
-    private String secretKey;
+     String secretKey;
 
-/*
-    public PaymentIntent paymentIntent(Payment paymentIntent) throws StripeException {/*
-        Stripe.apiKey = secretKey;
+   /* private StripePayment stripePayment;
+
+    public StripePayment() {
+        this.stripePayment = new StripePayment();
+    }
+
+    */
+
+    public PaymentIntent paymentIntent(Payment paymentIntent) throws StripeException {
+        Stripe.apiKey = "sk_test_51MfpbjFZqNx8XmmhC1sHRKoes1AgZ98bQTRXs27ztbjZ6X4mBaV5X2oAif5LaLmSkQSqZEi7bUyFe4ukscn5Jjy200DlYLAV3X";
+        //Stripe.apiKey = secretKey;
         List<String> paymentMethodTypes = new ArrayList();
-        paymentMethodTypes.add("card");
+        paymentMethodTypes.add(paymentIntent.getPaymentMethodToken());
         Map<String, Object> params = new HashMap<>();
         params.put("amount", paymentIntent.getAmount());
         params.put("currency", paymentIntent.getCurrency());
@@ -47,15 +55,19 @@ public class StripePayment {
 
 
     }
-*/
 
 
-    public Charge chargeCreditCard(String token, BigDecimal amount) throws StripeException {
-        Stripe.apiKey = secretKey;
+
+
+
+
+    public Charge chargeCreditCard(String token, int amount) throws StripeException {
+        //Stripe.apiKey = secretKey;
+        Stripe.apiKey = "sk_test_51MfpbjFZqNx8XmmhC1sHRKoes1AgZ98bQTRXs27ztbjZ6X4mBaV5X2oAif5LaLmSkQSqZEi7bUyFe4ukscn5Jjy200DlYLAV3X";
         System.out.println(secretKey);
 
         Map<String, Object> chargeParams = new HashMap<>();
-        chargeParams.put("amount", amount.intValue()*100);
+        chargeParams.put("amount", amount*100);
         chargeParams.put("currency", "usd");
         chargeParams.put("source", token);
 
@@ -64,6 +76,20 @@ public class StripePayment {
     }
 
 
+    public Charge createChargeYessin(Long amount, String currency, String source) throws StripeException {
+        //Stripe.apiKey = STRIPE_SECRET_KEY;
+        Stripe.apiKey = "sk_test_51MfpbjFZqNx8XmmhC1sHRKoes1AgZ98bQTRXs27ztbjZ6X4mBaV5X2oAif5LaLmSkQSqZEi7bUyFe4ukscn5Jjy200DlYLAV3X";
+        // Set the charge creation parameters
+
+        ChargeCreateParams params = ChargeCreateParams.builder()
+                .setAmount(amount)
+                .setCurrency(currency)
+                .setSource(source)
+                .build();
+
+        // Create the charge
+        return Charge.create(params);
+    }
 /*
     public PaymentIntent confirm(String id) throws StripeException {
         Stripe.apiKey = secretKey;
