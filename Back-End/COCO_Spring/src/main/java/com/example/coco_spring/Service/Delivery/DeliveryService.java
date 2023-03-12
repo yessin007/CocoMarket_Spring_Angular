@@ -17,25 +17,25 @@ import java.util.Optional;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class DeliveryService implements ICRUDService<deliveries,Long>, IDeliveryService {
+public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliveryService {
 
     DeliveryRepository deliveryRepository;
     OrderRepository orderRepository;
     ProviderRepository providerRepository;
     @Override
-    public List<deliveries> findAll() {
+    public List<Delivery> findAll() {
 
         return deliveryRepository.findAll();
     }
 
     @Override
-    public deliveries retrieveItem(Long deliveryId) {
+    public Delivery retrieveItem(Long deliveryId) {
 
         return deliveryRepository.findById(deliveryId).get();
     }
 
     @Override
-    public deliveries add(deliveries delivery) {
+    public Delivery add(Delivery delivery) {
 
         return deliveryRepository.save(delivery);
     }
@@ -47,7 +47,7 @@ public class DeliveryService implements ICRUDService<deliveries,Long>, IDelivery
     }
 
     @Override
-    public deliveries update(deliveries delivery) {
+    public Delivery update(Delivery delivery) {
 
         return deliveryRepository.save(delivery);
     }
@@ -69,19 +69,19 @@ public class DeliveryService implements ICRUDService<deliveries,Long>, IDelivery
 
     public void assignProviderDelivery(Long deliveryId, Long providerId) {
         Provider provider = providerRepository.findById(providerId).get();
-        deliveries delivery = deliveryRepository.findById(deliveryId).get();
+        Delivery delivery = deliveryRepository.findById(deliveryId).get();
         delivery.setProvider(provider);
         deliveryRepository.save(delivery);
     }
 
     @Transactional
-    public deliveries dispatchDeliveryToNearestDeliveryman(ClientLocationRequest clientLocationRequest) {
+    public Delivery dispatchDeliveryToNearestDeliveryman(ClientLocationRequest clientLocationRequest) {
         List<Provider> deliverymen = getDeliverymenWithinRadius(clientLocationRequest.getLatitude(),
                 clientLocationRequest.getLongitude(), 10); // 10 km radius
 
         Provider nearestDeliveryman = getNearestDeliveryman(deliverymen, clientLocationRequest.getLatitude(),
                 clientLocationRequest.getLongitude());
-        deliveries delivery = new deliveries();
+        Delivery delivery = new Delivery();
         delivery.setProvider(nearestDeliveryman);
 
         delivery.setClientAddress(clientLocationRequest.getAddress());

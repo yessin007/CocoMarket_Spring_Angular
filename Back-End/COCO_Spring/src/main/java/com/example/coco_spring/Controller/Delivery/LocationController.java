@@ -1,7 +1,6 @@
 package com.example.coco_spring.Controller.Delivery;
 
 import com.example.coco_spring.Entity.ClientLocationRequest;
-import com.example.coco_spring.Entity.deliveries;
 import com.example.coco_spring.Repository.DeliveryRepository;
 import com.example.coco_spring.Repository.clientLocationRequestRepository;
 import com.example.coco_spring.Service.Delivery.DeliveryService;
@@ -18,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.io.IOException;
+import java.net.http.HttpResponse;
+
 @RequestMapping("/api")
 @RestController
 @AllArgsConstructor
@@ -28,5 +30,9 @@ public class LocationController {
     @GetMapping("/map")
     public String getGeolocation() throws JsonProcessingException {
         return locationService.getGeolocation();
+    }
+    @GetMapping("/map1")
+    public String getLocation () throws IOException, InterruptedException {
+        return locationService.getLocation();
     }
 }

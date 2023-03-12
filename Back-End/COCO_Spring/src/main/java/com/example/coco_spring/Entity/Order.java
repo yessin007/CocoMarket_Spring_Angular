@@ -24,7 +24,6 @@ public class Order implements Serializable {
     private String orderAddress;
     private String codePromo;
     private Float amountBill;
-    private Long deliveryId;
     private Long payementId;
 
     @JsonIgnore
