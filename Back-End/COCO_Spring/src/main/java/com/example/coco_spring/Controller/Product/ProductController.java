@@ -116,5 +116,4 @@ public class ProductController {
     public double calculateProductInsurance(@RequestParam("idprod") Long productId) {
         return productServices.calculateProductInsurance(productId);
     }
-    
 }
