@@ -9,8 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static java.util.Map.Entry.comparingByValue;
 
 @Service
 @EnableScheduling
@@ -42,5 +47,27 @@ public class UserService {
 
     public void deleteUser(long id) {
         userRepository.deleteById(id);
+    }
+
+    public List<String> findtheinterestsofbuyers(Long userId){
+        User user = userRepository.findById(userId).get();
+        List<Product> products = user.getCart().getProducts();
+        Map<String,Integer> categoryCountMap = new HashMap<>();
+
+
+
+
+        for (Product product : products){
+            String category = String.valueOf(product.getProductCategory());
+            int count = categoryCountMap.getOrDefault(category,0);
+            categoryCountMap.put(category,count+1);
+        }
+        List<String> topCategories = categoryCountMap.entrySet().stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .limit(3)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+        return topCategories;
     }
 }

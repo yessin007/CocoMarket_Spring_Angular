@@ -1,19 +1,21 @@
 package com.example.coco_spring.Controller.Delivery;
 
+import com.example.coco_spring.Entity.ClientLocationRequest;
 import com.example.coco_spring.Entity.Delivery;
-import com.example.coco_spring.Repository.OrderRepository;
+import com.example.coco_spring.Entity.Provider;
 import com.example.coco_spring.Service.Delivery.DeliveryService;
-import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("/api/delivery/")
 public class DeliveryController {
-    DeliveryService deliveryService;
-    private final OrderRepository orderRepository;
+    private final DeliveryService deliveryService;
+
+    public DeliveryController(DeliveryService deliveryService) {
+        this.deliveryService = deliveryService;
+    }
 
     @GetMapping("/retrive_all_deliveries")
     public List<Delivery> retrieveDeliveryList(){
@@ -54,6 +56,12 @@ public class DeliveryController {
     public void assignProviderDelivery(@PathVariable("deliveryId") Long deliveryId,@PathVariable("providerId") Long providerId){
         deliveryService.assignProviderDelivery(deliveryId,providerId);
 
+    }
+
+    @PostMapping("/dispatch")
+    public Provider dispatchDeliveryToNearestDeliveryman(@RequestBody ClientLocationRequest clientLocationRequest) {
+        Delivery delivery = deliveryService.dispatchDeliveryToNearestDeliveryman(clientLocationRequest);
+        return delivery.getProvider();
     }
 
     }

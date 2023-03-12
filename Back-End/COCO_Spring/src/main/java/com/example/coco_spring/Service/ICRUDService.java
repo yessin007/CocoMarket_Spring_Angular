@@ -13,4 +13,6 @@ public interface ICRUDService <Class,TypeId>{
     void delete(TypeId id);
 
     Class update(Class Classe1);
+
+
 }
