@@ -9,9 +9,11 @@ import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Repository.*;
 
 import com.example.coco_spring.Service.Product.ProductServices;
+import com.example.coco_spring.Service.Store.StoreService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,7 @@ import java.util.*;
 public class ProductController {
     ProductServices productServices;
     ProductRepository productRepository;
+    StoreService storeService;
     @Autowired
     private ObjectMapper jsonMapper;
     @Autowired private OpenAiApiClient client;
@@ -90,25 +93,22 @@ public class ProductController {
         productServices.deleteProduct(id);
     }
 
-
-
-    @GetMapping(value = "/compare",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Map<Float,Product> comparePrices(@RequestParam("product") String productName) {
-        List<Product> productsByPrice = new ArrayList<>();
+    @GetMapping("/compare/{product}")
+    public Map<String,Product> comparePrices(@PathVariable("product") String productName) {
         List<Product> productsByName = productRepository.findByProductName(productName);
-        Map<Float,Product> productByStore=new HashMap<>();
+        productsByName.sort(Comparator.comparing(Product::getPrice));
+        Map<String,Product> productByStore=new HashMap<>();
 
-        Collections.sort(productsByName, new Comparator<Product>() {
-            public int compare(Product p1, Product p2) {
-                return Double.compare(p1.getPrice(), p2.getPrice());
-            }
-        });
+
+
         for(Product product:productsByName){
-            productByStore.put(product.getPrice(), product);
+            productByStore.put(storeService.getStoreByProductId(product.getProductId()).getStoreName(), product);
 
         }
         return productByStore;
     }
-
-
+    @GetMapping("/getstore/{pid}")
+    public Store getStoreByProductId(@PathVariable("pid") Long productId){
+        return storeService.getStoreByProductId(productId);
+    }
 }

@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,10 +31,29 @@ public class StoreCatalogService implements ICRUDService<StoreCatalog,Long>,ISto
         return storeCatalogRepository.findById(idItem).get();
     }
 
+
     @Override
     public StoreCatalog add(StoreCatalog class1) {
         return storeCatalogRepository.save(class1);
     }
+
+    public StoreCatalog add1( String catalogName, String catalogDescription, Date date) {
+        // Perform input validation here
+        if ( catalogName == null || catalogDescription == null || date == null) {
+            throw new IllegalArgumentException("Invalid input");
+        }
+
+        // Create a new StoreCatalog object with the provided attributes
+        StoreCatalog newCatalog = new StoreCatalog();
+        newCatalog.setCatalogName(catalogName);
+        newCatalog.setCatalogDescription(catalogDescription);
+        newCatalog.setDate(date);
+
+        // Save the new StoreCatalog object using the storeCatalogRepository
+        return storeCatalogRepository.save(newCatalog);
+    }
+
+
 
 
 
@@ -54,5 +74,22 @@ public class StoreCatalogService implements ICRUDService<StoreCatalog,Long>,ISto
         Store store=storeRepository.findById(storeId).get();
         store.setStoreCatalog(storeCatalog);
         storeRepository.save(store);
+    }
+
+    @Override
+    public StoreCatalog findStoreCatalogByName(String catalogName) {
+
+        return storeCatalogRepository.findStoreCatalogByCatalogName(catalogName);
+    }
+
+    @Override
+    public StoreCatalog findStoreCatalogByDescription(String description) {
+        return storeCatalogRepository.findStoreCatalogByCatalogDescription(description);
+    }
+
+    @Override
+    public Optional<StoreCatalog> findStoreCatalogByDate(Date date) {
+
+        return Optional.ofNullable(storeCatalogRepository.findByDate(date));
     }
 }

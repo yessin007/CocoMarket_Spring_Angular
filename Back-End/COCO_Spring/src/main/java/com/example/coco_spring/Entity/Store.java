@@ -30,6 +30,8 @@ public class Store implements Serializable {
     @Enumerated(EnumType.STRING)
     private Category category ;
     private String storeEmailAddress ;
+
+    private String link;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,mappedBy ="store" )
     private Set<AfterSaleServices> afterSaleServicess;
@@ -40,4 +42,8 @@ public class Store implements Serializable {
     @JsonIgnore
     @OneToOne
     private StoreCatalog storeCatalog;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    Set<Quiz> quiz; // Quizzes related to course (Unidirectionnelel)
 }

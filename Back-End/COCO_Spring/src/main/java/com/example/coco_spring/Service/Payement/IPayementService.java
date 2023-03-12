@@ -10,4 +10,7 @@ public interface IPayementService {
     Order findByPaymentDate(Date date);
 
     public void assignOrderToPayment(Long orderId, Long paymentId);
+
+    //String createCharge(String email, String token, int amount);
+   //void StripeService();
 }
