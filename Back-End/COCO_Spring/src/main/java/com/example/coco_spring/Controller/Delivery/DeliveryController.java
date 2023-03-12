@@ -63,5 +63,9 @@ public class DeliveryController {
         Delivery delivery = deliveryService.dispatchDeliveryToNearestDeliveryman(clientLocationRequest);
         return delivery.getProvider();
     }
-
+    @PutMapping("/cancelDelivery/{id}")
+    public void cancelDelivery(@PathVariable Long id) {
+        deliveryService.cancelDelivery(id);
     }
+
+}

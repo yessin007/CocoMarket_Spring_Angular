@@ -30,15 +30,19 @@ public class Delivery {
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "deliveryman_id")
+    @JsonIgnore
     Provider provider;
+
     @Enumerated(EnumType.STRING)
     private Status statut;
+
     @Enumerated(EnumType.STRING)
     private DeliveryOption deliveryOption;
+
     @OneToOne
     TimeSlot timeSlot;
 
-
+    private boolean cancelled;
 
     @JsonIgnore
     @OneToMany(mappedBy = "delivery",cascade = CascadeType.ALL)

@@ -28,6 +28,7 @@ public class Order implements Serializable {
 
     @JsonIgnore
     @ManyToOne
+    @JoinColumn(name = "delivery_id")
     Delivery delivery;
     @JsonIgnore
     @OneToOne

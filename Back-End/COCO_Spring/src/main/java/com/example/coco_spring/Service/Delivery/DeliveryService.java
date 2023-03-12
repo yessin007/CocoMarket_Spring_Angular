@@ -5,6 +5,7 @@ import com.example.coco_spring.Repository.DeliveryRepository;
 import com.example.coco_spring.Repository.OrderRepository;
 import com.example.coco_spring.Repository.ProviderRepository;
 import com.example.coco_spring.Service.ICRUDService;
+import com.example.coco_spring.websocketproject.ChatmessageRepo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.Optional;
 @Slf4j
 @AllArgsConstructor
 public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliveryService {
+    private final ChatmessageRepo chatmessageRepo;
 
     DeliveryRepository deliveryRepository;
     OrderRepository orderRepository;
@@ -64,6 +66,10 @@ public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliverySe
 
     @Override
     public void assignDeliveryToOrder(Long orderId, Long deliveryId) {
+        Order order = orderRepository.findById(orderId).get();
+        Delivery delivery = deliveryRepository.findById(deliveryId).get();
+        order.setDelivery(delivery);
+        orderRepository.save(order);
 
     }
 
@@ -127,5 +133,11 @@ public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliverySe
         dist = dist * 60 * 1.1515;
         dist = dist * 1.609344; // convert to kilometers
         return dist;
+    }
+
+
+    public void cancelDelivery(Long id) {
+        Delivery delivery = deliveryRepository.findById(id).get();
+        delivery.setCancelled(true);
     }
 }

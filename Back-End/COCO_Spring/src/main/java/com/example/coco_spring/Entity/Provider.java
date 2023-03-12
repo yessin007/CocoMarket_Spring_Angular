@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,4 +32,6 @@ public class Provider {
     @JsonIgnore
     @OneToMany(mappedBy = "provider",cascade = CascadeType.ALL)
     List<Delivery> deliveries;
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProviderRating> ratings = new ArrayList<>();
 }

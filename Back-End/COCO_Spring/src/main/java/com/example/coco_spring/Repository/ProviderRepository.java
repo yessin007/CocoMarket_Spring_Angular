@@ -12,4 +12,6 @@ import java.util.List;
 public interface ProviderRepository extends JpaRepository<Provider, Long> {
     @Query("SELECT p FROM Provider p")
     List<Provider> findAllDeliverymen();
+
+    List<Provider> findAllByOrderByProviderNameAsc();
 }

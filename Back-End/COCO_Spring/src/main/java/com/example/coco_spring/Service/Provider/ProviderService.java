@@ -1,7 +1,11 @@
 package com.example.coco_spring.Service.Provider;
 
 import com.example.coco_spring.Entity.Provider;
+import com.example.coco_spring.Entity.ProviderRating;
+import com.example.coco_spring.Entity.User;
+import com.example.coco_spring.Repository.ProviderRatingRepository;
 import com.example.coco_spring.Repository.ProviderRepository;
+import com.example.coco_spring.Repository.UserRepository;
 import com.example.coco_spring.Service.ICRUDService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +18,8 @@ import java.util.List;
 public class ProviderService implements ICRUDService<Provider,Long>, IProviderService {
 
     ProviderRepository providerRepository;
-
+    ProviderRatingRepository providerRatingRepository;
+    UserRepository customerRepository;
     @Override
     public List<Provider> findAll() {
 
@@ -44,5 +49,9 @@ public class ProviderService implements ICRUDService<Provider,Long>, IProviderSe
 
         return providerRepository.save(delivery);
     }
+
+
+
+
 
 }
