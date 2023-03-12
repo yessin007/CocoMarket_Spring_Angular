@@ -43,4 +43,9 @@ public class UserService {
     public void deleteUser(long id) {
         userRepository.deleteById(id);
     }
+
+    public void updateAuthenticationType(String username, String oauth2ClientName) {
+        AuthenticationProvider authType = AuthenticationProvider.valueOf(oauth2ClientName.toUpperCase());
+        userRepository.updateAuthenticationType(username, authType);
+    }
 }

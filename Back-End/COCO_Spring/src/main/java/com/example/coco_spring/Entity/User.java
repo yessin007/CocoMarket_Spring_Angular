@@ -43,6 +43,8 @@ public class User implements UserDetails {
     private String telNum;
     @Enumerated(EnumType.STRING)
     private Role roles;
+    @Enumerated(EnumType.STRING)
+    private AuthenticationProvider authenticationProvider;
     @OneToOne
     Payement payement;
     @OneToOne
