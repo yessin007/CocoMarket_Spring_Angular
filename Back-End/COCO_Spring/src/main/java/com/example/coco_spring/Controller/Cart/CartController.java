@@ -53,9 +53,10 @@ public class CartController {
         return  cartService.addProductToCart(cartId, productId);
     }
 
-    @PostMapping("/users/{userId}/{productId}")
-    public List<Product> addProductToCartByUser(@PathVariable("userId") Long userId,
-                                                 @PathVariable("productId") Long productId) {
+    @PostMapping("/users")
+    public List<Product> addProductToCartByUser(@RequestParam("userId") Long userId,
+                                                 @RequestParam("productId") Long productId,
+                                                    @RequestParam("quantity") Long quantity) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found with id " + userId));
         Cart cart = user.getCart();
@@ -67,16 +68,16 @@ public class CartController {
         Product product = productRepository.findById(productId).orElse(null);
         product.setCart(cart);
         cart.getProducts().add(product);
-
+        cart.setProductQuantity(quantity);
         cartRepsitory.save(cart);
 
         return cart.getProducts();
     }
 
 
-    @PostMapping("/cart/add")
-    public String addToCart(@RequestParam("productId") Long productId,
-                                           @RequestParam("quantity") int quantity,
+    @PostMapping("/QuantityProductToCart/{productId}/{quantity}")
+    public Long AssignQunatityToProductInCart(@PathVariable("productId") Long productId,
+                                           @PathVariable("quantity") int quantity,
                                            Principal principal) {
         String username = principal.getName();
         User user = userRepository.findByUsername(username).get();
@@ -84,7 +85,7 @@ public class CartController {
         Cart cart = user.getCart();
         cartService.addItem(product, quantity);
         cartRepsitory.save(cart);
-        return username;
+        return user.getId();
     }
 
 }
