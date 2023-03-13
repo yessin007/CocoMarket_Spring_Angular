@@ -1,4 +1,4 @@
-package com.example.coco_spring.Service.Delivery.TimeSlot;
+package com.example.coco_spring.Service.TimeSlot;
 
 import com.example.coco_spring.Entity.Delivery;
 import com.example.coco_spring.Entity.TimeSlot;

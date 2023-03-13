@@ -95,12 +95,6 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
         Store store = storeRepository.findById(storeId).orElseThrow();
         return store.getProducts();
     }
-
-
-    public BadWords addBadWord(BadWords b ) {
-        return badWordRepo.save(b);
-    }
-
     public Store getStoreByProductId(Long productId){
         List<Store> stores= storeRepository.findAll();
         Product product=productRepository.findById(productId).get();

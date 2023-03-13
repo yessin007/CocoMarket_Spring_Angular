@@ -1,7 +1,6 @@
 package com.example.coco_spring.Entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +14,6 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity
@@ -36,11 +34,17 @@ public class User implements UserDetails {
     private String username;
     private String email;
     private String password;
+    private Integer codeReset;
     private String address;
     @Temporal (TemporalType.DATE)
     private Date dayOfBirth;
     private String cin;
     private String telNum;
+    private Boolean expired;
+    @Temporal (TemporalType.DATE)
+    private Date dateToUnexired;
+    private Boolean locked;
+    private Integer codeActivation;
     @Enumerated(EnumType.STRING)
     private Role roles;
     @JsonIgnore
@@ -95,12 +99,12 @@ public class User implements UserDetails {
     }
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return !this.expired;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !this.locked;
     }
 
     @Override

@@ -2,6 +2,9 @@ package com.example.coco_spring.Controller.Delivery;
 
 import com.example.coco_spring.Entity.ProviderLocation;
 import com.example.coco_spring.Entity.Delivery;
+import com.example.coco_spring.Repository.OrderRepository;
+import com.example.coco_spring.Service.Delivery.DeliveryService;
+import lombok.AllArgsConstructor;
 import com.example.coco_spring.Entity.Provider;
 import com.example.coco_spring.Entity.StoreLocations;
 import com.example.coco_spring.Repository.DeliveryRepository;
@@ -13,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/delivery/")
 public class DeliveryController {
     private final DeliveryService deliveryService;

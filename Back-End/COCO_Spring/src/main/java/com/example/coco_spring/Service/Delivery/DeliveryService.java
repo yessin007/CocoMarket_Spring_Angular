@@ -8,8 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -54,9 +52,9 @@ public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliverySe
     }
 
 
-    /*public void assignDeliveryToOrder(Long orderId, Long deliveryId){
+    public void assignDeliveryToOrder(Long orderId, Long deliveryId){
         Order order = orderRepository.findById(orderId).get();
-        deliveries delivery = deliveryRepository.findById(deliveryId).get();
+        Delivery delivery = deliveryRepository.findById(deliveryId).get();
         order.setDelivery(delivery);
         orderRepository.save(order);
 
@@ -71,6 +69,7 @@ public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliverySe
         orderRepository.save(order);
 
     }
+
 
     public void assignProviderDelivery(Long deliveryId, Long providerId) {
         Provider provider = providerRepository.findById(providerId).get();

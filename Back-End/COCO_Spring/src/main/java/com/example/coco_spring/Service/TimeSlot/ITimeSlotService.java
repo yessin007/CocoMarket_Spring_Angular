@@ -1,6 +1,7 @@
-package com.example.coco_spring.Service.Delivery.TimeSlot;
+package com.example.coco_spring.Service.TimeSlot;
 
 import com.example.coco_spring.Entity.TimeSlot;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
 import java.util.List;
