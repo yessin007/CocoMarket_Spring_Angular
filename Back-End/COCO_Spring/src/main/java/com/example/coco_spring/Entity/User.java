@@ -39,6 +39,10 @@ public class User implements UserDetails {
     private Date dayOfBirth;
     private String cin;
     private String telNum;
+    private Boolean expired;
+    private Boolean locked;
+
+    private Integer codeActivation;
     @Enumerated(EnumType.STRING)
     private Role roles;
     @OneToOne
@@ -65,12 +69,12 @@ public class User implements UserDetails {
     }
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return !this.expired;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !this.locked;
     }
 
     @Override

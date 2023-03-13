@@ -149,10 +149,7 @@
             <version>1.4</version>
         </dependency>
 
-<<<<<<< HEAD
 
-        <dependency>
-=======
         <dependency>
             <groupId>org.springframework.social</groupId>
             <artifactId>spring-social-facebook</artifactId>
@@ -164,7 +161,7 @@
             <artifactId>spring-boot-starter-oauth2-client</artifactId>
         </dependency>
         <dependency>
->>>>>>> parent of 8919370 (errrrr)
+
             <groupId>com.google.zxing</groupId>
             <artifactId>core</artifactId>
             <version>3.4.1</version>

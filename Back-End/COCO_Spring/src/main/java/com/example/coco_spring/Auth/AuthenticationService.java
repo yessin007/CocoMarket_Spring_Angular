@@ -15,6 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
+import java.util.Collections;
+import java.util.Objects;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +30,10 @@ public class AuthenticationService {
     private final EmailService emailService;
 
     public AuthenticationResponse register(RegisterRequest request) throws MessagingException {
+        Random random = new Random();
+
+        int randomNumber = random.nextInt(90000000) + 10000000;
+
         var user = User.builder()
                 .username(request.getUsername())
                 .name(request.getFirstname())
@@ -34,6 +41,9 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .roles(request.getRole())
+                .locked(true)
+                .expired(false)
+                .codeActivation(randomNumber)
                 .build();
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -55,15 +65,26 @@ public class AuthenticationService {
         );
         var user = repository.findByUsername(request.getUsername())
                 .orElseThrow();
+        if (user.isAccountNonExpired()){
         var jwtToken = jwtService.generateToken(user);
         //revokeAllUserTokens(user); hedhi eli lezem nraja33ha
         saveUserToken(user, jwtToken);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
-                .build();
+                .build();}
+        else if(user.isAccountNonLocked()){
+            return AuthenticationResponse.builder()
+                    .errors(Collections.singletonList("this profile is not yet verified. please check your mail to activate it"))
+                    .build();
+        }
+        else {
+            return AuthenticationResponse.builder()
+                    .errors(Collections.singletonList("this profile is blocked."))
+                    .build();
+        }
     }
 
-    private void saveUserToken(User user, String jwtToken) {
+    public void saveUserToken(User user, String jwtToken) {
         var token = Token.builder()
                 .user(user)
                 .token(jwtToken)
@@ -83,5 +104,13 @@ public class AuthenticationService {
             token.setRevoked(true);
         });
         tokenRepository.saveAll(validUserTokens);
+    }
+    public String verifAccount(Long id, Integer code) {
+        User u = repository.findById(id).get();
+        if (Objects.equals(u.getCodeActivation(), code)) {
+            u.setLocked(false);
+            return "done";
+        }
+        else return "error";
     }
 }
