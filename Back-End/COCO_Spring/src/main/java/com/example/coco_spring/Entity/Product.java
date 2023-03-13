@@ -44,8 +44,9 @@ public class Product {
     @OneToMany(cascade = CascadeType.ALL)
     List<Review> reviews;
     @JsonIgnore
-    @ManyToMany(mappedBy = "products",cascade = CascadeType.ALL)
-    List<Store> stores;
+    @ManyToOne(cascade = CascadeType.ALL)
+    Store stores;
+
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
     List<LikeDislikeProduct> likeDislikeProducts;

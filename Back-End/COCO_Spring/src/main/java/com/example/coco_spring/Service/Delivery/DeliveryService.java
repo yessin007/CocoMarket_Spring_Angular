@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -81,18 +80,19 @@ public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliverySe
     }
 
     @Transactional
-    public Delivery dispatchDeliveryToNearestDeliveryman(ClientLocationRequest clientLocationRequest) {
-        List<Provider> deliverymen = getDeliverymenWithinRadius(clientLocationRequest.getLatitude(),
-                clientLocationRequest.getLongitude(), 10); // 10 km radius
+    public Delivery dispatchDeliveryToNearestDeliveryman(ProviderLocation clientLocation) {
+        List<Provider> deliverymen = getDeliverymenWithinRadius(clientLocation.getLatitude(),
+                clientLocation.getLongitude(), 15); // 10 km radius
 
-        Provider nearestDeliveryman = getNearestDeliveryman(deliverymen, clientLocationRequest.getLatitude(),
-                clientLocationRequest.getLongitude());
+        Provider nearestDeliveryman = getNearestDeliveryman(deliverymen, clientLocation.getLatitude(),
+                clientLocation.getLongitude());
         Delivery delivery = new Delivery();
         delivery.setProvider(nearestDeliveryman);
 
-        delivery.setClientAddress(clientLocationRequest.getAddress());
-        delivery.setClientLatitude(clientLocationRequest.getLatitude());
-        delivery.setClientLongitude(clientLocationRequest.getLongitude());
+        delivery.setClientAddress(clientLocation.getAddress());
+        delivery.setClientLatitude(clientLocation.getLatitude());
+        delivery.setClientLongitude(clientLocation.getLongitude());
+        delivery.setStatut(Status.PENDING);
         return deliveryRepository.save(delivery);
 
     }
@@ -101,7 +101,7 @@ public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliverySe
         List<Provider> deliverymen = providerRepository.findAllDeliverymen();
         List<Provider> deliverymenWithinRadius = new ArrayList<>();
         for (Provider deliveryman : deliverymen) {
-            double distance = distanceInKm(latitude, longitude, deliveryman.getLatitude(), deliveryman.getLongitude());
+            double distance = distanceInKm(latitude, longitude, deliveryman.getProviderLocation().getLatitude(), deliveryman.getProviderLocation().getLongitude());
             if (distance <= radiusInKm) {
                 deliverymenWithinRadius.add(deliveryman);
             }
@@ -114,8 +114,8 @@ public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliverySe
         Provider nearestDeliveryman = null;
         double shortestDistance = Double.MAX_VALUE;
         for (Provider deliveryman : deliverymen) {
-            double distance = distanceInKm(clientLatitude, clientLongitude, deliveryman.getLatitude(),
-                    deliveryman.getLongitude());
+            double distance = distanceInKm(clientLatitude, clientLongitude, deliveryman.getProviderLocation().getLatitude(),
+                    deliveryman.getProviderLocation().getLongitude());
             if (distance < shortestDistance) {
                 shortestDistance = distance;
                 nearestDeliveryman = deliveryman;
@@ -134,10 +134,21 @@ public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliverySe
         dist = dist * 1.609344; // convert to kilometers
         return dist;
     }
-
-
-    public void cancelDelivery(Long id) {
+    public Delivery cancelDelivery(Long id) {
         Delivery delivery = deliveryRepository.findById(id).get();
         delivery.setCancelled(true);
+        return deliveryRepository.save(delivery);
     }
+    public  Delivery changeStatusToProg(Long id){
+        Delivery delivery = deliveryRepository.findById(id).get();
+        delivery.setStatut(Status.IN_PROGRESS);
+        return deliveryRepository.save(delivery);
+    }
+    public  Delivery changeStatusToDelivered(Long id){
+        Delivery delivery = deliveryRepository.findById(id).get();
+        delivery.setStatut(Status.DELIVERED);
+        return deliveryRepository.save(delivery);
+    }
+
 }
+

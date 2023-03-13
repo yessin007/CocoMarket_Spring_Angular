@@ -27,7 +27,6 @@ public class Delivery {
 
     @Column(name = "client_longitude")
     private Double clientLongitude;
-
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "deliveryman_id")
     @JsonIgnore
@@ -48,5 +47,7 @@ public class Delivery {
     @OneToMany(mappedBy = "delivery",cascade = CascadeType.ALL)
     List<Order> orders;
 
-
+    public Delivery() {
+        this.statut = Status.PENDING;
+    }
 }

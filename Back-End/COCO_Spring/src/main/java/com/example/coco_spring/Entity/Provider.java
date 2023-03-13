@@ -22,16 +22,15 @@ public class Provider {
     private long providerId;
     private String providerName;
     private long providerPrice;
-    @Temporal (TemporalType.DATE)
-    private Date estimationDate;
-    @Enumerated(EnumType.STRING)
-    private ProviderRate providerRate;
-    private double latitude;
-    private double longitude;
+    private int nb_etoil;
 
     @JsonIgnore
     @OneToMany(mappedBy = "provider",cascade = CascadeType.ALL)
     List<Delivery> deliveries;
+
+    @OneToOne
+    ProviderLocation providerLocation;
+
     @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProviderRating> ratings = new ArrayList<>();
 }

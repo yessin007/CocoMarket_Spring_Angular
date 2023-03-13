@@ -3,6 +3,10 @@ package com.example.coco_spring.Service.Store;
 import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Repository.*;
 import com.example.coco_spring.Service.*;
+import com.example.coco_spring.Service.Delivery.LocationService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,21 +15,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
-import java.util.HashSet;
+import java.util.*;
 
 import javax.mail.MessagingException;
 import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-
-import java.util.List;
-import java.util.Set;
 
 @Service
 @Slf4j
 @AllArgsConstructor
 public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
     StoreRepository storeRepository;
+    LocationService locationService;
+
+    StoreLocationsRepository storeLocationsRepository;
     QuizzRepository quizzRepository;
 
     UserRepository userRepository;
@@ -217,12 +220,7 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
         return postLike;
     }
 
-    @Override
-    public ResponseEntity<?> addressMapss(Long idEvent) throws IOException, InterruptedException {
 
-        // TODO Auto-generated method stub
-        return null;
-    }
 
     public int PostLikeFromUser(Long isUser,Long Idpost) {
         int x =0;
@@ -307,5 +305,37 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
         quizzRepository.save(Q);
 
     }
+
+    public ResponseEntity<Map<String, Object>> setLatLngToStore(Long storeId) {
+        try {
+            String geolocationResponse = locationService.getGeolocation();
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(geolocationResponse);
+            double latitude = root.get("location").get("lat").asDouble();
+            double Langitude = root.get("location").get("lng").asDouble();
+            StoreLocations storeLocations = new StoreLocations();
+            storeLocations.setLatitude(latitude);
+            storeLocations.setLongitude(Langitude);
+            storeLocationsRepository.save(storeLocations);
+            Store store = storeRepository.findById(storeId).get();
+            AssignLocationtoStore(storeLocations.getId(),store.getStoreId());
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("latitude", latitude);
+            response.put("langitude", Langitude);
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public Store AssignLocationtoStore(Long locationId, Long  StoreId) {
+        Store store = storeRepository.findById(StoreId).get();
+        StoreLocations storeLocations = storeLocationsRepository.findById(locationId).get();
+        store.setStoreLocations(storeLocations);
+        return storeRepository.save(store);
+    }
+
+
 
 }

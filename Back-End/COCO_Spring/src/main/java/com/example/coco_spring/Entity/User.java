@@ -57,6 +57,8 @@ public class User implements UserDetails {
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
+    @OneToOne
+    ProviderLocation clientLocation;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
