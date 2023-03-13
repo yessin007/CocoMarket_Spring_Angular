@@ -40,8 +40,9 @@ public class User implements UserDetails {
     private String cin;
     private String telNum;
     private Boolean expired;
+    @Temporal (TemporalType.DATE)
+    private Date dateToUnexired;
     private Boolean locked;
-
     private Integer codeActivation;
     @Enumerated(EnumType.STRING)
     private Role roles;

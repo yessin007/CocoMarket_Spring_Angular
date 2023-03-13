@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,9 +43,9 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public User updateRoleUser(Long id, Role r) {
+    public User updateRoleUser(Long id, String r) {
         User user = userRepository.findById(id).get();
-        user.setRoles(r);
+        user.setRoles(Role.valueOf(r));
         return userRepository.save(user);
     }
 
@@ -57,4 +60,14 @@ public class UserService {
         userRepository.updateAuthenticationType(username, authType);
     }
 >>>>>>> parent of 8919370 (errrrr)*/
+
+    public User setUserExpiration (Long id,Integer duration){
+        User user = userRepository.findById(id).get();
+        user.setExpired(true);
+        LocalDate currentDate = LocalDate.now();
+        LocalDate unexpirDate = currentDate.plusDays(duration);
+        Date dateToUnexpire = Date.from(unexpirDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        user.setDateToUnexired(dateToUnexpire);
+        return userRepository.save(user);
+    }
 }

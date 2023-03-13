@@ -3,6 +3,7 @@ package com.example.coco_spring.Service;
 import com.example.coco_spring.Entity.Product;
 import com.example.coco_spring.Entity.ProductCategory;
 import com.example.coco_spring.Entity.User;
+import com.example.coco_spring.Repository.UserRepository;
 import com.example.coco_spring.Service.Product.ProductServices;
 import com.example.coco_spring.Service.User.UserService;
 import lombok.AllArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -22,6 +24,7 @@ public class SchedulerMailService {
     UserService userService;
     ProductServices productServices;
     EmailService emailService;
+    UserRepository userRepository;
 
     @Scheduled(cron = "0 30 9 * * ?")
     public void runScheduledDailyOffre() throws MessagingException {
@@ -41,4 +44,14 @@ public class SchedulerMailService {
             emailService.sendDailyOfferEmail(user,p);
         }
     }*/
+    @Scheduled(cron = "0 1 0 * * ?")
+    public void unblockUser(){
+        List<User> expiredUsers = userRepository.findExpiredUsers();
+        Date currentDate = new Date();
+        for (User user : expiredUsers) {
+            if (user.getDateToUnexired().before(currentDate)) {
+                user.setExpired(false);
+            }
+        }
+    }
 }

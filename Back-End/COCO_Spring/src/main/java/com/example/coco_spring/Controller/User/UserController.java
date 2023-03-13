@@ -50,8 +50,15 @@ public class UserController {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
-    @PutMapping("/updateRole/{id}")
-    public ResponseEntity<User> updateRoleUser(@PathVariable("id") Long id,@RequestBody Role r) {
-        return ResponseEntity.ok().body(userService.updateRoleUser(id,r));
+    @PostMapping("/updateRole/{id}/{role}")
+    public String updateRoleUser(@PathVariable("id") Long id,@PathVariable("role") String r) {
+        User u =userService.updateRoleUser(id,r);
+        return "User "+u.getName()+" is "+u.getRoles();
+    }
+
+    @PutMapping("/block/{id}/{duration}")
+    public String blockUser(@PathVariable("id") Long id,@PathVariable("duration")Integer dur) {
+        User u= userService.setUserExpiration(id, dur);
+        return "User "+u.getName()+" is blocker for "+dur+"days";
     }
 }
