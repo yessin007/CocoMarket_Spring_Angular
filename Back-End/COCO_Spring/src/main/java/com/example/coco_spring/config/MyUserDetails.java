@@ -1,32 +1,41 @@
 package com.example.coco_spring.config;
+import java.util.*;
 
+import com.example.coco_spring.Entity.Role;
+import com.example.coco_spring.Entity.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
 
 public class MyUserDetails implements UserDetails {
 
-    private String username;
-    private String password;
-    private List<GrantedAuthority> authorities;
+    private User user;
 
-    // Constructor, getters and setters
+    public MyUserDetails(User user) {
+        this.user = user;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.authorities;
+        Set<Role> roles = Collections.singleton(Role.valueOf(user.getRoles().name()));
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.name()));
+        }
+
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return this.password;
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return this.username;
+        return user.getUsername();
     }
 
     @Override
@@ -46,7 +55,7 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return user.isEnabled();
     }
-}
 
+}

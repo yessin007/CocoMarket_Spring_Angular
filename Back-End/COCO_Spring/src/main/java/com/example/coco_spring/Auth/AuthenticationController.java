@@ -5,6 +5,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -23,14 +24,16 @@ import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.io.IOException;
+import java.io.IOException;import org.springframework.context.annotation.Lazy;
+
 
 @RestController
+@Lazy
 @RequestMapping("/api/v1/auth")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class AuthenticationController {
 
-    private final AuthenticationService service;
+    private AuthenticationService service;
     @Value("${google.clientId}")
     String googleClientId;
 

@@ -2,6 +2,8 @@ package com.example.coco_spring.config;
 
 import com.example.coco_spring.Repository.TokenRepository;
 import java.io.IOException;
+
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Component
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 

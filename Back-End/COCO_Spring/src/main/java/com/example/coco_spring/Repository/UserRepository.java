@@ -22,4 +22,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Query("UPDATE User u SET u.authenticationProvider = ?2 WHERE u.username = ?1")
     public void updateAuthenticationType(String username, AuthenticationProvider authType);
+
+    User getUserByUsername(String username);
 }

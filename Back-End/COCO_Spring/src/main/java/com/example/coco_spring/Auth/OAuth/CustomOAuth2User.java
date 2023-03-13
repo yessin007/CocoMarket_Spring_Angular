@@ -1,12 +1,11 @@
-package com.example.coco_spring.Auth;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.oauth2.core.user.OAuth2User;
+package com.example.coco_spring.Auth.OAuth;
 
 import java.util.Collection;
 import java.util.Map;
 
-public class CustomOAuth2User implements OAuth2User {
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+public class CustomOAuth2User implements OAuth2User{
     private String oauth2ClientName;
     private OAuth2User oauth2User;
 

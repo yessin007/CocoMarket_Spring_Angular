@@ -1,4 +1,10 @@
-package com.example.coco_spring.Auth;
+package com.example.coco_spring.Auth.OAuth;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.example.coco_spring.Service.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,10 +12,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @Component
 public class OAuthLoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
@@ -19,7 +21,7 @@ public class OAuthLoginSuccessHandler extends SavedRequestAwareAuthenticationSuc
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-                                        Authentication authentication) throws ServletException, IOException, ServletException {
+                                        Authentication authentication) throws ServletException, IOException {
         CustomOAuth2User oauth2User = (CustomOAuth2User) authentication.getPrincipal();
         String oauth2ClientName = oauth2User.getOauth2ClientName();
         String username = oauth2User.getEmail();
