@@ -46,12 +46,15 @@ public class SubsciptionService {
         List<Product> industrialProducts= allProducts.stream().filter(p -> p.getProductCategory().equals(ProductCategory.Industrial)).sorted((a,b)->reviewServices.numberOfLikes(a.getProductId())-reviewServices.numberOfLikes(b.getProductId())).limit(10).toList();
         topChosen.add(industrialProducts);
         for(List<Product> productList:topChosen){
-            topRatedProductByCategoryMap.put(productList.get(0).getProductCategory(),productList);
+            if(!productList.isEmpty()){
+                topRatedProductByCategoryMap.put(productList.get(0).getProductCategory(),productList);
+            }
+
         }
         return topRatedProductByCategoryMap;
     }
     public Map<ProductCategory,List<Product>> getUserWishlist(Long userId){
-        Map<ProductCategory,List<Product>> top10RatedProductByCategory=top10RatedProductByCategory();
+        Map<ProductCategory,List<Product>> top10RatedProductByCategory=this.top10RatedProductByCategory();
         List<String> interestsOfBuyers=userService.findtheinterestsofbuyers(userId);
         Map<ProductCategory,List<Product>> getUserWishlistMap=new HashMap<>();
         for (ProductCategory productCategory:top10RatedProductByCategory.keySet()){
@@ -62,5 +65,6 @@ public class SubsciptionService {
         }
         return getUserWishlistMap;
     }
+
 
 }

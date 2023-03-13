@@ -110,8 +110,8 @@ public class ProductController {
         return storeService.getStoreByProductId(productId);
     }
 
-    @GetMapping("/insuranceprice/{idprod}")
-    public double calculateProductInsurance(@PathVariable("idprod") Long productId) {
-        return productServices.calculateProductInsurance(productId);
+    @GetMapping("/insuranceprice/{idprod}/{iduser}")
+    public double calculateProductInsurance(@PathVariable("idprod") Long productId,@PathVariable("iduser") Long idUser) {
+        return productServices.calculateProductInsurance(productId,idUser);
     }
 }
