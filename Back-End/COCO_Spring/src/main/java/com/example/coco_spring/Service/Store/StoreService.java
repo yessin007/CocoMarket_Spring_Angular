@@ -222,28 +222,30 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
                 if (l.getIsLiked() == true) {x= 1;}
                 else {x=0;}
             }
-
+            return x;
         }
-        return x;
+        return  x;
     }
-    public PostStore Get_best_Post() throws MessagingException {
+    public String Get_best_Post() throws MessagingException {
         PostStore p1 = null;
         int x = 0;
+
         for (PostStore p : postRepo.findAll()) {
             if (postRepo.diffrence_entre_date(p.getCreatedAt()) <= 7) {
                 if (p.getPostLikes().size() > x) {
                     p1 = p;
-                    x = p.getPostLikes().size();
+                    for(PostLike pl: p.getPostLikes()){
+                        if(pl.getIsLiked()==true){
+                            x++;
+                        }
+                    }
+
                 }
-                /*
-                 * else if (p.getPostLikes().size() == x) { if
-                 * (postRepo.diffrence_entre_date(p.getCreatedAt())<postRepo.
-                 * diffrence_entre_date(p1.getCreatedAt())) { p1 = p;} }
-                 */
+
             }
         }
         emailService.sendAllertReport("Congrates Your Post : "+p1.getPostTitle()+" is the best post for week  \n", p1.getUser().getEmail());
-        return p1;
+        return p1.getPostTitle();
     }
     public PostStore Give_Etoile_Post(Long idPost, int nb_etouile) {
         PostStore post1 = postRepo.findById(idPost).orElseThrow(() -> new EntityNotFoundException("post not found"));

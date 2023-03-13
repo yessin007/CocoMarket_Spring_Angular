@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/api/ch")
 public class ChatBotController {
     private static final String OPENAI_API_URL = "https://api.openai.com/v1/engines/davinci-codex/completions";
-    private static final String OPENAI_API_KEY = "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";
+    private static final String OPENAI_API_KEY = "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";
 
     @PostMapping("/chatbot")
     public String generateResponse(@RequestParam String message) {

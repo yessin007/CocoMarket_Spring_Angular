@@ -114,7 +114,7 @@ public class StoreController {
         return storeService.PostLikeFromUser(IdPost,id);
     }
     @GetMapping("/Get-best-post-week")
-    public PostStore Get_best_Post( ) throws MessagingException {
+    public String Get_best_Post( ) throws MessagingException {
         return storeService.Get_best_Post();
     }
     @PutMapping("/Give-post-etoile/{idPost}/{nb_etoile}")
@@ -138,5 +138,6 @@ public class StoreController {
 
         return new ResponseEntity(storeService.addressMapss(idStore), HttpStatus.OK);
     }
+
 
 }
