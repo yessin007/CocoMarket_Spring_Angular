@@ -23,7 +23,7 @@ public class Cart implements Serializable {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long cartId;
     private Long productQuantity;
-   /*
+   /* Ahmed Mellouli
     @OneToMany(cascade = CascadeType.ALL)
     List<Product> products;
     */
@@ -33,7 +33,9 @@ public class Cart implements Serializable {
     @JsonIgnore
     @OneToOne
     Order order;
-@JsonIgnore
+
+    /* Yessin Khlif */
+    @JsonIgnore
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products = new ArrayList<>();
 

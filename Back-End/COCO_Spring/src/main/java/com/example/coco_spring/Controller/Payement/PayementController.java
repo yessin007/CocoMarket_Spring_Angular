@@ -44,20 +44,17 @@ public class PayementController {
         payementService.delete(payementId);
     }
 
-    @GetMapping("/findOrderByPayementDate")
-    public Order findByPayementDate(@RequestParam("date")  @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+    @PostMapping("/findOrderByPayementDate")
+    public List<Order> findByPayementDate(@RequestParam("date")  @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
         return payementService.findByPaymentDate(date);
     }
 
-    @PutMapping("/assignOrderToPayment/{orderId}/{paymentId}")
-    public void assignOrderToPayment(@PathVariable("orderId") Long orderId,@PathVariable("paymentId") Long paymentId){
-        payementService.assignOrderToPayment(orderId, paymentId);
+    @PostMapping("/assignOrderToPayment/{orderId}/{paymentId}")
+    public Order assignOrderToPayment(@PathVariable("orderId") Long orderId,@PathVariable("paymentId") Long paymentId){
+        return payementService.assignOrderToPayment(orderId, paymentId);
 
 
     }
-
-
-
 
 
 
