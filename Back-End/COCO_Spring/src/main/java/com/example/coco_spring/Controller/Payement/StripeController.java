@@ -66,9 +66,10 @@ public class StripeController {
 
 
     @PostMapping("/paymentStripee")
-    public String payyment(@RequestParam("token") String token, @RequestParam("amount") int amount) throws StripeException{
-        stripePayment.chargeCreditCard(token, amount);
-        return  "c bon";
+    public ResponseEntity<String> payyment(@RequestParam("token") String token, @RequestParam("amount") int amount) throws StripeException{
+       String chargee = stripePayment.chargeCreditCard(token, amount).toString();
+
+        return  ResponseEntity.ok().body(chargee);
     }
 
 
@@ -83,7 +84,8 @@ public class StripeController {
                     "source", "tok_visa"
             ));
 
-            return ResponseEntity.ok(charge.getId());
+
+            return ResponseEntity.ok(charge.toString());
         } catch (StripeException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
