@@ -95,5 +95,22 @@ public class EmailService {
         mailSender.send(mimeMessage);
 
     }
+
+    public void sendBlockEmail(User u,Integer dure) throws MessagingException {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
+        messageHelper.setSubject("Your Account has benn Blocked");
+        messageHelper.setTo(u.getEmail());
+
+        Context context = new Context();
+        context.setVariable("name", u.getName());
+        context.setVariable("dure", dure);
+        //String content = templateEngine.process("email-template", context);
+        String content = templateEngine.process("BlockMail.html", context);
+
+
+        messageHelper.setText(content, true);
+        mailSender.send(mimeMessage);
+    }
 }
 

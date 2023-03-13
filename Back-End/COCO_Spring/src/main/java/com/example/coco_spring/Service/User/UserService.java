@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -22,6 +23,7 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+    private EmailService emailService;
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -61,13 +63,15 @@ public class UserService {
     }
 >>>>>>> parent of 8919370 (errrrr)*/
 
-    public User setUserExpiration (Long id,Integer duration){
+    public User setUserExpiration (Long id,Integer duration) throws MessagingException {
         User user = userRepository.findById(id).get();
         user.setExpired(true);
         LocalDate currentDate = LocalDate.now();
         LocalDate unexpirDate = currentDate.plusDays(duration);
         Date dateToUnexpire = Date.from(unexpirDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         user.setDateToUnexired(dateToUnexpire);
-        return userRepository.save(user);
+        userRepository.save(user);
+        emailService.sendBlockEmail(user,duration);
+        return user;
     }
 }

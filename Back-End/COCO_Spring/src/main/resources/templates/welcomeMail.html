@@ -1,3 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to our community!</title>
+</head>
+<body style="font-family: Arial, sans-serif; font-size: 16px; line-height: 1.5; margin: 0; padding: 0;">
+
+<header style="background-color: #f2f2f2; padding: 20px;">
+    <h1>Welcome to our community!</h1>
+</header>
+
+<main style="padding: 20px;">
+    <p>Dear <p th:text="${name}"></p></p>
+
+    <p>Thank you for joining our community! We're excited to have you onboard.</p>
+
+    <p>To activate your account, please enter the following activation code:</p>
+
+    <p style="background-color: #f2f2f2; font-size: 24px; font-weight: bold; padding: 10px;" th:text="${code}"></p>
+
+    <!--<p>Simply click on the following link to activate your account:</p>
+
+    <p style="margin-top: 20px;"><a href="[activation link]" style="background-color: #007bff; color: #fff; display: inline-block; padding: 10px 20px; text-decoration: none;">Activate your account</a></p>
+-->
+    <p>If you have any questions or need assistance, please feel free to contact us at [support email].</p>
+
+    <p>Thanks again for joining us!</p>
+
+    <p>Best regards,<br>The [community name] team</p>
+</main>
+
+<footer style="background-color: #f2f2f2; padding: 20px;">
+    <p style="font-size: 12px;">You received this email because you signed up for COCOMarket. If you believe this is a mistake, please contact us at [support email].</p>
+</footer>
+
+</body>
+</html>
+
+
+
+
+<!--
 <td class="esd-stripe" style="background-color: #ffa73b;" bgcolor="#ffa73b" align="center">
     <table class="es-content-body" style="background-color: transparent;" width="600" cellspacing="0" cellpadding="0" align="center">
         <tbody>
@@ -36,4 +78,4 @@
         </tr>
         </tbody>
     </table>
-</td>
+</td>-->
