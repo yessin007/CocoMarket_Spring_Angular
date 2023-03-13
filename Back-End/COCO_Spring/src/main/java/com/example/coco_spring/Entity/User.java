@@ -57,8 +57,12 @@ public class User implements UserDetails {
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
+
     @OneToOne
-    ProviderLocation clientLocation;
+    ClientLocation clientLocation;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<ProviderRating> providerRatings;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
@@ -109,4 +113,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

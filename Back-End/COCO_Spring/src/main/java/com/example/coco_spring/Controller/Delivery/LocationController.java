@@ -16,6 +16,7 @@ public class LocationController {
     //@Scheduled(fixedRate = 5000) // Run every 30s
     @GetMapping("/map")
     public String getGeolocation() throws JsonProcessingException {
+        System.out.println(locationService.getGeolocation());
         return locationService.getGeolocation();
     }
 

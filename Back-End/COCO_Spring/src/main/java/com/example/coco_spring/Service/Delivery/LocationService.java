@@ -57,13 +57,13 @@ public class LocationService implements ILocationService {
         String storeName = null;
         Map<String,StoreLocations> map= new HashMap<>();
         for (Product product1 : products ) {
-            Store store = product1.getStores();
+            Store store = product1.getStoress();
 
             double distance = distanceInKm(clientLatitude, clientLongitude, store.getStoreLocations().getLatitude(), store.getStoreLocations().getLongitude());
                 if (distance < shortestDistance) {
                     shortestDistance = distance;
-                    storeName = product1.getStores().getStoreName();
-                    storeLocations =product1.getStores().getStoreLocations();
+                    storeName = product1.getStoress().getStoreName();
+                    storeLocations =product1.getStoress().getStoreLocations();
                 }
             }
         map.put(storeName, storeLocations);

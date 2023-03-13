@@ -38,7 +38,7 @@ public class Store implements Serializable {
     List<Product> products;
 
 
-    @OneToMany(mappedBy = "stores")
+    @OneToMany(mappedBy = "storess")
     List<Product> productList;
 
 

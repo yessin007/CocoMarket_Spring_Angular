@@ -2,6 +2,7 @@ package com.example.coco_spring.Service.Provider;
 
 import com.example.coco_spring.Entity.ProviderLocation;
 import com.example.coco_spring.Entity.Provider;
+import com.example.coco_spring.Entity.ProviderRating;
 import com.example.coco_spring.Entity.User;
 import com.example.coco_spring.Repository.ProviderLocationRepository;
 import com.example.coco_spring.Repository.ProviderRatingRepository;
@@ -30,7 +31,7 @@ public class ProviderService implements ICRUDService<Provider,Long>, IProviderSe
 
     ProviderRepository providerRepository;
     ProviderRatingRepository providerRatingRepository;
-    UserRepository customerRepository;
+    UserRepository userRepository;
     LocationService locationService;
     @Override
     public List<Provider> findAll() {
@@ -61,12 +62,12 @@ public class ProviderService implements ICRUDService<Provider,Long>, IProviderSe
 
         return providerRepository.save(delivery);
     }
-    public Provider rateProvider (Long providerId, int nb_etouile) {
+    /*public Provider rateProvider (Long providerId, int nb_etouile) {
         Provider provider = providerRepository.findById(providerId).get();
         provider.setNb_etoil(nb_etouile);
         return providerRepository.save(provider);
     }
-
+*/
     public ResponseEntity<Map<String, Object>> setLatLngToProvider(Long providerId) {
         try {
             String geolocationResponse = locationService.getGeolocation();
@@ -74,12 +75,12 @@ public class ProviderService implements ICRUDService<Provider,Long>, IProviderSe
             JsonNode root = mapper.readTree(geolocationResponse);
             double latitude = root.get("location").get("lat").asDouble();
             double Langitude = root.get("location").get("lng").asDouble();
-            ProviderLocation clientLocation = new ProviderLocation();
-            clientLocation.setLatitude(latitude);
-            clientLocation.setLongitude(Langitude);
-            providerLocationRepository.save(clientLocation);
+            ProviderLocation providerLocation = new ProviderLocation();
+            providerLocation.setLatitude(latitude);
+            providerLocation.setLongitude(Langitude);
+            providerLocationRepository.save(providerLocation);
             Provider provider = providerRepository.findById(providerId).get();
-            AssignLocationtoProvider(clientLocation.getId(),provider.getProviderId());
+            AssignLocationtoProvider(providerLocation.getId(),provider.getProviderId());
 
             Map<String, Object> response = new HashMap<>();
             response.put("latitude", latitude);
@@ -96,6 +97,33 @@ public class ProviderService implements ICRUDService<Provider,Long>, IProviderSe
         ProviderLocation providerLocation = providerLocationRepository.findById(locationId).get();
         provider.setProviderLocation(providerLocation);
         providerRepository.save(provider);
+    }
+
+
+    public ProviderRating rateProvider(Long providerId, Long userId, Integer rating) {
+        Provider provider = providerRepository.findById(providerId).get();
+        System.out.println("provider : "+provider);
+        User user = userRepository.findById(userId).get();
+        System.out.println("user : "+user);
+        ProviderRating providerRating = new ProviderRating();
+
+
+        providerRating.setProvider(provider);
+        providerRating.setUser(user);
+        providerRating.setRating(rating);
+
+        return providerRatingRepository.save(providerRating);
+    }
+    public List<ProviderRating> getProviderRatings(Long providerId) {
+        return providerRatingRepository.findByProviderProviderId(providerId);
+    }
+
+    public Double getAverageRatingByProviderId(Long providerId) {
+        return providerRatingRepository.findAverageRatingByProviderId(providerId);
+    }
+
+    public List<Object[]> getMostRatedProviders() {
+        return providerRatingRepository.findMostRatedProviders();
     }
 
 }

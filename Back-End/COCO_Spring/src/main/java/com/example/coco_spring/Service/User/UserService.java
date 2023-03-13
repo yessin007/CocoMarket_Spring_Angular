@@ -84,7 +84,7 @@ public class UserService {
             JsonNode root = mapper.readTree(geolocationResponse);
             double latitude = root.get("location").get("lat").asDouble();
             double Langitude = root.get("location").get("lng").asDouble();
-            ProviderLocation clientLocation = new ProviderLocation();
+            ClientLocation clientLocation = new ClientLocation();
             clientLocation.setLatitude(latitude);
             clientLocation.setLongitude(Langitude);
             clientLocationRepository.save(clientLocation);
@@ -103,7 +103,7 @@ public class UserService {
 
     public void AssignLocationtoUser(Long locationId, Long  userId) {
         User user = userRepository.findById(userId).get();
-        ProviderLocation clientLocation = clientLocationRepository.findById(locationId).get();
+        ClientLocation clientLocation = clientLocationRepository.findById(locationId).get();
         user.setClientLocation(clientLocation);
         userRepository.save(user);
     }

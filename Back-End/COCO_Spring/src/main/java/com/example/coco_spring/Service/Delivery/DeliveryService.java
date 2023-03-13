@@ -1,9 +1,7 @@
 package com.example.coco_spring.Service.Delivery;
 
 import com.example.coco_spring.Entity.*;
-import com.example.coco_spring.Repository.DeliveryRepository;
-import com.example.coco_spring.Repository.OrderRepository;
-import com.example.coco_spring.Repository.ProviderRepository;
+import com.example.coco_spring.Repository.*;
 import com.example.coco_spring.Service.ICRUDService;
 import com.example.coco_spring.websocketproject.ChatmessageRepo;
 import lombok.AllArgsConstructor;
@@ -18,6 +16,8 @@ import java.util.List;
 @Slf4j
 @AllArgsConstructor
 public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliveryService {
+    private final UserDataLoadRepo userDataLoadRepo;
+    private final UserRepository userRepository;
     private final ChatmessageRepo chatmessageRepo;
 
     DeliveryRepository deliveryRepository;
@@ -80,23 +80,26 @@ public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliverySe
     }
 
     @Transactional
-    public Delivery dispatchDeliveryToNearestDeliveryman(ProviderLocation clientLocation) {
-        List<Provider> deliverymen = getDeliverymenWithinRadius(clientLocation.getLatitude(),
-                clientLocation.getLongitude(), 15); // 10 km radius
+    public Delivery dispatchDeliveryToNearestDeliveryman(Long userId,Long deliveryId) {
+        User user = userRepository.findById(userId).get();
+        Delivery delivery = deliveryRepository.findById(deliveryId).get();
 
-        Provider nearestDeliveryman = getNearestDeliveryman(deliverymen, clientLocation.getLatitude(),
-                clientLocation.getLongitude());
-        Delivery delivery = new Delivery();
+        List<Provider> deliverymen = getDeliverymenWithinRadius(user.getClientLocation().getLatitude(),
+                user.getClientLocation().getLongitude(), 15); // 15 km radius
+        for (Provider provider : deliverymen)
+        {
+            System.out.println("deliverymen : " +provider.getProviderName());
+        }
+
+        Provider nearestDeliveryman = getNearestDeliveryman(deliverymen, user.getClientLocation().getLatitude(),
+                user.getClientLocation().getLatitude());
+
         delivery.setProvider(nearestDeliveryman);
-
-        delivery.setClientAddress(clientLocation.getAddress());
-        delivery.setClientLatitude(clientLocation.getLatitude());
-        delivery.setClientLongitude(clientLocation.getLongitude());
+        System.out.println("nearestDeliveryman : " +nearestDeliveryman);
         delivery.setStatut(Status.PENDING);
         return deliveryRepository.save(delivery);
 
     }
-
     private List<Provider> getDeliverymenWithinRadius(double latitude, double longitude, int radiusInKm) {
         List<Provider> deliverymen = providerRepository.findAllDeliverymen();
         List<Provider> deliverymenWithinRadius = new ArrayList<>();

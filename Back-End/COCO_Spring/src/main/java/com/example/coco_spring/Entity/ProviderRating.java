@@ -1,5 +1,6 @@
 package com.example.coco_spring.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,12 +18,11 @@ public class ProviderRating {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
-    private User customer;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "provider_id")
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Provider provider;
 
     @Column(nullable = false)

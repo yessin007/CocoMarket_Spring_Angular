@@ -22,7 +22,6 @@ public class Provider {
     private long providerId;
     private String providerName;
     private long providerPrice;
-    private int nb_etoil;
 
     @JsonIgnore
     @OneToMany(mappedBy = "provider",cascade = CascadeType.ALL)
@@ -31,6 +30,8 @@ public class Provider {
     @OneToOne
     ProviderLocation providerLocation;
 
-    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProviderRating> ratings = new ArrayList<>();
+    @OneToMany(mappedBy = "provider",cascade = CascadeType.ALL)
+    private List<ProviderRating> providerRatings;
+
+
 }
