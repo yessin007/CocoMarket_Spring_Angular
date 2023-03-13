@@ -65,7 +65,7 @@ public class ReviewServices implements IReviewServices {
                 }
             }
             product.setLikeDislikeProducts(likeDislikeProductList);
-            productRepository.save(product);z
+            productRepository.save(product);
         }
         LikeDislikeProduct likeDislikeProduct=new LikeDislikeProduct();
         likeDislikeProduct.setProductRate(ProductRate.DISLIKE);
