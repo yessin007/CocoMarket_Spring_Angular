@@ -54,11 +54,10 @@ public class EmailService {
     public void sendWelcomeEmail(User u) throws MessagingException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
-        messageHelper.setSubject("Welcome To COCO Market");
+        messageHelper.setSubject("Welcome");
         messageHelper.setTo(u.getEmail());
 
         Context context = new Context();
-        context.setVariable("name", u.getName());
         //String content = templateEngine.process("email-template", context);
         String content = templateEngine.process("welcomeMail", context);
 
