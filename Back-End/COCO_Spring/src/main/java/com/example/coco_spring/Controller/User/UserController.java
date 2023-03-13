@@ -50,4 +50,8 @@ public class UserController {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
+    @PutMapping("/updateRole/{id}")
+    public ResponseEntity<User> updateRoleUser(@PathVariable("id") Long id,@RequestBody Role r) {
+        return ResponseEntity.ok().body(userService.updateRoleUser(id,r));
+    }
 }
