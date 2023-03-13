@@ -43,10 +43,10 @@ public class ProductServices implements IProductServices {
         productRepository.deleteById(productId);
     }
     @Transactional
-    public double calculateProductInsurance(Long productId) {
+    public double calculateProductInsurance(Long productId,Long userId) {
         Product product=productRepository.findById(productId).get();
         //List<Order> orderList=orderRepository.findAllOrders();
-        //User user=userRepository.getReferenceById(userId);
+        User user=userRepository.getReferenceById(userId);
         double premium = 0;
         int yearsOfWarranty = product.getYearsOfWarranty();
         if (yearsOfWarranty == 1) {
@@ -56,9 +56,10 @@ public class ProductServices implements IProductServices {
         } else if (yearsOfWarranty > 3 && yearsOfWarranty <= 5) {
             premium += 0.02 * product.getPrice();
         }
-        if(product.getDateOfPurchase()!=null){
+        if(user.getCart().getOrder().getProductReference().equals(product.getReference())){
+            Date dateOfPurchase=user.getCart().getOrder().getOrderDate();
             Date currentDate = new Date();
-            double ageInMonths = (currentDate.getTime() -product.getDateOfPurchase().getTime()) / (1000.0 * 60 * 60 * 24 * 30);
+            double ageInMonths = (currentDate.getTime() -dateOfPurchase.getTime()) / (1000.0 * 60 * 60 * 24 * 30);
             double price = product.getPrice();
             if (ageInMonths < 6 && price > 1000) {
                 premium += 0.08 * price;
@@ -68,7 +69,6 @@ public class ProductServices implements IProductServices {
                 premium += 0.02 * price;
             }
         }
-
         return premium;
     }
     /* "The premium is calculated based on the number of years of warranty provided with the product."
