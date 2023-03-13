@@ -34,6 +34,7 @@ public class User implements UserDetails {
     private String username;
     private String email;
     private String password;
+    private Integer codeReset;
     private String address;
     @Temporal (TemporalType.DATE)
     private Date dayOfBirth;
