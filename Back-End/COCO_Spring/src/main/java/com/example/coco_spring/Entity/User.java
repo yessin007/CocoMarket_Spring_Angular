@@ -70,9 +70,8 @@ public class User implements UserDetails {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     Set<PostComment> postComments;
-
-    @ManyToMany(cascade = CascadeType.ALL)
     @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL)
     Set<Answer> answers;
 
 
