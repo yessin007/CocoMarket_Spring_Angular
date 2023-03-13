@@ -6,7 +6,7 @@ package com.example.coco_spring.ChatBot;
 
 public class OpenAIChatBot {
     private static final String OPENAI_API_URL = "https://api.openai.com/v1/engines/davinci-codex/completions";
-    private static final String OPENAI_API_KEY = "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";
+    private static final String OPENAI_API_KEY = "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";
 
     public static void main(String[] args) {
         RestTemplate restTemplate = new RestTemplate();

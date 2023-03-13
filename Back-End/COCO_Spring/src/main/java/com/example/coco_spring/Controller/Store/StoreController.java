@@ -116,7 +116,7 @@ public class StoreController {
         return storeService.PostLikeFromUser(IdPost,id);
     }
     @GetMapping("/Get-best-post-week")
-    public PostStore Get_best_Post( ) throws MessagingException {
+    public String Get_best_Post( ) throws MessagingException {
         return storeService.Get_best_Post();
     }
     @PutMapping("/Give-post-etoile/{idPost}/{nb_etoile}")
@@ -150,4 +150,3 @@ public class StoreController {
     public ResponseEntity<Map<String, Object>> setLatLngToStore(@PathVariable("storeId") Long storeId){
         return storeService.setLatLngToStore(storeId);
     }
-}

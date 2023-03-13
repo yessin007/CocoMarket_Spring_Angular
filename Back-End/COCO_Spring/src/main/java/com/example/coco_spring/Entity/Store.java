@@ -53,5 +53,5 @@ public class Store implements Serializable {
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    Set<Quiz> quiz; // Quizzes related to course (Unidirectionnelel)
+    Set<Quiz> quiz;
 }
