@@ -6,6 +6,7 @@ import com.example.coco_spring.Repository.TechnicianRepository;
 import com.example.coco_spring.Repository.TicketRepository;
 import lombok.AllArgsConstructor;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+import org.springdoc.api.OpenApiResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -118,5 +119,19 @@ public class TicketController {
         return ResponseEntity.ok(mostCommonProblems);
     }
 
+    @PutMapping("updateTicketStatus/{id}")
+    public ResponseEntity<Ticket> updateTicketStatus(@PathVariable Long id, @RequestParam String status) {
+        Ticket ticket = ticketRepository.findById(id)
+                .orElseThrow(() -> new OpenApiResourceNotFoundException("Ticket not found with id " + id));
+        ticket.setStatus(status);
+        Ticket updatedTicket = ticketRepository.save(ticket);
+        return ResponseEntity.ok(updatedTicket);
+    }
+
+    @GetMapping("/getTicketsByStatus")
+    public ResponseEntity<List<Ticket>> getTicketsByStatus(@RequestParam String status) {
+        List<Ticket> tickets = ticketRepository.findByStatus(status);
+        return ResponseEntity.ok(tickets);
+    }
 }
 
