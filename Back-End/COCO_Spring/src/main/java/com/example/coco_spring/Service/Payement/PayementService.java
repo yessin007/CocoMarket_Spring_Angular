@@ -23,6 +23,7 @@ public class PayementService implements ICRUDService<Payement,Long> , IPayementS
 
     PayementRepository payementRepository;
     OrderRepository orderRepository;
+    UserRepository userRepository;
 
     @Override
     public List<Payement> findAll() {

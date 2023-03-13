@@ -1,7 +1,10 @@
 package com.example.coco_spring.Service.Payement;
 
 import com.example.coco_spring.Entity.Payement;
+import com.example.coco_spring.Entity.User;
 import com.example.coco_spring.Repository.PayementRepository;
+import com.example.coco_spring.Repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -11,10 +14,15 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 @Service
+@AllArgsConstructor
 public class PdfService {
 
     PayementRepository payementRepository;
-    public byte[] certif(Long paymentId) throws IOException, InterruptedException{
+    UserRepository userRepository;
+    public byte[] certif(Long userId) throws IOException, InterruptedException{
+
+
+        User user = userRepository.findById(userId).get();
 
         //Payement payement = payementRepository.findById(paymentId).get();
         HttpRequest request = HttpRequest.newBuilder()
@@ -22,16 +30,22 @@ public class PdfService {
                 .header("content-type", "application/json")
                 .header("X-RapidAPI-Host", "yakpdf.p.rapidapi.com")
                 .header("X-RapidAPI-Key", "b648c42070msh2f1e24111397e42p1155f4jsn864d7705eee5")
-                .method("POST", HttpRequest.BodyPublishers.ofString("{\r\n    \"pdf\": {\r\n        \"format\": \"A4\",\r\n        \"printBackground\": true,\r\n        " +
-                        "\"scale\": 1\r\n    },\r\n    \"source\": {\r\n        \"html\": \"<!DOCTYPE html><html lang=\\\"en\\\"><head><meta charset=\\\"UTF-8\\\"><meta name=\\\"viewport\\" +
-                        "\" content=\\\"width=device-width, initial-scale=1.0\\\"></head><body><div style=\\\"width:800px; height:600px; padding:20px; text-align:center; border: 10px solid #DB7093" +
-                        "\\\"><div style=\\\"width:750px; height:550px; padding:20px; text-align:center; border: 5px solid #FFC0CB\\\"><span style=\\\"font-size:50px; font-weight:bold\\\"" +
-                        ">Certificate of Completion</span><br><br><span style=\\\"font-size:25px\\\"><i>This is to certify that</i></span><br><br><span style=\\\"font-size:30px\\\"><b>"
-                        /*+payement.getUser().getName()*/+"</b></span><br/><br/><span style=\\\"font-size:25px\\\"><i>has completed the course</i></span> <br/><br/><span style=\\\"font-size:30px\\\"> " +
-                        ""/*+certif.getCourse().getCourseName()+*/+"</span> <br/><br/><br/><br/><br/><br/><span style=\\\"font-size:25px\\\"><i>For "/*+certif.getCourse().getNbHours()*/+"hours length</i>" +
-                        "</span><br><span style=\\\"font-size:25px;float:left\\\">Aquired on : "+/*+certif.getObtainingDate()+*/"</span><div style=\\\"float:right\\\"><img src=\\\""
-                        /*+certif.getCertificateQR()+*/+"\\\"></div></div></div></body></html>\"\r\n    },\r\n    \"wait\": {\r\n        \"for\": \"navigation\",\r\n        \"timeout\": 250,\r\n       " +
-                        " \"waitUntil\": \"load\"\r\n    }\r\n}"))
+                .method("POST", HttpRequest.BodyPublishers.ofString("" +
+                        "{\n" +
+                        "    \"pdf\": {\n" +
+                        "        \"format\": \"A4\",\n" +
+                        "        \"printBackground\": true,\n" +
+                        "        \"scale\": 1\n" +
+                        "    },\n" +
+                        "    \"source\": {\n" +
+                        "        \"html\": \"<!DOCTYPE html><html><head><style>.container {margin: 0 auto;width: 80%;border: 2px solid chocolate;padding: 20px;}.header {text-align: center;font-size: 32px;margin-bottom: 20px;color:chocolate;font-family:Monospace;}.bill-info {display: flex;justify-content: space-between;margin-bottom: 20px;}.bill-info p {margin: 0;}.items {border-collapse: collapse;width: 100%;margin-bottom: 20px;}.items th, .items td {border: 1px dotted #ccc;padding: 8px;text-align: left;}.items th {background-color: #f2f2f2;font-weight: bold;}.total {text-align: right;font-weight: bold;font-size: 20px;}body {background-color: #FAEBD7;}</style></head><body background-color: #FAEBD7;><div class='container'><div class='header'><h1>Coco Market</h1></div><div class='bill-info'><div><p>Bill To:</p><p>"+ user.getName()+"</p><p>"+ user.getAddress()+"</p><p>Anytown, USA</p></div><div><p>Phone Number:</p><p>"+user.getTelNum()+"</p><p>Date:</p><p>"+user.getPayement().getPayementDate()+"</p></div></div><table class='items'><thead><tr><th>Description</th><th>Quantity</th><th>Price</th><th>Total</th></tr></thead><tbody><tr><td>Item 1</td><td>2</td><td>$10.00</td><td>$20.00</td></tr><tr><td>Item 2</td><td>1</td><td>$20.00</td><td>$20.00</td></tr><tr><td>Item 3</td><td>3</td><td>$5.00</td><td>$15.00</td></tr></tbody><tfoot><tr><td colspan='3' class='total'>Total:</td><td>$"+user.getPayement().getOrder().getAmountBill()+"</td></tr></tfoot></table></div></body></html>\"\n" +
+                        "    },\n" +
+                        "    \"wait\": {\n" +
+                        "        \"for\": \"navigation\",\n" +
+                        "        \"timeout\": 250,\n" +
+                        "        \"waitUntil\": \"load\"\n" +
+                        "    }\n" +
+                        "}"))
                 .build();
         HttpResponse<byte[]> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofByteArray());
         byte[] res = response.body();

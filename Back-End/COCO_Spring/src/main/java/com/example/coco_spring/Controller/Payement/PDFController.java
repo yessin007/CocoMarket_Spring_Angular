@@ -17,10 +17,10 @@ import java.io.IOException;
 public class PDFController {
 
     PdfService pdfService;
-    @PostMapping(path="certifGen/{certificate}")
-    public ResponseEntity<byte[]> certif(@PathVariable("certificate") Long certificateid) throws IOException, InterruptedException{
-        Long certi = certificateid.longValue();
-        byte[] res = pdfService.certif(certi);
+    @PostMapping(path="certifGen/{userId}")
+    public ResponseEntity<byte[]> certif(@PathVariable("userId") Long userId) throws IOException, InterruptedException{
+
+        byte[] res = pdfService.certif(userId);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=Certificate.pdf")
                 .contentType(MediaType.APPLICATION_PDF).body(res);
