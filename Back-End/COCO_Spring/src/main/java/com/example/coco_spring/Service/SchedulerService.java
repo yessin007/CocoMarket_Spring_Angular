@@ -20,7 +20,7 @@ import java.util.List;
 @EnableScheduling
 @AllArgsConstructor
 @Slf4j
-public class SchedulerMailService {
+public class SchedulerService {
     UserService userService;
     ProductServices productServices;
     EmailService emailService;
