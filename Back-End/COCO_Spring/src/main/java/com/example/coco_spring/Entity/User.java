@@ -47,15 +47,38 @@ public class User implements UserDetails {
     private Integer codeActivation;
     @Enumerated(EnumType.STRING)
     private Role roles;
+    @JsonIgnore
     @OneToOne
     Payement payement;
+    @JsonIgnore
     @OneToOne
     Cart cart;
+    @JsonIgnore
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     List<Review> reviews;
+
+    @JsonIgnore
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL)
+    Set<PostStore> postStores;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    Set<PostLike> postLikes;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    Set<PostDislike> postDislikes;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    Set<PostComment> postComments;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
+    Set<Answer> answers;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -88,4 +111,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+    @OneToOne
+    LikeDislikeProduct likeDislikeProduct;
 }

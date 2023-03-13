@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ASSService implements ICRUDService<AfterSaleServices, Long> , IASSService{
    AfterSaleServicesRepository afterSaleServicesRepository ;
+   StoreRepository storeRepository;
     @Override
     public List<AfterSaleServices> findAll() {
 
@@ -42,4 +43,7 @@ public class ASSService implements ICRUDService<AfterSaleServices, Long> , IASSS
         return afterSaleServicesRepository.save(afterSaleServices);
     }
 
+    public void assignerSAVaStores() {
+
+    }
 }

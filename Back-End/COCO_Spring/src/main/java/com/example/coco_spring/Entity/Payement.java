@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.lang.String;
 
 @Entity
 @Getter
@@ -14,6 +15,10 @@ import java.util.Date;
 @Table( name = "Payements")
 public class Payement implements Serializable{
 
+    public enum Currency{
+        usd, eur;
+    }
+
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long payementId;
@@ -22,6 +27,10 @@ public class Payement implements Serializable{
     private String payementMethod;
     private String bankTransferStatus;
     private String transactionStatus;
+
+
+
+
     @OneToOne(mappedBy = "payement")
     Order order;
     @OneToOne(mappedBy = "payement")

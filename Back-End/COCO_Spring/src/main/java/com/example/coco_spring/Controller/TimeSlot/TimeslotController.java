@@ -39,4 +39,9 @@ public class TimeslotController {
     public void deleteTimeslot(@PathVariable("id") Long id) {
         timeslotService.deleteTimeslot(id);
     }
-}
+    @PostMapping("/assignDateToDelivery/{timeId}/{deliveryId}")
+    public void assignDateToDelivery(@PathVariable("timeId") Long timeId,@PathVariable("deliveryId") Long deliveryId){
+        timeslotService.assignDateToDelivery(timeId,deliveryId);
+    }
+
+    }

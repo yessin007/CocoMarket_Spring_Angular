@@ -68,4 +68,59 @@ public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliverySe
         delivery.setProvider(provider);
         deliveryRepository.save(delivery);
     }
+
+    @Transactional
+    public Delivery dispatchDeliveryToNearestDeliveryman(ClientLocationRequest clientLocationRequest) {
+        List<Provider> deliverymen = getDeliverymenWithinRadius(clientLocationRequest.getLatitude(),
+                clientLocationRequest.getLongitude(), 10); // 10 km radius
+
+        Provider nearestDeliveryman = getNearestDeliveryman(deliverymen, clientLocationRequest.getLatitude(),
+                clientLocationRequest.getLongitude());
+        Delivery delivery = new Delivery();
+        delivery.setProvider(nearestDeliveryman);
+
+        delivery.setClientAddress(clientLocationRequest.getAddress());
+        delivery.setClientLatitude(clientLocationRequest.getLatitude());
+        delivery.setClientLongitude(clientLocationRequest.getLongitude());
+        return deliveryRepository.save(delivery);
+
+    }
+
+    private List<Provider> getDeliverymenWithinRadius(double latitude, double longitude, int radiusInKm) {
+        List<Provider> deliverymen = providerRepository.findAllDeliverymen();
+        List<Provider> deliverymenWithinRadius = new ArrayList<>();
+        for (Provider deliveryman : deliverymen) {
+            double distance = distanceInKm(latitude, longitude, deliveryman.getLatitude(), deliveryman.getLongitude());
+            if (distance <= radiusInKm) {
+                deliverymenWithinRadius.add(deliveryman);
+            }
+        }
+        return deliverymenWithinRadius;
+    }
+
+    private Provider getNearestDeliveryman(List<Provider> deliverymen, double clientLatitude,
+                                              double clientLongitude) {
+        Provider nearestDeliveryman = null;
+        double shortestDistance = Double.MAX_VALUE;
+        for (Provider deliveryman : deliverymen) {
+            double distance = distanceInKm(clientLatitude, clientLongitude, deliveryman.getLatitude(),
+                    deliveryman.getLongitude());
+            if (distance < shortestDistance) {
+                shortestDistance = distance;
+                nearestDeliveryman = deliveryman;
+            }
+        }
+        return nearestDeliveryman;
+    }
+
+    private double distanceInKm(double lat1, double lon1, double lat2, double lon2) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(Math.toRadians(lat1)) * Math.sin(Math.toRadians(lat2))
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.cos(Math.toRadians(theta));
+        dist = Math.acos(dist);
+        dist = Math.toDegrees(dist);
+        dist = dist * 60 * 1.1515;
+        dist = dist * 1.609344; // convert to kilometers
+        return dist;
+    }
 }

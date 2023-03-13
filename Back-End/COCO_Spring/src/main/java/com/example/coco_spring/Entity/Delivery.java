@@ -1,33 +1,36 @@
 package com.example.coco_spring.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.engine.internal.Cascade;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+// Delivery.java
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-
+@Table(name = "deliveries")
 public class Delivery {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long deliveryId;
+    private Long id;
 
-    private Double priceDelivery;
-    private String clientLocation;
-    private String signature;
-    @Temporal (TemporalType.DATE)
-    private Date creationDate;
+    @Column(name = "client_address")
+    private String clientAddress;
+
+    @Column(name = "client_latitude")
+    private Double clientLatitude;
+
+    @Column(name = "client_longitude")
+    private Double clientLongitude;
+
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "deliveryman_id")
+    Provider provider;
     @Enumerated(EnumType.STRING)
     private Status statut;
     @Enumerated(EnumType.STRING)
@@ -35,8 +38,14 @@ public class Delivery {
     @JsonIgnore
     @ManyToOne
     Provider provider;
+    @OneToOne
+    TimeSlot timeSlot;
+
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "delivery",cascade = CascadeType.ALL)
     List<Order> orders;
+
+
 }

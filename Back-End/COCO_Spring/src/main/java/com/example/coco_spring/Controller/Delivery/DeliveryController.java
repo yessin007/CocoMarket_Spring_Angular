@@ -4,6 +4,8 @@ import com.example.coco_spring.Entity.Delivery;
 import com.example.coco_spring.Repository.OrderRepository;
 import com.example.coco_spring.Service.Delivery.DeliveryService;
 import lombok.AllArgsConstructor;
+import com.example.coco_spring.Entity.Provider;
+import com.example.coco_spring.Service.Delivery.DeliveryService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -55,5 +57,9 @@ public class DeliveryController {
         deliveryService.assignProviderDelivery(deliveryId,providerId);
 
     }
-
+    @PostMapping("/dispatch")
+    public Provider dispatchDeliveryToNearestDeliveryman(@RequestBody ClientLocationRequest clientLocationRequest) {
+        Delivery delivery = deliveryService.dispatchDeliveryToNearestDeliveryman(clientLocationRequest);
+        return delivery.getProvider();
+    }
     }

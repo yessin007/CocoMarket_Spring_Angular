@@ -14,9 +14,14 @@ import javax.mail.MessagingException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
+
+import static java.util.Map.Entry.comparingByValue;
 
 @Service
 @EnableScheduling
@@ -57,14 +62,11 @@ public class UserService {
     public void deleteUser(long id) {
         userRepository.deleteById(id);
     }/*
-<<<<<<< HEAD
-=======
 
     public void updateAuthenticationType(String username, String oauth2ClientName) {
         AuthenticationProvider authType = AuthenticationProvider.valueOf(oauth2ClientName.toUpperCase());
         userRepository.updateAuthenticationType(username, authType);
-    }
->>>>>>> parent of 8919370 (errrrr)*/
+    }*/
 
     public User setUserExpiration (Long id,Integer duration) throws MessagingException {
         User user = userRepository.findById(id).get();
@@ -104,5 +106,27 @@ public class UserService {
             user.setPassword(passwordEncoder.encode(pwd));
             return "done";
         }
+    }
+
+    public List<String> findtheinterestsofbuyers(Long userId){
+        User user = userRepository.findById(userId).get();
+        List<Product> products = user.getCart().getProducts();
+        Map<String,Integer> categoryCountMap = new HashMap<>();
+
+
+
+
+        for (Product product : products){
+            String category = String.valueOf(product.getProductCategory());
+            int count = categoryCountMap.getOrDefault(category,0);
+            categoryCountMap.put(category,count+1);
+        }
+        List<String> topCategories = categoryCountMap.entrySet().stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .limit(3)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+        return topCategories;
     }
 }

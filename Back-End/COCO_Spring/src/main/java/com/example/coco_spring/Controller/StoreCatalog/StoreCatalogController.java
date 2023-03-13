@@ -1,12 +1,16 @@
 package com.example.coco_spring.Controller.StoreCatalog;
 
 import com.example.coco_spring.Entity.*;
-import com.example.coco_spring.Service.Store.StoreService;
 import com.example.coco_spring.Service.StoreCatalog.StoreCatalogService;
 import lombok.AllArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -49,6 +53,23 @@ public class StoreCatalogController {
     @GetMapping("/findStoreCatalogByName/{catalogName}")
     public StoreCatalog findStoreCatalogByName(@PathVariable("catalogName") String catalogName){
         return storeCatalogService.findStoreCatalogByName(catalogName);
+    }
+
+    @GetMapping("findStoreCatalogByDescription/{description}")
+    public StoreCatalog findStoreCatalogByDescription(@PathVariable("description") String description){
+        return storeCatalogService.findStoreCatalogByDescription(description);
+    }
+
+    @GetMapping("findStoreCatalogByDate/{date}")
+    public Optional<StoreCatalog> findStoreCatalogByDate(@PathVariable("date")Date date){
+        return storeCatalogService.findStoreCatalogByDate(date);
+    }
+
+
+    @PostMapping("add1")
+    public ResponseEntity<StoreCatalog> add1( @RequestParam String catalogName, @RequestParam String catalogDescription,@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        StoreCatalog storeCatalog = storeCatalogService.add1(catalogName, catalogDescription, date);
+        return new ResponseEntity<>(storeCatalog, HttpStatus.CREATED);
     }
 
 

@@ -77,5 +77,9 @@ public class UserController {
     @PostMapping("/ResetPassword/{code}/{pwd}")
     public String demResetPassword(@PathVariable("code") Integer code,@PathVariable("pwd") String pwd) throws MessagingException {
         return userService.reserPassword(code,pwd);
+    }    
+    @GetMapping("findtheinterestsofbuyers/{userId}")
+    public List<String> findtheinterestsofbuyers(@PathVariable("userId") Long userId){
+        return userService.findtheinterestsofbuyers(userId);
     }
 }

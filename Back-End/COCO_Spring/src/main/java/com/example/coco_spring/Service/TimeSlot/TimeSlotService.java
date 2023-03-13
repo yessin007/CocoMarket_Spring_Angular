@@ -1,18 +1,22 @@
 package com.example.coco_spring.Service.TimeSlot;
 
+import com.example.coco_spring.Entity.Delivery;
 import com.example.coco_spring.Entity.TimeSlot;
+import com.example.coco_spring.Repository.DeliveryRepository;
 import com.example.coco_spring.Repository.TimeSlotRepository;
 import com.example.coco_spring.Service.ICRUDService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
 @Slf4j
 @AllArgsConstructor
 public class TimeSlotService implements ICRUDService<TimeSlot,Long>, ITimeSlotService {
+    private final DeliveryRepository deliveryRepository;
     TimeSlotRepository timeslotRepository;
     public List<TimeSlot> findByDeliveryDateBetweenAndAndAvailableTrue(LocalDate startDate, LocalDate endDate) {
         return timeslotRepository.findByDeliveryDateBetweenAndAvailableTrue(startDate,endDate);
@@ -39,10 +43,12 @@ public class TimeSlotService implements ICRUDService<TimeSlot,Long>, ITimeSlotSe
     }
     @Override
     public List<TimeSlot> findAll() {
+
         return timeslotRepository.findAll();
     }
     @Override
     public TimeSlot retrieveItem(Long idItem) {
+
         return timeslotRepository.findById(idItem).get();
     }
     @Override
@@ -57,4 +63,15 @@ public class TimeSlotService implements ICRUDService<TimeSlot,Long>, ITimeSlotSe
     public TimeSlot update(TimeSlot Classe1) {
         return timeslotRepository.save(Classe1);
     }
+
+
+    public void assignDateToDelivery(Long timeId, Long deliveryId){
+        TimeSlot timeSlot = timeslotRepository.findById(timeId).get();
+        Delivery delivery = deliveryRepository.findById(deliveryId).get();
+        delivery.setTimeSlot(timeSlot);
+        updateTimeslotAvailability(timeId);
+        deliveryRepository.save(delivery);
+
+    }
+
 }

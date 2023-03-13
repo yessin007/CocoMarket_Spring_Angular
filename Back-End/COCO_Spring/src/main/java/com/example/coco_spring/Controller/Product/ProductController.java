@@ -13,6 +13,7 @@ import com.example.coco_spring.Service.Store.StoreService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,8 +34,8 @@ public class ProductController {
     private ObjectMapper jsonMapper;
     @Autowired private OpenAiApiClient client;
 
-    @GetMapping("/findmatchingaiproducts/{req}")
-    public ResponseEntity<List<Product>> chatWithGpt3(@PathVariable("req") String message) throws Exception {
+    @GetMapping("/findmatchingaiproducts")
+    public ResponseEntity<List<Product>> chatWithGpt3(@RequestParam String message) throws Exception {
         var completion = CompletionRequest.defaultWith("give me a list products which description is"+message);
         var postBodyJson = jsonMapper.writeValueAsString(completion);
         var responseBody = client.postToOpenAiApi(postBodyJson, OpenAiApiClient.OpenAiService.GPT_3);
@@ -58,7 +59,6 @@ public class ProductController {
                               @RequestParam("reference") String reference,@RequestParam("description") String description,
                               @RequestParam("quantity") Long quantity,@RequestParam("model") MultipartFile model,
                               @RequestParam("video") MultipartFile video,@RequestParam("price") float price,
-                              @RequestParam("date")  @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateOfProduct,
                                 @RequestParam("discount") float discount,@RequestParam("brand") String brand,
                               @RequestParam("yearsOfWarranty") int yearsOfWarranty,@RequestParam("productCategory") ProductCategory productCategory) throws IOException {
 
@@ -72,7 +72,6 @@ public class ProductController {
         product.setModel(model.getBytes());
         product.setVideo(video.getBytes());
         product.setPrice(price);
-        product.setDateOfProduct(dateOfProduct);
         product.setDiscount(discount);
         product.setYearsOfWarranty(yearsOfWarranty);
         product.setProductCategory(productCategory);
@@ -92,21 +91,16 @@ public class ProductController {
         productServices.deleteProduct(id);
     }
 
-
-
-    @GetMapping(value = "/compare",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Map<String,String> comparePrices(@RequestParam("product") String productName) {
-        List<Product> productsByPrice = new ArrayList<>();
+    @GetMapping("/compare/{product}")
+    public Map<String,Product> comparePrices(@PathVariable("product") String productName) {
         List<Product> productsByName = productRepository.findByProductName(productName);
-        Map<String,String> productByStore=new HashMap<>();
+        productsByName.sort(Comparator.comparing(Product::getPrice));
+        Map<String,Product> productByStore=new HashMap<>();
 
-        Collections.sort(productsByName, new Comparator<Product>() {
-            public int compare(Product p1, Product p2) {
-                return Double.compare(p1.getPrice(), p2.getPrice());
-            }
-        });
+
+
         for(Product product:productsByName){
-            productByStore.put(storeService.getStoreByProductId(product.getProductId()).getStoreName(), product.getProductName());
+            productByStore.put(storeService.getStoreByProductId(product.getProductId()).getStoreName(), product);
 
         }
         return productByStore;
@@ -114,5 +108,10 @@ public class ProductController {
     @GetMapping("/getstore/{pid}")
     public Store getStoreByProductId(@PathVariable("pid") Long productId){
         return storeService.getStoreByProductId(productId);
+    }
+
+    @GetMapping("/insuranceprice/{idprod}/{iduser}")
+    public double calculateProductInsurance(@PathVariable("idprod") Long productId,@PathVariable("iduser") Long idUser) {
+        return productServices.calculateProductInsurance(productId,idUser);
     }
 }

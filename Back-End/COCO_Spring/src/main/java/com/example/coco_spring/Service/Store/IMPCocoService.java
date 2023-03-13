@@ -1,9 +1,9 @@
 package com.example.coco_spring.Service.Store;
 
-import com.example.coco_spring.Entity.Order;
-import com.example.coco_spring.Entity.Product;
-import com.example.coco_spring.Entity.Store;
+import com.example.coco_spring.Entity.*;
+import org.springframework.http.ResponseEntity;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -13,4 +13,9 @@ public interface IMPCocoService {
     public List<Product> getProductsByStore(Long storeId);
 
 
+    public int Filtrage_bad_word(String ch) ;
+    public ResponseEntity<?> addComment_to_Post(PostComment postComment, Long idPost, Long idUser);
+    public ResponseEntity<?> addPost(PostStore post, Long id);
+    public PostLike addLike_to_Post(PostLike postLike, Long idPost, Long id) ;
+    public ResponseEntity<?> addressMapss(Long  idEvent) throws IOException, InterruptedException;
 }
