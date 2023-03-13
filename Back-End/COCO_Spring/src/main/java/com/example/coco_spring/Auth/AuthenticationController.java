@@ -1,5 +1,7 @@
 package com.example.coco_spring.Auth;
 
+
+import com.google.api.client.util.Value;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -20,7 +23,8 @@ import java.util.stream.Collectors;
 public class AuthenticationController {
 
     private final AuthenticationService service;
-
+    @Value("${google.clientId}")
+    String googleClientId;
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
