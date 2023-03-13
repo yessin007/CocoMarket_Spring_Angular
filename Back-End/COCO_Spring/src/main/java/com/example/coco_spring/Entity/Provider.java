@@ -25,8 +25,6 @@ public class Provider {
     private Date estimationDate;
     @Enumerated(EnumType.STRING)
     private ProviderRate providerRate;
-    private double latitude;
-    private double longitude;
 
     @JsonIgnore
     @OneToMany(mappedBy = "provider",cascade = CascadeType.ALL)

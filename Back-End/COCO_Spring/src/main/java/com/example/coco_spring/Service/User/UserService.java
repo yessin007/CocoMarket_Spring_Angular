@@ -3,13 +3,10 @@ package com.example.coco_spring.Service.User;
 import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Repository.*;
 import com.example.coco_spring.Service.*;
-import com.example.coco_spring.config.MyUserDetails;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,25 +42,5 @@ public class UserService {
 
     public void deleteUser(long id) {
         userRepository.deleteById(id);
-    }
-
-    public void updateAuthenticationType(String username, String oauth2ClientName) {
-        AuthenticationProvider authType = AuthenticationProvider.valueOf(oauth2ClientName.toUpperCase());
-        userRepository.updateAuthenticationType(username, authType);
-    }
-
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
-
-    public UserDetails loadUserByUsername(String username)
-            throws UsernameNotFoundException {
-        User user = userRepository.getUserByUsername(username);
-
-        if (user == null) {
-            throw new UsernameNotFoundException("Could not find user");
-        }
-
-        return new MyUserDetails(user);
     }
 }

@@ -1,7 +1,6 @@
 package com.example.coco_spring.Entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +14,6 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity
@@ -43,8 +41,6 @@ public class User implements UserDetails {
     private String telNum;
     @Enumerated(EnumType.STRING)
     private Role roles;
-    @Enumerated(EnumType.STRING)
-    private AuthenticationProvider authenticationProvider;
     @OneToOne
     Payement payement;
     @OneToOne
@@ -54,19 +50,6 @@ public class User implements UserDetails {
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL)
-    Set<PostStore> postStores;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    Set<PostLike> postLikes;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    Set<PostDislike> postDislikes;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    Set<PostComment> postComments;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

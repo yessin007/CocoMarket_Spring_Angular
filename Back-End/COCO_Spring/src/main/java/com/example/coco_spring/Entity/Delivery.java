@@ -33,8 +33,7 @@ public class Delivery {
     @Enumerated(EnumType.STRING)
     private DeliveryOption deliveryOption;
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "provider_id")
+    @ManyToOne
     Provider provider;
 
     @JsonIgnore

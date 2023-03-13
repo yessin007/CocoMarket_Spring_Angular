@@ -2,19 +2,12 @@ package com.example.coco_spring.Service.Payement;
 import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Service.*;
 import com.example.coco_spring.Repository.*;
-import com.stripe.Stripe;
-import com.stripe.model.Charge;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Slf4j
@@ -66,6 +59,4 @@ public class PayementService implements ICRUDService<Payement,Long> , IPayementS
 
 
     }
-
-
 }
