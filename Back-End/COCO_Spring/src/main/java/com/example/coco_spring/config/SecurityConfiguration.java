@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,12 +19,26 @@ import org.springframework.security.oauth2.client.registration.InMemoryClientReg
 
 @Configuration
 @EnableWebSecurity
-@AllArgsConstructor
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private final UserDetailsService userDetailsService;
+    private final CustomOAuth2UserService oauth2UserService;
+    private final OAuthLoginSuccessHandler oauthLoginSuccessHandler;
+    private final DatabaseLoginSuccessHandler databaseLoginSuccessHandler;
+    private final ClientRegistrationRepository clientRegistrationRepository;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    
+    public SecurityConfiguration(ClientRegistrationRepository clientRegistrationRepository,
+                                 UserDetailsService userDetailsService,
+                                 CustomOAuth2UserService oauth2UserService,
+                                 OAuthLoginSuccessHandler oauthLoginSuccessHandler,
+                                 DatabaseLoginSuccessHandler databaseLoginSuccessHandler) {
+        this.clientRegistrationRepository = clientRegistrationRepository;
+        this.userDetailsService = userDetailsService;
+        this.oauth2UserService = oauth2UserService;
+        this.oauthLoginSuccessHandler = oauthLoginSuccessHandler;
+        this.databaseLoginSuccessHandler = databaseLoginSuccessHandler;
+    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -106,16 +119,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logout().logoutSuccessUrl("/").permitAll()
                 .and()
                 .exceptionHandling().accessDeniedPage("/403")
-        ;
+                .and()
+                .csrf().disable(); // added this line to disable CSRF protection
     }
-
-    @Autowired
-    private CustomOAuth2UserService oauth2UserService;
-
-    @Autowired
-    private OAuthLoginSuccessHandler oauthLoginSuccessHandler;
-
-    @Autowired
-    private DatabaseLoginSuccessHandler databaseLoginSuccessHandler;
 
 }
