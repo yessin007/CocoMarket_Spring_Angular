@@ -19,33 +19,28 @@ public class Delivery {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "client_address")
-    private String clientAddress;
-
-    @Column(name = "client_latitude")
-    private Double clientLatitude;
-
-    @Column(name = "client_longitude")
-    private Double clientLongitude;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "deliveryman_id")
+    @JsonIgnore
     Provider provider;
+
     @Enumerated(EnumType.STRING)
     private Status statut;
+
     @Enumerated(EnumType.STRING)
     private DeliveryOption deliveryOption;
-    @JsonIgnore
-    @ManyToOne
-    Provider provider;
+
     @OneToOne
     TimeSlot timeSlot;
 
-
+    private boolean cancelled;
 
     @JsonIgnore
     @OneToMany(mappedBy = "delivery",cascade = CascadeType.ALL)
     List<Order> orders;
 
-
+    public Delivery() {
+        this.statut = Status.PENDING;
+    }
 }

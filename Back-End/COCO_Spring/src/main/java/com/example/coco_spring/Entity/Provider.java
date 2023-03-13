@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,12 +22,16 @@ public class Provider {
     private long providerId;
     private String providerName;
     private long providerPrice;
-    @Temporal (TemporalType.DATE)
-    private Date estimationDate;
-    @Enumerated(EnumType.STRING)
-    private ProviderRate providerRate;
 
     @JsonIgnore
     @OneToMany(mappedBy = "provider",cascade = CascadeType.ALL)
     List<Delivery> deliveries;
+
+    @OneToOne
+    ProviderLocation providerLocation;
+
+    @OneToMany(mappedBy = "provider",cascade = CascadeType.ALL)
+    private List<ProviderRating> providerRatings;
+
+
 }

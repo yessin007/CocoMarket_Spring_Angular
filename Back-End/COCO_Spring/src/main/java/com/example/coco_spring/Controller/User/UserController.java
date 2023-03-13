@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 
@@ -35,6 +36,9 @@ public class UserController {
     }
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ReviewRepository reviewRepository;
+
     @PostMapping("/")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         userService.createUser(user);
@@ -81,5 +85,9 @@ public class UserController {
     @GetMapping("findtheinterestsofbuyers/{userId}")
     public List<String> findtheinterestsofbuyers(@PathVariable("userId") Long userId){
         return userService.findtheinterestsofbuyers(userId);
+    }
+    @GetMapping("/setLatLng/{userId}")
+    public ResponseEntity<Map<String, Object>> setLatLngToUser(@PathVariable("userId") Long userId){
+        return userService.setLatLngToUser(userId);
     }
 }

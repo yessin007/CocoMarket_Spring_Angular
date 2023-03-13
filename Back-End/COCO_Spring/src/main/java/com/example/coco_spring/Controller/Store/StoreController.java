@@ -8,6 +8,7 @@ import com.example.coco_spring.Repository.StoreRepository;
 
 import com.example.coco_spring.Service.Product.ProductServices;
 import com.example.coco_spring.Service.Store.StoreService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.zxing.WriterException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
@@ -113,7 +115,7 @@ public class StoreController {
         return storeService.PostLikeFromUser(IdPost,id);
     }
     @GetMapping("/Get-best-post-week")
-    public PostStore Get_best_Post( ) throws MessagingException {
+    public String Get_best_Post( ) throws MessagingException {
         return storeService.Get_best_Post();
     }
     @PutMapping("/Give-post-etoile/{idPost}/{nb_etoile}")
@@ -129,13 +131,21 @@ public class StoreController {
         return storeService.Searchpost(ch,id);
     }
 
-    @GetMapping("/googleMap/{idStore}")
+    /*@GetMapping("/googleMap/{idStore}")
     public ResponseEntity<?> addressMapss(@PathVariable Long  idStore) throws IOException, InterruptedException {
 
         //	eventService.addressMapss(idEvent);
 
 
         return new ResponseEntity(storeService.addressMapss(idStore), HttpStatus.OK);
+    }*/
+    @PostMapping("/AssignLocationtoStore/{locationId}/{storeId}")
+    public Store AssignLocationtoStore(@PathVariable("locationId") Long locationId,@PathVariable("storeId") Long  storeId){
+        return  storeService.AssignLocationtoStore(locationId,storeId);
+
     }
 
-}
+    @GetMapping("/setLatLng/{storeId}")
+    public ResponseEntity<Map<String, Object>> setLatLngToStore(@PathVariable("storeId") Long storeId){
+        return storeService.setLatLngToStore(storeId);
+    }

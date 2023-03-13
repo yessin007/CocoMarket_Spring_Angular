@@ -2,10 +2,15 @@ package com.example.coco_spring.Service.User;
 
 import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Repository.*;
-import com.example.coco_spring.Service.*;
+import com.example.coco_spring.Service.Delivery.LocationService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,6 +38,8 @@ public class UserService {
     private EmailService emailService;
     private final PasswordEncoder passwordEncoder;
 
+    LocationService locationService;
+    ClientLocationRepository clientLocationRepository;
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
@@ -129,4 +136,36 @@ public class UserService {
 
         return topCategories;
     }
+
+    public ResponseEntity<Map<String, Object>> setLatLngToUser(Long userId) {
+        try {
+            String geolocationResponse = locationService.getGeolocation();
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(geolocationResponse);
+            double latitude = root.get("location").get("lat").asDouble();
+            double Langitude = root.get("location").get("lng").asDouble();
+            ClientLocation clientLocation = new ClientLocation();
+            clientLocation.setLatitude(latitude);
+            clientLocation.setLongitude(Langitude);
+            clientLocationRepository.save(clientLocation);
+            User user = userRepository.findById(userId).get();
+            AssignLocationtoUser(clientLocation.getId(),user.getId());
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("latitude", latitude);
+            response.put("langitude", Langitude);
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void AssignLocationtoUser(Long locationId, Long  userId) {
+        User user = userRepository.findById(userId).get();
+        ClientLocation clientLocation = clientLocationRepository.findById(locationId).get();
+        user.setClientLocation(clientLocation);
+        userRepository.save(user);
+    }
+
 }

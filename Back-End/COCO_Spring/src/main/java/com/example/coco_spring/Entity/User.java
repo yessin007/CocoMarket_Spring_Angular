@@ -62,6 +62,12 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
 
+    @OneToOne
+    ClientLocation clientLocation;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<ProviderRating> providerRatings;
+
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
     Set<PostStore> postStores;
@@ -74,9 +80,8 @@ public class User implements UserDetails {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     Set<PostComment> postComments;
-
-    @ManyToMany(cascade = CascadeType.ALL)
     @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL)
     Set<Answer> answers;
 
 
@@ -111,6 +116,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
     @OneToOne
     LikeDislikeProduct likeDislikeProduct;
-}
