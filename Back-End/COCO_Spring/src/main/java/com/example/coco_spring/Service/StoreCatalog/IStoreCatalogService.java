@@ -12,7 +12,7 @@ public interface IStoreCatalogService {
 
     public StoreCatalog findStoreCatalogByDescription(String description);
 
-    public Optional<StoreCatalog> findStoreCatalogByDate(Date date);
+
 
     public  StoreCatalog add1(String catalogName, String catalogDescription, Date date);
 

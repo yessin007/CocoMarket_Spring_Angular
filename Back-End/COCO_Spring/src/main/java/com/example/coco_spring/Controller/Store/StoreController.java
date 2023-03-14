@@ -33,9 +33,6 @@ public class StoreController {
     ProductServices productServices ;
     @PostMapping("/addStore")
     public Store add(@RequestBody Store store) throws IOException, WriterException {
-
-
-        QRCodeGenerator.generateQRCode(store);
         return storeService.add(store);
     }
     @GetMapping("/get_all_Stores")
@@ -137,6 +134,14 @@ public class StoreController {
 
 
         return new ResponseEntity(storeService.addressMapss(idStore), HttpStatus.OK);
+    }
+
+    @PostMapping("/addStoreWithQRCode")
+    public Store addStoreWithQRCode(@RequestBody Store store) throws IOException, WriterException {
+
+
+        QRCodeGenerator.generateQRCode(store);
+        return storeService.add(store);
     }
 
 }

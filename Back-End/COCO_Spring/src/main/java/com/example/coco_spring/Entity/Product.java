@@ -54,7 +54,7 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "cart_id")
     @JsonIgnore
-    private Cart cart;
+    Cart cart;
 
 
 }

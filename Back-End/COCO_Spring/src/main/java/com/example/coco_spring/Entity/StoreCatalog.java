@@ -8,6 +8,7 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,6 +29,7 @@ public class StoreCatalog implements Serializable {
     @Size(min = 3, max = 50)
     private String catalogDescription;
 
+    @NotBlank
     @Past
     private Date date;
 
@@ -36,5 +38,9 @@ public class StoreCatalog implements Serializable {
     @JsonIgnore
     @OneToOne(mappedBy = "storeCatalog")
     private Store store;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "favories")
+    List<User> users;
 
 }

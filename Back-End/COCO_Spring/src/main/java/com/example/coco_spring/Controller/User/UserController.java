@@ -54,4 +54,9 @@ public class UserController {
     public List<String> findtheinterestsofbuyers(@PathVariable("userId") Long userId){
         return userService.findtheinterestsofbuyers(userId);
     }
+
+    @GetMapping("getAllUserFavories/{userId}")
+    public List<StoreCatalog> getAllUserFavories(@PathVariable("userId") Long userId){
+        return userService.getAllUserFavories(userId);
+    }
 }
