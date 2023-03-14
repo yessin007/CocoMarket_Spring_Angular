@@ -106,10 +106,11 @@ public class AuthenticationService {
         });
         tokenRepository.saveAll(validUserTokens);
     }
-    public String verifAccount(Long id, Integer code) {
-        User u = repository.findById(id).get();
+    public String verifAccount(String mail, Integer code) {
+        User u = repository.findByEmail(mail).get();
         if (Objects.equals(u.getCodeActivation(), code)) {
             u.setLocked(false);
+            repository.save(u);
             return "done";
         }
         else return "error";
