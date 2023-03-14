@@ -9,6 +9,7 @@ import com.example.coco_spring.Repository.UserRepository;
 import com.example.coco_spring.Service.EmailService;
 import com.example.coco_spring.config.JwtService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -112,5 +113,8 @@ public class AuthenticationService {
             return "done";
         }
         else return "error";
+    }
+    public String criptMDP(String  pwd){
+        return  passwordEncoder.encode(pwd);
     }
 }

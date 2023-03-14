@@ -1,6 +1,7 @@
 package com.example.coco_spring.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +15,7 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-
+import java.util.Set;
 @Data
 @Entity
 @Builder
@@ -36,12 +37,12 @@ public class User implements UserDetails {
     private String password;
     private Integer codeReset;
     private String address;
-    @Temporal (TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     private Date dayOfBirth;
     private String cin;
     private String telNum;
     private Boolean expired;
-    @Temporal (TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     private Date dateToUnexired;
     private Boolean locked;
     private Integer codeActivation;
@@ -54,7 +55,7 @@ public class User implements UserDetails {
     @OneToOne
     Cart cart;
     @JsonIgnore
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<Review> reviews;
 
     @JsonIgnore
@@ -65,7 +66,7 @@ public class User implements UserDetails {
     @OneToOne
     ClientLocation clientLocation;
     @JsonIgnore
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ProviderRating> providerRatings;
 
     @JsonIgnore
@@ -91,12 +92,14 @@ public class User implements UserDetails {
     }
 
     @Override
-    public String getUsername(){
+    public String getUsername() {
         return this.name;
     }
-    public void setUsername(String username){
+
+    public void setUsername(String username) {
         this.name = username;
     }
+
     @Override
     public boolean isAccountNonExpired() {
         return !this.expired;
@@ -119,3 +122,4 @@ public class User implements UserDetails {
 
     @OneToOne
     LikeDislikeProduct likeDislikeProduct;
+}
