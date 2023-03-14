@@ -3,6 +3,7 @@ package com.example.coco_spring.Service.User;
 import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Repository.*;
 import com.example.coco_spring.Service.Delivery.LocationService;
+import com.example.coco_spring.Service.EmailService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

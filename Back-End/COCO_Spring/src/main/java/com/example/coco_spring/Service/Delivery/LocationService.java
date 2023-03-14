@@ -16,7 +16,7 @@ import java.util.Map;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class LocationService implements ILocationService {
+public class LocationService {
     //clientLocationRequestRepository clientLocationRequestRepository;
     ProductRepository productRepository;
     public String getGeolocation() throws JsonProcessingException {

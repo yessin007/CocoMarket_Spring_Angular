@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/api")
 @RestController
+@AllArgsConstructor
 public class LocationController {
+    LocationService locationService;
+
     //@Scheduled(fixedRate = 5000) // Run every 30s
     @GetMapping("/map")
     public String getGeolocation() throws JsonProcessingException {
