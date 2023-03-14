@@ -28,7 +28,7 @@ public class SaleService implements ISaleService{
                 .limit(n)
                 .collect(Collectors.toList());
         for (Sale sale : topSales) {
-           log.info("la quantite est"+sale.getQuantity());
+           //("la quantite est"+sale.getQuantity());
         }
 
         List<ProductSaleDTO> topProducts = new ArrayList<>();

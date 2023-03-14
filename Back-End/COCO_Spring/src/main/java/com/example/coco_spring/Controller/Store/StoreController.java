@@ -23,6 +23,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
@@ -139,5 +140,8 @@ public class StoreController {
         return new ResponseEntity(storeService.addressMapss(idStore), HttpStatus.OK);
     }
 
-
+    @GetMapping("/AnalyzePostComments")
+    public Map<String, Map<String,Float>> analizeSentimentOfComments(){
+        return storeService.analizeSentimentOfComments();
+    }
 }

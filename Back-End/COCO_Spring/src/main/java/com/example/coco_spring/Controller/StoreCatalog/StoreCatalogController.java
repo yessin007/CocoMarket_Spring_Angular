@@ -1,13 +1,17 @@
 package com.example.coco_spring.Controller.StoreCatalog;
 
 import com.example.coco_spring.Entity.*;
+import com.example.coco_spring.Repository.NotificationRepository;
+import com.example.coco_spring.Repository.StoreCatalogRepository;
 import com.example.coco_spring.Service.StoreCatalog.StoreCatalogService;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -18,11 +22,18 @@ import java.util.Optional;
 public class StoreCatalogController {
 
     StoreCatalogService storeCatalogService;
-
+NotificationRepository notificationRepository ;
+StoreCatalogRepository storeCatalogRepository ;
 
 
     @PostMapping("/addStoreCatalog")
     public StoreCatalog add(@RequestBody StoreCatalog class1){
+
+        Notification notif = new Notification();
+        notif.setCreatedAt(new Date());
+        notif.setMessage(class1 + " new cataloq");
+        notif.setRead(false);
+        notificationRepository.save(notif);
         return storeCatalogService.add(class1);
     }
 
@@ -52,6 +63,7 @@ public class StoreCatalogController {
 
     @GetMapping("/findStoreCatalogByName/{catalogName}")
     public StoreCatalog findStoreCatalogByName(@PathVariable("catalogName") String catalogName){
+
         return storeCatalogService.findStoreCatalogByName(catalogName);
     }
 
@@ -72,5 +84,4 @@ public class StoreCatalogController {
         return new ResponseEntity<>(storeCatalog, HttpStatus.CREATED);
     }
 
-
-}
+    }
