@@ -15,7 +15,7 @@ public interface PayementRepository extends JpaRepository<Payement,Long> {
 
 
     @Query("SELECT o from Order o Join o.payement p where p.payementDate =?1")
-    Order findByPaymentDate(@Param("date") Date date);
+    List<Order> findByPaymentDate(@Param("date") Date date);
 
 
 

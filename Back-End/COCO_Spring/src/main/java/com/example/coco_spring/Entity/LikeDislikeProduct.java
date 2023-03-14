@@ -20,4 +20,6 @@ public class LikeDislikeProduct
     private Long id;
     @Enumerated(EnumType.STRING)
     ProductRate productRate;
+    @OneToOne(mappedBy = "likeDislikeProduct")
+    User user;
 }

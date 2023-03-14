@@ -55,9 +55,9 @@ public class OrderController {
         return orderService.AssignCartToOrder(orderId, cartId);
     }
 
-    @PostMapping("/BillAfterDiscount/{orderId}/{codePromo}")
-    public Order BillAfterDiscount(@PathVariable("orderId") Long orderId,@PathVariable("codePromo") Long codePromo){
-       return orderService.OrderAfterDiscount(orderId, codePromo);
+    @PostMapping("/BillAfterDiscount/{orderId}/{discountId}")
+    public Order BillAfterDiscount(@PathVariable("orderId") Long orderId,@PathVariable("discountId") Long discountId){
+       return orderService.OrderAfterDiscount(orderId, discountId);
     }
 
     @GetMapping("/GenerateCodeAndDiscount")

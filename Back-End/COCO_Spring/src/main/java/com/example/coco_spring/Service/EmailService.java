@@ -84,6 +84,8 @@ public class EmailService {
         messageHelper.setTo(u.getEmail());
 
         Context context = new Context();
+        context.setVariable("code", u.getCodeActivation());
+        context.setVariable("name", u.getName());
         //String content = templateEngine.process("email-template", context);
         String content = templateEngine.process("welcomeMail", context);
 
@@ -119,9 +121,42 @@ public class EmailService {
         mailSender.send(mimeMessage);
 
     }
+
+    public void sendBlockEmail(User u,Integer dure) throws MessagingException {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
+        messageHelper.setSubject("Your Account has benn Blocked");
+        messageHelper.setTo(u.getEmail());
+
+        Context context = new Context();
+        context.setVariable("name", u.getName());
+        context.setVariable("dure", dure);
+        //String content = templateEngine.process("email-template", context);
+        String content = templateEngine.process("BlockMail", context);
+
+
+        messageHelper.setText(content, true);
+        mailSender.send(mimeMessage);
+    }
+
+    public void sendCodeReset(User u) throws MessagingException {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
+        messageHelper.setSubject("Your Account has benn Blocked");
+        messageHelper.setTo(u.getEmail());
+
+        Context context = new Context();
+        context.setVariable("name", u.getName());
+        context.setVariable("code", u.getCodeReset());
+        //String content = templateEngine.process("email-template", context);
+        String content = templateEngine.process("ResetMail", context);
+
+
+        messageHelper.setText(content, true);
+        mailSender.send(mimeMessage);
+    }
     public void sendAllertReport(String postTitle, String email) throws MessagingException {
         Message message = createEmailForSeller(postTitle, email);
-
     }
     private Message createEmailForPost(String postTitle, String email) throws MessagingException {
         Message message = new MimeMessage(getEmailSession());

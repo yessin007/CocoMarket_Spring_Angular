@@ -16,7 +16,7 @@ import java.net.http.HttpResponse;
 public class OpenAiApiClient {
 
 	public enum OpenAiService {
-		DALL_E, GPT_3;
+		DALL_E, GPT_3,Chat;
 	}
 
 	@Value("${openai.api_key}")
@@ -37,6 +37,7 @@ public class OpenAiApiClient {
 		return URI.create(switch (service) {
 		case DALL_E -> "https://api.openai.com/v1/images/generations";
 		case GPT_3 -> "https://api.openai.com/v1/completions";
+		case Chat -> "https://api.openai.com/v1/engines/davinci-codex/completions";
 		});
 	}
 

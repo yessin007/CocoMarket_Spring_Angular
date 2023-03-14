@@ -1,43 +1,46 @@
 package com.example.coco_spring.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.engine.internal.Cascade;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+// Delivery.java
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-
+@Table(name = "deliveries")
 public class Delivery {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long deliveryId;
+    private Long id;
 
-    private Double priceDelivery;
-    private String clientLocation;
-    private String signature;
-    @Temporal (TemporalType.DATE)
-    private Date creationDate;
+
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "deliveryman_id")
+    @JsonIgnore
+    Provider provider;
+
     @Enumerated(EnumType.STRING)
     private Status statut;
+
     @Enumerated(EnumType.STRING)
     private DeliveryOption deliveryOption;
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "provider_id")
-    Provider provider;
+
+    @OneToOne
+    TimeSlot timeSlot;
+
+    private boolean cancelled;
 
     @JsonIgnore
     @OneToMany(mappedBy = "delivery",cascade = CascadeType.ALL)
     List<Order> orders;
+
+    public Delivery() {
+        this.statut = Status.PENDING;
+    }
 }
