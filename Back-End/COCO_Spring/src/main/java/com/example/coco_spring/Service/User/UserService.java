@@ -1,5 +1,6 @@
 package com.example.coco_spring.Service.User;
 
+import com.example.coco_spring.Auth.AuthenticationService;
 import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Repository.*;
 import com.example.coco_spring.Service.Delivery.LocationService;
@@ -34,10 +35,11 @@ import static java.util.Map.Entry.comparingByValue;
 @AllArgsConstructor
 @Slf4j
 public class UserService {
-    @Autowired
+
     private UserRepository userRepository;
     private EmailService emailService;
-    private final PasswordEncoder passwordEncoder;
+
+    private AuthenticationService authenticationService;
 
     LocationService locationService;
     ClientLocationRepository clientLocationRepository;
@@ -111,7 +113,7 @@ public class UserService {
             return "User Not Found";
         }
         else {
-            user.setPassword(passwordEncoder.encode(pwd));
+            user.setPassword(authenticationService.criptMDP(pwd));
             return "done";
         }
     }
