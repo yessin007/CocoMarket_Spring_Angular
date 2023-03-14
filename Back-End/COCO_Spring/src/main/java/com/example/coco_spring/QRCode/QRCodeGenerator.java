@@ -18,7 +18,7 @@ public class QRCodeGenerator {
 
     public static void generateQRCode(Store store) throws WriterException, IOException {
 
-        String qrCodePath = "C:\\Users\\Ahmed\\Documents\\GitHub\\PiDev_Spring_Angular\\Back-End\\COCO_Spring\\src\\main\\QRCode\\";
+        String qrCodePath = "C:\\Users\\Ahmed\\Documents\\GitHub\\PiDev_Spring_Angular\\Back-End\\COCO_Spring\\src\\main\\resources\\templates\\QRCodesA\\";
         String qrCodeName = qrCodePath+store.getStoreName()+"-QRCODE.png";
         var qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix =qrCodeWriter.encode(store.getLink()+"\n",

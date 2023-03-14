@@ -36,9 +36,6 @@ public class StoreController {
 
     @PostMapping("/addStore")
     public Store add(@RequestBody Store store) throws IOException, WriterException {
-
-
-        QRCodeGenerator.generateQRCode(store);
         return storeService.add(store);
     }
 
@@ -158,8 +155,20 @@ public class StoreController {
 
     }
 
+
+    @PostMapping("/addStoreWithQRCode")
+    public Store addStoreWithQRCode(@RequestBody Store store) throws IOException, WriterException {
+
+
+        QRCodeGenerator.generateQRCode(store);
+        return storeService.add(store);
+    }
+
+
+
     @GetMapping("/setLatLng/{storeId}")
     public ResponseEntity<Map<String, Object>> setLatLngToStore(@PathVariable("storeId") Long storeId) {
         return storeService.setLatLngToStore(storeId);
     }
 }
+
