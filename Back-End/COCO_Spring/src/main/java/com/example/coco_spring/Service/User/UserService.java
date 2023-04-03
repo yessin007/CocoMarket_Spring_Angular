@@ -120,7 +120,7 @@ public class UserService {
 
     public List<String> findtheinterestsofbuyers(Long userId){
         User user = userRepository.findById(userId).get();
-        List<Product> products = user.getCart().getProducts();
+        List<Product> products =user.getCart().getProducts();
         Map<String,Integer> categoryCountMap = new HashMap<>();
 
 
@@ -138,6 +138,12 @@ public class UserService {
                 .collect(Collectors.toList());
 
         return topCategories;
+    }
+
+
+    public List<StoreCatalog> getAllUserFavories(Long userId){
+        User user =userRepository.findById(userId).orElse(null);
+        return user.getFavories();
     }
 
     public ResponseEntity<Map<String, Object>> setLatLngToUser(Long userId) {
@@ -170,5 +176,6 @@ public class UserService {
         user.setClientLocation(clientLocation);
         userRepository.save(user);
     }
+
 
 }

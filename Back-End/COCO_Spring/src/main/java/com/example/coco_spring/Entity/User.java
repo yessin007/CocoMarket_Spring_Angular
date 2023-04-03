@@ -85,6 +85,14 @@ public class User implements UserDetails {
     @ManyToMany(cascade = CascadeType.ALL)
     Set<Answer> answers;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    Set<StoreCatalogLike> storeCatalogLikes;
+
+    @JsonIgnore
+    @ManyToMany
+    List<StoreCatalog> favories;
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

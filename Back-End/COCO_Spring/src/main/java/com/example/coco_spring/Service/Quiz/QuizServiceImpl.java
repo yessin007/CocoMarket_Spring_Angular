@@ -85,7 +85,7 @@ public class QuizServiceImpl implements QuizService {
     public Answer answerQuizQuestion(Long idUser,Long idAnswer) {
         User user = userRepository.findById(idUser).get();
         Answer answer = answerRepository.findById(idAnswer).get();
-        //user.getAnswers().add(answer);
+        user.getAnswers().add(answer);
         userRepository.flush();
         return answer;
 
