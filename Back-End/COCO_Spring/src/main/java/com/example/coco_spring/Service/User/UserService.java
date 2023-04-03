@@ -106,7 +106,7 @@ public class UserService {
         int randomNumber = random.nextInt(90000000) + 10000000;
         user.setCodeReset(randomNumber);
         emailService.sendCodeReset(user);
-        return user;
+        return userRepository.save(user);
     }
 
     public String reserPassword(Integer code, String pwd) {

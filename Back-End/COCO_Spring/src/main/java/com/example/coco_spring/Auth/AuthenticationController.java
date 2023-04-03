@@ -112,8 +112,8 @@ public class AuthenticationController {
         }
     }
 
-    @PostMapping("/verif/{id}/{code}")
-    public String verifAccount(@PathVariable("id") Long id,@PathVariable("code") Integer code){
-        return service.verifAccount(id,code);
+    @PostMapping("/verif/{mail}/{code}")
+    public String verifAccount(@PathVariable("mail") String mail,@PathVariable("code") Integer code){
+        return service.verifAccount(mail,code);
     }
 }

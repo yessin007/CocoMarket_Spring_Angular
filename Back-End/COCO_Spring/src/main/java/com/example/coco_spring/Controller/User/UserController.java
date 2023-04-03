@@ -76,7 +76,7 @@ public class UserController {
     @PostMapping("/demResetPassword/{email}")
     public String demResetPassword(@PathVariable("email") String email) throws MessagingException {
         User u = userService.demReserPassword(email);
-        return null;
+        return "done";
     }
     @PostMapping("/ResetPassword/{code}/{pwd}")
     public String demResetPassword(@PathVariable("code") Integer code,@PathVariable("pwd") String pwd) throws MessagingException {
