@@ -1,9 +1,12 @@
 package com.example.coco_spring.Controller.StoreCatalog;
 
 import com.example.coco_spring.Entity.*;
+import com.example.coco_spring.Repository.UserRepository;
 import com.example.coco_spring.Service.EmailService;
 import com.example.coco_spring.Service.StoreCatalog.StoreCatalogService;
+import com.example.coco_spring.Service.User.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +23,12 @@ import java.util.Optional;
 public class StoreCatalogController {
 
     StoreCatalogService storeCatalogService;
+    @Autowired
     EmailService emailService;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    UserService userService;
 
 
 
@@ -103,7 +111,9 @@ public class StoreCatalogController {
 
     @PostMapping("sendEmailToStoreCatalog/{userId}/{productId}/{catalogId}/{subject}/{message}")
     public void sendEmailToStoreCatalog(@PathVariable("userId") Long userId,@PathVariable("productId")Long productId,@PathVariable("catalogId")Long catalogId,@PathVariable("subject") String subject,@PathVariable("message") String message) throws MessagingException {
-        emailService.sendEmailToStoreCatalog(userId,productId,catalogId,subject,message);
+        User user = userRepository.findById(userId).get();
+        List<String> interests = userService.findtheinterestsofbuyers(user.getId());
+        emailService.sendEmailToStoreCatalog(user,interests,productId,catalogId,subject,message);
     }
 
 
