@@ -8,9 +8,11 @@ import com.example.coco_spring.Repository.UserRepository;
 import com.example.coco_spring.Service.StoreCatalog.StoreCatalogService;
 import com.example.coco_spring.Service.User.UserService;
 import com.sun.mail.smtp.SMTPTransport;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -19,6 +21,7 @@ import org.springframework.util.StringUtils;
 import org.thymeleaf.TemplateEngine;
 import org.slf4j.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -37,6 +40,8 @@ import static javax.mail.Message.RecipientType.TO;
 
 @Service
 @Slf4j
+@Lazy
+@AllArgsConstructor
 public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
@@ -46,9 +51,6 @@ public class EmailService {
 
     @Autowired
     UserRepository userRepository;
-
-    @Autowired
-    UserService userService;
 
     @Autowired
     StoreCatalogService storeCatalogService;
@@ -188,9 +190,10 @@ public class EmailService {
         return message;
     }
 
-    public void sendEmailToStoreCatalog(Long userId,Long productId,Long catalogId, String subject, String message) throws MessagingException {
-        User user =userRepository.findById(userId).orElse(null);
-        List<String> interests = userService.findtheinterestsofbuyers(user.getId());
+
+    public void sendEmailToStoreCatalog(User user,List<String> interests,Long productId,Long catalogId, String subject, String message) throws MessagingException {
+
+        //List<String> interests = userService.findtheinterestsofbuyers(user.getId());
         for (int i=0;i<interests.size();i++){
             if (storeCatalogService.observeProductCategory(catalogId,productId).equals(interests.get(i))){
                 MimeMessage mimeMessage = mailSender.createMimeMessage();

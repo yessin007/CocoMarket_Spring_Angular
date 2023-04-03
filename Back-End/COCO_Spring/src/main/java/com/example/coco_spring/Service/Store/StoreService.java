@@ -48,6 +48,7 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
     @Autowired
     PostCommentRepo postCommentRepo;
     PostLikeRepo postLikeRepo ;
+    @Autowired
     EmailService emailService ;
     @Override
     public List<Store> findAll() {
