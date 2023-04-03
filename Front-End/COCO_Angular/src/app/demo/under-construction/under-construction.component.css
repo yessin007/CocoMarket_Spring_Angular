@@ -5,7 +5,7 @@ html {
 }
 
 p {
-  margin-bottom: 1rem;
+  margin-bottom: 0rem;
   text-align: center;
 }
 
@@ -30,12 +30,15 @@ h2 {
   font-size: clamp(4.236rem, 3.7027rem + 2.4378vw, 6.854rem);
   text-align: center;
 
+  margin-top: 0px;
+
 }
 
 h3 {
   font-size: 4.236rem;
   text-align: center;
-  margin: 15vh 0 !important;
+  margin-top: 13vh !important;
+  margin-bottom: 0;
 }
 
 h4 {
@@ -63,7 +66,7 @@ h5 {
 
 .legacy-link::before {
   content: '';
-  background-color: hsla(23, 100%, 50%, 0.797);
+  background-color: hsl(44, 100%, 59%);
   position: absolute;
   left: 0;
   bottom: 3px;
@@ -131,9 +134,11 @@ small,
 
 
 .dot {
-  color: #F05324;
+  color: #ffc72c;
 }
-
+.coco {
+  color: #ffc72c;
+}
 
 .icons {
   text-align: center;
@@ -157,8 +162,8 @@ small,
 
 .icons i:hover,
 .icons i:active {
-  color: #F05324;
-  border: 2px solid #F05324;
+  color: #ffc72c;
+  border: 2px solid #ffc72c;
 
   background: none;
   cursor: pointer !important;
