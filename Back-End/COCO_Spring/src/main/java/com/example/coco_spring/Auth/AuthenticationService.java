@@ -85,6 +85,33 @@ public class AuthenticationService {
         }
     }
 
+    public AuthenticationResponse authenticateViaWeb(AuthenticationRequest request) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getUsername(),
+                        request.getPassword()
+                )
+        );
+        var user = repository.findByUsername(request.getUsername())
+                .orElseThrow();
+        if (user.isAccountNonExpired()){
+            var jwtToken = jwtService.generateToken(user);
+            //revokeAllUserTokens(user); hedhi eli lezem nraja33ha
+            saveUserToken(user, jwtToken);
+            return AuthenticationResponse.builder()
+                    .token(jwtToken)
+                    .build();}
+        else if(user.isAccountNonLocked()){
+            return AuthenticationResponse.builder()
+                    .errors(Collections.singletonList("this profile is not yet verified. please check your mail to activate it"))
+                    .build();
+        }
+        else {
+            return AuthenticationResponse.builder()
+                    .errors(Collections.singletonList("this profile is blocked."))
+                    .build();
+        }
+    }
     public void saveUserToken(User user, String jwtToken) {
         var token = Token.builder()
                 .user(user)
