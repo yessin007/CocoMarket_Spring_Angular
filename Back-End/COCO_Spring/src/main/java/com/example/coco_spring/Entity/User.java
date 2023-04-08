@@ -109,4 +109,7 @@ public class User implements UserDetails {
     }
     @OneToOne
     LikeDislikeProduct likeDislikeProduct;
+
+    @OneToMany(mappedBy = "user")
+    List<Subscription> subscriptions;
 }
