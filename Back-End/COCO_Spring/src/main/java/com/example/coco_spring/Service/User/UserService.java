@@ -124,10 +124,6 @@ public class UserService {
         User user = userRepository.findById(userId).get();
         List<Product> products =user.getCart().getProducts();
         Map<String,Integer> categoryCountMap = new HashMap<>();
-
-
-
-
         for (Product product : products){
             String category = String.valueOf(product.getProductCategory());
             int count = categoryCountMap.getOrDefault(category,0);
