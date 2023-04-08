@@ -2,19 +2,12 @@ package com.example.coco_spring.Service.Payement;
 import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Service.*;
 import com.example.coco_spring.Repository.*;
-import com.stripe.Stripe;
-import com.stripe.model.Charge;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Slf4j
@@ -23,6 +16,7 @@ public class PayementService implements ICRUDService<Payement,Long> , IPayementS
 
     PayementRepository payementRepository;
     OrderRepository orderRepository;
+    UserRepository userRepository;
 
     @Override
     public List<Payement> findAll() {
@@ -52,20 +46,18 @@ public class PayementService implements ICRUDService<Payement,Long> , IPayementS
     }
 
     @Override
-    public Order findByPaymentDate(Date date) {
+    public List<Order> findByPaymentDate(Date date) {
 
         return payementRepository.findByPaymentDate(date);
     }
 
     @Override
-    public void assignOrderToPayment(Long orderId, Long paymentId) {
+    public Order assignOrderToPayment(Long orderId, Long paymentId) {
         Order order = orderRepository.findById(orderId).get();
         Payement payement = payementRepository.findById(paymentId).get();
         order.setPayement(payement);
-        orderRepository.save(order);
+        return orderRepository.save(order);
 
 
     }
-
-
 }

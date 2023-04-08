@@ -16,7 +16,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-
 @Data
 @Entity
 @Builder
@@ -36,11 +35,17 @@ public class User implements UserDetails {
     private String username;
     private String email;
     private String password;
+    private Integer codeReset;
     private String address;
-    @Temporal (TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     private Date dayOfBirth;
     private String cin;
     private String telNum;
+    private Boolean expired;
+    @Temporal(TemporalType.DATE)
+    private Date dateToUnexired;
+    private Boolean locked;
+    private Integer codeActivation;
     @Enumerated(EnumType.STRING)
     private Role roles;
     @JsonIgnore
@@ -50,13 +55,19 @@ public class User implements UserDetails {
     @OneToOne
     Cart cart;
     @JsonIgnore
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<Review> reviews;
 
     @JsonIgnore
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
+
+    @OneToOne
+    ClientLocation clientLocation;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<ProviderRating> providerRatings;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
@@ -70,10 +81,17 @@ public class User implements UserDetails {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     Set<PostComment> postComments;
-
-    @ManyToMany(cascade = CascadeType.ALL)
     @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL)
     Set<Answer> answers;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    Set<StoreCatalogLike> storeCatalogLikes;
+
+    @JsonIgnore
+    @ManyToMany
+    List<StoreCatalog> favories;
+
 
 
     @Override
@@ -82,20 +100,22 @@ public class User implements UserDetails {
     }
 
     @Override
-    public String getUsername(){
+    public String getUsername() {
         return this.name;
     }
-    public void setUsername(String username){
+
+    public void setUsername(String username) {
         this.name = username;
     }
+
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return !this.expired;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !this.locked;
     }
 
     @Override
@@ -107,6 +127,7 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
     @OneToOne
     LikeDislikeProduct likeDislikeProduct;
 

@@ -8,9 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -19,6 +19,16 @@ public class StoreCatalogService implements ICRUDService<StoreCatalog,Long>,ISto
 
     StoreCatalogRepository storeCatalogRepository;
     StoreRepository storeRepository;
+
+    StoreCatalogLikeRepository storeCatalogLikeRepository;
+    UserRepository userRepository;
+
+    UserDataLoadRepo userDataLoadRepo;
+    CategoryAdverRepo categoryAdverRepo;
+
+    ProductRepository productRepository;
+
+
 
     @Override
     public List<StoreCatalog> findAll() {
@@ -87,9 +97,100 @@ public class StoreCatalogService implements ICRUDService<StoreCatalog,Long>,ISto
         return storeCatalogRepository.findStoreCatalogByCatalogDescription(description);
     }
 
-    @Override
-    public Optional<StoreCatalog> findStoreCatalogByDate(Date date) {
 
-        return Optional.ofNullable(storeCatalogRepository.findByDate(date));
+
+
+    public void DetctaDataLoad (String ch , Long idUser) {
+        List<UserDataLoad> ul = userDataLoadRepo.findAll();
+        User u = userRepository.findById(idUser).orElse(null);
+        for (CategoryAdve string : categoryAdverRepo.findAll()) {
+            if (ch.contains(string.getNameCategory())) {
+                if (existDataForUser(string.getNameCategory(),idUser) == true) {
+                    UserDataLoad l = getData(string.getNameCategory(),idUser);
+                    l.setNbrsRequet(l.getNbrsRequet()+1);
+                    userDataLoadRepo.save(l);
+                }
+                else {
+                    UserDataLoad l1 = new UserDataLoad();
+                    l1.setCategorieData(string.getNameCategory());
+                    l1.setUser(u);
+                    l1.setNbrsRequet(1);
+                    userDataLoadRepo.save(l1);
+
+                }
+            }
+        }
     }
+
+    public Boolean existDataForUser(String ch,Long IdUser) {
+        Boolean x = false;
+        for (UserDataLoad userDataLoad : userDataLoadRepo.findAll()) {
+            if (userDataLoad.getCategorieData().equals(ch) && userDataLoad.getUser().getId() == IdUser) {
+                x = true;
+            }
+        } return x;
+    }
+    public UserDataLoad getData(String ch,Long IdUser) {
+        UserDataLoad x = null;
+        for (UserDataLoad userDataLoad : userDataLoadRepo.findAll()) {
+            if (userDataLoad.getCategorieData().equals(ch) && userDataLoad.getUser().getId() == IdUser) {
+                x = userDataLoad;
+            }
+        } return x;
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public StoreCatalogLike addLike_to_Post(StoreCatalogLike storeCatalogLike, Long idStoreCatalog, Long idUser) {
+        int x=0;
+        boolean y =false;
+        StoreCatalog storeCatalog = storeCatalogRepository.findById(idStoreCatalog).orElse(null);
+        User u = userRepository.findById(idUser).orElse(null);
+        for (StoreCatalogLike l : storeCatalogLikeRepository.findAll()){
+            if(l.getStoreCatalog().getCatalogId() == idStoreCatalog && l.getUser().getId()== idUser){
+                x=1;
+                y=l.getIsLiked();
+                storeCatalogLikeRepository.delete(l);
+            }
+        }
+        if (x ==0 || (x == 1 && y!=storeCatalogLike.getIsLiked()	)){
+            DetctaDataLoad(storeCatalog.getCatalogDescription(),idUser);
+            storeCatalogLike.setUser(u);
+            storeCatalogLike.setStoreCatalog(storeCatalog);
+            storeCatalogLike.setLikedAt(LocalDate.now());
+            storeCatalogLikeRepository.save(storeCatalogLike);
+        }
+            return storeCatalogLike;
+    }
+
+    public void affectFavToUser(Long userId,Long catalogId){
+        User user =userRepository.findById(userId).orElse(null);
+        StoreCatalog storeCatalog=storeCatalogRepository.findById(catalogId).orElse(null);
+        user.getFavories().add(storeCatalog);
+        userRepository.save(user);
+
+    }
+
+    public String observeProductCategory(Long catalogId,Long productId){
+        StoreCatalog storeCatalog = storeCatalogRepository.findById(catalogId).orElse(null);
+        List<Product> products = storeCatalog.getStore().getProducts();
+        Product product =productRepository.findById(productId).orElse(null);
+        for (Product p : products){
+            if (p.equals(product));
+            return String.valueOf(product.getProductCategory());
+        }
+
+        return "not found";
+    }
+
+
+
 }

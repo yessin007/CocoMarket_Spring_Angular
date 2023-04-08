@@ -49,5 +49,12 @@ public class CocoAFSController {
     public ResponseEntity<Ticket> createTicket(@RequestBody Ticket ticket) {
         Ticket savedTicket = ticketRepository.save(ticket);
         return ResponseEntity.ok(savedTicket);
+
+    }
+
+    @GetMapping("/best")
+    public String getBestAfterSaleService() {
+        // appel de la méthode existante pour récupérer le meilleur service après-vente
+        return assService.getBestAfterSaleService();
     }
 }

@@ -1,9 +1,7 @@
 package com.example.coco_spring.Service.Delivery;
 
 import com.example.coco_spring.Entity.*;
-import com.example.coco_spring.Repository.DeliveryRepository;
-import com.example.coco_spring.Repository.OrderRepository;
-import com.example.coco_spring.Repository.ProviderRepository;
+import com.example.coco_spring.Repository.*;
 import com.example.coco_spring.Service.ICRUDService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,12 +10,12 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
 @AllArgsConstructor
 public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliveryService {
+    private final UserRepository userRepository;
 
     DeliveryRepository deliveryRepository;
     OrderRepository orderRepository;
@@ -58,12 +56,15 @@ public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliverySe
         deliveries delivery = deliveryRepository.findById(deliveryId).get();
         order.setDelivery(delivery);
         orderRepository.save(order);
-
     }*/
 
 
     @Override
     public void assignDeliveryToOrder(Long orderId, Long deliveryId) {
+        Order order = orderRepository.findById(orderId).get();
+        Delivery delivery = deliveryRepository.findById(deliveryId).get();
+        order.setDelivery(delivery);
+        orderRepository.save(order);
 
     }
 
@@ -75,27 +76,31 @@ public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliverySe
     }
 
     @Transactional
-    public Delivery dispatchDeliveryToNearestDeliveryman(ClientLocationRequest clientLocationRequest) {
-        List<Provider> deliverymen = getDeliverymenWithinRadius(clientLocationRequest.getLatitude(),
-                clientLocationRequest.getLongitude(), 10); // 10 km radius
+    public Delivery dispatchDeliveryToNearestDeliveryman(Long userId,Long deliveryId) {
+        User user = userRepository.findById(userId).get();
+        Delivery delivery = deliveryRepository.findById(deliveryId).get();
 
-        Provider nearestDeliveryman = getNearestDeliveryman(deliverymen, clientLocationRequest.getLatitude(),
-                clientLocationRequest.getLongitude());
-        Delivery delivery = new Delivery();
+        List<Provider> deliverymen = getDeliverymenWithinRadius(user.getClientLocation().getLatitude(),
+                user.getClientLocation().getLongitude(), 15); // 15 km radius
+        for (Provider provider : deliverymen)
+        {
+            System.out.println("deliverymen : " +provider.getProviderName());
+        }
+
+        Provider nearestDeliveryman = getNearestDeliveryman(deliverymen, user.getClientLocation().getLatitude(),
+                user.getClientLocation().getLatitude());
+
         delivery.setProvider(nearestDeliveryman);
-
-        delivery.setClientAddress(clientLocationRequest.getAddress());
-        delivery.setClientLatitude(clientLocationRequest.getLatitude());
-        delivery.setClientLongitude(clientLocationRequest.getLongitude());
+        System.out.println("nearestDeliveryman : " +nearestDeliveryman);
+        delivery.setStatut(Status.PENDING);
         return deliveryRepository.save(delivery);
 
     }
-
     private List<Provider> getDeliverymenWithinRadius(double latitude, double longitude, int radiusInKm) {
         List<Provider> deliverymen = providerRepository.findAllDeliverymen();
         List<Provider> deliverymenWithinRadius = new ArrayList<>();
         for (Provider deliveryman : deliverymen) {
-            double distance = distanceInKm(latitude, longitude, deliveryman.getLatitude(), deliveryman.getLongitude());
+            double distance = distanceInKm(latitude, longitude, deliveryman.getProviderLocation().getLatitude(), deliveryman.getProviderLocation().getLongitude());
             if (distance <= radiusInKm) {
                 deliverymenWithinRadius.add(deliveryman);
             }
@@ -104,12 +109,12 @@ public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliverySe
     }
 
     private Provider getNearestDeliveryman(List<Provider> deliverymen, double clientLatitude,
-                                              double clientLongitude) {
+                                           double clientLongitude) {
         Provider nearestDeliveryman = null;
         double shortestDistance = Double.MAX_VALUE;
         for (Provider deliveryman : deliverymen) {
-            double distance = distanceInKm(clientLatitude, clientLongitude, deliveryman.getLatitude(),
-                    deliveryman.getLongitude());
+            double distance = distanceInKm(clientLatitude, clientLongitude, deliveryman.getProviderLocation().getLatitude(),
+                    deliveryman.getProviderLocation().getLongitude());
             if (distance < shortestDistance) {
                 shortestDistance = distance;
                 nearestDeliveryman = deliveryman;
@@ -128,4 +133,20 @@ public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliverySe
         dist = dist * 1.609344; // convert to kilometers
         return dist;
     }
+    public Delivery cancelDelivery(Long id) {
+        Delivery delivery = deliveryRepository.findById(id).get();
+        delivery.setCancelled(true);
+        return deliveryRepository.save(delivery);
+    }
+    public  Delivery changeStatusToProg(Long id){
+        Delivery delivery = deliveryRepository.findById(id).get();
+        delivery.setStatut(Status.IN_PROGRESS);
+        return deliveryRepository.save(delivery);
+    }
+    public  Delivery changeStatusToDelivered(Long id){
+        Delivery delivery = deliveryRepository.findById(id).get();
+        delivery.setStatut(Status.DELIVERED);
+        return deliveryRepository.save(delivery);
+    }
+
 }
