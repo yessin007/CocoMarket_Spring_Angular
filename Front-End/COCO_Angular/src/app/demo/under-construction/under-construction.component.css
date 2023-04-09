@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Raleway:wght@100;200;300;400;500;600;700;900&display=swap');
+
+html {
+  font-size: 100%;
+}
+
+p {
+  margin-bottom: 0rem;
+  text-align: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  /* margin: 3rem 0 1.38rem; */
+  font-family: 'Permanent Marker', cursive;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 11.089rem;
+}
+
+h2 {
+  /* font-size: 6.854rem; */
+  font-size: clamp(4.236rem, 3.7027rem + 2.4378vw, 6.854rem);
+  text-align: center;
+
+  margin-top: 0px;
+
+}
+
+h3 {
+  font-size: 4.236rem;
+  text-align: center;
+  margin-top: 13vh !important;
+  margin-bottom: 0;
+}
+
+h4 {
+  font-size: 2.618rem;
+}
+
+h5 {
+  font-size: 1.618rem;
+}
+
+
+
+
+
+
+
+
+
+.legacy-link {
+  text-decoration: none;
+  color: #Fffefd;
+
+  position: relative;
+}
+
+.legacy-link::before {
+  content: '';
+  background-color: hsl(44, 100%, 59%);
+  position: absolute;
+  left: 0;
+  bottom: 3px;
+  width: 100%;
+  height: 5px;
+  z-index: -1;
+  transition: all .3s ease-in-out;
+}
+
+
+.legacy-link:hover::before {
+  bottom: 0;
+  height: 100%;
+}
+
+
+
+small,
+.text_small {
+  font-size: 0.618rem;
+}
+
+
+@keyframes fadeIn {
+  from {
+    top: 20%;
+    opacity: 0;
+  }
+
+  to {
+    top: 100;
+    opacity: 1;
+  }
+
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    top: 20%;
+    opacity: 0;
+  }
+
+  to {
+    top: 100;
+    opacity: 1;
+  }
+
+}
+
+.wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  animation: fadeIn 1000ms ease;
+  -webkit-animation: fadeIn 1000ms ease;
+
+}
+
+#countdown{
+  text-align: center;
+  color: #757575;
+}
+
+
+.dot {
+  color: #ffc72c;
+}
+.coco {
+  color: #ffc72c;
+}
+
+.icons {
+  text-align: center;
+  margin-top: 6vh !important;
+
+}
+
+.icons i {
+  color: #0D1018;
+  background: #000000;
+  height: 15px;
+  width: 15px;
+  padding: 7px;
+  margin: 0 7px;
+  border-radius: 50px;
+  border: 2px solid #F1F7FC;
+  transition: all 200ms ease;
+  text-decoration: none;
+  position: relative;
+}
+
+.icons i:hover,
+.icons i:active {
+  color: #ffc72c;
+  border: 2px solid #ffc72c;
+
+  background: none;
+  cursor: pointer !important;
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  text-decoration: none;
+
+}
+
+
+
+
+body {
+  background: #000;
+  color: #000000;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
+  line-height: 1.75;
+  max-width: 100vw;
+}

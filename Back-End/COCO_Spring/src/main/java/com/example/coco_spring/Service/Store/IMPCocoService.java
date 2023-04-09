@@ -13,6 +13,7 @@ public interface IMPCocoService {
     public void AffectProductToStore(Long storId ,Long productId);
     public List<Product> getProductsByStore(Long storeId);
 
+
     public int Filtrage_bad_word(String ch) ;
     public ResponseEntity<?> addComment_to_Post(PostComment postComment, Long idPost, Long idUser);
     public ResponseEntity<?> addPost(PostStore post, Long id);

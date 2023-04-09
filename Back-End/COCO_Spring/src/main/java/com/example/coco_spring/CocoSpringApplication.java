@@ -16,6 +16,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableScheduling
 @SpringBootApplication
 @EnableAspectJAutoProxy
+@ComponentScan(basePackages = {"com.example.coco_spring.*"})
 public class CocoSpringApplication {
     @Bean
     public MultipartResolver multipartResolver() {

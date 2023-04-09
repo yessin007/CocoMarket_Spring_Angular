@@ -3,7 +3,6 @@ package com.example.coco_spring.Service.Delivery;
 import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Repository.*;
 import com.example.coco_spring.Service.ICRUDService;
-import com.example.coco_spring.websocketproject.ChatmessageRepo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,9 +15,7 @@ import java.util.List;
 @Slf4j
 @AllArgsConstructor
 public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliveryService {
-    private final UserDataLoadRepo userDataLoadRepo;
     private final UserRepository userRepository;
-    private final ChatmessageRepo chatmessageRepo;
 
     DeliveryRepository deliveryRepository;
     OrderRepository orderRepository;
@@ -59,7 +56,6 @@ public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliverySe
         deliveries delivery = deliveryRepository.findById(deliveryId).get();
         order.setDelivery(delivery);
         orderRepository.save(order);
-
     }*/
 
 
@@ -113,7 +109,7 @@ public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliverySe
     }
 
     private Provider getNearestDeliveryman(List<Provider> deliverymen, double clientLatitude,
-                                              double clientLongitude) {
+                                           double clientLongitude) {
         Provider nearestDeliveryman = null;
         double shortestDistance = Double.MAX_VALUE;
         for (Provider deliveryman : deliverymen) {
@@ -154,4 +150,3 @@ public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliverySe
     }
 
 }
-
