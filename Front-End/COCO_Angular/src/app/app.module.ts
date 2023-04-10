@@ -19,6 +19,7 @@ import { HomeComponent } from './frontOffice/home/home.component';
 import { NavigationComponent } from './frontOffice/navigation/navigation.component';
 import { SidebarLoginComponent } from './frontOffice/sidebar-login/sidebar-login.component';
 import { FooterComponent } from './frontOffice/footer/footer.component';
+import { ListComponent } from './frontOffice/products/list/list.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { FooterComponent } from './frontOffice/footer/footer.component';
     HomeComponent,
     NavigationComponent,
     SidebarLoginComponent,
-    FooterComponent
+    FooterComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,

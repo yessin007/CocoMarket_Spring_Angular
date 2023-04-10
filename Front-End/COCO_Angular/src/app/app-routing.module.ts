@@ -10,10 +10,14 @@ import {MenuComponent} from "./backOffice/menu/menu.component";
 import {AdminHomeComponent} from "./backOffice/admin-home/admin-home.component";
 import {ShowAllProductsComponent} from "./backOffice/product/show-all-products/show-all-products.component";
 import {HomeComponent} from "./frontOffice/home/home.component";
+import {ListComponent} from "./frontOffice/products/list/list.component";
 
 const routes: Routes = [
   { path: '', component: UnderConstructionComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'products', children: [
+      { path: 'list', component: ListComponent },
+    ]},
   { path: 'auth', children: [
       { path: 'login', component: LoginComponent },
       { path: 'forgetPassword', component: ForgetpasswordComponent },
