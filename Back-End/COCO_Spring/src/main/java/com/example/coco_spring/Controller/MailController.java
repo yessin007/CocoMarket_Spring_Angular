@@ -16,7 +16,6 @@ import javax.mail.MessagingException;
 public class MailController {
     @Autowired
     private EmailService emailService;
-    private SchedulerService schedulerMailService;
 
     /*@PostMapping
     public ResponseEntity<String> sendMail() throws MessagingException {
@@ -53,9 +52,4 @@ public class MailController {
         return "c bon";
     }*/
 
-    @PostMapping("/off")
-    public String sendOff() throws MessagingException {
-        schedulerMailService.runScheduledDailyOffre();
-        return "test Daily Offers Mail done";
-    }
 }

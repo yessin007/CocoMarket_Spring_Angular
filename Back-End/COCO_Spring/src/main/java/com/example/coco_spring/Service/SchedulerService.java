@@ -8,6 +8,7 @@ import com.example.coco_spring.Service.Product.ProductServices;
 import com.example.coco_spring.Service.User.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ import java.util.List;
 public class SchedulerService {
     UserService userService;
     ProductServices productServices;
+    @Autowired
     EmailService emailService;
     UserRepository userRepository;
 
