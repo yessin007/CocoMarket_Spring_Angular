@@ -6,6 +6,9 @@ import {ForgetpasswordComponent} from "./auth/forgetpassword/forgetpassword.comp
 import {ActivateComponent} from "./auth/activate/activate.component";
 import {ResetpasswordComponent} from "./auth/resetpassword/resetpassword.component";
 import {SignupComponent} from "./auth/signup/signup.component";
+import {MenuComponent} from "./backOffice/menu/menu.component";
+import {AdminHomeComponent} from "./backOffice/admin-home/admin-home.component";
+import {ShowAllProductsComponent} from "./backOffice/product/show-all-products/show-all-products.component";
 
 const routes: Routes = [
   { path: '', component: UnderConstructionComponent },
@@ -15,6 +18,10 @@ const routes: Routes = [
       { path: 'Activate', component: ActivateComponent },
       { path: 'resetPassword', component: ResetpasswordComponent },
       { path: 'SignUp', component: SignupComponent },
+    ]},
+  {path:"adminpanel" ,component: MenuComponent, children: [
+      {path: "home",component: AdminHomeComponent},
+      {path: "products", component: ShowAllProductsComponent}
     ]},
   { path: '**', component: UnderConstructionComponent },
 ];
