@@ -15,6 +15,10 @@ import { MenuComponent } from './backOffice/menu/menu.component';
 import { AddProductComponent } from './backOffice/product/add-product/add-product.component';
 import { AdminHomeComponent } from './backOffice/admin-home/admin-home.component';
 import { ShowAllProductsComponent } from './backOffice/product/show-all-products/show-all-products.component';
+import { HomeComponent } from './frontOffice/home/home.component';
+import { NavigationComponent } from './frontOffice/navigation/navigation.component';
+import { SidebarLoginComponent } from './frontOffice/sidebar-login/sidebar-login.component';
+import { FooterComponent } from './frontOffice/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,11 @@ import { ShowAllProductsComponent } from './backOffice/product/show-all-products
     MenuComponent,
     AddProductComponent,
     AdminHomeComponent,
-    ShowAllProductsComponent
+    ShowAllProductsComponent,
+    HomeComponent,
+    NavigationComponent,
+    SidebarLoginComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

@@ -9,9 +9,11 @@ import {SignupComponent} from "./auth/signup/signup.component";
 import {MenuComponent} from "./backOffice/menu/menu.component";
 import {AdminHomeComponent} from "./backOffice/admin-home/admin-home.component";
 import {ShowAllProductsComponent} from "./backOffice/product/show-all-products/show-all-products.component";
+import {HomeComponent} from "./frontOffice/home/home.component";
 
 const routes: Routes = [
   { path: '', component: UnderConstructionComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'auth', children: [
       { path: 'login', component: LoginComponent },
       { path: 'forgetPassword', component: ForgetpasswordComponent },
