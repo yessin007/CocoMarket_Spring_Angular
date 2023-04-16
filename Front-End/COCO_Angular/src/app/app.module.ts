@@ -11,6 +11,14 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { ForgetpasswordComponent } from './auth/forgetpassword/forgetpassword.component';
 import { ResetpasswordComponent } from './auth/resetpassword/resetpassword.component';
 import { ActivateComponent } from './auth/activate/activate.component';
+import { MenuComponent } from './backOffice/menu/menu.component';
+import { AddProductComponent } from './backOffice/product/add-product/add-product.component';
+import { AdminHomeComponent } from './backOffice/admin-home/admin-home.component';
+import { ShowAllProductsComponent } from './backOffice/product/show-all-products/show-all-products.component';
+import { HomeComponent } from './frontOffice/home/home.component';
+import { NavigationComponent } from './frontOffice/navigation/navigation.component';
+import { SidebarLoginComponent } from './frontOffice/sidebar-login/sidebar-login.component';
+import { FooterComponent } from './frontOffice/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +28,15 @@ import { ActivateComponent } from './auth/activate/activate.component';
     SignupComponent,
     ForgetpasswordComponent,
     ResetpasswordComponent,
-    ActivateComponent
+    ActivateComponent,
+    MenuComponent,
+    AddProductComponent,
+    AdminHomeComponent,
+    ShowAllProductsComponent,
+    HomeComponent,
+    NavigationComponent,
+    SidebarLoginComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,322 @@
+
+<nav class="navbar navbar-sticky fixed-top navbar-expand-lg py-2">
+  <div class="container">
+
+    <a class="navbar-brand text-dark" href="#">
+      <i class="icon icon-layers"></i>
+      <strong>COCO Market</strong>
+    </a>
+
+    <div class="d-flex d-lg-none">
+      <ul class="navbar-nav flex-row">
+        <li class="nav-item">
+          <a href="#" class="d-flex nav-link toggle-show" data-show="loginComponent">
+            <div class="px-2 py-1">Login</div>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="d-flex nav-link toggle-show" data-show="cartComponent">
+            <div class="px-2 py-1">Cart <sup>3</sup></div>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="d-flex nav-link toggle-show" data-show="searchComponent">
+            <div class="px-2 py-1"><span class="icon icon-magnifier"></span></div>
+          </a>
+        </li>
+      </ul>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar" aria-controls="furnitureNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="icon icon-menu"></span>
+      </button>
+    </div>
+
+    <!-- Navbar collapse -->
+
+    <div class="navbar-collapse collapse navbar-collapse-sidebar" id="mainNavbar">
+
+      <!-- Mobile search -->
+
+      <div class="d-block d-lg-none">
+        <div class="p-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <i class="icon icon-layers"></i>
+              <strong>Reveal</strong>
+            </div>
+            <button class="btn p-0" type="button" data-toggle="collapse" data-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="icon icon-cross font-size-lg"></span>
+            </button>
+          </div>
+        </div>
+        <div class="bg-light">
+          <div class="form-group form-group-icon">
+            <input type="text" class="form-control form-control-simple" placeholder="Search site">
+            <button class="btn btn-clean"><i class="icon icon-magnifier"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav ml-auto align-items-lg-center">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item dropdown px-lg-3">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown-shop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Shop
+          </a>
+          <div class="dropdown-menu" aria-labelledby="dropdown-shop">
+            <a class="dropdown-item" href="#">Shop</a>
+            <a class="dropdown-item" href="#">Product</a>
+            <a class="dropdown-item" href="#">Checkout</a>
+          </div>
+        </li>
+        <li class="nav-item px-lg-3">
+          <a class="nav-link" href="#">Man's</a>
+        </li>
+        <li class="nav-item px-lg-3">
+          <a class="nav-link" href="#">Woman's</a>
+        </li>
+        <li class="nav-item px-lg-3">
+          <a class="nav-link" href="#">Kid's</a>
+        </li>
+        <li class="nav-item d-none d-lg-inline ml-lg-5">
+          <a href="#" class="nav-link toggle-show" data-show="loginComponent">
+            <span class="icon icon-user"></span>
+          </a>
+        </li>
+        <li class="nav-item d-none d-lg-inline">
+          <a href="#" class="nav-link toggle-show d-flex" data-show="cartComponent">
+            <div class="px-2 py-1">
+              <span class="icon icon-cart"></span>
+              <sup>3</sup>
+            </div>
+          </a>
+        </li>
+        <li class="nav-item d-none d-lg-inline">
+          <a href="#" class="nav-link toggle-show" data-show="searchComponent">
+            <span class="icon icon-magnifier"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
+<!-- Sidebar login -->
+
+<nav id="loginComponent" class="sidebar bg-white border-right">
+  <div class="sidebar-content sidebar-content-warning">
+
+    <!-- Sidebar header -->
+
+    <div class="sidebar-header p-3">
+      <button type="button" class="toggle-show close" data-show="loginComponent">
+        <span class="icon icon-cross"></span>
+      </button>
+    </div>
+
+    <!-- Sidebar content -->
+
+    <div class="d-flex w-100 align-items-center">
+      <div class="w-100">
+        <div class="p-4 p-lg-5">
+          <div class="mb-5 text-center">
+            <img src="/assets/fontAssets/assets/svg/reveal-symbol.svg" alt="" width="80" />
+          </div>
+          <form>
+            <div class="form-group">
+              <label class="label" for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+              <label class="label" for="exampleInputPassword1">Password</label>
+              <input type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="form-group d-flex justify-content-between">
+              <div class="custom-control custom-control-sm custom-checkbox custom-checkbox-primary">
+                <input type="checkbox" class="custom-control-input" id="customExampleCheck">
+                <label class="custom-control-label" for="customExampleCheck">Remember me</label>
+              </div>
+              <small>
+                <a href="#" class="text-muted">Forgot password?</a>
+              </small>
+            </div>
+          </form>
+          <div class="row justify-content-center pt-3">
+            <div class="col-md-10">
+              <button type="submit" class="btn btn-sm btn-block btn-dark btn-rounded px-5">Login</button>
+
+              <div class="divider-separator">
+                <span>Or</span>
+              </div>
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-sm btn-block btn-rounded btn-google px-3">Login with Google</button>
+                <button type="submit" class="btn btn-sm btn-block btn-rounded btn-facebook px-3">Login with Facebook</button>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <small>
+              <a href="#" class="text-muted">Don't have an account?</a> <br />
+              <a href="#" class="text-muted">Create an account</a>
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Sidebar cart -->
+
+<nav id="cartComponent" class="sidebar sidebar-right bg-white border-left">
+  <div class="sidebar-content">
+
+    <!-- Sidebar header -->
+
+    <div class="sidebar-header px-3 pt-3">
+      <button type="button" class="toggle-show close" data-show="cartComponent">
+        <span class="icon icon-cross"></span>
+      </button>
+      <div>Shopping cart</div>
+    </div>
+
+    <hr />
+
+    <!-- Sidebar items -->
+
+    <div>
+      <ul class="list-group list-group-flush mb-3">
+
+        <li class="list-group-item p-4">
+          <div class="row no-gutters align-items-center">
+            <div class="col-md-2 mb-2 mb-lg-0">
+              <img src="/assets/fontAssets/assets/images/templates/clothing/shoe-1.jpg" alt="" class="img-fluid br-sm" />
+            </div>
+            <div class="col-md-6 pl-md-2 mb-2 mb-lg-0">
+              <p class="my-0">First product</p>
+              <small class="text-muted">Brief description</small>
+            </div>
+            <div class="col-6 col-md-2">
+              <input type="number" value="2" class="form-control form-control-sm" />
+            </div>
+            <div class="col-6 col-md-2 text-right text-muted">
+              <div>$1200</div>
+              <small><del>$1499</del></small>
+            </div>
+          </div>
+        </li>
+
+        <li class="list-group-item p-4">
+          <div class="row no-gutters align-items-center">
+            <div class="col-md-2 mb-2 mb-lg-0">
+              <img src="/assets/fontAssets/assets/images/templates/clothing/shoe-1.jpg" alt="" class="img-fluid br-sm" />
+            </div>
+            <div class="col-md-6 pl-md-2 mb-2 mb-lg-0">
+              <p class="my-0">Second product</p>
+              <small class="text-muted">Brief description</small>
+            </div>
+            <div class="col-6 col-md-2">
+              <input type="number" value="2" class="form-control form-control-sm" />
+            </div>
+            <div class="col-6 col-md-2 text-right text-muted">
+              <div>$1200</div>
+              <small><del>$1499</del></small>
+            </div>
+          </div>
+        </li>
+
+        <li class="list-group-item p-4">
+          <div class="row no-gutters align-items-center">
+            <div class="col-md-2 mb-2 mb-lg-0">
+              <img src="./assets/fontAssets/assets/images/templates/clothing/shoe-1.jpg" alt="" class="img-fluid br-sm" />
+            </div>
+            <div class="col-md-6 pl-md-2 mb-2 mb-lg-0">
+              <p class="my-0">Third product</p>
+              <small class="text-muted">Brief description</small>
+            </div>
+            <div class="col-6 col-md-2">
+              <input type="number" value="2" class="form-control form-control-sm" />
+            </div>
+            <div class="col-6 col-md-2 text-right text-muted">
+              <div>$1200</div>
+              <small><del>$1499</del></small>
+            </div>
+          </div>
+        </li>
+
+        <li class="list-group-item p-4 bg-light text-muted">
+          <div class="d-flex justify-content-between">
+            <div>
+              <small>Promocode: EXAMPLECODE</small>
+            </div>
+            <span>-$500</span>
+          </div>
+          <div class="d-flex justify-content-between">
+            <div>
+              <small>Discount 15%</small>
+            </div>
+            <span>-$15</span>
+          </div>
+          <div class="d-flex justify-content-between">
+            <div>
+              <small>Shipping</small>
+            </div>
+            <span>$0</span>
+          </div>
+        </li>
+
+        <li class="list-group-item p-4 d-flex justify-content-between">
+          <strong>Total (USD)</strong>
+          <strong>$ 1290,00</strong>
+        </li>
+
+      </ul>
+
+      <!-- Sidebar Buttons -->
+
+      <div class="row justify-content-center pt-3 m-0">
+        <div class="col-8">
+          <button type="submit" class="btn btn-rounded btn-sm btn-block btn-dark px-5">Go to checkout</button>
+
+          <div class="divider-separator">
+            <span>Or</span>
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-sm btn-block px-3">Continue shopping</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</nav>
+
+<!-- Sidebar search -->
+
+<nav id="searchComponent" class="sidebar sidebar-right bg-white border-left">
+  <div class="sidebar-content">
+    <div class="sidebar-header px-3 pt-3">
+      <button type="button" class="toggle-show close" data-show="searchComponent">
+        <span class="icon icon-cross"></span>
+      </button>
+      <div>Search content</div>
+    </div>
+    <hr />
+    <div class="p-4">
+      <div class="form-group">
+        <label class="label" for="searchContent">Enter keyword</label>
+        <input type="email" class="form-control form-control-simple" id="searchContent" placeholder="Search key words like furniture, sofa...">
+      </div>
+      <div class="row justify-content-center pt-3">
+        <div class="col-md-10">
+          <button type="submit" class="btn btn-sm btn-block btn-dark btn-rounded px-5">Search the site</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
