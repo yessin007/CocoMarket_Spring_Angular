@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Slf4j
+
 @AllArgsConstructor
 public class SaleService implements ISaleService{
     SaleRepository saleRepository;
@@ -27,9 +27,11 @@ public class SaleService implements ISaleService{
         List<Sale> topSales = saleRepository.findAllByOrderByQuantityDesc();.stream()
                 .limit(n)
                 .collect(Collectors.toList());
+
         for (Sale sale : topSales) {
            //("la quantite est"+sale.getQuantity());
         }
+
 
         List<ProductSaleDTO> topProducts = new ArrayList<>();
         for (Sale sale : topSales) {

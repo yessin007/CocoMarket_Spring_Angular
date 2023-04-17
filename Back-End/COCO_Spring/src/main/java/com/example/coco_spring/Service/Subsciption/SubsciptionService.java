@@ -3,23 +3,28 @@ package com.example.coco_spring.Service.Subsciption;
 
 import com.example.coco_spring.Entity.Product;
 import com.example.coco_spring.Entity.ProductCategory;
+import com.example.coco_spring.Entity.Subscription;
+import com.example.coco_spring.Entity.User;
 import com.example.coco_spring.Repository.ProductRepository;
 import com.example.coco_spring.Repository.ReviewRepository;
+import com.example.coco_spring.Repository.SubscripttionRepository;
+import com.example.coco_spring.Repository.UserRepository;
 import com.example.coco_spring.Service.Review.ReviewServices;
 import com.example.coco_spring.Service.User.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class SubsciptionService {
     ProductRepository productRepository;
+
+    SubscripttionRepository subscripttionRepository;
+    UserRepository userRepository;
     UserService userService;
     ReviewServices reviewServices;
 
@@ -65,6 +70,20 @@ public class SubsciptionService {
         }
         return getUserWishlistMap;
     }
+
+    public void subscribeToProduct(Long userId,Long productId,int months){
+        User user=userRepository.getReferenceById(userId);
+        Product product=productRepository.getReferenceById(productId);
+        Date dateOfCreation=new Date();
+        Subscription subscription=new Subscription();
+        subscription.setProduct(product);
+        subscription.setRemainingDaysINMonth(30);
+        subscription.setUser(user);
+        subscription.setDateOfSubCreation(dateOfCreation);
+        subscription.setSubMonths(months);
+         subscripttionRepository.save(subscription);
+    }
+
 
 
 }

@@ -18,6 +18,7 @@ import com.vader.sentiment.analyzer.SentimentPolarities;
 @EnableScheduling
 @SpringBootApplication
 @EnableAspectJAutoProxy
+@ComponentScan(basePackages = {"com.example.coco_spring.*"})
 public class CocoSpringApplication {
     @Bean
     public MultipartResolver multipartResolver() {
