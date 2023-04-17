@@ -64,6 +64,7 @@ public class StoreController {
         return storeService.findStoreByName(storeName);
     }
 
+
     @PutMapping("/affectproducttostore/{ids}/{idp}")
     public void AffectProductToStore(@PathVariable("ids") Long storeId, @PathVariable("idp") Long productId) {
         storeService.AffectProductToStore(storeId, productId);
@@ -165,10 +166,16 @@ public class StoreController {
     }
 
 
+    @GetMapping("/AnalyzePostComments")
+    public Map<String, Map<String,Float>> analizeSentimentOfComments(){
+        return storeService.analizeSentimentOfComments();
+
+
 
     @GetMapping("/setLatLng/{storeId}")
     public ResponseEntity<Map<String, Object>> setLatLngToStore(@PathVariable("storeId") Long storeId) {
         return storeService.setLatLngToStore(storeId);
+
     }
 }
 

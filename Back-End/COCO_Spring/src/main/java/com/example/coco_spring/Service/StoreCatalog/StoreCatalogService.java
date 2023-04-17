@@ -8,7 +8,11 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+
+import java.util.ArrayList;
+
 import java.time.LocalDate;
+
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +23,7 @@ public class StoreCatalogService implements ICRUDService<StoreCatalog,Long>,ISto
 
     StoreCatalogRepository storeCatalogRepository;
     StoreRepository storeRepository;
+    ProductRepository productRepository ;
 
     StoreCatalogLikeRepository storeCatalogLikeRepository;
     UserRepository userRepository;
@@ -62,8 +67,6 @@ public class StoreCatalogService implements ICRUDService<StoreCatalog,Long>,ISto
         // Save the new StoreCatalog object using the storeCatalogRepository
         return storeCatalogRepository.save(newCatalog);
     }
-
-
 
 
 
@@ -122,6 +125,7 @@ public class StoreCatalogService implements ICRUDService<StoreCatalog,Long>,ISto
         }
     }
 
+
     public Boolean existDataForUser(String ch,Long IdUser) {
         Boolean x = false;
         for (UserDataLoad userDataLoad : userDataLoadRepo.findAll()) {
@@ -179,6 +183,7 @@ public class StoreCatalogService implements ICRUDService<StoreCatalog,Long>,ISto
 
     }
 
+
     public String observeProductCategory(Long catalogId,Long productId){
         StoreCatalog storeCatalog = storeCatalogRepository.findById(catalogId).orElse(null);
         List<Product> products = storeCatalog.getStore().getProducts();
@@ -190,6 +195,8 @@ public class StoreCatalogService implements ICRUDService<StoreCatalog,Long>,ISto
 
         return "not found";
     }
+
+
 
 
 

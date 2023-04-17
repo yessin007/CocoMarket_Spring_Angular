@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
+
+import { BrowserModule } from "@angular/platform-browser";
+
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +24,7 @@ import { NavigationComponent } from './frontOffice/navigation/navigation.compone
 import { SidebarLoginComponent } from './frontOffice/sidebar-login/sidebar-login.component';
 import { FooterComponent } from './frontOffice/footer/footer.component';
 
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
