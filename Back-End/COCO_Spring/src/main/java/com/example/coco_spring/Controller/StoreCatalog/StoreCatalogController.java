@@ -83,5 +83,10 @@ StoreCatalogRepository storeCatalogRepository ;
         StoreCatalog storeCatalog = storeCatalogService.add1(catalogName, catalogDescription, date);
         return new ResponseEntity<>(storeCatalog, HttpStatus.CREATED);
     }
+    @GetMapping("observeProductCategory/{catalogId}/{productId}")
+    public String observeProductCategory(@PathVariable("catalogId") Long catalogId,@PathVariable("productId") Long productId){
+        return storeCatalogService.observeProductCategory(catalogId,productId);
+
+    }
 
     }

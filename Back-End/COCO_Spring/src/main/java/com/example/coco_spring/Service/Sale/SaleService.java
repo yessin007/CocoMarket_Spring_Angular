@@ -21,10 +21,10 @@ public class SaleService implements ISaleService{
     public Double getTotalRevenueByProduct(Long productId) {
         return saleRepository.findTotalRevenueByProduct(productId);
     }
-
+/*
     @Override
     public List<ProductSaleDTO> getTopSellingProducts(int n) {
-        List<Sale> topSales = saleRepository.findAllByOrderByQuantityDesc().stream()
+        List<Sale> topSales = saleRepository.findAllByOrderByQuantityDesc();.stream()
                 .limit(n)
                 .collect(Collectors.toList());
         for (Sale sale : topSales) {
@@ -40,5 +40,5 @@ public class SaleService implements ISaleService{
         return topProducts;
     }
 
-
+*/
 }

@@ -20,6 +20,7 @@ public class StoreCatalogService implements ICRUDService<StoreCatalog,Long>,ISto
 
     StoreCatalogRepository storeCatalogRepository;
     StoreRepository storeRepository;
+    ProductRepository productRepository ;
 
     @Override
     public List<StoreCatalog> findAll() {
@@ -90,5 +91,16 @@ public class StoreCatalogService implements ICRUDService<StoreCatalog,Long>,ISto
     public Optional<StoreCatalog> findStoreCatalogByDate(Date date) {
 
         return Optional.ofNullable(storeCatalogRepository.findByDate(date));
+    }
+    public String observeProductCategory(Long catalogId,Long productId){
+        StoreCatalog storeCatalog = storeCatalogRepository.findById(catalogId).orElse(null);
+        List<Product> products = storeCatalog.getStore().getProducts();
+        Product product =productRepository.findById(productId).orElse(null);
+        for (Product p : products){
+            if (p.equals(product));
+            return String.valueOf(product.getProductCategory());
+        }
+
+        return "not found";
     }
 }

@@ -2,6 +2,9 @@ package com.example.coco_spring.Service;
 
 import com.example.coco_spring.Entity.Product;
 import com.example.coco_spring.Entity.User;
+import com.example.coco_spring.Repository.UserRepository;
+import com.example.coco_spring.Service.StoreCatalog.StoreCatalogService;
+import com.example.coco_spring.Service.User.UserService;
 import com.sun.mail.smtp.SMTPTransport;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
@@ -35,6 +38,9 @@ import static javax.mail.Message.RecipientType.TO;
 public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
+    UserRepository userRepository ;
+    UserService userService;
+    StoreCatalogService storeCatalogService;
     private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
     @Autowired
     private TemplateEngine templateEngine;
@@ -135,5 +141,28 @@ public class EmailService {
         message.saveChanges();
         return message;
     }
-}
+    public void sendEmailToStoreCatalog(Long userId,Long productId,Long catalogId, String subject, String message) throws MessagingException {
+        User user =userRepository.findById(userId).orElse(null);
+        List<String> interests = userService.findtheinterestsofbuyers(user.getId());
+        for (int i=0;i<interests.size();i++) {
+            if (storeCatalogService.observeProductCategory(catalogId, productId).equals(interests.get(i))) {
+                MimeMessage mimeMessage = mailSender.createMimeMessage();
+                MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
+                messageHelper.setSubject(subject);
+                messageHelper.setTo(user.getEmail());
+
+                Context context = new Context();
+                context.setVariable("subject", subject);
+                context.setVariable("message", message);
+                //String content = templateEngine.process("email-template", context);
+                String content = templateEngine.process("my-new-email", context);
+
+
+                messageHelper.setText(content, true);
+                mailSender.send(mimeMessage);
+
+            }
+
+        }}}
+
 

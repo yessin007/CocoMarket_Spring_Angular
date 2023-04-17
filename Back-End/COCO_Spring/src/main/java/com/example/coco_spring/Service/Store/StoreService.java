@@ -77,6 +77,8 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
         return storeRepository.findBystoreName(storeName);
     }
 
+
+
     @Override
     public void AffectProductToStore(Long storId, Long productId) {
         Store store = storeRepository.findById(storId).get();
@@ -275,7 +277,7 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
 
     }
 
-    public List<PostStore> Searchpost(String ch,Long id){
+    public List<PostStore>  Searchpost(String ch,Long id){
         List<PostStore> ll = new ArrayList<>();
         for (PostStore post : postRepo.findAll()) {
             if (post.getBody().contains(ch) || post.getPostTitle().contains(ch))
