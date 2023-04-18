@@ -20,6 +20,7 @@ import { NavigationComponent } from './frontOffice/navigation/navigation.compone
 import { SidebarLoginComponent } from './frontOffice/sidebar-login/sidebar-login.component';
 import { FooterComponent } from './frontOffice/footer/footer.component';
 import { ListComponent } from './frontOffice/products/list/list.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ListComponent } from './frontOffice/products/list/list.component';
     BrowserModule,
     HttpClientModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [
   ],
