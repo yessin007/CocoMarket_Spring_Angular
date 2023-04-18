@@ -3,7 +3,9 @@ package com.example.coco_spring.Service;
 import com.example.coco_spring.Entity.Product;
 import com.example.coco_spring.Entity.StoreCatalog;
 import com.example.coco_spring.Entity.User;
+
 import com.example.coco_spring.Repository.ProductRepository;
+
 import com.example.coco_spring.Repository.UserRepository;
 import com.example.coco_spring.Service.StoreCatalog.StoreCatalogService;
 import com.example.coco_spring.Service.User.UserService;
@@ -45,15 +47,14 @@ import static javax.mail.Message.RecipientType.TO;
 public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
+    StoreCatalogService storeCatalogService;
     private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
     @Autowired
     private TemplateEngine templateEngine;
 
-    @Autowired
-    UserRepository userRepository;
 
-    @Autowired
-    StoreCatalogService storeCatalogService;
+
+
 
     @Autowired
     ProductRepository productRepository;
@@ -191,11 +192,13 @@ public class EmailService {
     }
 
 
+
     public void sendEmailToStoreCatalog(User user,List<String> interests,Long productId,Long catalogId, String subject, String message) throws MessagingException {
 
         //List<String> interests = userService.findtheinterestsofbuyers(user.getId());
         for (int i=0;i<interests.size();i++){
             if (storeCatalogService.observeProductCategory(catalogId,productId).equals(interests.get(i))){
+
                 MimeMessage mimeMessage = mailSender.createMimeMessage();
                 MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
                 messageHelper.setSubject(subject);
@@ -213,6 +216,7 @@ public class EmailService {
 
             }
 
+
         }
 
 
@@ -223,4 +227,5 @@ public class EmailService {
 
 
 }
+
 

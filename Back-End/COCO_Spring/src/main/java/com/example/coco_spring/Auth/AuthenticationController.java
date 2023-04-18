@@ -23,6 +23,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class AuthenticationController {
 
     private final AuthenticationService service;
@@ -111,6 +112,24 @@ public class AuthenticationController {
                             .build());
         }
     }
+
+	@PostMapping("/webAuthenticate")
+	public ResponseEntity<AuthenticationResponse> webAuthenticate(
+		@RequestBody AuthenticationRequest request,
+		BindingResult result
+	) {
+		if (result.hasErrors()) {
+			List<String> errors = result.getAllErrors()
+				.stream()
+				.map(DefaultMessageSourceResolvable::getDefaultMessage)
+				.collect(Collectors.toList());
+			return ResponseEntity.badRequest()
+				.body(AuthenticationResponse.builder()
+					.errors(errors)
+					.build());
+		}
+		return ResponseEntity.ok(service.authenticateViaWeb(request));
+	}
 
     @PostMapping("/verif/{mail}/{code}")
     public String verifAccount(@PathVariable("mail") String mail,@PathVariable("code") Integer code){

@@ -23,6 +23,7 @@ public class CocoSpringApplication {
         return new StandardServletMultipartResolver();
     }
 
+
     public static void main(String[] args) {
 
         SpringApplication.run(CocoSpringApplication.class, args);
