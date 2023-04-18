@@ -128,14 +128,14 @@ StoreCatalogRepository storeCatalogRepository ;
     public void affectFavToUser(@PathVariable("userId") Long userId,@PathVariable("catalogId") Long catalogId){
         storeCatalogService.affectFavToUser(userId,catalogId);
     }
-
+/*
     @GetMapping("observeProductCategory/{catalogId}/{productId}")
     public String observeProductCategory(@PathVariable("catalogId") Long catalogId,@PathVariable("productId") Long productId){
         return storeCatalogService.observeProductCategory(catalogId,productId);
 
     }
 
-
+*/
     @PostMapping("sendEmailToStoreCatalog/{userId}/{productId}/{catalogId}/{subject}/{message}")
     public void sendEmailToStoreCatalog(@PathVariable("userId") Long userId,@PathVariable("productId")Long productId,@PathVariable("catalogId")Long catalogId,@PathVariable("subject") String subject,@PathVariable("message") String message) throws MessagingException {
         User user = userRepository.findById(userId).get();
