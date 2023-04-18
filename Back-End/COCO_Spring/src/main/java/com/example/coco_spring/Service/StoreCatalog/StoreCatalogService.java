@@ -31,7 +31,7 @@ public class StoreCatalogService implements ICRUDService<StoreCatalog,Long>,ISto
     UserDataLoadRepo userDataLoadRepo;
     CategoryAdverRepo categoryAdverRepo;
 
-    ProductRepository productRepository;
+
 
 
 

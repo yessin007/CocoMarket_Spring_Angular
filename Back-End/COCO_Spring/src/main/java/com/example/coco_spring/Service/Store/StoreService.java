@@ -324,7 +324,7 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
         }
         return  result;
     }
-}
+
 
     public ResponseEntity<Map<String, Object>> setLatLngToStore(Long storeId) {
         try {

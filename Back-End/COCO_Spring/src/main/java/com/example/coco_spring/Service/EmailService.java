@@ -54,11 +54,9 @@ public class EmailService {
     @Autowired
     private TemplateEngine templateEngine;
 
-    @Autowired
-    UserRepository userRepository;
 
-    @Autowired
-    StoreCatalogService storeCatalogService;
+
+
 
     @Autowired
     ProductRepository productRepository;

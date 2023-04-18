@@ -167,10 +167,10 @@ public class StoreController {
 
 
     @GetMapping("/AnalyzePostComments")
-    public Map<String, Map<String,Float>> analizeSentimentOfComments(){
+    public Map<String, Map<String,Float>> analizeSentimentOfComments() {
         return storeService.analizeSentimentOfComments();
 
-
+    }
 
     @GetMapping("/setLatLng/{storeId}")
     public ResponseEntity<Map<String, Object>> setLatLngToStore(@PathVariable("storeId") Long storeId) {
