@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+
+import { BrowserModule} from "@angular/platform-browser";
+
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +25,7 @@ import { FooterComponent } from './frontOffice/footer/footer.component';
 import { ListComponent } from './frontOffice/products/list/list.component';
 import {FormsModule} from "@angular/forms";
 
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
