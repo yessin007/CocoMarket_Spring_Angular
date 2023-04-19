@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -29,8 +29,7 @@ public class ProductServices implements IProductServices {
         return productRepository.findAll();
     }
     @Override
-    public Product addAndUpdateProduct(MultipartFile image,Product product) throws IOException {
-        product.setImages(image.getBytes());
+    public Product addAndUpdateProduct(Product product) {
         return productRepository.save(product);
     }
     @Override
