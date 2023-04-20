@@ -98,6 +98,8 @@ public class AuthenticationService {
             var jwtToken = jwtService.generateToken(user);
             revokeAllUserTokens(user);
             saveUserToken(user, jwtToken);
+            user.getTokens().clear();
+            user.setPassword("");
             return AuthenticationResponse.builder()
                     .token(jwtToken)
 					.user(user)
