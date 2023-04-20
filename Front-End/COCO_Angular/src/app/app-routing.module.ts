@@ -23,7 +23,7 @@ const routes: Routes = [
       { path: 'forgetPassword', component: ForgetpasswordComponent },
       { path: 'Activate', component: ActivateComponent },
       { path: 'resetPassword', component: ResetpasswordComponent },
-      { path: 'SignUp', component: SignupComponent },
+      { path: 'signup', component: SignupComponent },
     ]},
   {path:"adminpanel" ,component: MenuComponent, children: [
       {path: "home",component: AdminHomeComponent},
