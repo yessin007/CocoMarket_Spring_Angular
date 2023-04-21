@@ -47,8 +47,6 @@ import static javax.mail.Message.RecipientType.TO;
 public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
-    UserRepository userRepository ;
-    UserService userService;
     StoreCatalogService storeCatalogService;
     private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
     @Autowired

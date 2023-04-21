@@ -22,6 +22,8 @@ import { HomeComponent } from './frontOffice/home/home.component';
 import { NavigationComponent } from './frontOffice/navigation/navigation.component';
 import { SidebarLoginComponent } from './frontOffice/sidebar-login/sidebar-login.component';
 import { FooterComponent } from './frontOffice/footer/footer.component';
+import { ListComponent } from './frontOffice/products/list/list.component';
+import {FormsModule} from "@angular/forms";
 
 // @ts-ignore
 @NgModule({
@@ -40,13 +42,15 @@ import { FooterComponent } from './frontOffice/footer/footer.component';
     HomeComponent,
     NavigationComponent,
     SidebarLoginComponent,
-    FooterComponent
+    FooterComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [
   ],
