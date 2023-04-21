@@ -29,7 +29,8 @@ public class Store implements Serializable {
     @Enumerated(EnumType.STRING)
     private Category category ;
     private String storeEmailAddress ;
-
+    @Lob
+    private byte[] storeimg;
     private String link;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,mappedBy ="store" )
