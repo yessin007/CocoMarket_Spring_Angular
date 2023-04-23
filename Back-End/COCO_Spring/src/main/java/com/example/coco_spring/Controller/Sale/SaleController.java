@@ -27,11 +27,12 @@ public class SaleController {
         }
         return ResponseEntity.ok(totalRevenue);
     }
-    @GetMapping("/top-selling-products")
-    public ResponseEntity<List<ProductSaleDTO>> getTopSellingProducts(@RequestParam("n") int n) {
+    /*
+    @GetMapping("/top-selling-products/{n}")
+    public ResponseEntity<List<ProductSaleDTO>> getTopSellingProducts(@PathVariable("n") int n) {
         List<ProductSaleDTO> topProducts = saleService.getTopSellingProducts(n);
         return ResponseEntity.ok(topProducts);
-    }
+    }*/
 
 
 

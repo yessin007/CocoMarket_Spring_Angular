@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Slf4j
+
 @AllArgsConstructor
 public class SaleService implements ISaleService{
     SaleRepository saleRepository;
@@ -21,15 +21,17 @@ public class SaleService implements ISaleService{
     public Double getTotalRevenueByProduct(Long productId) {
         return saleRepository.findTotalRevenueByProduct(productId);
     }
-
+/*
     @Override
     public List<ProductSaleDTO> getTopSellingProducts(int n) {
-        List<Sale> topSales = saleRepository.findAllByOrderByQuantityDesc().stream()
+        List<Sale> topSales = saleRepository.findAllByOrderByQuantityDesc();.stream()
                 .limit(n)
                 .collect(Collectors.toList());
+
         for (Sale sale : topSales) {
-           log.info("la quantite est"+sale.getQuantity());
+           //("la quantite est"+sale.getQuantity());
         }
+
 
         List<ProductSaleDTO> topProducts = new ArrayList<>();
         for (Sale sale : topSales) {
@@ -40,5 +42,5 @@ public class SaleService implements ISaleService{
         return topProducts;
     }
 
-
+*/
 }

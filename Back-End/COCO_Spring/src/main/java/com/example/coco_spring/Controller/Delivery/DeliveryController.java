@@ -1,20 +1,33 @@
 package com.example.coco_spring.Controller.Delivery;
 
-import com.example.coco_spring.Entity.ClientLocationRequest;
+import com.example.coco_spring.Entity.ProviderLocation;
 import com.example.coco_spring.Entity.Delivery;
-import com.example.coco_spring.Entity.Provider;
+import com.example.coco_spring.Repository.OrderRepository;
 import com.example.coco_spring.Service.Delivery.DeliveryService;
+import lombok.AllArgsConstructor;
+import com.example.coco_spring.Entity.Provider;
+import com.example.coco_spring.Entity.StoreLocations;
+import com.example.coco_spring.Repository.DeliveryRepository;
+import com.example.coco_spring.Service.Delivery.DeliveryService;
+import com.example.coco_spring.Service.Delivery.LocationService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/delivery/")
 public class DeliveryController {
     private final DeliveryService deliveryService;
+    private final DeliveryRepository deliveryRepository;
 
-    public DeliveryController(DeliveryService deliveryService) {
+    private final LocationService locationService;
+
+    public DeliveryController(DeliveryService deliveryService,
+                              DeliveryRepository deliveryRepository,LocationService locationService)  {
         this.deliveryService = deliveryService;
+        this.deliveryRepository = deliveryRepository;
+        this.locationService = locationService;
     }
 
     @GetMapping("/retrive_all_deliveries")
@@ -58,10 +71,28 @@ public class DeliveryController {
 
     }
 
-    @PostMapping("/dispatch")
-    public Provider dispatchDeliveryToNearestDeliveryman(@RequestBody ClientLocationRequest clientLocationRequest) {
-        Delivery delivery = deliveryService.dispatchDeliveryToNearestDeliveryman(clientLocationRequest);
+    @PostMapping("/dispatch/{userId}/{deliveryId}")
+    public Provider dispatchDeliveryToNearestDeliveryman(@PathVariable("userId")Long userId,@PathVariable("deliveryId") Long deliveryId) {
+        Delivery delivery = deliveryService.dispatchDeliveryToNearestDeliveryman(userId,deliveryId);
         return delivery.getProvider();
     }
-
+    @PutMapping("/cancelDelivery/{id}")
+    public Delivery cancelDelivery(@PathVariable Long id) {
+       return deliveryService.cancelDelivery(id);
     }
+    @GetMapping("/getNearestStorewithproduct/{productname}/{clientLatitude}/{clientLongitude}")
+    public Map<String , StoreLocations> getNearestStorewithproduct(@PathVariable("productname") String productname,@PathVariable("clientLatitude") double clientLatitude,
+                                                                   @PathVariable("clientLongitude") double clientLongitude) {
+        return locationService.getNearestStorewithproduct(productname,clientLatitude,clientLongitude);
+    }
+
+    @PutMapping("/changeStatusToProg/{id}")
+    public  Delivery changeStatusToProg(@PathVariable("id")Long id){
+      return   deliveryService.changeStatusToProg(id);
+    }
+    @PutMapping("/changeStatusToDelivered/{id}")
+    public  Delivery changeStatusToDelivered(@PathVariable("id")Long id){
+        return   deliveryService.changeStatusToDelivered(id);
+    }
+
+}

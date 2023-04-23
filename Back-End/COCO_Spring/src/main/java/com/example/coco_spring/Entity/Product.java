@@ -1,6 +1,4 @@
 package com.example.coco_spring.Entity;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -23,12 +21,9 @@ public class Product {
     private String productName;
     private String description;
     private Long quantity;
-    @Lob
-    private byte[] images;
-    @Lob
-    private byte[] model;
-    @Lob
-    private byte[] video;
+    private String images;
+    private String model;
+    private String video;
     private String brand;
     private float price;
     @Temporal(TemporalType.DATE)
@@ -44,13 +39,22 @@ public class Product {
     @OneToMany(cascade = CascadeType.ALL)
     List<Review> reviews;
     @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    Store storess;
+
+    @JsonIgnore
     @ManyToMany(mappedBy = "products",cascade = CascadeType.ALL)
     List<Store> stores;
+
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
     List<LikeDislikeProduct> likeDislikeProducts;
     @ManyToOne
     @JoinColumn(name = "cart_id")
     @JsonIgnore
-    private Cart cart;
+
+    Cart cart;
+
+
+
 }

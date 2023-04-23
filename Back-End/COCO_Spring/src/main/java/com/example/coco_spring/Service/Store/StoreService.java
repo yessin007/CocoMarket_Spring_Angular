@@ -3,6 +3,15 @@ package com.example.coco_spring.Service.Store;
 import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Repository.*;
 import com.example.coco_spring.Service.*;
+
+import com.vader.sentiment.analyzer.SentimentAnalyzer;
+import com.vader.sentiment.analyzer.SentimentPolarities;
+
+import com.example.coco_spring.Service.Delivery.LocationService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,21 +20,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
-import java.util.HashSet;
+import java.util.*;
 
 import javax.mail.MessagingException;
 import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-
-import java.util.List;
-import java.util.Set;
 
 @Service
 @Slf4j
 @AllArgsConstructor
 public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
     StoreRepository storeRepository;
+    LocationService locationService;
+
+    StoreLocationsRepository storeLocationsRepository;
     QuizzRepository quizzRepository;
 
     UserRepository userRepository;
@@ -45,6 +53,7 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
     @Autowired
     PostCommentRepo postCommentRepo;
     PostLikeRepo postLikeRepo ;
+    @Autowired
     EmailService emailService ;
     @Override
     public List<Store> findAll() {
@@ -78,6 +87,8 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
     public Store findStoreByName(String storeName) {
         return storeRepository.findBystoreName(storeName);
     }
+
+
 
     @Override
     public void AffectProductToStore(Long storId, Long productId) {
@@ -208,12 +219,7 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
         return postLike;
     }
 
-    @Override
-    public ResponseEntity<?> addressMapss(Long idEvent) throws IOException, InterruptedException {
 
-        // TODO Auto-generated method stub
-        return null;
-    }
 
     public int PostLikeFromUser(Long isUser,Long Idpost) {
         int x =0;
@@ -222,28 +228,30 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
                 if (l.getIsLiked() == true) {x= 1;}
                 else {x=0;}
             }
-
+            return x;
         }
-        return x;
+        return  x;
     }
-    public PostStore Get_best_Post() throws MessagingException {
+    public String Get_best_Post() throws MessagingException {
         PostStore p1 = null;
         int x = 0;
+
         for (PostStore p : postRepo.findAll()) {
             if (postRepo.diffrence_entre_date(p.getCreatedAt()) <= 7) {
                 if (p.getPostLikes().size() > x) {
                     p1 = p;
-                    x = p.getPostLikes().size();
+                    for(PostLike pl: p.getPostLikes()){
+                        if(pl.getIsLiked()==true){
+                            x++;
+                        }
+                    }
+
                 }
-                /*
-                 * else if (p.getPostLikes().size() == x) { if
-                 * (postRepo.diffrence_entre_date(p.getCreatedAt())<postRepo.
-                 * diffrence_entre_date(p1.getCreatedAt())) { p1 = p;} }
-                 */
+
             }
         }
         emailService.sendAllertReport("Congrates Your Post : "+p1.getPostTitle()+" is the best post for week  \n", p1.getUser().getEmail());
-        return p1;
+        return p1.getPostTitle();
     }
     public PostStore Give_Etoile_Post(Long idPost, int nb_etouile) {
         PostStore post1 = postRepo.findById(idPost).orElseThrow(() -> new EntityNotFoundException("post not found"));
@@ -275,7 +283,7 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
 
     }
 
-    public List<PostStore> Searchpost(String ch,Long id){
+    public List<PostStore>  Searchpost(String ch,Long id){
         List<PostStore> ll = new ArrayList<>();
         for (PostStore post : postRepo.findAll()) {
             if (post.getBody().contains(ch) || post.getPostTitle().contains(ch))
@@ -298,5 +306,56 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
         quizzRepository.save(Q);
 
     }
+
+
+    final SentimentPolarities sentimentPolarities =
+            SentimentAnalyzer.getScoresFor("that's a rare and valuable feature.");
+    public Map<String, Map<String,Float>> analizeSentimentOfComments(){
+        List<PostComment> postComments=postCommentRepo.findAll();
+        Map<String,Float> resultAnalyze = new HashMap<>();
+        Map<String,Map<String,Float>> result=new HashMap<>();
+        for (PostComment pd:postComments){
+            resultAnalyze.put("PositivePolarity",SentimentAnalyzer.getScoresFor(pd.getCommentBody()).getPositivePolarity());
+            resultAnalyze.put("NegativePolarity",SentimentAnalyzer.getScoresFor(pd.getCommentBody()).getNegativePolarity());
+            resultAnalyze.put("NeutralPolarity",SentimentAnalyzer.getScoresFor(pd.getCommentBody()).getNeutralPolarity());
+            resultAnalyze.put("CompoundPolarity",SentimentAnalyzer.getScoresFor(pd.getCommentBody()).getCompoundPolarity());
+            result.put(pd.getCommentBody(),resultAnalyze);
+
+        }
+        return  result;
+    }
+
+
+    public ResponseEntity<Map<String, Object>> setLatLngToStore(Long storeId) {
+        try {
+            String geolocationResponse = locationService.getGeolocation();
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(geolocationResponse);
+            double latitude = root.get("location").get("lat").asDouble();
+            double Langitude = root.get("location").get("lng").asDouble();
+            StoreLocations storeLocations = new StoreLocations();
+            storeLocations.setLatitude(latitude);
+            storeLocations.setLongitude(Langitude);
+            storeLocationsRepository.save(storeLocations);
+            Store store = storeRepository.findById(storeId).get();
+            AssignLocationtoStore(storeLocations.getId(),store.getStoreId());
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("latitude", latitude);
+            response.put("langitude", Langitude);
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public Store AssignLocationtoStore(Long locationId, Long  StoreId) {
+        Store store = storeRepository.findById(StoreId).get();
+        StoreLocations storeLocations = storeLocationsRepository.findById(locationId).get();
+        store.setStoreLocations(storeLocations);
+        return storeRepository.save(store);
+    }
+
+
 
 }

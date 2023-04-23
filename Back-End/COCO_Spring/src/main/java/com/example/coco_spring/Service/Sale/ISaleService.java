@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ISaleService {
     public Double getTotalRevenueByProduct(Long productId) ;
-    public List<ProductSaleDTO> getTopSellingProducts(int n) ;
+   // public List<ProductSaleDTO> getTopSellingProducts(int n) ;
 
 
 }

@@ -24,7 +24,6 @@ public class Store implements Serializable {
     @Column(name="storeId")
     private Long storeId;
     private  String storeName ;
-    private String storeLocation;
     private Integer contactInformation ;
     private String storeDescription ;
     @Enumerated(EnumType.STRING)
@@ -39,11 +38,20 @@ public class Store implements Serializable {
     List<Product> products;
 
 
+    @OneToMany(mappedBy = "storess")
+    List<Product> productList;
+
+
+
+    @OneToOne
+    StoreLocations storeLocations;
+
+
     @JsonIgnore
     @OneToOne
     private StoreCatalog storeCatalog;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    Set<Quiz> quiz; // Quizzes related to course (Unidirectionnelel)
+    Set<Quiz> quiz;
 }

@@ -9,9 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 
 @RestController
 @AllArgsConstructor
@@ -33,6 +36,9 @@ public class UserController {
     }
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ReviewRepository reviewRepository;
+
     @PostMapping("/")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         userService.createUser(user);
@@ -50,8 +56,45 @@ public class UserController {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
+    @PostMapping("/updateRole/{id}/{role}")
+    public String updateRoleUser(@PathVariable("id") Long id,@PathVariable("role") String r) {
+        User u =userService.updateRoleUser(id,r);
+        return "User "+u.getName()+" is "+u.getRoles();
+    }
+
+    @PutMapping("/block/{id}/{duration}")
+    public String blockUser(@PathVariable("id") Long id,@PathVariable("duration")Integer dur) throws MessagingException {
+        User u= userService.setUserExpiration(id, dur);
+        return "User "+u.getName()+" is blocker for "+dur+"days";
+    }
+
+    @PutMapping("/unblock/{id}")
+    public String unblockUser(@PathVariable("id") Long id) {
+        User u= userService.setUserunExpiration(id);
+        return "User "+u.getName()+" is unblocked";
+    }
+    @PostMapping("/demResetPassword/{email}")
+    public String demResetPassword(@PathVariable("email") String email) throws MessagingException {
+        User u = userService.demReserPassword(email);
+        return "done";
+    }
+    @PostMapping("/ResetPassword/{code}/{pwd}")
+    public String demResetPassword(@PathVariable("code") Integer code,@PathVariable("pwd") String pwd) throws MessagingException {
+        return userService.reserPassword(code,pwd);
+    }    
     @GetMapping("findtheinterestsofbuyers/{userId}")
     public List<String> findtheinterestsofbuyers(@PathVariable("userId") Long userId){
         return userService.findtheinterestsofbuyers(userId);
+    }
+
+
+    @GetMapping("getAllUserFavories/{userId}")
+    public List<StoreCatalog> getAllUserFavories(@PathVariable("userId") Long userId){
+        return userService.getAllUserFavories(userId);
+    }
+    @GetMapping("/setLatLng/{userId}")
+    public ResponseEntity<Map<String, Object>> setLatLngToUser(@PathVariable("userId") Long userId){
+        return userService.setLatLngToUser(userId);
+
     }
 }
