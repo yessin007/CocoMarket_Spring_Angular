@@ -38,14 +38,16 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     const { username, password } = this.form;
-
+    console.log("click login");
     this.authService.login(username, password).subscribe({
       next: data => {
         this.authService.currentUser.subscribe(data => {
           this.currentUser = data;
+          console.info(this.currentUser.name);
         })
         this.isLoginFailed = false;
         this.isLoggedIn = true;
+        console.info(this.currentUser.name);
         //this.u = this.storageService.getUser();
         this.reloadPage();
       },

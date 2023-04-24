@@ -38,7 +38,7 @@ public class AuthenticationController {
             @Valid @RequestBody RegisterRequest request,
             BindingResult result
     ) throws MessagingException {
-        if (result.hasErrors()) {
+        /*if (result.hasErrors()) {
             List<String> errors = result.getAllErrors()
                     .stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
@@ -47,7 +47,7 @@ public class AuthenticationController {
                     .body(AuthenticationResponse.builder()
                             .errors(errors)
                             .build());
-        }
+        }*/
         return ResponseEntity.ok(service.register(request));
     }
 

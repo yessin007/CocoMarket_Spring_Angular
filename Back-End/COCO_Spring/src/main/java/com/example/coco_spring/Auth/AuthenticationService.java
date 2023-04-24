@@ -49,7 +49,7 @@ public class AuthenticationService {
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
         saveUserToken(savedUser, jwtToken);
-        emailService.sendWelcomeEmail(user);
+        //emailService.sendWelcomeEmail(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
