@@ -1,0 +1,61 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Page Details</h5>
+                </div>
+                <div class="card-body">
+                    <div class="custom-datatable">
+                        <div class="clearfix"></div>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th> </th>
+                                    <th scope="col" sortable="name" (sort)="onSort($event)">First Name</th>
+                                    <th scope="col" sortable="status" (sort)="onSort($event)">Last Name</th>
+                                    <th scope="col" sortable="created_on" (sort)="onSort($event)">Phone Number</th>
+                                    <th scope="col" sortable="action" (sort)="onSort($event)">Update/Delete</th>
+
+                                </tr>
+                            
+
+                                
+                                
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let item of providerList ">
+                                    <th scope="row">
+                                   {{ item.firstName }}
+                                    </th>
+                                    <th scope="row">
+                                        {{ item.lastName }}
+                                    </th>
+                                    <th scope="row">
+                                        {{item.phoneNumber}}
+                                    </th>
+
+                                    <th scope="row">
+                                        <a (click)="editProvider(item.id)" href="javascript:void(0)"><i class='fa fa-edit f-12'></i></a>&nbsp;
+                                        <a (click)="deleteProvider(item.id)" href="javascript:void(0)"><i class="fa fa-trash-o" ></i> &nbsp;&nbsp;&nbsp;</a>
+                                        <a (click)="(setLatLngToProvider(item.id))" href="javascript:void(0)"><i class="fa fa-map-marker"></i></a>
+                                    </th>
+
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-center p-2">
+                            <ngb-pagination
+                              [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">
+                            </ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->
