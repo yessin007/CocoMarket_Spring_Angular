@@ -1,0 +1,123 @@
+
+<form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)">
+    <div class="container-fluid">
+        <div class="row product-adding">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>General</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="validationCustom01" class="col-form-label pt-0"><span>*</span> Product Name</label>
+                                <input class="form-control" [(ngModel)]="product.productName" name="name" id="validationCustom01" type="text" required="" >
+                            </div>
+                            <div class="form-group">
+                                <label for="validationCustomtitle" class="col-form-label pt-0"><span>*</span> Reference</label>
+                                <input class="form-control" id="validationCustomtitle" name="ref" [(ngModel)]="product.reference" type="text" required="">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label"><span>*</span> Categories</label>
+                                <select class="custom-select form-select" name="option" [(ngModel)]="product.productCategory" required="">
+                                    <option value="">--Select--</option>
+                                    <option value="1">HomeGoods</option>
+                                    <option value="2">Electronics</option>
+                                    <option value="3">BeautyAndPersonalCare</option>
+                                    <option value="4">SportingGoods</option>
+                                    <option value="5">PetSupplies</option>
+                                    <option value="6">FoodAndGrocery</option>
+                                    <option value="7">Industrial</option>
+                                </select>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xl-3 col-sm-4">
+                                    <label for="validationCustomtitle" class="col-form-label pt-0"><span>*</span> Quantity</label>
+                                </div>
+                                <div class="col-xl-8 col-sm-7">
+                                    <input class="form-control" name="quantity" [(ngModel)]="product.quantity" id="validationCustom0x" type="number"
+                                           required="">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xl-3 col-sm-4">
+                                    <label for="validationCustom02" class="mb-0">Price (TND) :</label>
+                                </div>
+                                <div class="col-xl-8 col-sm-7">
+                                    <input class="form-control" name="price" [(ngModel)]="product.price" id="validationCustom02" type="number"
+                                           required="">
+                                </div>
+                            </div>
+                            <h3>Image Preview</h3>
+                            <div *ngFor="let f of product.productImages">
+                                <h4>{{f.filefile.name}}</h4>
+                                <img [src]="f.url">
+                            </div>
+                            <label class="col-form-label pt-0"> Product Upload</label>
+                            <div class="card-body dropzone-custom p-0">
+                                <ngx-dropzone class="dropzone-border" (change)="onSelect($event)">
+                                    <ngx-dropzone-label>
+                                        <div class="dz-message needsclick">
+                                            <i class="fa fa-cloud-upload"></i>
+                                            <h4 class="mb-0 f-w-600">Drop files here or click to upload.</h4>
+                                        </div>
+                                    </ngx-dropzone-label>
+                                    <ngx-dropzone-preview *ngFor="let f of array" [removable]="true" (removed)="onRemove(f)">
+                                        <ngx-dropzone-label>{{ f.filefile.name }} ({{ f.filefile.type }})</ngx-dropzone-label>
+                                    </ngx-dropzone-preview>
+                                </ngx-dropzone>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card h-auto">
+                    <div class="card-header">
+                        <h5>Add Description</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group mb-0">
+                                <div class="description-sm">
+                                    <ckeditor [editor]="Editor" name="desc" (click)="clearDescription()" [ngModel]="product.description" data="<p>Put your description here...</p>"></ckeditor>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Complimentary Infos</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="validationCustom05" class="col-form-label pt-0"> Showcase YouTube link Video</label>
+                                <input class="form-control" id="validationCustom05" name="linkYTB" [(ngModel)]="product.video" type="text" required="">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Years Of Warranty</label>
+                                <div class="col-xl-8 col-sm-7">
+                                    <div class="qty-box1">
+                                        <div class="input-group">
+                                            <i class="fa fa-minus btnGtr1" (click)=decrement()></i>
+                                            <input class="touchspin1 text-center" name="counter" [value]="counter" type="text" [(ngModel)]="product.yearsOfWarranty" >
+                                            <i class="fa fa-plus btnLess1" (click)=increment()></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-0">
+                                <div class="product-buttons text-end mt-3">
+                                    <button type="submit" class="btn btn-primary">Confirm Add</button>
+                                    <button type="button" class="btn btn-light">Discard</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
