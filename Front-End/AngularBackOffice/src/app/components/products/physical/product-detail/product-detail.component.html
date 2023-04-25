@@ -1,0 +1,64 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="row product-page-main card-body">
+            <div  class="col-xl-4 ">
+                <section class="image-container">
+                    <carousel>
+                        <slide *ngFor="let imageUrl of product.productImages">
+                            <img class="carousel-image" [src]="imageUrl.url">
+                        </slide>
+                    </carousel>
+                </section>
+            </div>
+            <div class="col-xl-8">
+                <div class="product-page-details product-right mb-0">
+                    <h2>{{product.productName}}</h2>
+                    <ngb-rating class="ratings-sec"  [(rate)]="currentRate">
+                        <ng-template let-fill="fill" let-index="index">
+                            <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3"><i class='fa fa-star'></i> </span>
+                          </ng-template>
+                      </ngb-rating>
+                    <hr>
+                    <h6 class="product-title">product details</h6>
+                    <p class="mb-0">{{product.description}}</p>
+                    <div class="product-price digits mt-2">
+                        <h3>{{product.price}} TND <del>350.00 TND</del></h3>
+                    </div>
+                    <ul class="color-variant">
+                        <li class="bg-light0"></li>
+                        <li class="bg-light1"></li>
+                        <li class="bg-light2"></li>
+                    </ul>
+                    <hr>
+                    <ng-template #content let-modal>
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Sheer Straight Kurta</h5>
+                            <button type="button" class="close" aria-label="Close"
+                                (click)="modal.dismiss('Cross click')">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="assets/images/size-chart.jpg" alt="" class="img-fluid blur-up lazyloaded">
+                        </div>
+                    </ng-template>
+                    <div class="add-product-form">
+                        <h6 class="product-title">quantity</h6>
+                        <div class="qty-box1">
+                            <div class="input-group">
+                                <i class="fa fa-minus btnGtr1" (click)=decrement()></i>
+                                <input class="touchspin1 text-center" name="counter" [value]=product.quantity type="number">
+                                <i class="fa fa-plus btnLess1" (click)=increment()></i>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="m-t-15">
+                        <button class="btn btn-primary m-r-10" type="button">Add To Cart</button>
+                        <button class="btn btn-secondary" type="button">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
