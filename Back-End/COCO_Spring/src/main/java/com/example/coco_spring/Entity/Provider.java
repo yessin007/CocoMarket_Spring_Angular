@@ -22,6 +22,7 @@ public class Provider {
     private long providerId;
     private String providerName;
     private long providerPrice;
+    private long providerNumber;
 
     @JsonIgnore
     @OneToMany(mappedBy = "provider",cascade = CascadeType.ALL)
