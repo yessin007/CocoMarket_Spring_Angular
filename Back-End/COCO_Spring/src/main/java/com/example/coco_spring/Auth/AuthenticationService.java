@@ -49,7 +49,7 @@ public class AuthenticationService {
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
         saveUserToken(savedUser, jwtToken);
-        emailService.sendWelcomeEmail(user);
+        //emailService.sendWelcomeEmail(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
@@ -92,15 +92,19 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
-        var user = repository.findByUsername(request.getUsername())
+        User user = repository.findByUsername(request.getUsername())
                 .orElseThrow();
         if (user.isAccountNonExpired()){
             var jwtToken = jwtService.generateToken(user);
-            //revokeAllUserTokens(user); hedhi eli lezem nraja33ha
+            revokeAllUserTokens(user);
             saveUserToken(user, jwtToken);
+            user.getTokens().clear();
+            user.setPassword("");
             return AuthenticationResponse.builder()
                     .token(jwtToken)
-                    .build();}
+					.user(user)
+                    .build();
+		}
         else if(user.isAccountNonLocked()){
             return AuthenticationResponse.builder()
                     .errors(Collections.singletonList("this profile is not yet verified. please check your mail to activate it"))

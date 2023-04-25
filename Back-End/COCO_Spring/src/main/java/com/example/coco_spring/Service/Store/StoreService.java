@@ -3,10 +3,15 @@ package com.example.coco_spring.Service.Store;
 import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Repository.*;
 import com.example.coco_spring.Service.*;
+
+import com.vader.sentiment.analyzer.SentimentAnalyzer;
+import com.vader.sentiment.analyzer.SentimentPolarities;
+
 import com.example.coco_spring.Service.Delivery.LocationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +87,8 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
     public Store findStoreByName(String storeName) {
         return storeRepository.findBystoreName(storeName);
     }
+
+
 
     @Override
     public void AffectProductToStore(Long storId, Long productId) {
@@ -276,7 +283,7 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
 
     }
 
-    public List<PostStore> Searchpost(String ch,Long id){
+    public List<PostStore>  Searchpost(String ch,Long id){
         List<PostStore> ll = new ArrayList<>();
         for (PostStore post : postRepo.findAll()) {
             if (post.getBody().contains(ch) || post.getPostTitle().contains(ch))
@@ -299,6 +306,25 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
         quizzRepository.save(Q);
 
     }
+
+
+    final SentimentPolarities sentimentPolarities =
+            SentimentAnalyzer.getScoresFor("that's a rare and valuable feature.");
+    public Map<String, Map<String,Float>> analizeSentimentOfComments(){
+        List<PostComment> postComments=postCommentRepo.findAll();
+        Map<String,Float> resultAnalyze = new HashMap<>();
+        Map<String,Map<String,Float>> result=new HashMap<>();
+        for (PostComment pd:postComments){
+            resultAnalyze.put("PositivePolarity",SentimentAnalyzer.getScoresFor(pd.getCommentBody()).getPositivePolarity());
+            resultAnalyze.put("NegativePolarity",SentimentAnalyzer.getScoresFor(pd.getCommentBody()).getNegativePolarity());
+            resultAnalyze.put("NeutralPolarity",SentimentAnalyzer.getScoresFor(pd.getCommentBody()).getNeutralPolarity());
+            resultAnalyze.put("CompoundPolarity",SentimentAnalyzer.getScoresFor(pd.getCommentBody()).getCompoundPolarity());
+            result.put(pd.getCommentBody(),resultAnalyze);
+
+        }
+        return  result;
+    }
+
 
     public ResponseEntity<Map<String, Object>> setLatLngToStore(Long storeId) {
         try {

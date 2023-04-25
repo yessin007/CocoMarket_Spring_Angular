@@ -10,6 +10,7 @@ import java.util.Map;
 
 public interface IMPCocoService {
     public Store findStoreByName(String storeName);
+
     public void AffectProductToStore(Long storId ,Long productId);
     public List<Product> getProductsByStore(Long storeId);
 

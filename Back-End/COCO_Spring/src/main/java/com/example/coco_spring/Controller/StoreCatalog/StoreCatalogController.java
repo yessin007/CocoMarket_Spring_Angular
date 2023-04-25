@@ -1,8 +1,13 @@
 package com.example.coco_spring.Controller.StoreCatalog;
 
 import com.example.coco_spring.Entity.*;
+
+import com.example.coco_spring.Repository.NotificationRepository;
+import com.example.coco_spring.Repository.StoreCatalogRepository;
+
 import com.example.coco_spring.Repository.UserRepository;
 import com.example.coco_spring.Service.EmailService;
+
 import com.example.coco_spring.Service.StoreCatalog.StoreCatalogService;
 import com.example.coco_spring.Service.User.UserService;
 import lombok.AllArgsConstructor;
@@ -10,9 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+
+import java.io.IOException;
 import javax.mail.MessagingException;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +32,10 @@ import java.util.Optional;
 public class StoreCatalogController {
 
     StoreCatalogService storeCatalogService;
+
+NotificationRepository notificationRepository ;
+StoreCatalogRepository storeCatalogRepository ;
+
     @Autowired
     EmailService emailService;
     @Autowired
@@ -32,8 +45,15 @@ public class StoreCatalogController {
 
 
 
+
     @PostMapping("/addStoreCatalog")
     public StoreCatalog add(@RequestBody StoreCatalog class1){
+
+        Notification notif = new Notification();
+        notif.setCreatedAt(new Date());
+        notif.setMessage(class1 + " new cataloq");
+        notif.setRead(false);
+        notificationRepository.save(notif);
         return storeCatalogService.add(class1);
     }
 
@@ -63,6 +83,7 @@ public class StoreCatalogController {
 
     @GetMapping("/findStoreCatalogByName/{catalogName}")
     public StoreCatalog findStoreCatalogByName(@PathVariable("catalogName") String catalogName){
+
         return storeCatalogService.findStoreCatalogByName(catalogName);
     }
 
@@ -78,6 +99,12 @@ public class StoreCatalogController {
     public ResponseEntity<StoreCatalog> add1( @RequestParam String catalogName, @RequestParam String catalogDescription,@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
         StoreCatalog storeCatalog = storeCatalogService.add1(catalogName, catalogDescription, date);
         return new ResponseEntity<>(storeCatalog, HttpStatus.CREATED);
+    }
+    @GetMapping("observeProductCategory/{catalogId}/{productId}")
+    public String observeProductCategory(@PathVariable("catalogId") Long catalogId,@PathVariable("productId") Long productId){
+        return storeCatalogService.observeProductCategory(catalogId,productId);
+
+
     }
 
     @PostMapping("/add-Like-post/{IdStoreCatalog}/{IdUser}")
@@ -101,14 +128,14 @@ public class StoreCatalogController {
     public void affectFavToUser(@PathVariable("userId") Long userId,@PathVariable("catalogId") Long catalogId){
         storeCatalogService.affectFavToUser(userId,catalogId);
     }
-
+/*
     @GetMapping("observeProductCategory/{catalogId}/{productId}")
     public String observeProductCategory(@PathVariable("catalogId") Long catalogId,@PathVariable("productId") Long productId){
         return storeCatalogService.observeProductCategory(catalogId,productId);
 
     }
 
-
+*/
     @PostMapping("sendEmailToStoreCatalog/{userId}/{productId}/{catalogId}/{subject}/{message}")
     public void sendEmailToStoreCatalog(@PathVariable("userId") Long userId,@PathVariable("productId")Long productId,@PathVariable("catalogId")Long catalogId,@PathVariable("subject") String subject,@PathVariable("message") String message) throws MessagingException {
         User user = userRepository.findById(userId).get();
@@ -119,4 +146,5 @@ public class StoreCatalogController {
 
 
 
-}
+
+    }
