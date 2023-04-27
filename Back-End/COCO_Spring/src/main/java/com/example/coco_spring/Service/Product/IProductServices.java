@@ -14,7 +14,7 @@ import java.util.Map;
 public interface IProductServices {
     List<Product> retrieveAllProducts();
 
-    Product addAndUpdateProduct(MultipartFile image,Product product) throws IOException;
+    Product addAndUpdateProduct(Product product) throws IOException;
 
 
     Product retrieveProduct (Long productId);

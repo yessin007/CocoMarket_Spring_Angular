@@ -7,6 +7,9 @@ import {ProductDetailComponent} from "./components/products/physical/product-det
 import {ProductResolverService} from "./services/product-resolver/product-resolver.service";
 import {ProductsModule} from "./components/products/products.module";
 import {DigitalAddComponent} from "./components/products/digital/digital-add/digital-add.component";
+import {AddOrderComponent} from "./components/sales/orders/add-order/add-order.component";
+import {resolve} from "@angular/compiler-cli";
+import {OrderResolverServiceService} from "./services/order-resolver/order-resolver-service.service";
 
 
 const routes: Routes = [
@@ -32,6 +35,14 @@ const routes: Routes = [
           product: ProductResolverService
         }  }
     ],
+  }, {
+    path: '',
+    component: ContentLayoutComponent,
+    children: [
+      {path: 'sales/orders/add-order' , component: AddOrderComponent, resolve : {
+          order: OrderResolverServiceService
+        }  }
+    ],
   },
   {
     path: '',
@@ -42,6 +53,7 @@ const routes: Routes = [
     path: 'auth/login',
     component: LoginComponent,
   },
+
 
 ];
 

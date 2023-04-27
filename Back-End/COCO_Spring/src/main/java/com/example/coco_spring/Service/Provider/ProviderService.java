@@ -102,9 +102,7 @@ public class ProviderService implements ICRUDService<Provider,Long>, IProviderSe
 
     public ProviderRating rateProvider(Long providerId, Long userId, Integer rating) {
         Provider provider = providerRepository.findById(providerId).get();
-        System.out.println("provider : "+provider);
         User user = userRepository.findById(userId).get();
-        System.out.println("user : "+user);
         ProviderRating providerRating = new ProviderRating();
 
 
