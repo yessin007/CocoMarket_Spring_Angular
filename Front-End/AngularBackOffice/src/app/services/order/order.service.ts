@@ -9,9 +9,9 @@ import {Product} from "../../models/product";
   providedIn: 'root'
 })
 export class OrderService {
-  readonly ADD_ORDERS = 'http://localhost:9090/kaddem/order/add_order';
+  readonly ADD_ORDERS = 'http://localhost:9092/COCO/api/order/add_order';
   readonly UPDATE_ORDERS = 'http://localhost:9090/kaddem/order/update_order';
-  readonly GETALL_ORDERS = 'http://localhost:9090/kaddem/order/retrive_all_orders';
+  readonly GETALL_ORDERS = 'localhost:9092/COCO/api/order/retrive_all_orders';
   readonly DELETE_ORDERS = 'http://localhost:9090/kaddem/order/delete_order/';
   readonly GET_ORDER_DETAILS_API_URL = 'http://localhost:9090/kaddem/order/retrive_order/';
 
