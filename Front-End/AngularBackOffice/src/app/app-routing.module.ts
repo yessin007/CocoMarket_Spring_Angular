@@ -39,7 +39,7 @@ const routes: Routes = [
     path: '',
     component: ContentLayoutComponent,
     children: [
-      {path: 'orders/add-order' , component: AddOrderComponent, resolve : {
+      {path: 'sales/orders/add-order' , component: AddOrderComponent, resolve : {
           order: OrderResolverServiceService
         }  }
     ],
