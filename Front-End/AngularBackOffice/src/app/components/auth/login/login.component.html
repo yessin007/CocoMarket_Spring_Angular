@@ -234,7 +234,7 @@
 													<!--                                            <a [routerLink]="'/dashboard/default'"> <button class="btn btn-primary" type="submit"> Login</button></a>-->
 													<a > <button class="btn btn-primary" type="submit"> Login</button></a>
 												</div>
-												<div class="form-footer">
+												<!--<div class="form-footer">
 													<span>Or Login up with social platforms</span>
 													<ul class="social">
 														<li><a class="icon-facebook" href="javascript:void(0)"></a></li>
@@ -244,7 +244,7 @@
 														<li><a class="icon-pinterest" href="javascript:void(0)"></a>
 														</li>
 													</ul>
-												</div>
+												</div>-->
 											</form>
 										</div>
 									</ng-template>
@@ -252,43 +252,97 @@
 								<li [ngbNavItem]="2">
 									<a ngbNavLink>Register</a>
 									<ng-template ngbNavContent>
-										<form [formGroup]="registerForm"
-											  class="form-horizontal auth-form" novalidate>
+										<form class="form-horizontal auth-form" novalidate
+											  name="rform"
+											  (ngSubmit)="f.form.valid && onRegister()"
+											  #f="ngForm"
+											  novalidate>
+
 											<div class="form-group">
-												<input required="" name="login[username]" type="email"
-													   class="form-control" placeholder="Username"
-													   id="exampleInputEmail12">
-											</div>
-											<div class="form-group">
-												<input required="" name="login[password]" type="password"
-													   class="form-control" placeholder="Password">
-											</div>
-											<div class="form-terms">
-												<div class="custom-control custom-checkbox d-flex">
-													<input type="checkbox" class="custom-control-input mt-1 me-2"
-														   id="customControlAutosizing1">
-													<label class="custom-control-label"
-														   for="customControlAutosizing1"><span>I agree all statements
-                                                    in <a href="javascript:void(0)">Terms
-                                                        &amp;
-                                                        Conditions</a></span></label>
+												<input type="text" class="form-control" placeholder="Enter First Name"
+													   name="Rname"
+													   [(ngModel)]="rform.name"
+													   required
+													   #name="ngModel"
+													   [ngClass]="{ 'is-invalid': f.submitted && name.errors }">
+												<div *ngIf="name.errors && f.submitted" class="invalid-feedback">
+													First Name is required!
 												</div>
 											</div>
-											<div class="form-button">
-												<a [routerLink]="'/dashboard/default'">  <button class="btn btn-primary" type="submit">Register</button></a>
+
+											<div class="form-group">
+												<input type="text" class="form-control" placeholder="Enter Last Name"
+													   name="RlastName"
+													   [(ngModel)]="rform.lastName"
+													   required
+													   #lastName="ngModel"
+													   [ngClass]="{ 'is-invalid': f.submitted && lastName.errors }">
+												<div *ngIf="lastName.errors && f.submitted" class="invalid-feedback">
+													Last Name is required!
+												</div>
 											</div>
-											<div class="form-footer">
-												<span>Or Sign up with social platforms</span>
-												<ul class="social">
-													<li><a href="javascript:void(0)"><i
-														class="icon-facebook"></i></a></li>
-													<li><a href="javascript:void(0)"><i
-														class="icon-twitter"></i></a></li>
-													<li><a href="javascript:void(0)"><i
-														class="icon-instagram"></i></a></li>
-													<li><a href="javascript:void(0)"><i
-														class="icon-pinterest"></i></a></li>
-												</ul>
+
+											<div class="form-group">
+												<input type="text" class="form-control" placeholder="Enter Username"
+													   name="Rusername"
+													   [(ngModel)]="rform.username"
+													   required
+													   #username="ngModel"
+													   [ngClass]="{ 'is-invalid': f.submitted && username.errors }">
+												<div *ngIf="username.errors && f.submitted" class="invalid-feedback">
+													Username is required!
+												</div>
+											</div>
+
+											<div class="form-group">
+												<input type="email" class="form-control" placeholder="Enter Email Address"
+													   name="Remail"
+													   [(ngModel)]="rform.email"
+													   required
+													   #email="ngModel"
+													   [ngClass]="{ 'is-invalid': f.submitted && email.errors }">
+												<div *ngIf="email.errors && f.submitted" class="invalid-feedback">
+													Email is required!
+												</div>
+											</div>
+
+											<div class="form-group">
+												<input type="password" class="form-control" placeholder="Enter Password"
+													   name="Rpassword"
+													   [(ngModel)]="rform.password"
+													   required
+													   #password="ngModel"
+													   [ngClass]="{ 'is-invalid': f.submitted && password.errors }">
+												<div *ngIf="password.errors && f.submitted" class="invalid-feedback">
+													Password is required!
+												</div>
+											</div>
+
+											<div class="form-group">
+												<input type="text" class="form-control" placeholder="Enter Address"
+													   name="Raddress"
+													   [(ngModel)]="rform.address"
+													   required
+													   #address="ngModel"
+													   [ngClass]="{ 'is-invalid': f.submitted && address.errors }">
+												<div *ngIf="address.errors && f.submitted" class="invalid-feedback">
+													Address is required!
+												</div>
+											</div>
+
+											<div class="form-group">
+												<input type="date" class="form-control" placeholder="Enter Date of Birth"
+													   name="RdayOfBirth"
+													   [(ngModel)]="rform.dayOfBirth"
+													   required
+													   #dayOfBirth="ngModel"
+													   [ngClass]="{ 'is-invalid': f.submitted && dayOfBirth.errors }">
+												<div *ngIf="dayOfBirth.errors && f.submitted" class="invalid-feedback">
+													Date of Birth is required!
+												</div>
+											</div>
+											<div class="form-group">
+												<button class="btn btn-primary btn-block">Register</button>
 											</div>
 										</form>
 									</ng-template>

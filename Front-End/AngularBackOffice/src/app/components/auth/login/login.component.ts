@@ -3,6 +3,7 @@ import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import {AuthService} from '../../../services/auth.service';
 import {User} from '../../../models/User';
 import {Router} from '@angular/router';
+import {RegisterRequest} from "../../../models/RegisterRequest";
 
 @Component({
 	selector: 'app-login',
@@ -21,6 +22,17 @@ export class LoginComponent implements OnInit {
 	form: any = {
 		username: null,
 		password: null
+	};
+	rform: any ={
+		name: null,
+		lastName: null,
+		username: null,
+		email: null,
+		password: null,
+		address: null,
+		dayOfBirth: null,
+		cin: null,
+		telNum: null
 	};
 
 	constructor(private formBuilder: UntypedFormBuilder, private authService: AuthService, private router: Router) {
@@ -98,6 +110,21 @@ export class LoginComponent implements OnInit {
 			}
 		});
 	}
+	onRegister(): void {
+			const { Rusername, Rpassword, Rname, RlastName, Remail, Raddress, RdayOfBirth, Rcin, RtelNum } = this.rform;
+			this.authService.register(Rusername, Rpassword, Rname, RlastName, Remail, Raddress, RdayOfBirth, Rcin, RtelNum)
+				.subscribe(
+					response => {
+						console.log(response);
+						// handle successful registration response here
+					},
+					error => {
+						console.error(error);
+						// handle registration error here
+					}
+				);
+	}
+
 
 	reloadPage(): void {
 		window.location.reload();
