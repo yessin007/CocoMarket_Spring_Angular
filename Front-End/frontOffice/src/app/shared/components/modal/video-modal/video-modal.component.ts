@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy, ViewChild, TemplateRef,
   Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import {Product} from "../../../classes/product";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-video-modal',
@@ -14,11 +16,13 @@ export class VideoModalComponent implements OnInit, OnDestroy {
 
   public closeResult: string;
   public modalOpen: boolean = false;
+  public product: Product = {};
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.data.subscribe(response => this.product = response.data)
   }
 
   openModal() {
