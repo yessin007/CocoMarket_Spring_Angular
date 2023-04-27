@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Store} from '../../models/store';
 import {Observable} from 'rxjs';
 import {Provider} from '../../models/provider';
+import {Product} from "../../models/product";
 
 
 @Injectable({
@@ -16,7 +17,7 @@ export class StoreService {
   // tslint:disable-next-line:variable-name
   readonly DELETE_Store = 'http://localhost:8089/kaddem/store/deleteStore/';
 
-  readonly FIND_BY_ID = 'http://localhost:8089/kaddem/store/get_all_Stores';
+  readonly FIND_BY_ID = 'http://localhost:8089/kaddem/store/retrive_Store/';
 
 
 
@@ -30,8 +31,9 @@ export class StoreService {
   deleteStore(storeId: number){
     return this.httpClient.delete(this.DELETE_Store + storeId);
   }
-
-  editStore(storeId){
-    return this.httpClient.get<Provider>(this.FIND_BY_ID + storeId);
+  getStoreDetails(storeId){
+    return this.httpClient.get<Store>(this.FIND_BY_ID + storeId);
   }
+
+
 }

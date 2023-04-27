@@ -9,10 +9,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {NgxDropzoneModule} from "ngx-dropzone";
 import {SharedModule} from "../../shared/shared.module";
+import { StoreDetailComponent } from './store-detail/store-detail.component';
+import {CarouselModule} from "ngx-bootstrap/carousel";
+import { AllStoresComponent } from './all-stores/all-stores.component';
 // import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 @NgModule({
-  declarations: [ListVendorsComponent, CreateVendorsComponent],
+  declarations: [ListVendorsComponent, CreateVendorsComponent, StoreDetailComponent, AllStoresComponent],
     imports: [
         CommonModule,
         VendorsRoutingModule,
@@ -21,6 +24,7 @@ import {SharedModule} from "../../shared/shared.module";
         FormsModule,
         NgxDropzoneModule,
         SharedModule,
+        CarouselModule,
         // Ng2SmartTableModule
     ]
 })
