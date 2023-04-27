@@ -8,6 +8,7 @@ import { CreateVendorsComponent } from './create-vendors/create-vendors.componen
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {NgxDropzoneModule} from "ngx-dropzone";
+import {SharedModule} from "../../shared/shared.module";
 // import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 @NgModule({
@@ -19,6 +20,7 @@ import {NgxDropzoneModule} from "ngx-dropzone";
         NgbModule,
         FormsModule,
         NgxDropzoneModule,
+        SharedModule,
         // Ng2SmartTableModule
     ]
 })

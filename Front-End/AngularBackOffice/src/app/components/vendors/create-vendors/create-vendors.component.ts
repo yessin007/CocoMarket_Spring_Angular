@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import {Store} from '../../../models/store';
-import {Product} from '../../../models/product';
 import {StoreService} from '../../../services/store/store.service';
 import {FileHandle} from '../../../models/FileHandle';
 import {DomSanitizer} from '@angular/platform-browser';
