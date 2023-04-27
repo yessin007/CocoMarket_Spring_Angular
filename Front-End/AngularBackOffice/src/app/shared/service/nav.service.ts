@@ -63,8 +63,20 @@ export class NavService {
 		},
 		{
 			title: 'Sales', icon: 'dollar-sign', type: 'sub', active: false, children: [
-				{ path: '/sales/orders', title: 'Orders', type: 'link' },
+				{
+					title: 'Orders', type: 'sub', children: [
+						{ path: '/sales/orders/add-order', title: 'Add Order', type: 'link' },
+						{ path: '/sales/orders', title: 'Orders List', type: 'link' },
+					]
+				},
 				{ path: '/sales/transactions', title: 'Transactions', type: 'link' },
+				{path: '/sales/orders', title: 'Orders', type: 'link' },
+				{
+					title: 'Transaction', type: 'sub', children: [
+						{ path: '/sales/transaction/add-transaction', title: 'Add Order', type: 'link' },
+						{ path: '/sales/transaction/transaction-list', title: 'Transaction List', type: 'link' },
+					]
+				}
 			]
 		},
 		{
@@ -99,6 +111,7 @@ export class NavService {
 			title: 'Vendors', icon: 'users', type: 'sub', active: false, children: [
 				{ path: '/vendors/list-vendors', title: 'Store List', type: 'link' },
 				{ path: '/vendors/create-vendors', title: 'Create Store', type: 'link' },
+
 			]
 		},
 		{
