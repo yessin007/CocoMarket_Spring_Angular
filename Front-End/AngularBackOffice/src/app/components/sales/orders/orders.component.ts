@@ -72,7 +72,9 @@ export class OrdersComponent implements OnInit {
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
   }
-
+  editOrder(id){
+    this.route.navigate(['/sales/orders/add-order',  {id}]);
+  }
   ngOnInit() {
     this.getAllOrders();
   }
@@ -106,8 +108,6 @@ export class OrdersComponent implements OnInit {
   //   );
   // }
 
-  editOrder(orderID){
-    this.route.navigate(['sales/orders/add-order',  {orderId: orderID}]);
-  }
+
 
 }
