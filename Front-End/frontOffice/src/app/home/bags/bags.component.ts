@@ -22,7 +22,7 @@ export class BagsComponent implements OnInit, OnDestroy {
 
   constructor(public productService: ProductService) {
     this.productService.getProducts.subscribe(response => {
-      this.products = response.filter(item => item.type == 'bags');
+      this.products = response.filter(item => item.productCategory == 'bags');
       // Get Product Collection
       this.products.filter((item) => {
         item.collection.filter((collection) => {

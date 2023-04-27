@@ -6,10 +6,9 @@
             <ng-template carouselSlide>
                 <div>
                   <div class="d-flex align-items-center" *ngFor="let product of products | slice:0:3 ">
-                    <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
+                    <a (click)="showProductDetails(product.productId)">
                       <img class="img-fluid w-auto"
-                           [defaultImage]="'assets/images/product/placeholder.jpg'" 
-                           [lazyLoad]="product.images[0].src" alt="">
+                          [src]="product.image[0].url" alt="">
                     </a>
                     <div class="media-body align-self-center">
                       <!-- <bar-rating [rate]="5" [readOnly]="true"></bar-rating> -->
@@ -32,8 +31,7 @@
                   <div class="d-flex align-items-center" *ngFor="let product of products | slice:3:6 ">
                     <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
                       <img class="img-fluid w-auto" 
-                           [defaultImage]="'assets/images/product/placeholder.jpg'" 
-                           [lazyLoad]="product.images[0].src" alt="">
+                          width="50px" height="50px" [src]="product.image[0].url" alt="">
                     </a>
                     <div class="media-body align-self-center">
                       <!-- <bar-rating [rate]="5" [readOnly]="true"></bar-rating> -->

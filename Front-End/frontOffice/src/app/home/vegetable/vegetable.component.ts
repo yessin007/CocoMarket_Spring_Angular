@@ -15,7 +15,7 @@ export class VegetableComponent implements OnInit {
 
   constructor(public productService: ProductService) {
     this.productService.getProducts.subscribe(response => 
-      this.products = response.filter(item => item.type == 'vegetables')
+      this.products = response.filter(item => item.productCategory == 'vegetables')
     );
   }
 
