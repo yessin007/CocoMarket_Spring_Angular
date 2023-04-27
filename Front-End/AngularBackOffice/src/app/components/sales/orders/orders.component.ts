@@ -77,7 +77,6 @@ export class OrdersComponent implements OnInit {
     this.getAllOrders();
   }
   getAllOrders(){
-
     this.orderService.getAllOrders().subscribe((response ) => {
       this.OrderList = response;
     });
@@ -107,8 +106,8 @@ export class OrdersComponent implements OnInit {
   //   );
   // }
 
-  editOrder(id){
-    this.route.navigate(['/sales/orders/add-order',  {id}]);
+  editOrder(orderID){
+    this.route.navigate(['sales/orders/add-order',  {orderId: orderID}]);
   }
 
 }

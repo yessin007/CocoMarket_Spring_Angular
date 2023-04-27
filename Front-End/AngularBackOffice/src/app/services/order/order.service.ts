@@ -11,7 +11,7 @@ import {HttpClient} from "@angular/common/http";
   providedIn: 'root'
 })
 export class OrderService extends RequestBaseService{
-  readonly ADD_ORDERS = 'localhost:9092/COCO/api/order/add_order';
+  readonly ADD_ORDERS = 'http://165.227.171.67:9092/COCO/api/order/add_order';
   readonly UPDATE_ORDERS = 'http://localhost:9090/kaddem/order/update_order';
   readonly GETALL_ORDERS = 'http://localhost:9090/kaddem/order/retrive_all_orders';
   readonly DELETE_ORDERS = 'http://localhost:9090/kaddem/order/delete_order/';

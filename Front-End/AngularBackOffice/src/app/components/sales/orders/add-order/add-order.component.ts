@@ -6,6 +6,8 @@ import {Store} from "../../../../models/store";
 import {Product} from "../../../../models/product";
 import {Provider} from "../../../../models/provider";
 import {OrderService} from "../../../../services/order/order.service";
+import {AuthService} from "../../../../services/auth.service";
+import {User} from "../../../../models/User";
 
 @Component({
   selector: 'app-add-order',
@@ -23,11 +25,21 @@ export class AddOrderComponent {
   public active = 1;
   order: Order = new Order();
   store: Store = new Store();
+  // tslint:disable-next-line:new-parens
+  currentUser: User = new User;
+  // tslint:disable-next-line:ban-types
+  protected currentToken!: String;
 
-  constructor(private formBuilder: UntypedFormBuilder, private calendar: NgbCalendar, private orderService: OrderService) {
+  constructor(private formBuilder: UntypedFormBuilder, private calendar: NgbCalendar, private orderService: OrderService, private auth:AuthService) {
     this.createGeneralForm();
     this.createRestrictionForm();
     this.createUsageForm();
+    this.auth.currentUser.subscribe(data => {
+      this.currentUser = data;
+    });
+    this.auth.currentToken.subscribe( data => {
+      this.currentToken = data;
+    });
   }
 
   selectToday() {
@@ -67,7 +79,7 @@ export class AddOrderComponent {
 
   }
   onSubmit() {
-
+    console.log(this.currentToken);
     this.orderService.addOrder( this.order ).subscribe((order: Order) => {console.log('Order added successfully', order);
       this.order = new Order();} ,
         (error) => { console.error('Failed to add Order', error); }
