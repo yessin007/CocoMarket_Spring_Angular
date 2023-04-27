@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -18,14 +19,18 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
     private String reference;
-    private String productName;
+    private String title;
     private String description;
     private Long quantity;
-    private String images;
     private String model;
     private String video;
+    private Long stock;
     private String brand;
     private float price;
+    @ElementCollection
+    private List<String> collection;
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private Set<ProductImages> image;
     @Temporal(TemporalType.DATE)
     private Date dateOfPurchase;
     private float discount;

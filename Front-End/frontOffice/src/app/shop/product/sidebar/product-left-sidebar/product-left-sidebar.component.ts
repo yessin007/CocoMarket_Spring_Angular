@@ -32,7 +32,9 @@ export class ProductLeftSidebarComponent implements OnInit {
     this.product = this.route.snapshot.data.product;
     console.log(this.product);
   }
-
+  reload(productID){
+    this.router.navigate(['shop/product/left/sidebar/', {productId: productID}]);
+  }
   // Get Product Color
   Color(variants) {
     const uniqColor = []
