@@ -31,7 +31,7 @@ export class NavService {
 	}
 
 	// Windows width
-	@HostListener("window:resize", ['$event'])
+	@HostListener('window:resize', ['$event'])
 	onResize(event?) {
 		this.screenWidth = window.innerWidth;
 	}
@@ -108,9 +108,17 @@ export class NavService {
 			]
 		},
 		{
+			// tslint:disable-next-line:indent
 			title: 'Vendors', icon: 'users', type: 'sub', active: false, children: [
+				// tslint:disable-next-line:indent
 				{ path: '/vendors/list-vendors', title: 'Store List', type: 'link' },
+				// tslint:disable-next-line:indent
 				{ path: '/vendors/create-vendors', title: 'Create Store', type: 'link' },
+
+				// tslint:disable-next-line:indent
+				{ path: '/vendors/all-stores', title: 'All Stores', type: 'link' },
+
+
 
 			]
 		},

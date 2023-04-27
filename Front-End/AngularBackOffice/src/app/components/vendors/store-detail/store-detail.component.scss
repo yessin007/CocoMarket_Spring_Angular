@@ -1,0 +1,32 @@
+.star {
+  font-size: 18px;
+  color: #d7d7d7;
+}
+.filled.bad {
+  color: #ffc13b;
+}
+.carousel-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 300px;
+}
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 300px;
+  /* adjust the height as needed */
+}
+.backgroung-custom-color {
+  background: #948e8c;
+}
+img {
+  max-width: 100%; /* ensures the image stays within its container */
+  max-height: 100%; /* ensures the image stays within its container */
+}
+.mat-carousel-indicators .indicator-button {
+  background-color: red;
+}
