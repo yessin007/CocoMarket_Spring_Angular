@@ -23,6 +23,7 @@ export class AuthService {
   constructor(private http: HttpClient) {
     let storageUser;
     const storageUserAsStr = localStorage.getItem('currentUser');
+
     if (storageUserAsStr){
       try {
         storageUser = JSON.parse(storageUserAsStr);
@@ -48,8 +49,19 @@ export class AuthService {
   }
 
   private readonly API_URL = 'http://165.227.171.67:9092/COCO/api/v1/auth/';
+  // private readonly API_URL = 'http://localhost:9092/COCO/api/v1/auth/';
   ar!: AuthenticationRequest;
-  rr!: RegisterRequest;
+  rr!: {
+    lastName: string;
+    password: string;
+    address: string;
+    dayOfBirth: Date;
+    name: string;
+    telNum: string;
+    cin: string;
+    email: string;
+    username: string
+  };
 
   login(username: string, password: string): Observable<any> {
     this.ar = {username, password};
@@ -70,6 +82,23 @@ export class AuthService {
                 }
             )
         );
+  }
+  /*name: null,
+		lastName: null,
+		username: null,
+		email: null,
+		password: null,
+		address: null,
+		dayOfBirth: null,
+		cin: null,
+		telNum: null*/
+  register(username: string, password: string, name: string, lastName: string, email: string, address: string, dayOfBirth: Date, cin: string, telNum: string): Observable<any> {
+    this.rr = {username, password, name, lastName, email, address, dayOfBirth, cin, telNum};
+    return this.http.post(
+        `${this.API_URL}register`,
+        this.rr,
+        httpOptions
+    );
   }
   logOut(){
     localStorage.removeItem('currentUser');

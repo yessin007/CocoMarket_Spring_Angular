@@ -11,18 +11,22 @@
                         <div class="digital-add needs-validation">
                             <div class="form-group">
                                 <label for="validationCustom01" class="col-form-label pt-0"><span>*</span> Product Name</label>
-                                <input class="form-control" [(ngModel)]="product.productName" name="name" id="validationCustom01" type="text" required="" >
+                                <input class="form-control" [(ngModel)]="product.title" name="name" id="validationCustom01" type="text" required="" >
                             </div>
                             <div class="form-group">
-                                <label for="validationCustomtitle" class="col-form-label pt-0"><span>*</span> Reference</label>
-                                <input class="form-control" id="validationCustomtitle" name="ref" [(ngModel)]="product.reference" type="text" required="">
+                                <label for="validationCustomref" class="col-form-label pt-0"><span>*</span> Reference</label>
+                                <input class="form-control" [(ngModel)]="product.reference" id="validationCustomref" name="reference"  type="text" required="">
+                            </div>
+                            <div class="form-group">
+                                <label for="validationCustombrand" class="col-form-label pt-0"><span>*</span> Brand</label>
+                                <input class="form-control" id="validationCustombrand" name="ref" [(ngModel)]="product.brand" type="text" required="">
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label"><span>*</span> Categories</label>
-                                <select class="custom-select form-select" name="option" [(ngModel)]="product.productCategory" required="">
+                                <select class="custom-select form-select" id="option"  name="option" [(ngModel)]="product.productCategory" required="">
                                     <option value="">--Select--</option>
                                     <option value="1">HomeGoods</option>
-                                    <option value="2">Electronics</option>
+                                    <option value="2">electronics</option>
                                     <option value="3">BeautyAndPersonalCare</option>
                                     <option value="4">SportingGoods</option>
                                     <option value="5">PetSupplies</option>
@@ -32,26 +36,25 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-xl-3 col-sm-4">
-                                    <label for="validationCustomtitle" class="col-form-label pt-0"><span>*</span> Quantity</label>
+                                    <label for="validationstock" class="col-form-label pt-0"><span>*</span> Stock</label>
                                 </div>
                                 <div class="col-xl-8 col-sm-7">
-                                    <input class="form-control" name="quantity" [(ngModel)]="product.quantity" id="validationCustom0x" type="number"
+                                    <input class="form-control" name="stock" [(ngModel)]="product.stock" id="validationstock" type="number"
                                            required="">
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-xl-3 col-sm-4">
-                                    <label for="validationCustom02" class="mb-0">Price (TND) :</label>
-                                </div>
-                                <div class="col-xl-8 col-sm-7">
-                                    <input class="form-control" name="price" [(ngModel)]="product.price" id="validationCustom02" type="number"
-                                           required="">
-                                </div>
+                            <div class="form-group">
+                                <label for="validationCustomprice" class="col-form-label pt-0"><span>*</span> Price</label>
+                                <input class="form-control" id="validationCustomprice" name="price" [(ngModel)]="product.price" type="text" required="">
+                            </div>
+                            <div class="form-group">
+                                <label for="validationdiscount" class="col-form-label pt-0"><span>*</span> Discount<span>%</span></label>
+                                <input class="form-control" id="validationdiscount" name="dicount" [(ngModel)]="product.discount" type="number" required="">
                             </div>
                             <h3>Image Preview</h3>
-                            <div *ngFor="let f of product.productImages">
+                            <div *ngFor="let f of product.image">
                                 <h4>{{f.filefile.name}}</h4>
-                                <img [src]="f.url">
+                                <img height="300px" width="300px" [src]="f.url">
                             </div>
                             <label class="col-form-label pt-0"> Product Upload</label>
                             <div class="card-body dropzone-custom p-0">
@@ -80,7 +83,7 @@
                         <div class="digital-add needs-validation">
                             <div class="form-group mb-0">
                                 <div class="description-sm">
-                                    <ckeditor [editor]="Editor" name="desc" (click)="clearDescription()" [ngModel]="product.description" data="<p>Put your description here...</p>"></ckeditor>
+                                    <ckeditor [editor]="Editor" name="desc" (click)="clearDescription()" [(ngModel)]="product.description" data="<p>Put your description here...</p>"></ckeditor>
                                 </div>
                             </div>
                         </div>

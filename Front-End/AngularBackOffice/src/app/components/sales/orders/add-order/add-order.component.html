@@ -1,0 +1,79 @@
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <h5>Orders Details</h5>
+            <form #orderForm="ngForm" (ngSubmit)="onSubmit()">
+                <div class="container-fluid">
+                    <div class="row product-adding">
+                        <div class="col-xl-6">
+                            <div class="card">
+                                <div class="card-header">
+
+                                </div>
+                                <div class="card-body">
+                                    <div class="digital-add needs-validation">
+
+                                        <div class="form-group">
+                                            <label for="validationCustom9"><span>*</span>
+                                                Product Refernece</label>       <input class="form-control" id="validationCustom9"[(ngModel)]="order.productReference"name="productRefernece" type="text" required="">
+
+                                        </div>
+
+
+
+
+                                        <div class="form-group">
+                                            <label for="orderDate">Order Date</label>
+                                            <input type="date" class="form-control" id="orderDate" name="orderDate" [(ngModel)]="order.orderDate">
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-form-label"><span>*</span>Order Status</label>
+                                            <select class="custom-select form-select" name="option"  required=""  [(ngModel)]="order.orderStatus" name="orderStatus">
+                                                <option value="">--Select--</option>
+                                                <option value="Processing">Processing</option>
+                                                <option value="Being delivered">Being delivered</option>
+                                                <option value="Waiting for Payments">Waiting for Payments</option>
+                                                <option value="Paid">Paid</option>
+                                                <option value="Completed">Completed</option>
+                                                <option value="Cash on Delivery">Cash on Delivery</option>
+                                                <option value="Payment Failed">Payment Failed</option>
+                                                <option value="Cancelled">Cancelled</option>
+                                                <option value="Shipped">Shipped</option>
+
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="validationCustom7"><span>*</span>
+                                                Order Address</label>       <input class="form-control" id="validationCustom7"[(ngModel)]="order.orderAddress"name="orderAddress" type="text" required="">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-xl-3 col-sm-4">
+                                                <label for="validationCustom022" class="mb-0">Amount Bill (TND) </label>
+                                            </div>
+                                            <div class="col-xl-8 col-sm-7">
+                                                <input class="form-control"  type="number" id="validationCustom022"
+                                                       name="price" required="" [(ngModel)]="order.amountBill" >
+                                        </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mb-0">
+                    <div class="product-buttons text-end mt-3">
+                        <button type="submit" class="btn btn-primary">Confirm Add</button>
+                        <button type="button" class="btn btn-light">Discard</button>
+                    </div>
+                </div>
+
+            </form>

@@ -19,7 +19,8 @@
             </div>
                 <app-product-box-vertical-slider 
                   [title]="'New product'" 
-                  [type]="product?.type">
+                  [type]="product?.productCategory"
+                  [product]="product">
                 </app-product-box-vertical-slider>
           </div>
         </div>
@@ -37,31 +38,27 @@
             <div class="row">
               <div class="col-lg-6">
                 <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar  class="product-slick">
-                    <ng-container *ngFor="let image of product?.images; index as i">
-                        <ng-template carouselSlide [id]="i">
-                            <div>
-                              <img [defaultImage]="'assets/images/product/placeholder.jpg'" 
-                                   [lazyLoad]="image.src" 
-                                   [alt]="image.alt" class="img-fluid">
-                            </div>
-                        </ng-template>
-                    </ng-container>
+                  <ng-container *ngFor="let image of product?.image; index as i">
+                    <ng-template carouselSlide [id]="i">
+                      <div>
+                        <img [src]="image.url" class="img-fluid">
+                      </div>
+                    </ng-template>
+                  </ng-container>
                 </owl-carousel-o>
-                <div class="col-12 p-0" *ngIf="product?.images.length > 1">
-                    <div class="slider-nav">
-                        <owl-carousel-o [options]="ProductDetailsThumbConfig" class="product-slick">
-                            <ng-container *ngFor="let image of product?.images; index as i">
-                                <ng-template carouselSlide [id]="i">
-                                    <div class="owl-thumb" [class.active]="i == activeSlide">
-                                      <img [defaultImage]="'assets/images/product/placeholder.jpg'" 
-                                           [lazyLoad]="image.src" 
-                                           [alt]="image.alt" class="img-fluid" 
-                                           (click)="owlCar.to(activeSlide = i.toString())">
-                                    </div>
-                                </ng-template>
-                            </ng-container>
-                        </owl-carousel-o>
-                    </div>
+                <div class="col-12 p-0" *ngIf="product?.image.length > 1">
+                  <div class="slider-nav">
+                    <owl-carousel-o [options]="ProductDetailsThumbConfig" class="product-slick">
+                      <ng-container *ngFor="let image of product?.image; index as i">
+                        <ng-template carouselSlide [id]="i">
+                          <div class="owl-thumb" [class.active]="i == activeSlide">
+                            <img [src]="image.url" class="img-fluid"
+                                 (click)="owlCar.to(activeSlide = i.toString())">
+                          </div>
+                        </ng-template>
+                      </ng-container>
+                    </owl-carousel-o>
+                  </div>
                 </div>
               </div>
               <div class="col-lg-6 rtl-text">
@@ -74,31 +71,8 @@
                   <h3>
                       {{ (product?.price | discount:product) * productService.Currency?.price | currency: productService.Currency?.currency:'symbol' }}
                   </h3>
-                  <ul class="color-variant" *ngIf="Color(product?.variants).length">
-                    <li [class]="color" [class.active]="activeSlide == i.toString()" 
-                        *ngFor="let color of Color(product?.variants); index as i" 
-                        [ngStyle]="{'background-color': color}"
-                        (click)="owlCar.to(activeSlide = i.toString())">
-                    </li>
-                  </ul>
                   <app-stock-inventory [stock]="product?.stock"></app-stock-inventory>
                   <div class="product-description border-product">
-                    <h6 class="product-title size-text" *ngIf="Size(product.variants).length">
-                        select size
-                        <span>
-                          <a href="javascrip:void(0)" (click)="SizeChart.openModal()">size chart</a>
-                        </span>
-                    </h6>
-                    <div class="size-box" *ngIf="Size(product.variants).length">
-                      <ul>
-                          <li [class.active]="selectedSize == size" 
-                              *ngFor="let size of Size(product.variants)">
-                              <a href="javascript:void(0)" (click)="selectSize(size)">
-                                {{ size | titlecase }}
-                              </a>
-                          </li>
-                      </ul>
-                    </div>
                     <h5 class="avalibility" *ngIf="counter <= product.stock"><span>In Stock</span></h5>
                     <h5 class="avalibility" *ngIf="counter > product.stock"><span>Out of Stock</span></h5>
                     <h6 class="product-title">quantity</h6>
@@ -119,7 +93,7 @@
                     </div>
                   </div>
                   <div class="product-buttons">
-                    <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="addToCart(product)">add to cart</a>
+                    <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="addToCart(product.productId)">add to cart</a>
                     <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="buyNow(product)">buy now</a>
                   </div>
                   <div class="border-product">
@@ -159,7 +133,7 @@
                       <a ngbNavLink>Video</a>
                         <ng-template ngbNavContent>
                           <div class="mt-3 text-center">
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/BUWzX78Ye_8" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            <iframe width="560" height="315" src="https://www.youtube.com/watch?v=oZnqsr9CLXE&ab_channel=Lenovo" allow="autoplay;" allowfullscreen></iframe>
                           </div>
                         </ng-template>
                     </li>
@@ -172,7 +146,7 @@
                                 <div class="media rating-sec">
                                   <label>Rating</label>
                                   <div class="media-body ms-3">
-                                    <div class="rating three-star">
+                                    <div class="rating four-star">
                                       <i class="fa fa-star"></i>
                                       <i class="fa fa-star"></i>
                                       <i class="fa fa-star"></i>
@@ -214,7 +188,7 @@
       </div>
     </div>
   </div>
-  <app-related-product [type]="product?.type"></app-related-product>
+  <app-related-product [product]="product" [type]="product?.productCategory"></app-related-product>
 </section>
 <app-size-modal #sizeChart [product]="product"></app-size-modal>
 <!-- Section ends -->

@@ -3,6 +3,8 @@ import { QuickViewComponent } from "../../modal/quick-view/quick-view.component"
 import { CartModalComponent } from "../../modal/cart-modal/cart-modal.component";
 import { Product } from "../../../classes/product";
 import { ProductService } from "../../../services/product.service";
+import {ImageProcessingService} from "../../../services/image-processing.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-box-one',
@@ -21,16 +23,19 @@ export class ProductBoxOneComponent implements OnInit {
   @ViewChild("quickView") QuickView: QuickViewComponent;
   @ViewChild("cartModal") CartModal: CartModalComponent;
 
-  public ImageSrc : string
+  public ImageSrc : string;
+  public image : string;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private imageProcessinService: ImageProcessingService, private router: Router) { }
 
   ngOnInit(): void {
     if(this.loader) {
       setTimeout(() => { this.loader = false; }, 2000); // Skeleton Loader
     }
   }
-
+  showProductDetails(productID) {
+    this.router.navigate(['shop/product/left/sidebar/', {productId: productID}]);
+  }
   // Get Product Color
   Color(variants) {
     const uniqColor = [];
@@ -43,7 +48,7 @@ export class ProductBoxOneComponent implements OnInit {
   }
 
   // Change Variants
-  ChangeVariants(color, product) {
+  /*ChangeVariants(color, product) {
     product.variants.map((item) => {
       if (item.color === color) {
         product.images.map((img) => {
@@ -53,13 +58,15 @@ export class ProductBoxOneComponent implements OnInit {
         })
       }
     })
-  }
+  }*/
 
   // Change Variants Image
   ChangeVariantsImage(src) {
     this.ImageSrc = src;
   }
-
+  createImage(product: any){
+    return this.imageProcessinService.createImages(product).image[0].url;
+  }
   addToCart(product: any) {
     this.productService.addToCart(product);
   }
@@ -67,7 +74,9 @@ export class ProductBoxOneComponent implements OnInit {
   addToWishlist(product: any) {
     this.productService.addToWishlist(product);
   }
-
+  showProduct(product: any){
+    console.log(product);
+  }
   addToCompare(product: any) {
     this.productService.addToCompare(product);
   }

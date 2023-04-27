@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from "../../../classes/product";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-box-vertical',
@@ -13,7 +14,7 @@ export class ProductBoxVerticalComponent implements OnInit {
 
   public ImageSrc : string
   
-  constructor() { }
+  constructor(private  router: Router) { }
 
   ngOnInit(): void {
   }
@@ -27,6 +28,10 @@ export class ProductBoxVerticalComponent implements OnInit {
       }
     }
     return uniqColor
+  }
+  showProductDetails(productID) {
+    this.router.navigate(['shop/product/left/sidebar/', {productId: productID}]);
+    console.log(this.product);
   }
 
   // Change Variants

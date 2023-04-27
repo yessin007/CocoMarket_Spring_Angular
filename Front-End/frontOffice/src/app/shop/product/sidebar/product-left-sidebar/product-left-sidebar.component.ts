@@ -4,6 +4,7 @@ import { ProductDetailsMainSlider, ProductDetailsThumbSlider } from '../../../..
 import { Product } from '../../../../shared/classes/product';
 import { ProductService } from '../../../../shared/services/product.service';
 import { SizeModalComponent } from "../../../../shared/components/modal/size-modal/size-modal.component";
+import {CartService} from "../../../../services/cart.service";
 
 @Component({
   selector: 'app-product-left-sidebar',
@@ -24,15 +25,17 @@ export class ProductLeftSidebarComponent implements OnInit {
   public ProductDetailsMainSliderConfig: any = ProductDetailsMainSlider;
   public ProductDetailsThumbConfig: any = ProductDetailsThumbSlider;
 
-  constructor(private route: ActivatedRoute, private router: Router,
-    public productService: ProductService) {
-    this.route.data.subscribe(response => this.product = response.data);
+  constructor(private route: ActivatedRoute, private router: Router, private cartService: CartService,
+              public productService: ProductService) {
   }
 
   ngOnInit(): void {
-    console.log("dddd", this.product)
+    this.product = this.route.snapshot.data.product;
+    console.log(this.product);
   }
-
+  reload(productID){
+    this.router.navigate(['shop/product/left/sidebar/', {productId: productID}]);
+  }
   // Get Product Color
   Color(variants) {
     const uniqColor = []
@@ -70,11 +73,18 @@ export class ProductLeftSidebarComponent implements OnInit {
   }
 
   // Add to cart
-  async addToCart(product: any) {
-    product.quantity = this.counter || 1;
-    const status = await this.productService.addToCart(product);
-    if (status)
-      this.router.navigate(['/shop/cart']);
+  async addToCart(productId) {
+    console.log(productId);
+    this.cartService.addToCart(productId).subscribe((response) => {console.log(response);},
+        (error) => {console.log(error); });
+
+
+
+
+    // product.quantity = this.counter || 1;
+    // const status = await this.productService.addToCart(product);
+    // if (status)
+    //   this.router.navigate(['/shop/cart']);
   }
 
   // Buy Now

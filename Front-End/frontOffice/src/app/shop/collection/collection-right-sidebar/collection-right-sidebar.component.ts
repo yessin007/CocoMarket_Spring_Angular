@@ -43,22 +43,22 @@ export class CollectionRightSidebarComponent implements OnInit {
         this.pageNo = params.page ? params.page : this.pageNo;
 
         // Get Filtered Products..
-        this.productService.filterProducts(this.tags).subscribe(response => { 
-          
+      /*  this.productService.filterProducts(this.tags).subscribe(response => {
+
           // Sorting Filter
           this.products = this.productService.sortProducts(response, this.sortBy);
-          
+
           // Category Filter
           if(params.category)
-            this.products = this.products.filter(item => item.type == this.category);
+            this.products = this.products.filter(item => item.productCategory == this.category);
 
           // Price Filter
-          this.products = this.products.filter(item => item.price >= this.minPrice && item.price <= this.maxPrice) 
-    
+          this.products = this.products.filter(item => item.price >= this.minPrice && item.price <= this.maxPrice)
+
           // Paginate Products
           this.paginate = this.productService.getPager(this.products.length, +this.pageNo);     // get paginate object from service
           this.products = this.products.slice(this.paginate.startIndex, this.paginate.endIndex + 1); // get current page of items
-        })
+        }) */
       })
   }
 

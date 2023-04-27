@@ -15,7 +15,7 @@ public class DeliverySmsService {
 
     private final String ACCOUNT_SID ="AC4a0fd610f0bd807de8b72e4bd5bfb353";
 
-    private final String AUTH_TOKEN = "1792ff2552201d7219ef3ab2433cbe99";
+    private final String AUTH_TOKEN = "62915380e419199a66db8cedc03f4665";
 
     private final String FROM_NUMBER = "+15674831222";
 

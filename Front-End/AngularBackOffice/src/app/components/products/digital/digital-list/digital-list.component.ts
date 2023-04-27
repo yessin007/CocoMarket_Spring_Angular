@@ -77,7 +77,7 @@ export class DigitalListComponent implements OnInit {
     console.log(product);
     this.imagediag.open(ShowProductImagesDialogComponent, {
       data: {
-        images: product.productImages
+        images: product.image
       },
       height: '500px',
       width: '800px'
