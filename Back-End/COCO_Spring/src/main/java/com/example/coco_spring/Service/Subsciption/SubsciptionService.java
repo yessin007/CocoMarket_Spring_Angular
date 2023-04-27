@@ -36,7 +36,7 @@ public class SubsciptionService {
         topChosen.add(colthingAndApparelProducts);
         List<Product> homeGoodsProducts= allProducts.stream().filter(p -> p.getProductCategory().equals(ProductCategory.HomeGoods)).sorted((a,b)->reviewServices.numberOfLikes(a.getProductId())-reviewServices.numberOfLikes(b.getProductId())).limit(10).toList();
         topChosen.add(homeGoodsProducts);
-        List<Product> electronicsProducts= allProducts.stream().filter(p -> p.getProductCategory().equals(ProductCategory.Electronics)).sorted((a,b)->reviewServices.numberOfLikes(a.getProductId())-reviewServices.numberOfLikes(b.getProductId())).limit(10).toList();
+        List<Product> electronicsProducts= allProducts.stream().filter(p -> p.getProductCategory().equals(ProductCategory.electronics)).sorted((a,b)->reviewServices.numberOfLikes(a.getProductId())-reviewServices.numberOfLikes(b.getProductId())).limit(10).toList();
         topChosen.add(electronicsProducts);
         List<Product> beautyAndPersonalCareProducts= allProducts.stream().filter(p -> p.getProductCategory().equals(ProductCategory.BeautyAndPersonalCare)).sorted((a,b)->reviewServices.numberOfLikes(a.getProductId())-reviewServices.numberOfLikes(b.getProductId())).limit(10).toList();
         topChosen.add(beautyAndPersonalCareProducts);

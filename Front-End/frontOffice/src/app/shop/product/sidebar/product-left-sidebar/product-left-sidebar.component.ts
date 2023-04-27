@@ -25,14 +25,16 @@ export class ProductLeftSidebarComponent implements OnInit {
   public ProductDetailsThumbConfig: any = ProductDetailsThumbSlider;
 
   constructor(private route: ActivatedRoute, private router: Router,
-    public productService: ProductService) {
-    this.route.data.subscribe(response => this.product = response.data);
+              public productService: ProductService) {
   }
 
   ngOnInit(): void {
-    console.log("dddd", this.product)
+    this.product = this.route.snapshot.data.product;
+    console.log(this.product);
   }
-
+  reload(productID){
+    this.router.navigate(['shop/product/left/sidebar/', {productId: productID}]);
+  }
   // Get Product Color
   Color(variants) {
     const uniqColor = []

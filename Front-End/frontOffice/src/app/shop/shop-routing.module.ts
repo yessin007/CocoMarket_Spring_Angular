@@ -24,10 +24,10 @@ import { Resolver } from '../shared/services/resolver.service';
 
 const routes: Routes = [
   {
-    path: 'product/left/sidebar/:slug',
+    path: 'product/left/sidebar',
     component: ProductLeftSidebarComponent,
-    resolve: {
-      data: Resolver
+    resolve : {
+      product: Resolver
     }
   },
   {

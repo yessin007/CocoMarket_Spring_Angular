@@ -20,8 +20,8 @@ export class CategoriesComponent implements OnInit {
   }
 
   get filterbyCategory() {
-    const category = [...new Set(this.products.map(product => product.type))]
-    return category
+    const category = [...new Set(this.products.map(product => product.productCategory))];
+    return category;
   }
 
 }

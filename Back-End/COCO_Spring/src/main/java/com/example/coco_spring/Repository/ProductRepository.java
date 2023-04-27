@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    List<Product> findByProductName(String productName);
+    List<Product> findByTitle(String productName);
 
     @Query("SELECT p.productCategory FROM Order o JOIN o.cart.products p WHERE o.payement.user.id = :userId " +
             "AND o.orderDate BETWEEN :startOfWeek AND :endOfWeek GROUP BY p.productCategory " +

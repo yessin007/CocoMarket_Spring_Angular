@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
 		});
 		if (this.authService.isLoggedIn()){
 			this.isLoggedIn = true;
+			this.router.navigate(['/dashboard/default']);
 		}
 	}
 
@@ -90,7 +91,7 @@ export class LoginComponent implements OnInit {
 				});
 				this.isLoginFailed = false;
 				this.isLoggedIn = true;
-				this.router.navigate(['/dashboard/default']); // navigate to dashboard on success
+				this.reloadPage();// navigate to dashboard on success
 			},
 			error: err => {
 				this.isLoginFailed = true;
