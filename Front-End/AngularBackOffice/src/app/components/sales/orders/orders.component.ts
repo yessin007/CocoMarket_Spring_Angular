@@ -75,6 +75,7 @@ export class OrdersComponent implements OnInit {
   editOrder(orderId){
     this.route.navigate(['/sales/orders/add-order',  {orderId}]);
   }
+
   ngOnInit() {
     this.getAllOrders();
   }
