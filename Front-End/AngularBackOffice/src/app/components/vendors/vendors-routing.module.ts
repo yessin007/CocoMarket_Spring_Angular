@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ListVendorsComponent } from './list-vendors/list-vendors.component';
 import { CreateVendorsComponent } from './create-vendors/create-vendors.component';
-import {ProductDetailComponent} from "../products/physical/product-detail/product-detail.component";
 import {StoreDetailComponent} from "./store-detail/store-detail.component";
+import {AllStoresComponent} from './all-stores/all-stores.component';
 
 
 const routes: Routes = [
@@ -14,15 +14,15 @@ const routes: Routes = [
         path: 'list-vendors',
         component: ListVendorsComponent,
         data: {
-          title: "Vendor List",
-          breadcrumb: "Vendor List"
+          title: 'Vendor List',
+          breadcrumb: 'Vendor List'
         }
       },
       {
         path: 'create-vendors',
         component: CreateVendorsComponent,
         data: {
-          title: "Create Store",
+          title: 'Create Store',
           breadcrumb: 'Create Store'
         }
       },
@@ -30,8 +30,16 @@ const routes: Routes = [
         path: 'store-detail',
         component: StoreDetailComponent,
         data: {
-          title: "Store Detail",
-          breadcrumb: "Store Detail"
+          title: 'Store Detail',
+          breadcrumb: 'Store Detail'
+        }
+      },
+      {
+        path: 'all-stores',
+        component: AllStoresComponent,
+        data: {
+          title: 'All Stores',
+          breadcrumb: ' '
         }
       },
     ]
