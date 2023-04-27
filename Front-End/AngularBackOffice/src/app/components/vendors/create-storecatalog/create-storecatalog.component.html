@@ -1,0 +1,46 @@
+<form #storeCatalogForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="container-fluid">
+        <div class="row product-adding">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>ADD Store Catalog</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="col-xl-3 col-md-4"><label for="validationCustom0"><span>*</span>
+                                StoreCatalog Name</label></div>
+                            <div class="col-xl-8 col-md-7"><input class="form-control" id="validationCustom0" [(ngModel)]="catalog.catalogName" name="catalogName"
+                                                                  type="text" ></div>
+                            <div class="form-group ">
+                                <div class="col-xl-3 col-md-4"><label for="validationCustom1"><span>*</span> StoreCatalog Description</label></div>
+                                <div class="col-xl-8 col-md-7"><input class="form-control" id="validationCustom1" [(ngModel)]="catalog.catalogDescription" name="catalogDescription"
+                                                                      type="text" ></div>
+                            </div>
+
+
+
+
+
+                            <!--<div >
+                                <h3>Image Preview</h3>
+                                <div *ngFor="let url of store.storeImages">
+                                    <img [src]="url.url" width="400px" height="400px">
+                                </div>
+                            </div>-->
+
+
+                            <div class="form-group mb-0">
+                                <div class="product-buttons text-end mt-3">
+                                    <button type="submit" class="btn btn-primary">Confirm Add</button>
+                                    <button type="button" class="btn btn-light">Clear</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
