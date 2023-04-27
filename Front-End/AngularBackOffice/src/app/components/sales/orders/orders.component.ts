@@ -6,6 +6,12 @@ import { TableService } from 'src/app/shared/service/table.service';
 import { Observable } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { OrderDB, ORDERDB } from 'src/app/shared/tables/order-list';
+import {OrderService} from "../../../services/order/order.service";
+import {Order} from "../../../models/order";
+import {map} from "rxjs/operators";
+import {Product} from "../../../models/product";
+import {HttpErrorResponse} from "@angular/common/http";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-orders',
@@ -15,12 +21,15 @@ import { OrderDB, ORDERDB } from 'src/app/shared/tables/order-list';
 })
 
 export class OrdersComponent implements OnInit {
+  public selected = [];
   public closeResult: string;
   public tableItem$: Observable<OrderDB[]>;
   public searchText;
   total$: Observable<number>;
+  public OrderList: Order[] = [];
+  public digitalCategories: Product[] = [];
 
-  constructor(public service: TableService, private modalService: NgbModal) {
+  constructor(public service: TableService, private modalService: NgbModal, private orderService: OrderService, private route: Router) {
     this.tableItem$ = service.tableItem$;
     this.total$ = service.total$;
     this.service.setUserData(ORDERDB)
@@ -59,7 +68,46 @@ export class OrdersComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  onSelect({ selected }) {
+    this.selected.splice(0, this.selected.length);
+    this.selected.push(...selected);
   }
+  editOrder(id){
+    this.route.navigate(['/sales/orders/add-order',  {id}]);
+  }
+  ngOnInit() {
+    this.getAllOrders();
+  }
+  getAllOrders(){
+    this.orderService.getAllOrders().subscribe((response ) => {
+      this.OrderList = response;
+    });
+  }
+
+
+
+
+
+  deleteOrder(id){
+    this.orderService.deleteOrder(id).subscribe((response) => {
+      this.getAllOrders();
+    });
+  }
+
+
+
+  // public  deleteProduct(productId) {
+  //   this.productService.deleteProduct(productId).subscribe(
+  //       (resp) => {
+  //         console.log(resp);
+  //         this.getAllProducts();
+  //       },
+  //       (err: HttpErrorResponse) => {
+  //         console.log(err);
+  //       }
+  //   );
+  // }
+
+
 
 }

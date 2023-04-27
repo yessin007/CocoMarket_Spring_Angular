@@ -18,27 +18,36 @@
               <thead>
                 <tr>
                   <th scope="col" sortable="order_id" (sort)="onSort($event)">Order Id</th>
-                  <th scope="col" sortable="product" (sort)="onSort($event)">Payment</th>
-                  <th scope="col" sortable="payment_status" (sort)="onSort($event)">Payment Status</th>
-                  <th scope="col" sortable="paymeny_method" (sort)="onSort($event)">Payment Mehod</th>
                   <th scope="col" sortable="order_status" (sort)="onSort($event)">Order Status</th>
+                  <th scope="col" sortable="product" (sort)="onSort($event)">Order Address</th>
                   <th scope="col" sortable="date" (sort)="onSort($event)">Date</th>
                   <th scope="col" sortable="total" (sort)="onSort($event)">Total</th>
+                  <th scope="col" sortable="population" (sort)="onSort($event)">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of tableItem$ | async | filter:searchText">
-                  <th scope="row">{{ item.order_id }}</th>
+                <tr *ngFor="let item of OrderList">
+                  <th scope="row">#{{ item.orderId }}</th>
                   <td>
-                    <span *ngFor="let image of item.product">
-                      <img [src]="image" class="img-30 me-2">
-                    </span>
+
+                    <span *ngIf="item.orderStatus === 'Processing'" class='badge badge-pill badge-warning'>{{ item.orderStatus }}</span>
+                    <span *ngIf="item.orderStatus === 'Waiting for Payments'" class='badge badge-pill badge-secondary'>{{ item.orderStatus }}</span>
+                    <span *ngIf="item.orderStatus === 'Being delivered'" class='badge badge-pill badge-primary'>{{ item.orderStatus }}</span>
+                    <span *ngIf="item.orderStatus === 'Paid'" class='badge badge-pill badge-success'>{{ item.orderStatus }}</span>
+                    <span *ngIf="item.orderStatus === 'Cash on Delivery'" class='badge badge-pill badge-info'>{{ item.orderStatus }}</span>
+                    <span *ngIf="item.orderStatus === 'Payment Failed'" class='badge badge-pill badge-danger'>{{ item.orderStatus }}</span>
+                    <span *ngIf="item.orderStatus === 'Cancelled'" class='badge badge-pill badge-danger'>{{ item.orderStatus }}</span>
+                    <span *ngIf="item.orderStatus === 'Shipped'" class='badge badge-pill badge-success'>{{ item.orderStatus }}</span>
                   </td>
-                  <td><span class='badge {{item.payment_class}}'>{{ item.payment_status }}</span></td>
-                  <td>{{ item.paymeny_method }}</td>
-                  <td><span class='badge {{item.order_class}}'>{{ item.order_status }}</span></td>
-                  <td>{{item.date}}</td>
-                  <td>{{item.total}}</td>
+                  <td>{{ item.orderAddress }}</td>
+                  <td>{{item.orderDate}}</td>
+                  <td>{{item.amountBill}} TND</td>
+
+                  <td>
+                    <a (click)="editOrder(item.orderId)"  href="javascript:void(0)"><i class='fa fa-edit f-12'></i></a>&nbsp;
+                    <a  (click)="deleteOrder(item.orderId)" href="javascript:void(0)"><i class="fa fa-trash-o"></i></a>
+                  </td>
+
                 </tr>
               </tbody>
             </table>
@@ -57,4 +66,4 @@
       </div>
     </div>
   </div>
-  <!-- Container-fluid Ends-->
+</div>

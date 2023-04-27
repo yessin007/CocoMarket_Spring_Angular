@@ -21,12 +21,9 @@ public class Product {
     private String productName;
     private String description;
     private Long quantity;
-    @Lob
-    private byte[] images;
-    @Lob
-    private byte[] model;
-    @Lob
-    private byte[] video;
+    private String images;
+    private String model;
+    private String video;
     private String brand;
     private float price;
     @Temporal(TemporalType.DATE)

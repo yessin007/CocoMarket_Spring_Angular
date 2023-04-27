@@ -81,17 +81,12 @@ public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliverySe
         Delivery delivery = deliveryRepository.findById(deliveryId).get();
 
         List<Provider> deliverymen = getDeliverymenWithinRadius(user.getClientLocation().getLatitude(),
-                user.getClientLocation().getLongitude(), 15); // 15 km radius
-        for (Provider provider : deliverymen)
-        {
-            System.out.println("deliverymen : " +provider.getProviderName());
-        }
+                user.getClientLocation().getLongitude(), 150); // 15 km radius
 
         Provider nearestDeliveryman = getNearestDeliveryman(deliverymen, user.getClientLocation().getLatitude(),
                 user.getClientLocation().getLatitude());
 
         delivery.setProvider(nearestDeliveryman);
-        System.out.println("nearestDeliveryman : " +nearestDeliveryman);
         delivery.setStatut(Status.PENDING);
         return deliveryRepository.save(delivery);
 

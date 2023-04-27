@@ -55,7 +55,7 @@
         <div class="row">
             <div class="col">
                 <div class="theme-tab">
-                    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="tabs tab-title justify-content-center nav nav-pills" >
+                    <ul ngbNav  #nav="ngbNav" [(activeId)]="active" class="tabs tab-title justify-content-center nav nav-pills" >
                         <li *ngFor="let collection of productCollections" [ngbNavItem]="collection">
                           <a ngbNavLink>
                              {{ collection }}

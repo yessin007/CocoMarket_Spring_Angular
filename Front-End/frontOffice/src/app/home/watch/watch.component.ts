@@ -23,7 +23,7 @@ export class WatchComponent implements OnInit, OnDestroy {
   constructor(private _sanitizer:DomSanitizer,
     public productService: ProductService) {
     this.productService.getProducts.subscribe(response => {
-      this.products = response.filter(item => item.type == 'watch');
+      this.products = response.filter(item => item.productCategory == 'watch');
       // Get Product Collection
       this.products.filter((item) => {
         item.collection.filter((collection) => {
