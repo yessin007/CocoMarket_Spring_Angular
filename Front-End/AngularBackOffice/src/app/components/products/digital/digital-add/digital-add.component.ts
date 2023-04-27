@@ -84,5 +84,5 @@ export class DigitalAddComponent implements OnInit {
     }
     return formData;
   }
-  ngOnInit() { this.product = this.activatedRoute.snapshot.data.product; console.log(this.product); this.product.description = 'Put your description here...';  }
+  ngOnInit() { this.product = this.activatedRoute.snapshot.data.product; console.log(this.product);  }
 }
