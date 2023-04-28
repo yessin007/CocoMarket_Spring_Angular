@@ -7,6 +7,8 @@ import {ProductDetailComponent} from "./components/products/physical/product-det
 import {ProductResolverService} from "./services/product-resolver/product-resolver.service";
 import {ProductsModule} from "./components/products/products.module";
 import {DigitalAddComponent} from "./components/products/digital/digital-add/digital-add.component";
+import {CreateStorecatalogComponent} from "./components/vendors/create-storecatalog/create-storecatalog.component";
+import {StrCtlgResolverService} from "./services/store-catalog/str-ctlg-resolver.service";
 
 import {CreateVendorsComponent} from "./components/vendors/create-vendors/create-vendors.component";
 import {StoreResolverService} from "./services/store-resolver/store-resolver.service";
@@ -66,6 +68,15 @@ const routes: Routes = [
     children: [
       {path: 'vendors/create-vendors' , component: CreateVendorsComponent, resolve : {
           store: StoreResolverService
+        }  }
+    ],
+  },
+  {
+    path: '',
+    component: ContentLayoutComponent,
+    children: [
+      {path: 'vendors/create-storecatalog' , component: CreateStorecatalogComponent, resolve : {
+          catalog: StrCtlgResolverService
         }  }
     ],
   },

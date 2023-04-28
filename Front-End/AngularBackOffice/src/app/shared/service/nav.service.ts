@@ -1,6 +1,6 @@
 import { Injectable, HostListener, Inject } from '@angular/core';
 import { BehaviorSubject, Observable, Subscriber } from 'rxjs';
-import { WINDOW } from "./windows.service";
+import { WINDOW } from './windows.service';
 // Menu
 export interface Menu {
 	path?: string;
@@ -20,21 +20,21 @@ export interface Menu {
 
 export class NavService {
 
-	public screenWidth: any
-	public collapseSidebar: boolean = false
-
 	constructor(@Inject(WINDOW) private window) {
 		this.onResize();
 		if (this.screenWidth < 991) {
-			this.collapseSidebar = true
+			this.collapseSidebar = true;
 		}
 	}
 
+
+	
 	// Windows width
 	@HostListener('window:resize', ['$event'])
 	onResize(event?) {
 		this.screenWidth = window.innerWidth;
 	}
+
 
 	MENUITEMS: Menu[] = [
 		{
@@ -115,8 +115,13 @@ export class NavService {
 				// tslint:disable-next-line:indent
 				{ path: '/vendors/create-vendors', title: 'Create Store', type: 'link' },
 
+				{ path: '/vendors/create-storecatalog', title: 'Create Store Catalog', type: 'link' },
+				{ path: '/vendors/list-catl', title: 'List Catalog', type: 'link' }
+
+
 				// tslint:disable-next-line:indent
 				{ path: '/vendors/all-stores', title: 'All Stores', type: 'link' },
+
 
 
 
@@ -141,11 +146,17 @@ export class NavService {
 			title: 'Invoice', path: '/invoice', icon: 'archive', type: 'link', active: false
 		},
 		{
-			title: 'Login',path: '/auth/login', icon: 'log-in', type: 'link', active: false
+			title: 'Login', path: '/auth/login', icon: 'log-in', type: 'link', active: false
 		}
-	]
+	];
 	// Array
 	items = new BehaviorSubject<Menu[]>(this.MENUITEMS);
+
+	// Windows width
+	@HostListener('window:resize', ['$event'])
+	onResize(event?) {
+		this.screenWidth = window.innerWidth;
+	}
 
 
 }
