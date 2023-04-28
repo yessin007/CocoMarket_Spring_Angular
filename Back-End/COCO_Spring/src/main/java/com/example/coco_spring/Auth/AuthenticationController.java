@@ -4,6 +4,7 @@ package com.example.coco_spring.Auth;
 import com.example.coco_spring.Entity.User;
 import com.example.coco_spring.Repository.TokenRepository;
 import com.example.coco_spring.Repository.UserRepository;
+import com.example.coco_spring.Service.User.UserService;
 import com.example.coco_spring.config.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -99,7 +100,6 @@ public class AuthenticationController {
             //revokeAllUserTokens(user); hedhi eli lezem nraja33ha
             service.saveUserToken(user, jwtToken);
             return ResponseEntity.ok(AuthenticationResponse.builder()
-                    .token(jwtToken)
                     .build());
         }
         else if(user.getLocked()){
@@ -149,6 +149,10 @@ public class AuthenticationController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 	}
-
+	private UserService userService;
+	@PostMapping("/ResetPassword/{code}/{pwd}")
+	public String demResetPassword(@PathVariable("code") Integer code,@PathVariable("pwd") String pwd) throws MessagingException {
+		return userService.reserPassword(code,pwd);
+	}
 
 }
