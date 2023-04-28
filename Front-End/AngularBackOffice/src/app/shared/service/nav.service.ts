@@ -20,6 +20,9 @@ export interface Menu {
 
 export class NavService {
 
+	public  screenWidth:any
+	public collapseSidebar: boolean = false
+
 	constructor(@Inject(WINDOW) private window) {
 		this.onResize();
 		if (this.screenWidth < 991) {
@@ -116,7 +119,7 @@ export class NavService {
 				{ path: '/vendors/create-vendors', title: 'Create Store', type: 'link' },
 
 				{ path: '/vendors/create-storecatalog', title: 'Create Store Catalog', type: 'link' },
-				{ path: '/vendors/list-catl', title: 'List Catalog', type: 'link' }
+				{ path: '/vendors/list-catl', title: 'List Catalog', type: 'link' },
 
 
 				// tslint:disable-next-line:indent
@@ -152,11 +155,7 @@ export class NavService {
 	// Array
 	items = new BehaviorSubject<Menu[]>(this.MENUITEMS);
 
-	// Windows width
-	@HostListener('window:resize', ['$event'])
-	onResize(event?) {
-		this.screenWidth = window.innerWidth;
-	}
+
 
 
 }
