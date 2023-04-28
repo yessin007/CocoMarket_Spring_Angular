@@ -1,10 +1,9 @@
 <div class="img-wrapper">
-    <div class="lable-block" *ngIf="product.new"><span class="lable3">new</span></div>
+    <div class="lable-block"><span class="lable3">new</span></div>
     <div class="front">
-        <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
-            <img  [defaultImage]="'assets/images/product/placeholder.jpg'"
-                  [lazyLoad]="product.images[0].src" class="img-fluid"
-                  alt="{{ product.images[0].alt }}">
+        <a (click)="showProductDetails(product.productId)">
+            <img  class="img-fluid"
+                  [src]="product.image[0].url" alt="{{product.image[0].filefile}}">
         </a>
     </div>
     <div class="cart-box">
@@ -31,7 +30,7 @@
     </div> -->
 </div>
 <div class="product-info">
-    <bar-rating [rate]="5" [readOnly]="true"></bar-rating>
+    <bar-rating [rate]="2.7" [readOnly]="true"></bar-rating>
     <a [routerLink]="['/shop/product/left/sidebar/', product?.title.replace(' ', '-')]">
     	<h6>{{ product?.title | titlecase }}</h6>
     </a>

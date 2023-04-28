@@ -16,7 +16,7 @@ import { DecimalPipe } from '@angular/common';
 export class DigitalCategoryComponent implements OnInit {
   public closeResult: string;
   tableItem$: Observable<DigitalCategoryDB[]>;
-  public digital_categories = []
+  public digital_categories = [];
 
   constructor(public service: TableService, private modalService: NgbModal) {
     this.tableItem$ = service.tableItem$;

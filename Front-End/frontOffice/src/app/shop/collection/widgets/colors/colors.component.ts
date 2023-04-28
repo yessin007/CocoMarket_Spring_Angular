@@ -21,7 +21,7 @@ export class ColorsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  get filterbycolor() {
+  /* get filterbycolor() {
     const uniqueColors = []
     this.products.filter((product) => {
       product.variants.filter((variant) => {
@@ -32,7 +32,7 @@ export class ColorsComponent implements OnInit {
       })
     })
     return uniqueColors
-  }
+  } */
 
   appliedFilter(event) {
     let index = this.colors.indexOf(event.target.value);  // checked and unchecked value

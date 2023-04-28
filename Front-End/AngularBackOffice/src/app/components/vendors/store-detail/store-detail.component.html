@@ -1,0 +1,60 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="row product-page-main card-body">
+            <div  class="col-xl-4 ">
+                <section class="image-container">
+                    <carousel>
+                        <slide *ngFor="let imageUrl of store.storeImages">
+                            <img class="carousel-image" [src]="imageUrl.url">
+                        </slide>
+                    </carousel>
+                </section>
+            </div>
+            <div class="col-xl-8">
+                <div class="product-page-details product-right mb-0">
+                    <h2>{{store.storeName}}</h2>
+                    <ngb-rating class="ratings-sec"  [(rate)]="currentRate">
+                        <ng-template let-fill="fill" let-index="index">
+                            <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3"><i class='fa fa-star'></i> </span>
+                        </ng-template>
+                    </ngb-rating>
+                    <hr>
+
+                        <div class="product-price digits mt-2">
+                            <h5>{{store.storeDescription}}  </h5>
+                        </div>
+                    <div class="product-price digits mt-2">
+                        <h3>{{store.contactInformation}}  </h3>
+                    </div>
+                    <div class="product-price digits mt-2">
+                        <h3>{{store.storeLocations}}  </h3>
+                    </div>
+                    <div class="product-price digits mt-2">
+                        <h3>{{store.link}}  </h3>
+                    </div>
+
+
+                    <hr>
+                    <ng-template #content let-modal>
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Sheer Straight Kurta</h5>
+                            <button type="button" class="close" aria-label="Close"
+                                    (click)="modal.dismiss('Cross click')">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="assets/images/size-chart.jpg" alt="" class="img-fluid blur-up lazyloaded">
+                        </div>
+                    </ng-template>
+
+                    <hr>
+                    <div class="m-t-15">
+                        <button class="btn btn-primary m-r-10" type="button">Add Products</button>
+                        <button class="btn btn-secondary" type="button">SHOW MORE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
