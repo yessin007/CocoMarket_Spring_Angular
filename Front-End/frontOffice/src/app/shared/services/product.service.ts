@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Product } from '../classes/product';
 import {ImageProcessingService} from './image-processing.service';
 import {Review} from "../classes/review";
+import {User} from "../models/User";
 
 const state = {
   products: JSON.parse(localStorage.products || '[]'),
@@ -26,6 +27,10 @@ export class ProductService {
   readonly GET_ALL_PRODUCTS_API_URL = 'http://localhost:8089/radhwen/api/product/getallproducts?searchKey=';
   readonly GET_PRODUCT_DETAILS_API_URL = 'http://localhost:8089/radhwen/api/product/getproductdetails/';
   readonly ADD_REVIEW_TO_PRODUCT = 'http://localhost:8089/radhwen/api/product/affectreviewtoproduct/1/';
+  readonly GET_USER_BY_REVIEW = 'http://localhost:8089/radhwen/api/product/getuserbyreview/';
+  readonly GET_ALL_REVIEWS = 'http://localhost:8089/radhwen/api/product/getallreviews/';
+  readonly DISLIKE_PRODUCT = 'http://localhost:8089/radhwen/api/product/1/dislike/';
+  readonly LIKE_PRODUCT = 'http://localhost:8089/radhwen/api/product/1/like/';
 
   constructor(private http: HttpClient,
               private toastrService: ToastrService, private httpClient: HttpClient, private imageProcessingService: ImageProcessingService) { }
@@ -76,6 +81,18 @@ export class ProductService {
   }
   public reviewProduct(review: Review , productId){
     return  this.httpClient.post<Product>(this.ADD_REVIEW_TO_PRODUCT + productId, review);
+  }
+  public getUserByReview(reviewId){
+    return this.httpClient.get<User>(this.GET_USER_BY_REVIEW + reviewId);
+  }
+  public getAllReviews(productId): Observable<Review[]> {
+   return this.httpClient.get<Review[]>(this.GET_ALL_REVIEWS + productId);
+  }
+  public likeProduct(productId){
+    return this.httpClient.post(this.LIKE_PRODUCT + productId , {});
+  }
+  public disLikeProduct(productId){
+    return this.httpClient.post(this.DISLIKE_PRODUCT + productId , {});
   }
 
 
