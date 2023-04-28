@@ -4,6 +4,8 @@ import { ProductDetailsMainSlider, ProductDetailsThumbSlider } from '../../../..
 import { Product } from '../../../../shared/classes/product';
 import { ProductService } from '../../../../shared/services/product.service';
 import { SizeModalComponent } from "../../../../shared/components/modal/size-modal/size-modal.component";
+import {Review} from "../../../../shared/classes/review";
+import {StarRatingColor} from "../../../../elements/star-rating/star-rating.component";
 
 @Component({
   selector: 'app-product-left-sidebar',
@@ -13,10 +15,16 @@ import { SizeModalComponent } from "../../../../shared/components/modal/size-mod
 export class ProductLeftSidebarComponent implements OnInit {
 
   public product: Product = {};
+  public review: Review = {};
   public counter: number = 1;
   public activeSlide: any = 0;
   public selectedSize: any;
   public mobileSidebar: boolean = false;
+  rating:number = 3;
+  starCount:number = 5;
+  starColor: StarRatingColor = StarRatingColor.accent;
+  starColorP: StarRatingColor = StarRatingColor.primary;
+  starColorW: StarRatingColor = StarRatingColor.warn;
   public active = 1;
 
   @ViewChild("sizeChart") SizeChart: SizeModalComponent;
@@ -27,7 +35,10 @@ export class ProductLeftSidebarComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router,
               public productService: ProductService) {
   }
-
+  onRatingChanged(rating){
+    console.log(rating);
+    this.rating = rating;
+  }
   ngOnInit(): void {
     this.product = this.route.snapshot.data.product;
     console.log(this.product);
@@ -55,6 +66,15 @@ export class ProductLeftSidebarComponent implements OnInit {
       }
     }
     return uniqSize
+  }
+  reviewProduct(review: Review){
+    this.productService.reviewProduct(review, this.product.productId).subscribe((product: Product) => {
+          console.log('review added successfully', product);
+          // Reset the form
+        },
+        (error) => {
+          console.error('Failed to add review', error);
+        });
   }
 
   selectSize(size) {

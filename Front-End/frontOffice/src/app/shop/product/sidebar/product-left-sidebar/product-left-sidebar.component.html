@@ -139,45 +139,29 @@
                     </li>
                     <li [ngbNavItem]="3">
                       <a ngbNavLink>Write Review</a>
-                        <ng-template ngbNavContent>
-                          <form class="theme-form">
-                            <div class="row">
-                              <div class="col-md-12 ">
-                                <div class="media rating-sec">
-                                  <label>Rating</label>
-                                  <div class="media-body ms-3">
-                                    <div class="rating four-star">
-                                      <i class="fa fa-star"></i>
-                                      <i class="fa fa-star"></i>
-                                      <i class="fa fa-star"></i>
-                                      <i class="fa fa-star"></i>
-                                      <i class="fa fa-star"></i>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                <label for="name">Name</label>
-                                <input type="text" class="form-control" id="name" placeholder="Enter Your name" required>
-                              </div>
-                              <div class="col-md-6">
-                                <label for="email">Email</label>
-                                <input type="text" class="form-control" id="email" placeholder="Email" required>
-                              </div>
-                              <div class="col-md-12">
-                                <label for="review">Review Title</label>
-                                <input type="text" class="form-control" id="review" placeholder="Enter your Review Subjects" required>
-                              </div>
-                              <div class="col-md-12">
-                                <label for="review">Review Title</label>
-                                <textarea class="form-control" placeholder="Wrire Your Testimonial Here" id="exampleFormControlTextarea1" rows="6"></textarea>
-                              </div>
-                              <div class="col-md-12">
-                                <button class="btn btn-solid" type="submit">Submit YOur Review</button>
-                              </div>
-                            </div>
-                          </form>
-                        </ng-template>
+                         <ng-template ngbNavContent>
+                           <form class="theme-form">
+                             <div class="row">
+                               <div class="col-md-12 ">
+                                 <div class="media rating-sec">
+                                   <label>Rating</label>
+                                   <app-star-rating [rating]="rating"  [starCount]="starCount" [color]="starColor" (ratingUpdated)="onRatingChanged($event)"></app-star-rating>
+                                 </div>
+                               </div>
+                               <div class="col-md-12">
+                                 <label for="review">Review Title</label>
+                                 <input type="text" class="form-control" name="reviewtitle" [(ngModel)]="review.reviewTitle" id="review" placeholder="Enter your Review Subjects" required>
+                               </div>
+                               <div class="col-md-12">
+                                 <label for="review">Review Text</label>
+                                 <textarea class="form-control" name="reviewText" [(ngModel)]="review.reviewText" placeholder="Wrire Your Testimonial Here" id="exampleFormControlTextarea1" rows="6"></textarea>
+                               </div>
+                               <div class="col-md-12">
+                                 <button class="btn btn-solid" (click)="reviewProduct(review)" type="submit">Submit Your Review</button>
+                               </div>
+                             </div>
+                           </form>
+                         </ng-template>
                     </li>
                   </ul>
                   <div [ngbNavOutlet]="nav" class="mt-2"></div>

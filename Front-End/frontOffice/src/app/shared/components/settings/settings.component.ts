@@ -4,6 +4,10 @@ import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { ProductService } from "../../services/product.service";
 import { Product } from "../../classes/product";
+import {ActivatedRoute, Router} from "@angular/router";
+import {map} from "rxjs/operators";
+import {ImageProcessingService} from "../../services/image-processing.service";
+import {response} from "express";
 
 @Component({
   selector: 'app-settings',
@@ -13,6 +17,7 @@ import { Product } from "../../classes/product";
 export class SettingsComponent implements OnInit {
 
   public products: Product[] = [];
+  public p: Product = {};
   public search: boolean = false;
   
   public languages = [{ 
@@ -43,15 +48,28 @@ export class SettingsComponent implements OnInit {
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object,
     private translate: TranslateService,
-    public productService: ProductService) {
-    this.productService.cartItems.subscribe(response => this.products = response);
-  }
+    public productService: ProductService, private route: ActivatedRoute, private imageProcessingService: ImageProcessingService,
+              private router: Router) {
 
+  }
+  public searchByKeyWord(searchKeyWord){
+    console.log(searchKeyWord);
+    this.products = [];
+    this.getProductsByKeyWord(searchKeyWord);
+  }
+  getProductsByKeyWord(searchKey: string = ''){
+    this.productService.searchByKeyWord(searchKey).pipe(
+        map((x: Product[], i) => x.map((product: Product) => this.imageProcessingService.createImages(product)))
+    ).subscribe((resp: Product[]) => {
+      console.log(resp); this.products = resp; });
+  }
   ngOnInit(): void {
+    //this.p = this.route.snapshot.data.product;
+    console.log(this.p);
   }
 
   searchToggle(){
-    this.search = !this.search;
+    this.router.navigate(['pages/search']);
   }
 
   changeLanguage(code){
