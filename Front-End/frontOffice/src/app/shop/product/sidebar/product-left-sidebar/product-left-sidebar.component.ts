@@ -2,11 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductDetailsMainSlider, ProductDetailsThumbSlider } from '../../../../shared/data/slider';
 import { Product } from '../../../../shared/classes/product';
-
 import {Review} from "../../../../shared/classes/review";
-import {StarRatingColor} from "../../../../elements/star-rating/star-rating.component";
-
-
 import {CartService} from "../../../../services/cart.service";
 import {SizeModalComponent} from "../../../../shared/components/modal/size-modal/size-modal.component";
 import {ProductService} from "../../../../shared/services/product.service";
@@ -29,9 +25,6 @@ export class ProductLeftSidebarComponent implements OnInit {
 
   rating:number = 3;
   starCount:number = 5;
-  starColor: StarRatingColor = StarRatingColor.accent;
-  starColorP: StarRatingColor = StarRatingColor.primary;
-  starColorW: StarRatingColor = StarRatingColor.warn;
   public active = 1;
 
 
