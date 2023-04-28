@@ -75,7 +75,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   // Add to cart
   async addToCart(productId) {
     console.log(productId);
-    this.cartService.addToCart(productId).subscribe((response) => {console.log(response);},
+    this.productService.addToCart(productId).subscribe((response) => {console.log(response); },
         (error) => {console.log(error); });
 
 

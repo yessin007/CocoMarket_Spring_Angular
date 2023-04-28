@@ -88,4 +88,11 @@ public class CartController {
         return user.getId();
     }
 
+    @GetMapping("/addToCart/{productId}/{userId}")
+    public Cart addToCart(@PathVariable("productId") Long productId,@PathVariable("userId") Long userId){
+        return cartService.addToCart(productId,userId);
+    }
+
+
+
 }
