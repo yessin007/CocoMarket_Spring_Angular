@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../../shared/services/auth.service';
+import {flash} from "ng-animate";
 
 @Component({
   selector: 'app-forget-password',
@@ -8,6 +9,7 @@ import {AuthService} from '../../../shared/services/auth.service';
 })
 export class ForgetPasswordComponent implements OnInit {
 	userFaild = false;
+	demDone = false;
 	form: any = {
 		email: null
 	};
@@ -22,8 +24,8 @@ export class ForgetPasswordComponent implements OnInit {
 			response => {
 				if (response.status === 200) {
 					console.log(response.status); // should print 200 if email is found
-					// handle successful response here
-				} else if (response.status === 440) {
+					this.demDone = true;
+				} else if (response.status === 404) {
 					console.log(response.status); // should print 440 if email is not found
 					// handle email not found error here
 					this.userFaild = true;
@@ -31,6 +33,7 @@ export class ForgetPasswordComponent implements OnInit {
 			},
 			error => {
 				console.error(error);
+
 				// handle error here
 			}
 		);
