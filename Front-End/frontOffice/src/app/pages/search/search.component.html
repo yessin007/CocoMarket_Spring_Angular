@@ -8,7 +8,7 @@
             <div class="col-lg-6 offset-lg-3">
               <form class="form-header">
                 <div class="form-group">
-                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Search a Product">
+                  <input #searchkeyword (keyup)="searchByKeyWord(searchkeyword.value)" type="text" class="form-control" id="exampleInputPassword1" placeholder="Find a Product">
                 </div>
                 <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
               </form>
@@ -16,12 +16,44 @@
           </div>
         </div>
       </section>
-        <div class="col-sm-12 text-center">
+        <div *ngIf="products.length == 0" class="col-sm-12 text-center">
           <img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
             <h3>Sorry! Couldn't find the product you were looking For!!!    </h3>
             <p>Please check if you have misspelt something or try searching with other words.</p>
             <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continue shopping</a>
         </div>
+      <div *ngIf="products.length > 0 ">
+        <!-- slider tab  -->
+        <section class="section-b-space">
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <div class="theme-tab">
+                  <ul ngbNav  #nav="ngbNav" [(activeId)]="active" class="tabs tab-title justify-content-center nav nav-pills" >
+                    <li *ngFor="let collection of productCollections" [ngbNavItem]="collection">
+                      <a ngbNavLink>
+                        {{ collection }}
+                      </a>
+                      <ng-template ngbNavContent>
+                        <div class="no-slider row">
+                          <ng-container *ngFor="let product of getCollectionProducts(collection) | slice:0:8">
+                            <div class="product-box">
+                              <app-product-box-three [product]="product" [currency]="productService?.Currency">
+                              </app-product-box-three>
+                            </div>
+                          </ng-container>
+                        </div>
+                      </ng-template>
+                    </li>
+                  </ul>
+                  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- slider tab end -->
+      </div>
     </div>
  </section>
 <!-- section end -->

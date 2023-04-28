@@ -2,9 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductDetailsMainSlider, ProductDetailsThumbSlider } from '../../../../shared/data/slider';
 import { Product } from '../../../../shared/classes/product';
-import { ProductService } from '../../../../shared/services/product.service';
-import { SizeModalComponent } from "../../../../shared/components/modal/size-modal/size-modal.component";
+import {Review} from "../../../../shared/classes/review";
 import {CartService} from "../../../../services/cart.service";
+import {SizeModalComponent} from "../../../../shared/components/modal/size-modal/size-modal.component";
+import {ProductService} from "../../../../shared/services/product.service";
+
+
 
 @Component({
   selector: 'app-product-left-sidebar',
@@ -14,11 +17,16 @@ import {CartService} from "../../../../services/cart.service";
 export class ProductLeftSidebarComponent implements OnInit {
 
   public product: Product = {};
+  public review: Review = {};
   public counter: number = 1;
   public activeSlide: any = 0;
   public selectedSize: any;
   public mobileSidebar: boolean = false;
+
+  rating:number = 3;
+  starCount:number = 5;
   public active = 1;
+
 
   @ViewChild("sizeChart") SizeChart: SizeModalComponent;
 
@@ -56,6 +64,15 @@ export class ProductLeftSidebarComponent implements OnInit {
       }
     }
     return uniqSize
+  }
+  reviewProduct(review: Review){
+    this.productService.reviewProduct(review, this.product.productId).subscribe((product: Product) => {
+          console.log('review added successfully', product);
+          // Reset the form
+        },
+        (error) => {
+          console.error('Failed to add review', error);
+        });
   }
 
   selectSize(size) {

@@ -5,6 +5,7 @@ import { map, startWith, delay } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from '../classes/product';
 import {ImageProcessingService} from './image-processing.service';
+import {Review} from "../classes/review";
 
 const state = {
   products: JSON.parse(localStorage.products || '[]'),
@@ -22,8 +23,9 @@ export class ProductService {
   public OpenCart = false;
   public Products;
   public Product;
-  readonly GET_ALL_PRODUCTS_API_URL = 'http://localhost:8089/radhwen/api/product/getallproducts';
+  readonly GET_ALL_PRODUCTS_API_URL = 'http://localhost:8089/radhwen/api/product/getallproducts?searchKey=';
   readonly GET_PRODUCT_DETAILS_API_URL = 'http://localhost:8089/radhwen/api/product/getproductdetails/';
+  readonly ADD_REVIEW_TO_PRODUCT = 'http://localhost:8089/radhwen/api/product/affectreviewtoproduct/1/';
 
   constructor(private http: HttpClient,
               private toastrService: ToastrService, private httpClient: HttpClient, private imageProcessingService: ImageProcessingService) { }
@@ -66,8 +68,14 @@ export class ProductService {
       });
     }));
   }
+  public searchByKeyWord(seachKey: string = ''){
+    return this.httpClient.get<Product[]>(this.GET_ALL_PRODUCTS_API_URL + seachKey);
+  }
   public getProductById(productId): Observable<Product>{
     return  this.httpClient.get<Product>(this.GET_PRODUCT_DETAILS_API_URL + productId);
+  }
+  public reviewProduct(review: Review , productId){
+    return  this.httpClient.post<Product>(this.ADD_REVIEW_TO_PRODUCT + productId, review);
   }
 
 

@@ -19,8 +19,9 @@ public class Review {
     private String reviewText;
     private boolean verified;
     private float rating;
+    @Column(name = "created_at", nullable = false, insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.DATE)
-    private Date dateOfReview;
+    private Date createdAt;
     @ManyToOne
     User user;
 
