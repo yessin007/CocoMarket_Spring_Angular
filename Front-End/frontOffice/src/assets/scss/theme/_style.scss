@@ -7494,6 +7494,27 @@ ngx-loading-bar {
                 }
             }
         }
+        .dislike-btn {
+            background-color: transparent;
+            border: none;
+            i {
+                border-left: 1px solid $round-border;
+                font-size: 18px;
+                padding-left: 10px;
+                margin-left: 5px;
+                transition: all 0.5s ease;
+            }
+            span {
+                padding-left: 10px;
+                font-size: 18px;
+            }
+            &:hover {
+                i {
+                    color: red;
+                    transition: all 0.5s ease;
+                }
+            }
+        }
     }
     .payment-card-bottom {
         margin-top: 10px;
@@ -10977,6 +10998,20 @@ body.rtl {
                 }
             }
             .wishlist-btn {
+                i {
+                    border-left: none;
+                    border-right: 1px solid $round-border;
+                    padding-left: 0;
+                    margin-left: 0;
+                    padding-right: 10px;
+                    margin-right: 5px;
+                }
+                span {
+                    padding-left: 0;
+                    padding-right: 10px;
+                }
+            }
+            .dislike-btn {
                 i {
                     border-left: none;
                     border-right: 1px solid $round-border;

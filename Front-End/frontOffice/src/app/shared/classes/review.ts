@@ -1,4 +1,7 @@
+import {User} from "../models/User";
+
 export interface Review{
+
     reviewId?: number;
     reviewTitle?: string;
     reviewText?: string;

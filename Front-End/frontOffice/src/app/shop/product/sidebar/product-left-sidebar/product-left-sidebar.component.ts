@@ -6,6 +6,7 @@ import {Review} from "../../../../shared/classes/review";
 import {CartService} from "../../../../services/cart.service";
 import {SizeModalComponent} from "../../../../shared/components/modal/size-modal/size-modal.component";
 import {ProductService} from "../../../../shared/services/product.service";
+import {User} from "../../../../shared/models/User";
 
 
 
@@ -18,6 +19,7 @@ export class ProductLeftSidebarComponent implements OnInit {
 
   public product: Product = {};
   public review: Review = {};
+  user: User = new User();
   public counter: number = 1;
   public activeSlide: any = 0;
   public selectedSize: any;
@@ -25,6 +27,7 @@ export class ProductLeftSidebarComponent implements OnInit {
 
   rating:number = 3;
   starCount:number = 5;
+  public reviews: Review[] = [];
   public active = 1;
 
 
@@ -39,6 +42,7 @@ export class ProductLeftSidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.product = this.route.snapshot.data.product;
+    this.getAllReviews();
     console.log(this.product);
   }
   reload(productID){
@@ -78,7 +82,13 @@ export class ProductLeftSidebarComponent implements OnInit {
   selectSize(size) {
     this.selectedSize = size;
   }
-
+  public getAllReviews(){
+    this.productService.getAllReviews(this.product.productId).subscribe((resp) => {this.reviews = resp; });
+  }
+  public getUserFullNameByReview(reviewId){
+    this.productService.getUserByReview(reviewId).subscribe((res) => {this.user = res; });
+    return this.user.name;
+  }
   // Increament
   increment() {
     this.counter++;
@@ -113,7 +123,9 @@ export class ProductLeftSidebarComponent implements OnInit {
   }
 
   // Add to Wishlist
-  addToWishlist(product: any) {
+  addToWishlist(product: Product) {
+    this.productService.likeProduct(product.productId).subscribe((resp) => {
+      console.log('like added successfully'); });
     this.productService.addToWishlist(product);
   }
 
