@@ -9,14 +9,15 @@ import {Observable} from 'rxjs';
 })
 export class StoreService {
   // tslint:disable-next-line:variable-name
-  readonly ADD_Store = 'http://localhost:8089/kaddem/store/addStore';
+  readonly ADD_Store = 'http://localhost:8089/maram/store/addStore';
   // tslint:disable-next-line:variable-name
-  readonly Get_Store = 'http://localhost:8089/kaddem/store/get_all_Stores';
+  readonly Get_Store = 'http://localhost:8089/maram/store/get_all_Stores';
   // tslint:disable-next-line:variable-name
-  readonly DELETE_Store = 'http://localhost:8089/kaddem/store/deleteStore/';
+  readonly DELETE_Store = 'http://localhost:8089/maram/store/deleteStore/';
 
-  readonly FIND_BY_ID = 'http://localhost:8089/kaddem/store/retrive_Store/';
+  readonly FIND_BY_ID = 'http://localhost:8089/maram/store/retrive_Store/';
 
+  private apiUrl = 'http://localhost:8089/maram/store';
 
 
   constructor(private httpClient: HttpClient) { }
@@ -32,6 +33,9 @@ export class StoreService {
   getStoreDetails(storeId){
     return this.httpClient.get<Store>(this.FIND_BY_ID + storeId);
   }
-
+  affectProductToStore(storeId: number, productId: number): Observable<void> {
+    const url = `${this.apiUrl}/affectproducttostore/${storeId}/${productId}`;
+    return this.httpClient.put<void>(url, {});
+  }
 
 }

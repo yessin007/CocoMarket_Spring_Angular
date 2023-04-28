@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ListVendorsComponent } from './list-vendors/list-vendors.component';
 import { CreateVendorsComponent } from './create-vendors/create-vendors.component';
-import {StoreDetailComponent} from "./store-detail/store-detail.component";
+import {StoreDetailComponent} from './store-detail/store-detail.component';
 import {AllStoresComponent} from './all-stores/all-stores.component';
 
 

@@ -7,11 +7,10 @@ import {Product} from '../../models/product';
   providedIn: 'root'
 })
 export class ProductService {
-  readonly PRODUCT_API_URL = 'http://localhost:8089/radhwen/api/product/addproduct';
-  readonly GET_ALL_PRODUCTS_API_URL = 'http://localhost:8089/radhwen/api/product/getallproducts';
-  readonly DELETE_PRODUCT_API_URL = 'http://localhost:8089/radhwen/api/product/deleteproduct/';
-  readonly GET_PRODUCT_DETAILS__API_URL = 'http://localhost:8089/radhwen/api/product/getproductdetails/';
-
+  readonly PRODUCT_API_URL = 'http://localhost:8089/maram/api/product/addproduct';
+  readonly GET_ALL_PRODUCTS_API_URL = 'http://localhost:8089/maram/api/product/getallproducts';
+  readonly DELETE_PRODUCT_API_URL = 'http://localhost:8089/maram/api/product/deleteproduct/';
+  readonly GET_PRODUCT_DETAILS__API_URL = 'http://localhost:8089/maram/api/product/getproductdetails/';
 
   constructor(private httpClient: HttpClient) { }
   addProduct(product: FormData): Observable<any> {
@@ -27,5 +26,6 @@ export class ProductService {
   getProductDetails(productId){
     return this.httpClient.get<Product>(this.GET_PRODUCT_DETAILS__API_URL + productId);
   }
+
 
 }
