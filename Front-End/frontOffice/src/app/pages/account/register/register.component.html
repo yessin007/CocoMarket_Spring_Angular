@@ -6,28 +6,81 @@
             <div class="col-lg-12">
                 <h3>create account</h3>
                 <div class="theme-card">
-                    <form class="theme-form">
+                    <form class="theme-form"
+						  name="rform"
+						  (ngSubmit)="f.form.valid && onRegister()"
+						  #f="ngForm"
+						  novalidate>
+						<div class="row">
+							<div class="col-md-6">
+								<label for="email">First Name</label>
+								<input type="text" class="form-control" placeholder="Enter Userame"
+									   name="userame"
+									   [(ngModel)]="rform.userame"
+									   required
+									   #userame="ngModel"
+									   [ngClass]="{ 'is-invalid': f.submitted && userame.errors }">
+								<div *ngIf="userame.errors && f.submitted" class="invalid-feedback">
+									First Name is required!
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label for="email">email</label>
+								<input type="text" class="form-control" placeholder="Enter Email Address"
+									   name="Remail"
+									   [(ngModel)]="rform.email"
+									   required
+									   #email="ngModel"
+									   [ngClass]="{ 'is-invalid': f.submitted && email.errors }">
+								<div *ngIf="email.errors && f.submitted" class="invalid-feedback">
+									Email is required!
+								</div>
+							</div>
+						</div>
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="email">First Name</label>
-                                <input type="text" class="form-control" id="fname" placeholder="First Name" required="">
+                                <input type="text" class="form-control" placeholder="Enter First Name"
+									   name="Rname"
+									   [(ngModel)]="rform.name"
+									   required
+									   #name="ngModel"
+									   [ngClass]="{ 'is-invalid': f.submitted && name.errors }">
+								<div *ngIf="name.errors && f.submitted" class="invalid-feedback">
+									First Name is required!
+								</div>
                             </div>
                             <div class="col-md-6">
                                 <label for="review">Last Name</label>
-                                <input type="password" class="form-control" id="lname" placeholder="Last Name" required="">
+                                <input type="text" class="form-control" placeholder="Enter Last Name"
+									   name="RlastName"
+									   [(ngModel)]="rform.lastName"
+									   required
+									   #lastName="ngModel"
+									   [ngClass]="{ 'is-invalid': f.submitted && lastName.errors }">
+								<div *ngIf="lastName.errors && f.submitted" class="invalid-feedback">
+									Last Name is required!
+								</div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="email">email</label>
-                                <input type="text" class="form-control" id="email" placeholder="Email" required="">
-                            </div>
-                            <div class="col-md-6">
                                 <label for="review">Password</label>
-                                <input type="password" class="form-control" id="review" placeholder="Enter your password" required="">
+                                <input type="password" class="form-control" placeholder="Enter Password"
+									   name="Rpassword"
+									   [(ngModel)]="rform.password"
+									   required
+									   #password="ngModel"
+									   [ngClass]="{ 'is-invalid': f.submitted && password.errors }">
+								<div *ngIf="password.errors && f.submitted" class="invalid-feedback">
+									Password is required!
+								</div>
                             </div>
+							<div class="col-md-6" style="padding-top: 1.7em">
+							<button class="btn btn-solid">create Account</button>
+							</div>
                         </div>
-                        <button class="btn btn-solid">create Account</button>
+
                     </form>
                 </div>
             </div>
