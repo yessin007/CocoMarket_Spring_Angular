@@ -8,7 +8,9 @@ import {Observable} from 'rxjs';
 import {Provider} from '../../../models/provider';
 import {StoreCatalog} from '../../../models/storeCatalog';
 import {CatalogServiceService} from '../../../services/catalogService/catalog-service.service';
-
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {ImageProcessingService} from '../../../services/str-cat/image-processing.service';
+import {map} from 'rxjs/operators';
 @Component({
   selector: 'app-list-catl',
   templateUrl: './list-catl.component.html',
@@ -16,24 +18,32 @@ import {CatalogServiceService} from '../../../services/catalogService/catalog-se
 })
 export class ListCatlComponent implements OnInit{
   catalogList: StoreCatalog[] = [];
-
-  constructor(private catalogservice : CatalogServiceService, private route: Router){}
+  constructor(private catalogservice: CatalogServiceService, private route: Router, private http: HttpClient , private  imageProcessingService : ImageProcessingService ){}
   ngOnInit(): void {
     this.getAllCatalogs();
 
   }
-  getAllCatalogs(){
-    // tslint:disable-next-line:no-shadowed-variable
-    this.catalogservice.getAllCatalog().subscribe((response) => {
-      this.catalogList = response;
-    });
+
+  public getAllCatalogs(){
+    this.catalogservice.getAllCatalog()
+        .pipe(
+
+            map((x: StoreCatalog[], i) => x.map((catalog: StoreCatalog) => this.imageProcessingService.createImages(catalog)))
+        )
+        .subscribe(
+            (resp: StoreCatalog[]) => {console.log(resp); this.catalogList = resp; },
+            (error: HttpErrorResponse) => {console.log(error); }
+        );
   }
   deleteCatalog(id){
     this.catalogservice.deleteCatalog(id).subscribe((response) => {
       this.getAllCatalogs();
     });
   }
-  editCatalog(id){
-    this.route.navigate(['/vendors/create-storecatalog',  {id}]);
+  public editCatalogDetails(catalogId){
+    // @ts-ignore
+    this.route.navigate(['/vendors/create-storecatalog', {catalogId}]);
   }
+
+
 }

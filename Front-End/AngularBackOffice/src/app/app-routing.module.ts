@@ -7,6 +7,8 @@ import {ProductDetailComponent} from "./components/products/physical/product-det
 import {ProductResolverService} from "./services/product-resolver/product-resolver.service";
 import {ProductsModule} from "./components/products/products.module";
 import {DigitalAddComponent} from "./components/products/digital/digital-add/digital-add.component";
+import {CreateStorecatalogComponent} from "./components/vendors/create-storecatalog/create-storecatalog.component";
+import {StrCtlgResolverService} from "./services/store-catalog/str-ctlg-resolver.service";
 
 
 const routes: Routes = [
@@ -30,6 +32,15 @@ const routes: Routes = [
     children: [
       {path: 'products/digital/digital-add-product' , component: DigitalAddComponent, resolve : {
           product: ProductResolverService
+        }  }
+    ],
+  },
+  {
+    path: '',
+    component: ContentLayoutComponent,
+    children: [
+      {path: 'vendors/create-storecatalog' , component: CreateStorecatalogComponent, resolve : {
+          catalog: StrCtlgResolverService
         }  }
     ],
   },
