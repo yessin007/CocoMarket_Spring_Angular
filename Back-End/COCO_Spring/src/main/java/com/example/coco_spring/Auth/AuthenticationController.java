@@ -145,7 +145,7 @@ public class AuthenticationController {
 		if (user.isPresent()) {
 			return ResponseEntity.ok(service.demResetPassword(email));
 		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			return ResponseEntity.status(440).build();
 		}
 	}
 
