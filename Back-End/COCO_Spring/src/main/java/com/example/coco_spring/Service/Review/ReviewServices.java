@@ -22,8 +22,20 @@ public class ReviewServices implements IReviewServices {
     LikeDislikeRepository likeDislikeRepository;
     UserRepository userRepository;
     @Transactional
-    public Review affectReviewToProduct(Long productId,Review review){
+    public Review affectReviewToProduct(Long userId,Long productId,Review review){
+        User user=userRepository.findById(userId).get();
         Product product=productRepository.findById(productId).get();
+        List<Review> reviews=product.getReviews();
+        if (!reviews.isEmpty()) {
+            for (Review rev : reviews) {
+                if (rev.getUser().getId() == user.getId()) {
+                    reviewRepository.delete(rev);
+                    productRepository.save(product);
+                }
+            }
+        }
+
+
         product.getReviews().add(review);
         productRepository.save(product);
         return reviewRepository.save(review);

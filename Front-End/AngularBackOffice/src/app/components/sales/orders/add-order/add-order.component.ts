@@ -8,6 +8,7 @@ import {Provider} from "../../../../models/provider";
 import {OrderService} from "../../../../services/order/order.service";
 import {AuthService} from "../../../../services/auth.service";
 import {User} from "../../../../models/User";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-add-order',
@@ -30,7 +31,8 @@ export class AddOrderComponent {
   // tslint:disable-next-line:ban-types
   protected currentToken!: String;
 
-  constructor(private formBuilder: UntypedFormBuilder, private calendar: NgbCalendar, private orderService: OrderService, private auth:AuthService) {
+  constructor(private formBuilder: UntypedFormBuilder, private calendar: NgbCalendar,
+              private orderService: OrderService, private auth: AuthService, private route: ActivatedRoute) {
     this.createGeneralForm();
     this.createRestrictionForm();
     this.createUsageForm();
@@ -76,8 +78,8 @@ export class AddOrderComponent {
   }
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
-
-  }
+    this.order = this.route.snapshot.data.order;
+    console.log(this.order);  }
   onSubmit() {
     console.log(this.currentToken);
     this.orderService.addOrder( this.order ).subscribe((order: Order) => {console.log('Order added successfully', order);

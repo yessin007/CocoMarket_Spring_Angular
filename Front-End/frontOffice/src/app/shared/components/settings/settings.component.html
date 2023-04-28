@@ -6,7 +6,7 @@
         <i class="ti-search"></i>
       </div>
       <div id="search-overlay" class="search-overlay" [ngStyle]="{'display': search ? 'block' : 'none' }">
-        <div> 
+        <div>
             <span class="closebtn" title="Close Overlay" (click)="searchToggle()">×</span>
             <div class="overlay-content">
                 <div class="container">
@@ -14,9 +14,9 @@
                         <div class="col-xl-12">
                             <form>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Search a Product">
+                                    <input #searchkeyword (keyup)="searchByKeyWord(searchkeyword.value)" type="text" class="form-control" id="exampleInputPassword1" placeholder="Face a Product">
                                 </div>
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                                <button type="submit" class="btn btn-primary"><i class="fa-search"></i></button>
                             </form>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
         <li *ngFor="let product of products">
           <div class="media">
             <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
-              <img class="me-3" [src]="product?.images[0].src" [alt]="product?.images[0].alt">
+              <img class="me-3" [src]="product.image[0].url">
             </a>
             <div class="media-body">
               <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">

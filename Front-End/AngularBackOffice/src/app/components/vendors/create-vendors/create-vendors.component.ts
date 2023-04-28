@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import {Store} from '../../../models/store';
-import {Product} from '../../../models/product';
 import {StoreService} from '../../../services/store/store.service';
 import {FileHandle} from '../../../models/FileHandle';
 import {DomSanitizer} from '@angular/platform-browser';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-create-vendors',
@@ -19,7 +19,7 @@ export class CreateVendorsComponent implements OnInit {
   array: FileHandle[] = [];
   store: Store = new Store();
 
-  constructor(private formBuilder: UntypedFormBuilder, private sanitizer: DomSanitizer, private storeService: StoreService) {
+  constructor(private formBuilder: UntypedFormBuilder, private sanitizer: DomSanitizer, private storeService: StoreService, private activatedRoute: ActivatedRoute) {
     this.createAccountForm();
     this.createPermissionForm();
   }
@@ -61,7 +61,11 @@ export class CreateVendorsComponent implements OnInit {
   }
 
 
-  ngOnInit() { }
+  ngOnInit() {
+
+    this.store = this.activatedRoute.snapshot.data.store;
+    console.log(this.store);
+  }
   onSubmit(storeForm: NgForm) {
     const storeFormData = this.prepareFormData(this.store);
     this.storeService.addStore(storeFormData).subscribe(

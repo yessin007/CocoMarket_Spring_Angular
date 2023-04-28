@@ -4,7 +4,7 @@ public enum
 ProductCategory {
     ClothingAndApparel,
     HomeGoods,
-    Electronics,
+    electronics,
     BeautyAndPersonalCare,
     SportingGoods,
     PetSupplies,

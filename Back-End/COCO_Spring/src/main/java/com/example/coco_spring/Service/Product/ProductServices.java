@@ -90,7 +90,7 @@ Regarding the calculation of the premium based on the price and date:
 "If the product is over a year old and costs more than $200, the premium is increased by 2% of the product's price."
 - (Source: https://www.insurance.com/home-and-renters-insurance/homeowners-insurance-basics/what-determines-the-price-of-homeowners-insurance.aspx) */
     public List<Product> findByName(String name) {
-        return productRepository.findByProductName(name);
+        return productRepository.findByTitle(name);
     }
 
     public ProductCategory TopProductCategoryByUserThisWeek (User u){ // add by Ahmed lasmar for the daily offers mail
