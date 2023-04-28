@@ -145,8 +145,7 @@ public class AuthenticationController {
 		if (user.isPresent()) {
 			return ResponseEntity.ok(service.demReserPassword(email));
 		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND)
-				.body(new AuthenticationResponse("User with email " + email + " not found"));
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 	}
 
