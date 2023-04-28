@@ -4,8 +4,8 @@ import {Observable} from "rxjs";
 import {Order} from '../../models/order';
 import {Provider} from "../../models/provider";
 import {Product} from "../../models/product";
-import {RequestBaseService} from "../request-base.service";
-import {AuthService} from "../auth.service";
+import {RequestBaseService} from '../request-base.service';
+import {AuthService} from '../auth.service';
 
 @Injectable({
   providedIn: 'root'

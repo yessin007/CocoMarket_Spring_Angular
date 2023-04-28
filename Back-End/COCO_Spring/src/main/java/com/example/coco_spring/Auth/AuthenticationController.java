@@ -1,11 +1,13 @@
 package com.example.coco_spring.Auth;
 
 
+import com.example.coco_spring.Entity.User;
 import com.example.coco_spring.Repository.TokenRepository;
 import com.example.coco_spring.Repository.UserRepository;
 import com.example.coco_spring.config.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +19,7 @@ import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.io.IOException;
 
@@ -135,4 +138,17 @@ public class AuthenticationController {
     public String verifAccount(@PathVariable("mail") String mail,@PathVariable("code") Integer code){
         return service.verifAccount(mail,code);
     }
+
+	@PostMapping("/demResetPassword/{email}")
+	public ResponseEntity<?> demResetPassword(@PathVariable("email") String email) throws MessagingException {
+		Optional<User> user = repository.findByEmail(email);
+		if (user.isPresent()) {
+			service.demResetPassword(email);
+			return ResponseEntity.ok().build();
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+	}
+
+
 }

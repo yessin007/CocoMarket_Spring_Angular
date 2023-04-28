@@ -2,11 +2,11 @@
 
 <!-- Home slider start-->
 <section class="p-0">
-  <app-slider 
-    [sliders]="sliders" 
+  <app-slider
+    [sliders]="sliders"
     [textClass]="'text-center'"
     [category]="'fashion'"
-    [buttonText]="'shop now'"> 
+    [buttonText]="'shop now'">
   </app-slider>
 </section>
 <!-- Home slider End -->
@@ -43,7 +43,7 @@
     <div class="col-lg-6 offset-lg-3">
       <div class="product-para">
         <p class="text-center">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry, 
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry,
           Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
         </p>
       </div>
@@ -58,8 +58,8 @@
           <ng-container *ngFor="let product of products | slice:0:16">
             <ng-template carouselSlide>
               <div class="product-box">
-                <app-product-box-one 
-                  [product]="product" 
+                <app-product-box-one
+                  [product]="product"
                   [currency]="productService?.Currency"
                   [thumbnail]="true"
                   [cartModal]="true">

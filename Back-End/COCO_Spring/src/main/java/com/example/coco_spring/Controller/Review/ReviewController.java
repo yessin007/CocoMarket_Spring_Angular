@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.*;
 public class ReviewController {
     ReviewServices reviewServices;
 
-    @PostMapping("/affectreviewtoproduct/{idprod}")
-    public Review affectReviewToProduct(@PathVariable("idprod") Long productId,@RequestBody Review review){
-            return reviewServices.affectReviewToProduct(productId,review);
+    @PostMapping("/affectreviewtoproduct/{idUser}/{idprod}")
+    public Review affectReviewToProduct(@PathVariable("idUser") Long idUser, @PathVariable("idprod") Long productId,@RequestBody Review review){
+            return reviewServices.affectReviewToProduct(idUser,productId,review);
     }
     @PostMapping("{userId}/like/{idprod}")
     public void likeProduct (@PathVariable("idprod") Long productId,@PathVariable("userId") Long idProd){

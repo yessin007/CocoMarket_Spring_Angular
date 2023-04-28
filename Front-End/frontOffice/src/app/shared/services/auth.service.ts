@@ -4,6 +4,7 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {User} from "../models/User";
 import {AuthenticationRequest} from "../models/AuthenticationRequest";
 import {RegisterRequest} from "../models/RegisterRequest";
+import {map} from "rxjs/operators";
 
 
 const httpOptions = {
@@ -83,5 +84,13 @@ export class AuthService {
 			return true;
 		}
 		return false;
+	}
+
+	demResetPassword(email: string): Observable<any> {
+		return this.http.post(
+			`${this.API_URL}demResetPassword/${email}`,
+			null,
+			{ observe: 'response' } // observe the response to get the status code
+		);
 	}
 }

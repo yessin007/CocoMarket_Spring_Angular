@@ -29,10 +29,6 @@ export class LoginComponent implements OnInit {
 		username: null,
 		email: null,
 		password: null,
-		address: null,
-		dayOfBirth: null,
-		cin: null,
-		telNum: null
 	};
 
 	constructor(private formBuilder: UntypedFormBuilder, private authService: AuthService, private router: Router) {
@@ -111,8 +107,9 @@ export class LoginComponent implements OnInit {
 		});
 	}
 	onRegister(): void {
-			const { Rusername, Rpassword, Rname, RlastName, Remail, Raddress, RdayOfBirth, Rcin, RtelNum } = this.rform;
-			this.authService.register(Rusername, Rpassword, Rname, RlastName, Remail, Raddress, RdayOfBirth, Rcin, RtelNum)
+			// console.log("pass",this.rform.password);
+			// const { Rusername, Rpassword, Rname, RlastName, Remail} = {this.rform.user};
+			this.authService.register(this.rform.username, this.rform.password, this.rform.name, this.rform.lastName, this.rform.email)
 				.subscribe(
 					response => {
 						console.log(response);
