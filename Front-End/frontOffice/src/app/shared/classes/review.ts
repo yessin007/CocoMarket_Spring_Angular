@@ -8,4 +8,6 @@ export interface Review{
     verified?: boolean;
     rating?: number;
     createdAt?: Date;
+    name?: string;
+    user?: User;
 }

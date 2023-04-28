@@ -109,7 +109,7 @@
                           <i class="fa fa-heart"></i>
                           <span class="title-font">Add To WishList</span>
                         </button>
-                        <button class="dislike-btn" (click)="addToWishlist(product)">
+                        <button class="dislike-btn" (click)="dislikeProduct(product)">
                           <i class="fa ti-face-sad"></i>
                           <span class="title-font">Dislike Product</span>
                         </button>
@@ -189,9 +189,10 @@
             <div class="col-sm-12">
               <ul class="comment-section">
                 <li>
-                  <div class="media"><img src="assets/images/c.png" alt="Generic placeholder image">
+                  <div class="media"><img src="assets/images/up.jpg" alt="Generic placeholder image">
                     <div class="media-body">
-                      <h6> {{review.reviewTitle}} <span>( {{ review.createdAt | date: 'yyyy-MM-dd' }} )</span></h6>
+                      <h6> {{review.user.name}}  {{review.user.lastName}}<span>( {{ review.createdAt | date: 'yyyy-MM-dd' }} )</span></h6>
+                      <h3>{{review.reviewText}}</h3>
                       <p>{{review.reviewText}}</p>
                       <ul class="comnt-sec">
                         <li><a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><span>(14)</span></a></li>
