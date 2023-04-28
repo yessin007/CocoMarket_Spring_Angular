@@ -24,6 +24,8 @@ public class Cart implements Serializable {
     private Long cartId;
     private Long productQuantity;
 
+    @OneToOne
+    private Product productAngluar;
     @OneToMany(cascade = CascadeType.ALL)
     List<Product> products;
 
@@ -33,6 +35,8 @@ public class Cart implements Serializable {
     @JsonIgnore
     @OneToOne
     Order order;
+    @OneToOne
+    User userAngular;
 
    /* @JsonIgnore
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -43,7 +47,36 @@ public class Cart implements Serializable {
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
     List<Product> products = new ArrayList<>();*/
 
-    
+    public Cart(Product productAngluar, User userAngular) {
+        this.productAngluar = productAngluar;
+        this.user = userAngular;
+    }
 
+    public Cart() {
 
+    }
+
+    public Long getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(Long cartId) {
+        this.cartId = cartId;
+    }
+
+    public Product getProductAngluar() {
+        return productAngluar;
+    }
+
+    public void setProductAngluar(Product productAngluar) {
+        this.productAngluar = productAngluar;
+    }
+
+    public User getUser() {
+        return userAngular;
+    }
+
+    public void setUser(User userAngular) {
+        this.user = userAngular;
+    }
 }

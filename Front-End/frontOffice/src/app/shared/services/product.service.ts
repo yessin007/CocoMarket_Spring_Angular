@@ -25,7 +25,11 @@ export class ProductService {
   public Product;
   readonly GET_ALL_PRODUCTS_API_URL = 'http://localhost:8089/radhwen/api/product/getallproducts?searchKey=';
   readonly GET_PRODUCT_DETAILS_API_URL = 'http://localhost:8089/radhwen/api/product/getproductdetails/';
+
+  readonly ADDTOCART = 'http://localhost:8089/radhwen/api/product/getproductdetails/';
+
   readonly ADD_REVIEW_TO_PRODUCT = 'http://localhost:8089/radhwen/api/product/affectreviewtoproduct/1/';
+
 
   constructor(private http: HttpClient,
               private toastrService: ToastrService, private httpClient: HttpClient, private imageProcessingService: ImageProcessingService) { }
@@ -36,10 +40,16 @@ export class ProductService {
     ---------------------------------------------
   */
 
+
   // Product
   private get products(): Observable<Product[]> {
     this.Products = this.httpClient.get<Product[]>(this.GET_ALL_PRODUCTS_API_URL);
     return this.Products;
+  }
+
+
+  public addToCart(productId){
+    return this.httpClient.get('http://localhost:8089/radhwen/api/cart/addToCart/' + productId );
   }
   /*public getAllProducts(){
     this.getproducts()
@@ -167,27 +177,27 @@ export class ProductService {
   }
 
   // Add to Cart
-  public addToCart(product): any {
-    const cartItem = state.cart.find(item => item.id === product.id);
-    const qty = product.quantity ? product.quantity : 1;
-    const items = cartItem ? cartItem : product;
-    const stock = this.calculateStockCounts(items, qty);
-
-    if (!stock) { return false; }
-
-    if (cartItem) {
-        cartItem.quantity += qty;
-    } else {
-      state.cart.push({
-        ...product,
-        quantity: qty
-      });
-    }
-
-    this.OpenCart = true; // If we use cart variation modal
-    localStorage.setItem('cartItems', JSON.stringify(state.cart));
-    return true;
-  }
+  // public addToCart(product): any {
+  //   const cartItem = state.cart.find(item => item.id === product.id);
+  //   const qty = product.quantity ? product.quantity : 1;
+  //   const items = cartItem ? cartItem : product;
+  //   const stock = this.calculateStockCounts(items, qty);
+  //
+  //   if (!stock) { return false; }
+  //
+  //   if (cartItem) {
+  //       cartItem.quantity += qty;
+  //   } else {
+  //     state.cart.push({
+  //       ...product,
+  //       quantity: qty
+  //     });
+  //   }
+  //
+  //   this.OpenCart = true; // If we use cart variation modal
+  //   localStorage.setItem('cartItems', JSON.stringify(state.cart));
+  //   return true;
+  // }
 
   // Update Cart Quantity
   public updateCartQuantity(product: Product, quantity: number): Product | boolean {
