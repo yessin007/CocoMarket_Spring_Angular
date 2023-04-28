@@ -73,15 +73,15 @@ public class UserController {
         User u= userService.setUserunExpiration(id);
         return "User "+u.getName()+" is unblocked";
     }
-    @PostMapping("/demResetPassword/{email}")
+    /*@PostMapping("/demResetPassword/{email}")
     public String demResetPassword(@PathVariable("email") String email) throws MessagingException {
         User u = userService.demReserPassword(email);
         return "done";
-    }
+    }*/
     @PostMapping("/ResetPassword/{code}/{pwd}")
     public String demResetPassword(@PathVariable("code") Integer code,@PathVariable("pwd") String pwd) throws MessagingException {
         return userService.reserPassword(code,pwd);
-    }    
+    }
     @GetMapping("findtheinterestsofbuyers/{userId}")
     public List<String> findtheinterestsofbuyers(@PathVariable("userId") Long userId){
         return userService.findtheinterestsofbuyers(userId);
