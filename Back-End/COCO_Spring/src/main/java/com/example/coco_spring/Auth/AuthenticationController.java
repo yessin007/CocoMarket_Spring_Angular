@@ -143,7 +143,7 @@ public class AuthenticationController {
 	public ResponseEntity<AuthenticationResponse> demResetPassword(@PathVariable("email") String email) throws MessagingException {
 		Optional<User> user = repository.findByEmail(email);
 		if (user.isPresent()) {
-			return ResponseEntity.ok(service.demReserPassword(email));
+			return ResponseEntity.ok(service.demResetPassword(email));
 		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}

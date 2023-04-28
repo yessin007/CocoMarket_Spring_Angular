@@ -147,12 +147,12 @@ public class AuthenticationService {
         else return "error";
     }
 
-	public AuthenticationResponse demReserPassword(String email) throws MessagingException {
+	public AuthenticationResponse demResetPassword(String email) throws MessagingException {
 		User user = repository.findByEmail(email).get();
 		Random random = new Random();
 		int randomNumber = random.nextInt(90000000) + 10000000;
 		user.setCodeReset(randomNumber);
-		emailService.sendCodeReset(user);
+		//emailService.sendCodeReset(user);
 		return AuthenticationResponse.builder()
 			.user(user)
 			.build();
