@@ -1,11 +1,10 @@
 package com.example.coco_spring.config;
-
-import com.example.coco_spring.Repository.TokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Service;
+import com.example.coco_spring.Repository.TokenRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor
 public class LogoutService implements LogoutHandler{
     private final TokenRepository tokenRepository;
+
 
     @Override
     public void logout(

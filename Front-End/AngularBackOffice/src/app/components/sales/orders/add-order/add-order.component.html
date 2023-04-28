@@ -13,27 +13,21 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="digital-add needs-validation">
-                                        <div class="form-group">
-                                            <label for="validationCustom0"><span>*</span>
-                                                Cart ID</label>  <input class="form-control"  [(ngModel)]="order.cratId"name="cratId" id="validationCustom0" type="text" required="" >
-                                        </div>
+
                                         <div class="form-group">
                                             <label for="validationCustom9"><span>*</span>
                                                 Product Refernece</label>       <input class="form-control" id="validationCustom9"[(ngModel)]="order.productReference"name="productRefernece" type="text" required="">
 
                                         </div>
 
+
+
+
                                         <div class="form-group">
-                                            <label>Order Date</label>
-                                            <div class="input-group input-grp-p">
-                                            <input class="datepicker-here form-control digits" ngbDatepicker
-                                                   formControlName="start_date" #f="ngbDatepicker" [(ngModel)]="order.orderDate "name="orderdate">
-                                            <div class="input-group-append">
-                                                <button class="btn calendar" (click)="f.toggle()" type="button"><i
-                                                        class="fa fa-calendar"></i></button>
-                                            </div>
-                                            </div>
+                                            <label for="orderDate">Order Date</label>
+                                            <input type="date" class="form-control" id="orderDate" name="orderDate" [(ngModel)]="order.orderDate">
                                         </div>
+
                                         <div class="form-group row">
                                             <label class="col-form-label"><span>*</span>Order Status</label>
                                             <select class="custom-select form-select" name="option"  required=""  [(ngModel)]="order.orderStatus" name="orderStatus">
@@ -57,13 +51,16 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-form-label"><span>*</span>Amount Bill</label>
-
-
-                                                <input class="form-control" formControlName="amountbill" type="number"
-                                                       required="" [(ngModel)]="order.amountBill"name="amountBill">
-
+                                            <div class="col-xl-3 col-sm-4">
+                                                <label for="validationCustom022" class="mb-0">Amount Bill (TND) </label>
+                                            </div>
+                                            <div class="col-xl-8 col-sm-7">
+                                                <input class="form-control"  type="number" id="validationCustom022"
+                                                       name="price" required="" [(ngModel)]="order.amountBill" >
                                         </div>
+                                        </div>
+
+
 
                                     </div>
                                 </div>

@@ -12,9 +12,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.zxing.WriterException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import javax.websocket.server.PathParam;
@@ -28,13 +30,14 @@ import java.util.Map;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin("*")
 @RequestMapping("/api/store")
 public class StoreController {
     StoreService storeService;
     StoreRepository storeRepository;
     ProductServices productServices;
 
-    @PostMapping("/addStore")
+    @PostMapping(value ="/addStore",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Store add(@RequestBody Store store) throws IOException, WriterException {
         return storeService.add(store);
     }
