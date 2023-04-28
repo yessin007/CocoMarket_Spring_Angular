@@ -4,6 +4,7 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {User} from "../models/User";
 import {AuthenticationRequest} from "../models/AuthenticationRequest";
 import {RegisterRequest} from "../models/RegisterRequest";
+import {map} from "rxjs/operators";
 
 
 const httpOptions = {
