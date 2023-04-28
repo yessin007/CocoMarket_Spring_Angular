@@ -43,6 +43,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { SuccessComponent } from './checkout/success/success.component';
 
 import {RouterModule} from '@angular/router';
+import {ElementsModule} from "../elements/elements.module";
 
 
 @NgModule({
@@ -75,14 +76,15 @@ import {RouterModule} from '@angular/router';
     CheckoutComponent,
     SuccessComponent
   ],
-  imports: [
-    CommonModule,
-    // NgxPayPalModule,
-    Ng5SliderModule,
-    InfiniteScrollModule,
-    SharedModule,
-    ShopRoutingModule,
-    RouterModule
-  ]
+    imports: [
+        CommonModule,
+        // NgxPayPalModule,
+        Ng5SliderModule,
+        InfiniteScrollModule,
+        SharedModule,
+        ShopRoutingModule,
+        RouterModule,
+        ElementsModule
+    ]
 })
 export class ShopModule { }
