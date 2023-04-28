@@ -7,15 +7,17 @@ import {AuthService} from '../../../shared/services/auth.service';
   styleUrls: ['./forget-password.component.scss']
 })
 export class ForgetPasswordComponent implements OnInit {
-	email = '';
 	userFaild = false;
+	form: any = {
+		email: null
+	};
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
 	onDemResetPassword(): void {
-		const email = this.email; // replace with your email input value
+		const email = this.form.email; // replace with your email input value
 		this.authService.demResetPassword(email).subscribe(
 			response => {
 				if (response.status === 200) {
@@ -34,4 +36,8 @@ export class ForgetPasswordComponent implements OnInit {
 		);
 	}
 
+	onSubmit() {
+	  console.log(this.form.email);
+		this.onDemResetPassword();
+	}
 }
