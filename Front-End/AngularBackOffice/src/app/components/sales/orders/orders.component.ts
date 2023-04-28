@@ -12,6 +12,8 @@ import {map} from "rxjs/operators";
 import {Product} from "../../../models/product";
 import {HttpErrorResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {AuthService} from "../../../services/auth.service";
+import {User} from "../../../models/User";
 
 @Component({
   selector: 'app-orders',
@@ -28,11 +30,20 @@ export class OrdersComponent implements OnInit {
   total$: Observable<number>;
   public OrderList: Order[] = [];
   public digitalCategories: Product[] = [];
+  currentUser: User = new User;
+  // tslint:disable-next-line:ban-types
+  protected currentToken!: String;
 
-  constructor(public service: TableService, private modalService: NgbModal, private orderService: OrderService, private route: Router) {
+  constructor(public service: TableService, private auth: AuthService, private modalService: NgbModal, private orderService: OrderService, private route: Router) {
     this.tableItem$ = service.tableItem$;
     this.total$ = service.total$;
-    this.service.setUserData(ORDERDB)
+    this.service.setUserData(ORDERDB);
+    this.auth.currentUser.subscribe(data => {
+      this.currentUser = data;
+    });
+    this.auth.currentToken.subscribe( data => {
+      this.currentToken = data;
+    });
   }
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
@@ -72,12 +83,14 @@ export class OrdersComponent implements OnInit {
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
   }
+  editOrder(orderId){
+    this.route.navigate(['/sales/orders/add-order',  {orderId}]);
+  }
 
   ngOnInit() {
     this.getAllOrders();
   }
   getAllOrders(){
-
     this.orderService.getAllOrders().subscribe((response ) => {
       this.OrderList = response;
     });
@@ -107,8 +120,6 @@ export class OrdersComponent implements OnInit {
   //   );
   // }
 
-  editOrder(id){
-    this.route.navigate(['/sales/orders/add-order',  {id}]);
-  }
+
 
 }

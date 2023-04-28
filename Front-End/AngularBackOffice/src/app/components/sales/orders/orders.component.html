@@ -11,56 +11,46 @@
             <form>
               <div class="mb-3">
                 <input type='text' class="filter-ngx form-control" placeholder='Search...' [(ngModel)]="searchText"
-                  autocomplete="off" />
+                       autocomplete="off" />
               </div>
             </form>
             <table class="table table-striped">
               <thead>
-                <tr>
-                  <th scope="col" sortable="order_id" (sort)="onSort($event)">Order Id</th>
-                  <th scope="col" sortable="order_status" (sort)="onSort($event)">Order Status</th>
-                  <th scope="col" sortable="product" (sort)="onSort($event)">Order Address</th>
-                  <th scope="col" sortable="date" (sort)="onSort($event)">Date</th>
-                  <th scope="col" sortable="total" (sort)="onSort($event)">Total</th>
-                  <th scope="col" sortable="population" (sort)="onSort($event)">Actions</th>
-                </tr>
+              <tr>
+                <th scope="col" sortable="order_id" (sort)="onSort($event)">Order Id</th>
+                <th scope="col" sortable="order_status" (sort)="onSort($event)">Order Status</th>
+                <th scope="col" sortable="product" (sort)="onSort($event)">Order Address</th>
+                <th scope="col" sortable="date" (sort)="onSort($event)">Date</th>
+                <th scope="col" sortable="total" (sort)="onSort($event)">Total</th>
+                <th scope="col" sortable="population" (sort)="onSort($event)">Actions</th>
+              </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of OrderList">
-                  <th scope="row">#{{ item.orderId }}</th>
-                  <td>
+              <tr *ngFor="let item of OrderList">
+                <th scope="row">#{{ item.orderId }}</th>
+                <td>
 
-                    <span *ngIf="item.orderStatus === 'Processing'" class='badge badge-pill badge-warning'>{{ item.orderStatus }}</span>
-                    <span *ngIf="item.orderStatus === 'Waiting for Payments'" class='badge badge-pill badge-secondary'>{{ item.orderStatus }}</span>
-                    <span *ngIf="item.orderStatus === 'Being delivered'" class='badge badge-pill badge-primary'>{{ item.orderStatus }}</span>
-                    <span *ngIf="item.orderStatus === 'Paid'" class='badge badge-pill badge-success'>{{ item.orderStatus }}</span>
-                    <span *ngIf="item.orderStatus === 'Cash on Delivery'" class='badge badge-pill badge-info'>{{ item.orderStatus }}</span>
-                    <span *ngIf="item.orderStatus === 'Payment Failed'" class='badge badge-pill badge-danger'>{{ item.orderStatus }}</span>
-                    <span *ngIf="item.orderStatus === 'Cancelled'" class='badge badge-pill badge-danger'>{{ item.orderStatus }}</span>
-                    <span *ngIf="item.orderStatus === 'Shipped'" class='badge badge-pill badge-success'>{{ item.orderStatus }}</span>
-                  </td>
-                  <td>{{ item.orderAddress }}</td>
-                  <td>{{item.orderDate}}</td>
-                  <td>{{item.amountBill}} TND</td>
+                  <span  *ngIf="item.orderStatus === 'Processing'" class='badge badge-pill badge-warning'>{{ item.orderStatus }}</span>
+                  <span *ngIf="item.orderStatus === 'Waiting for Payments'" class='badge badge-pill badge-secondary'>{{ item.orderStatus }}</span>
+                  <span *ngIf="item.orderStatus === 'Being delivered'" class='badge badge-pill badge-primary'>{{ item.orderStatus }}</span>
+                  <span *ngIf="item.orderStatus === 'Paid'" class='badge badge-pill badge-success'>{{ item.orderStatus }}</span>
+                  <span *ngIf="item.orderStatus === 'Cash on Delivery'" class='badge badge-pill badge-info'>{{ item.orderStatus }}</span>
+                  <span *ngIf="item.orderStatus === 'Payment Failed'" class='badge badge-pill badge-danger'>{{ item.orderStatus }}</span>
+                  <span *ngIf="item.orderStatus === 'Cancelled'" class='badge badge-pill badge-danger'>{{ item.orderStatus }}</span>
+                  <span *ngIf="item.orderStatus === 'Shipped'" class='badge badge-pill badge-success'>{{ item.orderStatus }}</span>
+                </td>
+                <td>{{ item.orderAddress }}</td>
+                <td>{{item.orderDate}}</td>
+                <td>{{item.amountBill}} TND</td>
 
-                  <td>
-                    <a (click)="editOrder(item.orderId)"  href="javascript:void(0)"><i class='fa fa-edit f-12'></i></a>&nbsp;
-                    <a  (click)="deleteOrder(item.orderId)" href="javascript:void(0)"><i class="fa fa-trash-o"></i></a>
-                  </td>
+                <td>
+                  <a (click)="editOrder(item.orderId)"  href="javascript:void(0)"><i class='fa fa-edit f-12'></i></a>&nbsp;
+                  <a  (click)="deleteOrder(item.orderId)" href="javascript:void(0)"><i class="fa fa-trash-o"></i></a>
+                </td>
 
-                </tr>
+              </tr>
               </tbody>
             </table>
-            <div class="d-flex justify-content-between p-2">
-              <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
-                [pageSize]="service.pageSize">
-              </ngb-pagination>
-              <select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="service.pageSize">
-                <option [value]="10" [selected] ="true" [ngValue]="2">2 items per page</option>
-                <option [ngValue]="4">4 items per page</option>
-                <option [ngValue]="6">6 items per page</option>
-              </select>
-            </div>
           </div>
         </div>
       </div>
