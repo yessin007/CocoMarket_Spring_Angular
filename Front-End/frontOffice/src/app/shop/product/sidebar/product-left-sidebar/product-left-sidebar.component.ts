@@ -5,7 +5,6 @@ import { Product } from '../../../../shared/classes/product';
 import { ProductService } from '../../../../shared/services/product.service';
 import { SizeModalComponent } from "../../../../shared/components/modal/size-modal/size-modal.component";
 import {Review} from "../../../../shared/classes/review";
-import {StarRatingColor} from "../../../../elements/star-rating/star-rating.component";
 
 @Component({
   selector: 'app-product-left-sidebar',
@@ -22,9 +21,6 @@ export class ProductLeftSidebarComponent implements OnInit {
   public mobileSidebar: boolean = false;
   rating:number = 3;
   starCount:number = 5;
-  starColor: StarRatingColor = StarRatingColor.accent;
-  starColorP: StarRatingColor = StarRatingColor.primary;
-  starColorW: StarRatingColor = StarRatingColor.warn;
   public active = 1;
 
   @ViewChild("sizeChart") SizeChart: SizeModalComponent;
