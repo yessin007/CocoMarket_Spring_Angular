@@ -1,6 +1,7 @@
 package com.example.coco_spring.Auth;
 
 
+import com.example.coco_spring.Entity.User;
 import com.example.coco_spring.Repository.TokenRepository;
 import com.example.coco_spring.Repository.UserRepository;
 import com.example.coco_spring.config.JwtService;
@@ -134,5 +135,13 @@ public class AuthenticationController {
     @PostMapping("/verif/{mail}/{code}")
     public String verifAccount(@PathVariable("mail") String mail,@PathVariable("code") Integer code){
         return service.verifAccount(mail,code);
+    }
+
+	@PostMapping("/demResetPassword/{email}")
+    public ResponseEntity<AuthenticationResponse> demResetPassword(@PathVariable("email") String email) throws MessagingException {
+        if (repository.findByEmail(email).isPresent()) {
+			return ResponseEntity.ok(service.demReserPassword(email));
+		}
+		else return ResponseEntity.status(440).build();
     }
 }

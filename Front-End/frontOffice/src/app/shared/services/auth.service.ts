@@ -85,4 +85,12 @@ export class AuthService {
 		}
 		return false;
 	}
+
+	demResetPassword(email: string): Observable<any> {
+		return this.http.post(
+			`${this.API_URL}demResetPassword/${email}`,
+			null,
+			{ observe: 'response' } // observe the response to get the status code
+		);
+	}
 }
