@@ -25,7 +25,7 @@ export class ForgetPasswordComponent implements OnInit {
 				if (response.status === 200) {
 					console.log(response.status); // should print 200 if email is found
 					this.demDone = true;
-				} else if (response.status === 404) {
+				} else if (response.status === 440) {
 					console.log(response.status); // should print 440 if email is not found
 					// handle email not found error here
 					this.userFaild = true;

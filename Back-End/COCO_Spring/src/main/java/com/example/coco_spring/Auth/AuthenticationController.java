@@ -140,13 +140,15 @@ public class AuthenticationController {
     }
 
 	@PostMapping("/demResetPassword/{email}")
-	public ResponseEntity<AuthenticationResponse> demResetPassword(@PathVariable("email") String email) throws MessagingException {
+	public ResponseEntity<?> demResetPassword(@PathVariable("email") String email) throws MessagingException {
 		Optional<User> user = repository.findByEmail(email);
 		if (user.isPresent()) {
-			return ResponseEntity.ok(service.demResetPassword(email));
+			service.demResetPassword(email);
+			return ResponseEntity.ok().build();
 		} else {
-			return ResponseEntity.status(440).build();
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 	}
+
 
 }
