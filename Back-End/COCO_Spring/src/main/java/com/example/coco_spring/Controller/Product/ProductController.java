@@ -128,4 +128,20 @@ public class ProductController {
     public double calculateProductInsurance(@PathVariable("idprod") Long productId,@PathVariable("iduser") Long idUser) {
         return productServices.calculateProductInsurance(productId,idUser);
     }
+    @GetMapping("/gettotalpriceproducts")
+    public  double getTotAlPriceProducts(){
+        return productServices.productTotalPrice();
+    }
+    @GetMapping ("/topfivemostlikedproducts")
+    public List<Product> top5MostLikedProducts(){
+        return productServices.top5MostLikedProducts();
+    }
+    @GetMapping ("/getnumberoflikes/{productId}")
+    public int getNumberOflikes(@PathVariable("productId") Long productId){
+        return productServices.numberOfLikes(productId);
+    }
+    @GetMapping("/getaveragelikesofproduct/{productId}")
+    public double getAverageLikesOfProduct(@PathVariable("productId") Long productId){
+        return productServices.getAverageRatingByProduct(productId);
+    }
 }

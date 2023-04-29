@@ -41,11 +41,13 @@ export class ProductLeftSidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.product = this.route.snapshot.data.product;
     this.router.navigate(['shop/product/left/sidebar/', {productId: this.product.productId}]);
     this.getAllReviews();
     console.log(this.product);
+  }
+  refresh(product){
+   this.product = product;
   }
   reload(productID){
     this.router.navigate(['shop/product/left/sidebar/', {productId: productID}]);
@@ -71,6 +73,7 @@ export class ProductLeftSidebarComponent implements OnInit {
     }
     return uniqSize;
   }
+
   reviewProduct(review: Review){
     this.productService.reviewProduct(review, this.product.productId).subscribe((product: Product) => {
           console.log('review added successfully', product);
@@ -89,7 +92,8 @@ export class ProductLeftSidebarComponent implements OnInit {
       this.reviews = resp;
       this.reviews.forEach(review => {
       this.productService.getUserByReview(review.reviewId).subscribe(user => review.user = user);
-    }); });
+    });
+    });
   }
   // Increament
   increment() {

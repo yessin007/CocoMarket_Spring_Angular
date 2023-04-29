@@ -30,7 +30,7 @@
     </div> -->
 </div>
 <div class="product-info">
-    <bar-rating [rate]="2.7" [readOnly]="true"></bar-rating>
+    <bar-rating [rate]="product.productAvgLike" [readOnly]="true"></bar-rating>
     <a [routerLink]="['/shop/product/left/sidebar/', product?.title.replace(' ', '-')]">
     	<h6>{{ product?.title | titlecase }}</h6>
     </a>

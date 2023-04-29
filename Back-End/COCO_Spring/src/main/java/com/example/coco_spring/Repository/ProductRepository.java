@@ -22,6 +22,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findTop4ProductsByCategoryOrderByRecentlyAdded(@Param("category") ProductCategory category, Pageable pageable);
 
     public List<Product> findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String key1, String key2);
-
+    List<Product> findByCreatedAtBetween(Date startDate, Date endDate);
 
 }
