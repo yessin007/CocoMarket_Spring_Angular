@@ -3,8 +3,9 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Store} from '../../models/store';
 import {Observable} from 'rxjs';
 import {AuthService} from '../auth.service';
+// @ts-ignore
 import {RequestBaseService} from '../request-base.service';
-import {PosteStore} from "../../models/PostStore";
+import {PosteStore} from '../../models/PostStore';
 
 
 @Injectable({
@@ -29,7 +30,7 @@ export class StoreService extends RequestBaseService{
 
   }
   addStore(store: FormData): Observable<any> {
-    return this.httpClient.post(this.ADD_Store, store ,{headers: this.getHeaders});
+    return this.httpClient.post(this.ADD_Store, store );
   }
   getAllStores() {
     return this.httpClient.get<Store[]>(this.Get_Store);
@@ -40,27 +41,8 @@ export class StoreService extends RequestBaseService{
   getStoreDetails(storeId){
     return this.httpClient.get<Store>(this.FIND_BY_ID + storeId);
   }
-  affectProductToStore(storeId: number, productId: number): Observable<void> {
-    const url = `${this.apiUrl}/affectproducttostore/${storeId}/${productId}`;
-    return this.httpClient.put<void>(url, {});
-  }
-  addProductStore(storeId: number, productId: number): Observable<void> {
-    const url = `${this.apiUrl}/affectproducttostore/${storeId}/${productId}`;
-    return this.http.post<void>(url, null);
-  }
-  addPost(post: PosteStore) {
-    return this.http.post<PosteStore>('http://localhost:8089/maram/api/store/add-Post/1', post, {headers: this.getHeaders});
-  }
-  postFile(courseId: string, file: File) {
-    const formParams = new FormData();
-    // @ts-ignore
-    formParams.append('image', file);
-    const options: { headers: HttpHeaders } = {
-      headers: new HttpHeaders({
-        'Content-Type': 'multipart/form-data'
-      })
-    };
-    return this.http.post('http://localhost:8087/SpringMVC/forum/add-Post-image/' + courseId, formParams );
-  }
+
+
+
 
 }

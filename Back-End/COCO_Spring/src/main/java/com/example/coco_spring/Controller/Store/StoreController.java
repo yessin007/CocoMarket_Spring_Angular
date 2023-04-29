@@ -65,6 +65,12 @@ public class StoreController {
         }
         return imageSModels ;
     }
+  /*  @PostMapping("/add-Post-image/{idpost}")
+    @ResponseBody
+    public ResponseEntity<?> addpostimage(@RequestParam MultipartFile image,@PathVariable("idpost") Long idpost) throws IOException {
+        return storeService.addimagepost(image,idpost);
+
+    }*/
     @GetMapping("/get_all_Stores")
     public List<Store> findAll() {
         return storeService.findAll();
@@ -74,7 +80,10 @@ public class StoreController {
     public Store update(@RequestBody Store store) {
         return storeService.update(store);
     }
-
+    @GetMapping("/retrive_Store/{storeId}")
+    public Store retrieveStore(@PathVariable("storeId") Long storeId) {
+        return storeService.retrieveItem(storeId);
+    }
     @DeleteMapping("/deleteStore/{storeId}")
     public void delete(@PathVariable("storeId") Long storeId) {
         storeService.delete(storeId);
