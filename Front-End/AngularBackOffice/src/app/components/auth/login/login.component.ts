@@ -3,6 +3,7 @@ import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import {AuthService} from '../../../services/auth.service';
 import {User} from '../../../models/User';
 import {Router} from '@angular/router';
+import {RegisterRequest} from "../../../models/RegisterRequest";
 
 @Component({
 	selector: 'app-login',
@@ -22,6 +23,13 @@ export class LoginComponent implements OnInit {
 		username: null,
 		password: null
 	};
+	rform: any ={
+		name: null,
+		lastName: null,
+		username: null,
+		email: null,
+		password: null,
+	};
 
 	constructor(private formBuilder: UntypedFormBuilder, private authService: AuthService, private router: Router) {
 		this.createLoginForm();
@@ -31,6 +39,7 @@ export class LoginComponent implements OnInit {
 		});
 		if (this.authService.isLoggedIn()){
 			this.isLoggedIn = true;
+			this.router.navigate(['/dashboard/default']);
 		}
 	}
 
@@ -90,13 +99,29 @@ export class LoginComponent implements OnInit {
 				});
 				this.isLoginFailed = false;
 				this.isLoggedIn = true;
-				this.router.navigate(['/dashboard/default']); // navigate to dashboard on success
+				this.reloadPage();// navigate to dashboard on success
 			},
 			error: err => {
 				this.isLoginFailed = true;
 			}
 		});
 	}
+	onRegister(): void {
+			// console.log("pass",this.rform.password);
+			// const { Rusername, Rpassword, Rname, RlastName, Remail} = {this.rform.user};
+			this.authService.register(this.rform.username, this.rform.password, this.rform.name, this.rform.lastName, this.rform.email)
+				.subscribe(
+					response => {
+						console.log(response);
+						// handle successful registration response here
+					},
+					error => {
+						console.error(error);
+						// handle registration error here
+					}
+				);
+	}
+
 
 	reloadPage(): void {
 		window.location.reload();

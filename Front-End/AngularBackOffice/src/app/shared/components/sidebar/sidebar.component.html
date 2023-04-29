@@ -6,13 +6,11 @@
   <div class="sidebar-user text-center">
     <div><img class="img-60 rounded-circle" src="assets/images/dashboard/man.png" alt="#">
     </div>
-    <div *ngIf="isLoggedIn">
-    <h6 class="mt-3 f-14">{{ currentUser.username }}</h6>
-    <p>{{ currentUser.roles }}</p>
+    <div>
+    <h6 class="mt-3 f-14">hh</h6>
+    <p>gg</p>
     </div>
-    <div *ngIf="!isLoggedIn">
-      <h6 class="mt-3 f-14">Guest</h6>
-    </div>
+
   </div>
   <ul class="sidebar-menu">
     <li *ngFor="let menuItem of menuItems" [ngClass]="{active: menuItem.active}">

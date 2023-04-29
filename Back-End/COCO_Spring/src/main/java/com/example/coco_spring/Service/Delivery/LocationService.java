@@ -51,7 +51,7 @@ public class LocationService {
     public Map<String , StoreLocations> getNearestStorewithproduct(String productname, double clientLatitude,
                                                                    double clientLongitude){
 
-        List<Product> products = productRepository.findByProductName(productname);
+        List<Product> products = productRepository.findByTitle(productname);
         StoreLocations storeLocations = null;
         double shortestDistance = Double.MAX_VALUE;
         String storeName = null;

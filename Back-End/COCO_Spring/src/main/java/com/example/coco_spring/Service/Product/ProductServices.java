@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -23,6 +24,7 @@ public class ProductServices implements IProductServices {
     ProductRepository productRepository;
     UserRepository userRepository;
     OrderRepository orderRepository;
+    ReviewRepository reviewRepository;
 
     @Override
     public List<Product> retrieveAllProducts() {
@@ -70,6 +72,13 @@ public class ProductServices implements IProductServices {
         }
         return premium;
     }
+    public List<Product> getAllProducts(String searchKey){
+        if (searchKey.equals("")) {
+            return productRepository.findAll();
+        }else{
+            return productRepository.findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(searchKey, searchKey);
+        }
+    }
     /* "The premium is calculated based on the number of years of warranty provided with the product."
      - (Source: https://www.thebalance.com/what-is-insurance-premium-4163879)
 "If the product has a warranty of one year or less, the premium is increased by 5% of the product's price."
@@ -90,7 +99,7 @@ Regarding the calculation of the premium based on the price and date:
 "If the product is over a year old and costs more than $200, the premium is increased by 2% of the product's price."
 - (Source: https://www.insurance.com/home-and-renters-insurance/homeowners-insurance-basics/what-determines-the-price-of-homeowners-insurance.aspx) */
     public List<Product> findByName(String name) {
-        return productRepository.findByProductName(name);
+        return productRepository.findByTitle(name);
     }
 
     public ProductCategory TopProductCategoryByUserThisWeek (User u){ // add by Ahmed lasmar for the daily offers mail
@@ -113,5 +122,46 @@ Regarding the calculation of the premium based on the price and date:
 
 
         return top4ProductsByCategory;
+    }
+    public double productTotalPrice(){
+        Calendar startOfMonth = Calendar.getInstance();
+        startOfMonth.set(Calendar.DAY_OF_MONTH, 1);
+        Calendar endOfMonth = Calendar.getInstance();
+        endOfMonth.set(Calendar.DAY_OF_MONTH, endOfMonth.getActualMaximum(Calendar.DAY_OF_MONTH));
+
+        List<Product> products = productRepository.findByCreatedAtBetween(startOfMonth.getTime(), endOfMonth.getTime());
+        double price= 0;
+        for(Product product:products){
+            price+=product.getStock()*product.getPrice();
+        }
+        return price;
+    }
+    public int numberOfLikes(Long productId){
+        Product product=productRepository.findById(productId).get();
+        int likes=0;
+        for (LikeDislikeProduct e:product.getLikeDislikeProducts()){
+            if(e.getProductRate().equals(ProductRate.LIKE)){
+                likes++;
+            }
+        }
+        return  likes;
+    }
+    public List<Product> top5MostLikedProducts(){
+        List<Product> top5MostLikedProducts= productRepository.findAll()
+                .stream()
+                .sorted((a,b)->this.numberOfLikes(b.getProductId())-this.numberOfLikes(a.getProductId()))
+                .limit(5)
+                .collect(Collectors.toList());
+        return top5MostLikedProducts;
+    }
+    public double getAverageRatingByProduct(Long productId){
+        Product product = productRepository.findById(productId).get();
+        for(Review review:reviewRepository.findAll()){
+            if(review.getProduct().equals(product)){
+                return reviewRepository.getAverageRatingByProductId(productId);
+            }
+        }
+
+        return 0;
     }
 }

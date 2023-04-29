@@ -5,11 +5,9 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="row product_image_4">
-                        <div class="col-6" *ngFor="let image of product.images; index as i">
+                        <div class="col-6" *ngFor="let image of product.image; index as i">
                             <div>
-                                <img [defaultImage]="'assets/images/product/placeholder.jpg'" 
-                                     [lazyLoad]="image.src" 
-                                     [alt]="image.alt" class="img-fluid">
+                                <img [src]="image.url" class="img-fluid">
                             </div>
                         </div>
                     </div>
@@ -24,26 +22,9 @@
                         <h3>
                             {{ (product?.price | discount:product) * productService.Currency?.price | currency: productService.Currency?.currency:'symbol' }}
                         </h3>
-                        <ul class="color-variant" *ngIf="Color(product?.variants).length">
-                            <li [class]="color" *ngFor="let color of Color(product?.variants); index as i" 
-                                [ngStyle]="{'background-color': color}">
-                            </li>
-                        </ul>
                         <app-stock-inventory [stock]="product.stock"></app-stock-inventory>
                         <div class="product-description border-product">
-                            <h6 class="product-title size-text" *ngIf="Size(product.variants).length">
-                                select size
-                                <span>
-                                  <a href="javascrip:void(0)" (click)="SizeChart.openModal()">size chart</a>
-                                </span>
-                            </h6>
-                            <div class="size-box" *ngIf="Size(product.variants).length">
-                                <ul>
-                                    <li [class.active]="selectedSize == size" *ngFor="let size of Size(product.variants)">
-                                        <a href="javascript:void(0)" (click)="selectSize(size)">{{ size | titlecase }}</a>
-                                    </li>
-                                </ul>
-                            </div>
+
                             <h5 class="avalibility" *ngIf="counter <= product.stock"><span>In Stock</span></h5>
                             <h5 class="avalibility" *ngIf="counter > product.stock"><span>Out of Stock</span></h5>
                             <h6 class="product-title">quantity</h6>

@@ -1,47 +1,53 @@
-<!-- Container-fluid starts-->
 <div class="container-fluid">
-        <div class="card">
-            <div class="card-header">
-                <h5>Vendor Details</h5>
-            </div>
-            <div class="card-body vendor-table">
-                <div id="batchDelete" class="custom-datatable vendor-list">
-                    <div class="table-responsive ">
-                        <table class="table table-striped">
-                            <thead>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Store Lists</h5>
+                </div>
+                <div class="card-body">
+                    <div id="batchDelete" class="custom-datatable">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
                                 <tr>
-                                    <th scope="col">Vendors</th>
-                                    <th scope="col">Products</th>
-                                    <th scope="col" sortable="name" >Store Name</th>
-                                    <th scope="col" sortable="name" >Date</th>
-                                    <th scope="col" sortable="name" >Wallet Balance</th>
-                                    <th scope="col" sortable="name" >Revenue</th>
-                                    <th scope="col" sortable="name" >Actions</th>
+                                    <th scope="col">Store Name</th>
+                                    <th scope="col" sortable="img"   >Image</th>
+                                    <th scope="col" sortable="st" >Store Name</th>
+                                    <th scope="col" sortable="entry_type" >Store Description</th>
+                                    <th scope="col" sortable="entry_type" >Contact Information</th>
+                                    <th scope="col" sortable="email" >Store Email Address</th>
+                                    <th scope="col" sortable="category" >Category</th>
+                                    <th scope="col" sortable="location" >Store Locations</th>
+                                    <th scope="col" sortable="action" >Link</th>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let item of vendors">
-                                    <td scope="row">
-                                        <img [src]="item.vendor" class="imgTable" style="width: 20px">
-                                       <span>{{item.name}}</span>
-                                    </td>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let catgory of storeList">
+                                    <a (click)="showStoreDetails(catgory.storeId)" href="javascript:void(0)"><th scope="row">{{ catgory.storeName }}</th></a>
                                     <td>
-                                        {{item.products}}
+                                        <div *ngFor="let image of catgory.storeImages">
+                                            <img [src]="image.url"   style="width: 70px">
+                                        </div>
                                     </td>
-                                    <td>{{item.store_name}}</td>
-                                    <td>{{item.date}}</td>
-                                    <td>{{item.balance}}</td>
-                                    <td>{{item.revenue}}</td>
+                                    <td>{{ catgory.storeDescription }}</td>
+                                    <td>{{ catgory.contactInformation }}</td>
+                                    <td>{{ catgory.storeEmailAddress }}</td>
+                                    <td>{{ catgory.category}}</td>
+                                    <td>{{ catgory.storeLocations}}</td>
+                                    <td>{{ catgory.link}}</td>
+
                                     <td>
-                                        <a href="javascript:void(0)"><i class='fa fa-edit f-12'></i></a>&nbsp;
-                                        <a href="javascript:void(0)"><i class="fa fa-trash-o"></i></a>
+                                        <a (click)="editStoreDetails(catgory.storeId)" href="javascript:void(0)"><i class='fa fa-edit f-12'></i></a>&nbsp;
+                                        <a (click)="deleteStore(catgory.storeId)" href="javascript:void(0)"><i class="fa fa-trash-o"></i></a>
                                     </td>
                                 </tr>
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Container-fluid Ends-->
+</div>

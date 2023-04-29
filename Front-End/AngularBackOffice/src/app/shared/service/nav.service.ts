@@ -1,6 +1,6 @@
 import { Injectable, HostListener, Inject } from '@angular/core';
 import { BehaviorSubject, Observable, Subscriber } from 'rxjs';
-import { WINDOW } from "./windows.service";
+import { WINDOW } from './windows.service';
 // Menu
 export interface Menu {
 	path?: string;
@@ -20,21 +20,24 @@ export interface Menu {
 
 export class NavService {
 
-	public screenWidth: any
+	public  screenWidth:any
 	public collapseSidebar: boolean = false
 
 	constructor(@Inject(WINDOW) private window) {
 		this.onResize();
 		if (this.screenWidth < 991) {
-			this.collapseSidebar = true
+			this.collapseSidebar = true;
 		}
 	}
 
+
+	
 	// Windows width
-	@HostListener("window:resize", ['$event'])
+	@HostListener('window:resize', ['$event'])
 	onResize(event?) {
 		this.screenWidth = window.innerWidth;
 	}
+
 
 	MENUITEMS: Menu[] = [
 		{
@@ -87,6 +90,7 @@ export class NavService {
 		},
 		{
 			title: 'Deliveries', icon: 'clipboard', type: 'sub', active: false, children: [
+				{ path: '/pages/delivery-component', title: 'List deliveries', type: 'link' },
 				{ path: '/pages/list-page', title: 'List delivery man', type: 'link' },
 				{ path: '/pages/create-page', title: 'Create delivery man', type: 'link' },
 				{ path: '/pages/provider-location', title: 'Provider Location', type: 'link' },
@@ -108,9 +112,23 @@ export class NavService {
 			]
 		},
 		{
+			// tslint:disable-next-line:indent
 			title: 'Vendors', icon: 'users', type: 'sub', active: false, children: [
+				// tslint:disable-next-line:indent
 				{ path: '/vendors/list-vendors', title: 'Store List', type: 'link' },
+				// tslint:disable-next-line:indent
 				{ path: '/vendors/create-vendors', title: 'Create Store', type: 'link' },
+
+				{ path: '/vendors/create-storecatalog', title: 'Create Store Catalog', type: 'link' },
+				{ path: '/vendors/list-catl', title: 'List Catalog', type: 'link' },
+
+
+				// tslint:disable-next-line:indent
+				{ path: '/vendors/all-stores', title: 'All Stores', type: 'link' },
+
+				{ path: '/vendors/add-post', title: 'Add Post', type: 'link' },
+
+
 
 			]
 		},
@@ -133,11 +151,13 @@ export class NavService {
 			title: 'Invoice', path: '/invoice', icon: 'archive', type: 'link', active: false
 		},
 		{
-			title: 'Login',path: '/auth/login', icon: 'log-in', type: 'link', active: false
+			title: 'Login', path: '/auth/login', icon: 'log-in', type: 'link', active: false
 		}
-	]
+	];
 	// Array
 	items = new BehaviorSubject<Menu[]>(this.MENUITEMS);
+
+
 
 
 }

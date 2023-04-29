@@ -1,30 +1,19 @@
 <div *ngIf="!loader">
   <div class="img-wrapper">
-    <div class="lable-block">
-      <span class="lable3" *ngIf="product.new">new</span>
-      <span class="lable4" *ngIf="product.sale">on sale</span>
-    </div>
+
     <div class="front">
-      <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
-        <img 
-          [defaultImage]="ImageSrc ? ImageSrc : 'assets/images/product/placeholder.jpg'" 
-          [lazyLoad]="ImageSrc ? ImageSrc : product.images[0].src" 
+      <a (click)="showProductDetails(product.productId)">
+        <img
+        [src]="product.image[0].url"
           class="img-fluid lazy-loading" 
-          alt="{{ product.images[0].alt }}" />
+          alt=""/>
       </a>
     </div>
     <div class="back" *ngIf="onHowerChangeImage">
-      <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
-        <img [src]="ImageSrc ? ImageSrc : product.images[1].src" class="img-fluid lazy-loading" alt="{{ product.images[1].alt }}">
+      <a (click)="showProductDetails(product.productId)">
+        <img height="150px" width="150px" [src]="product.image[0].url" alt="">
       </a>
     </div>
-    <ul class="product-thumb-list" *ngIf="thumbnail">
-      <li class="grid_thumb_img" [class.active]="ImageSrc == image.src" *ngFor="let image of product.images">
-        <a href="javascript:void(0)" (mouseover)="ChangeVariantsImage(image.src)">
-          <img [lazyLoad]="image.src">
-        </a>
-      </li>
-    </ul>
     <div class="cart-info cart-wrap">
       <a href="javascript:void(0)" title="Add to cart" (click)="CartModal.openModal(product)"
         *ngIf="cartModal">
@@ -56,11 +45,6 @@
         {{ product?.price * currency?.price | discount:product | currency:currency?.currency:'symbol' }}
         <del *ngIf="product?.discount"><span class="money"> {{ product?.price * currency?.price | currency:currency?.currency:'symbol' }}</span></del>
       </h4>
-      <ul class="color-variant" *ngIf="Color(product?.variants).length">
-        <li [class]="color" *ngFor="let color of Color(product?.variants)" [ngStyle]="{'background-color': color}"
-          (click)="ChangeVariants(color, product)">
-        </li>
-      </ul>
     </div>
   </div>
 </div>

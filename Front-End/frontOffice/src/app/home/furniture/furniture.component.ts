@@ -17,7 +17,7 @@ export class FurnitureComponent implements OnInit, OnDestroy {
 
   constructor(public productService: ProductService) {
     this.productService.getProducts.subscribe(response => {
-      this.products = response.filter(item => item.type == 'furniture');
+      this.products = response.filter(item => item.productCategory == 'furniture');
       // Get Product Collection
       this.products.filter((item) => {
         item.collection.filter((collection) => {

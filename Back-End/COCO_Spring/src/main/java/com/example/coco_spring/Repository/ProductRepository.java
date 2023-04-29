@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    List<Product> findByProductName(String productName);
+    List<Product> findByTitle(String productName);
 
     @Query("SELECT p.productCategory FROM Order o JOIN o.cart.products p WHERE o.payement.user.id = :userId " +
             "AND o.orderDate BETWEEN :startOfWeek AND :endOfWeek GROUP BY p.productCategory " +
@@ -21,7 +21,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p WHERE p.productCategory = :category ORDER BY p.createdAt DESC")
     List<Product> findTop4ProductsByCategoryOrderByRecentlyAdded(@Param("category") ProductCategory category, Pageable pageable);
 
-
-
+    public List<Product> findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String key1, String key2);
+    List<Product> findByCreatedAtBetween(Date startDate, Date endDate);
 
 }
