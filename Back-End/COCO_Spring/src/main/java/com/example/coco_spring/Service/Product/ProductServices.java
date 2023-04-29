@@ -23,6 +23,7 @@ public class ProductServices implements IProductServices {
     ProductRepository productRepository;
     UserRepository userRepository;
     OrderRepository orderRepository;
+    ReviewRepository reviewRepository;
 
     @Override
     public List<Product> retrieveAllProducts() {
@@ -69,6 +70,13 @@ public class ProductServices implements IProductServices {
             }
         }
         return premium;
+    }
+    public List<Product> getAllProducts(String searchKey){
+        if (searchKey.equals("")) {
+            return productRepository.findAll();
+        }else{
+            return productRepository.findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(searchKey, searchKey);
+        }
     }
     /* "The premium is calculated based on the number of years of warranty provided with the product."
      - (Source: https://www.thebalance.com/what-is-insurance-premium-4163879)

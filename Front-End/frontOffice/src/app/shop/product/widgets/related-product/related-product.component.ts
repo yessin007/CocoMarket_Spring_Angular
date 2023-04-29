@@ -23,8 +23,10 @@ export class RelatedProductComponent implements OnInit {
     );
   }
   showProductDetails(productID) {
-    this.router.navigate(['shop/product/left/sidebar/', {productId: productID}]);
-  }
+    //this.router.navigate(['shop/product/left/sidebar/', {productId: productID}]);
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['shop/product/left/sidebar/', {productId: productID}]);
+  }); }
   ngOnInit(): void {
     this.productService.getProducts.subscribe(response =>
         this.products = response.filter(item => item.productCategory == this.type)

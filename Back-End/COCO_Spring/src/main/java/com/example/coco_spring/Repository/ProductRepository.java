@@ -21,7 +21,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p WHERE p.productCategory = :category ORDER BY p.createdAt DESC")
     List<Product> findTop4ProductsByCategoryOrderByRecentlyAdded(@Param("category") ProductCategory category, Pageable pageable);
 
-
+    public List<Product> findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String key1, String key2);
 
 
 }

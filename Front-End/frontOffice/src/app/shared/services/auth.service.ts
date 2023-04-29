@@ -72,6 +72,16 @@ export class AuthService {
 				)
 			);
 	}
+	register(username: string, firstname: string, lastname: string, email: string, password: string): Observable<any> {
+		const role = 'ROLE_BUYER';
+		// @ts-ignore
+		const rr: RegisterRequest = {username, firstname, lastname, email, password, role};
+		return this.http.post(
+			`${this.API_URL}register`,
+			rr,
+			httpOptions
+		);
+	}
 	logOut(){
 		localStorage.removeItem('currentUser');
 		localStorage.removeItem('token');
@@ -84,5 +94,13 @@ export class AuthService {
 			return true;
 		}
 		return false;
+	}
+
+	demResetPassword(email: string): Observable<any> {
+		return this.http.post(
+			`${this.API_URL}demResetPassword/${email}`,
+			null,
+			{ observe: 'response' } // observe the response to get the status code
+		);
 	}
 }

@@ -8,7 +8,7 @@ import {Product} from '../../models/product';
 })
 export class ProductService {
   readonly PRODUCT_API_URL = 'http://localhost:8089/maram/api/product/addproduct';
-  readonly GET_ALL_PRODUCTS_API_URL = 'http://localhost:8089/maram/api/product/getallproducts';
+  readonly GET_ALL_PRODUCTS_API_URL = 'http://localhost:8089/radhwen/api/product/getallproducts?searchKey=';
   readonly DELETE_PRODUCT_API_URL = 'http://localhost:8089/maram/api/product/deleteproduct/';
   readonly GET_PRODUCT_DETAILS__API_URL = 'http://localhost:8089/maram/api/product/getproductdetails/';
 

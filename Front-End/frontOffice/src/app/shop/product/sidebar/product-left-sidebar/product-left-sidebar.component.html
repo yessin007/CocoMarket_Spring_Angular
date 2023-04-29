@@ -109,11 +109,15 @@
                           <i class="fa fa-heart"></i>
                           <span class="title-font">Add To WishList</span>
                         </button>
+                        <button class="dislike-btn" (click)="dislikeProduct(product)">
+                          <i class="fa ti-face-sad"></i>
+                          <span class="title-font">Dislike Product</span>
+                        </button>
                       </form>
                     </div>
                   </div>
                   <div class="border-product">
-                    <app-countdown [date]="'Apr 21 2021'"></app-countdown>
+                    <app-countdown [date]="'Jun 21 2023'"></app-countdown>
                   </div>
                 </div>
               </div>
@@ -140,11 +144,12 @@
                     <li [ngbNavItem]="3">
                       <a ngbNavLink>Write Review</a>
                          <ng-template ngbNavContent>
-                           <form class="theme-form">
+                           <form  class="theme-form">
                              <div class="row">
                                <div class="col-md-12 ">
                                  <div class="media rating-sec">
                                    <label>Rating</label>
+                                   <ngx-star-rating name="rating" [(ngModel)]="review.rating"></ngx-star-rating>
                                  </div>
                                </div>
                                <div class="col-md-12">
@@ -171,7 +176,43 @@
       </div>
     </div>
   </div>
+  <section class="section-b-space blog-detail-page review-page">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 product-related">
+          <h2>Reviews</h2>
+        </div>
+      </div>
+      <section class="section-b-space blog-detail-page review-page">
+        <div class="container">
+          <div *ngFor="let review of reviews" class="row">
+            <div class="col-sm-12">
+              <ul class="comment-section">
+                <li>
+                  <div class="media"><img src="assets/images/up.jpg" alt="Generic placeholder image">
+                    <div class="media-body">
+                      <h6>{{review.user?.name}}  {{review.user?.lastName}}<span>( {{ review.createdAt | date: 'yyyy-MM-dd' }} )</span></h6>
+                      <bar-rating [rate]="review.rating" [readOnly]="true"></bar-rating>
+                      <h3>{{review.reviewText}}</h3>
+                      <p>{{review.reviewText}}</p>
+                      <ul class="comnt-sec">
+                        <li><a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><span>(14)</span></a></li>
+                        <li><a href="#">
+                          <div class="unlike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i>(2)</div>
+                        </a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
   <app-related-product [product]="product" [type]="product?.productCategory"></app-related-product>
+
 </section>
 <app-size-modal #sizeChart [product]="product"></app-size-modal>
 <!-- Section ends -->
