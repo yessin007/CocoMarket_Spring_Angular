@@ -19,9 +19,7 @@
       "es2018",
       "dom"
     ],
-    "useDefineForClassFields": false,
-    "esModuleInterop": true
-
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

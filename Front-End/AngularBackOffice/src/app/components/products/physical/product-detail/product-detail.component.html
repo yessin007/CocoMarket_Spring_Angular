@@ -55,17 +55,11 @@
                     </div>
                     <hr>
                     <div class="m-t-15">
-                        <div class="form-group">
-                            <label for="store-select">Store:</label>
-                            <select class="form-control" id="store-select" [(ngModel)]="selectedStoreId">
-                                <option *ngFor="let store of stores" [value]="store.storeId">{{store.storeName}}</option>
-                            </select>
-                        </div>
-                        <button (click)="addProductToStore()">Add Product to Store</button>
-                    </div>                        <button class="btn btn-secondary" type="button">Buy Now</button>
+                        <button class="btn btn-primary m-r-10" type="button">Add To Cart</button>
+                        <button class="btn btn-secondary" type="button">Buy Now</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+</div>

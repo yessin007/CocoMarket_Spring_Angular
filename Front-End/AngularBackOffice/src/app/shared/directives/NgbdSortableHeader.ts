@@ -21,6 +21,7 @@ export interface SortEvent {
     },
 })
 
+
 export class NgbdSortableHeader {
     @Input() sortable: SortColumn = '';
     @Input() direction: SortDirection = '';

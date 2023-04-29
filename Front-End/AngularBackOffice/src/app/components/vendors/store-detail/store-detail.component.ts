@@ -2,9 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Store} from '../../../models/store';
 import {ModalDismissReasons, NgbModal, NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
 import {Image} from '@ks89/angular-modal-gallery';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {ImageProcessingService} from "../../../services/image-processing.service";
-import {StoreService} from "../../../services/store/store.service";
 
 // @ts-ignore
 @Component({
@@ -28,7 +27,7 @@ export class StoreDetailComponent implements OnInit{
 
 
   constructor(private modalService: NgbModal, config: NgbRatingConfig, private activatedRoute: ActivatedRoute,
-              private imageProcessingImage: ImageProcessingService, private route: Router , private storeService: StoreService) {
+              private imageProcessingImage: ImageProcessingService) {
     config.max = 5;
     config.readonly = false;
   }
@@ -61,15 +60,6 @@ export class StoreDetailComponent implements OnInit{
     this.store = this.activatedRoute.snapshot.data.store;
     console.log(this.store);
   }
-  public AddProduct() {
-    this.route.navigate(['/products/digital/digital-add-product', { }]);
-  }
-  affectProductToStore() {
-    const storeId = 1; // l'identifiant du magasin
-    const productId = 2; // l'identifiant du produit
-    this.storeService.affectProductToStore(storeId, productId).subscribe(() => {
-      console.log('Le produit a été affecté au magasin.');
-    });
-  }
+
 
 }

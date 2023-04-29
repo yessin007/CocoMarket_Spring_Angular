@@ -9,6 +9,9 @@ export class User  {
 	address!: string;
 	dayOfBirth!: Date;
 	cin!: string;
+	zipCode!: number;
+	city!: string;
+	country!: string;
 	telNum!: string;
 	expired!: boolean;
 	dateToUnexired!: Date;

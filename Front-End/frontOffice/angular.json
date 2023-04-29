@@ -41,7 +41,6 @@
               "node_modules/font-awesome/scss/font-awesome.scss",
               "src/assets/scss/app.scss",
               "src/styles.scss"
-
             ],
             "scripts": [
               "node_modules/isotope-layout/dist/isotope.pkgd.min.js"

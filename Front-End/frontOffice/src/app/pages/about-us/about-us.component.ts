@@ -10,6 +10,9 @@ export class AboutUsComponent implements OnInit {
 
   constructor() { }
 
+  ngOnInit(): void {
+  }
+
   public TeamSliderConfig: any = TeamSlider;
   public TestimonialSliderConfig: any = TestimonialSlider;
 
@@ -53,8 +56,5 @@ export class AboutUsComponent implements OnInit {
     name: 'John Shipmen',
     designation: 'Lead Developer'
  }]
-
-  ngOnInit(): void {
-  }
 
 }

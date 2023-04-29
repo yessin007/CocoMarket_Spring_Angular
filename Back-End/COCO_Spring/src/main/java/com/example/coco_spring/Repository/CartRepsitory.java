@@ -11,6 +11,4 @@ import java.util.List;
 @Repository
 public interface CartRepsitory extends JpaRepository<Cart,Long> {
 
-
-
 }

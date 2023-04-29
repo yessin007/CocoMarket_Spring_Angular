@@ -1,7 +1,6 @@
 package com.example.coco_spring.Entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,10 +20,6 @@ public class LikeDislikeProduct
     private Long id;
     @Enumerated(EnumType.STRING)
     ProductRate productRate;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JsonIgnore
+    @OneToOne(mappedBy = "likeDislikeProduct")
     User user;
-    @ManyToOne
-    @JsonIgnore
-    Product product;
 }

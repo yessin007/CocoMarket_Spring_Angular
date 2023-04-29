@@ -1,44 +1,15 @@
-import {Component, Injectable, OnInit} from '@angular/core';
-import {GetCurrentLocation} from "../../../shared/services/GetCurrentLocation";
-import {AddDelivery} from "../../../shared/services/AddDelivery";
-import {Deliveries} from "../../../shared/services/Deliveries";
-import {response} from "express";
-
-@Injectable({
-  providedIn: 'root'
-})
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
-  styleUrls: ['./checkout.component.scss'],
-  providers: [Deliveries] // add the provider here
+  styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
 
-  constructor(private getCurrentLocationn: GetCurrentLocation, private addDeliveries: AddDelivery) {}
-  isContentHidden = false;
+  constructor() { }
 
-  delivery : Deliveries = new  Deliveries();
-
-  ngOnInit() {
+  ngOnInit(): void {
   }
-
-  hideContent() {
-      this.isContentHidden = !this.isContentHidden;
-
-  }
-  getCurrentLocation() {
-    console.log(this.getCurrentLocationn.getCurrentLocation());
-  }
-
-  onSubmit(){
-
-    this.addDeliveries.addDelivery(this.delivery).subscribe((resp) => {
-      console.log(resp);
-    });
-  }
-
-
 
 }
