@@ -4,7 +4,7 @@
             <div  class="col-xl-4 ">
                 <section class="image-container">
                     <carousel>
-                        <slide *ngFor="let imageUrl of product.productImages">
+                        <slide *ngFor="let imageUrl of product.image">
                             <img class="carousel-image" [src]="imageUrl.url">
                         </slide>
                     </carousel>
@@ -12,12 +12,13 @@
             </div>
             <div class="col-xl-8">
                 <div class="product-page-details product-right mb-0">
-                    <h2>{{product.productName}}</h2>
+                    <h2>{{product.title}}</h2>
+                    <h1>{{product.brand}}</h1>
                     <ngb-rating class="ratings-sec"  [(rate)]="currentRate">
                         <ng-template let-fill="fill" let-index="index">
                             <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3"><i class='fa fa-star'></i> </span>
-                          </ng-template>
-                      </ngb-rating>
+                        </ng-template>
+                    </ngb-rating>
                     <hr>
                     <h6 class="product-title">product details</h6>
                     <p class="mb-0">{{product.description}}</p>
@@ -34,7 +35,7 @@
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Sheer Straight Kurta</h5>
                             <button type="button" class="close" aria-label="Close"
-                                (click)="modal.dismiss('Cross click')">
+                                    (click)="modal.dismiss('Cross click')">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -54,11 +55,17 @@
                     </div>
                     <hr>
                     <div class="m-t-15">
-                        <button class="btn btn-primary m-r-10" type="button">Add To Cart</button>
-                        <button class="btn btn-secondary" type="button">Buy Now</button>
+                        <div class="form-group">
+                            <label for="store-select">Store:</label>
+                            <select class="form-control" id="store-select" [(ngModel)]="selectedStoreId">
+                                <option *ngFor="let store of stores" [value]="store.storeId">{{store.storeName}}</option>
+                            </select>
+                        </div>
+                        <button (click)="addProductToStore()">Add Product to Store</button>
+                    </div>                        <button class="btn btn-secondary" type="button">Buy Now</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+

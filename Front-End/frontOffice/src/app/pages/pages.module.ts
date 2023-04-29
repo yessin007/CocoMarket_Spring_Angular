@@ -92,5 +92,6 @@ import {BrowserModule} from "@angular/platform-browser";
     }),
     GoogleMapsModule
   ]
+
 })
 export class PagesModule { }

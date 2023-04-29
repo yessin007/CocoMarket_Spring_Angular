@@ -61,6 +61,7 @@
     "ngx-masonry": "^13.0.0",
     "ngx-owl-carousel-o": "^15.0.0",
     "ngx-skeleton-loader": "^5.0.0",
+    "ngx-star-rating": "^2.1.0",
     "ngx-toastr": "^14.3.0",
     "path": "^0.12.7",
     "rxjs": "~7.5.5",

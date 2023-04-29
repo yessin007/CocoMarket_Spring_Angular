@@ -1,36 +1,30 @@
 // Products
+import {SafeUrl} from "@angular/platform-browser";
+
 export interface Product {
-    id?: number;
+
+    collection?: any[];
+    productId?: number;
+    reference?: string;
     title?: string;
     description?: string;
-    type?: string;
-    brand?: string;
-    collection?: any[];
-    category?: string;
-    price?: number;
-    sale?: boolean;
-    discount?: number;
-    stock?: number;
-    new?: boolean;
     quantity?: number;
-    tags?: any[];
-    variants?: Variants[];
-    images?: Images[];
+    model?: File;
+    video?: string;
+    brand?: string;
+    price?: number;
+    stock?: number;
+    dateOfPurchase?: Date;
+    discount?: number;
+    yearsOfWarranty?: number;
+    createdAt?: Date;
+    productCategory?: string;
+    image?: FileHandle[];
+    productAvgLike?: number;
 }
 
-export interface Variants {
-    variant_id?: number;
-    id?: number;
-    sku?: string;
-    size?: string;
-    color?: string;
-    image_id?: number;
-}
-
-export interface Images {
-    image_id?: number;
-    id?: number;
-    alt?: string;
-    src?: string;
-    variant_id?: any[];
+export interface FileHandle{
+    filefile?: File;
+    url?: SafeUrl;
+    preview?: string;
 }

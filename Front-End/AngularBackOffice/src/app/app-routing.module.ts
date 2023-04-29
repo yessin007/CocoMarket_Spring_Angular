@@ -7,6 +7,17 @@ import {ProductDetailComponent} from "./components/products/physical/product-det
 import {ProductResolverService} from "./services/product-resolver/product-resolver.service";
 import {ProductsModule} from "./components/products/products.module";
 import {DigitalAddComponent} from "./components/products/digital/digital-add/digital-add.component";
+import {CreateStorecatalogComponent} from "./components/vendors/create-storecatalog/create-storecatalog.component";
+import {StrCtlgResolverService} from "./services/store-catalog/str-ctlg-resolver.service";
+
+import {CreateVendorsComponent} from "./components/vendors/create-vendors/create-vendors.component";
+import {StoreResolverService} from "./services/store-resolver/store-resolver.service";
+import {StoreDetailComponent} from "./components/vendors/store-detail/store-detail.component";
+
+import {AddOrderComponent} from "./components/sales/orders/add-order/add-order.component";
+import {resolve} from "@angular/compiler-cli";
+import {OrderResolverServiceService} from "./services/order-resolver/order-resolver-service.service";
+
 
 
 const routes: Routes = [
@@ -19,17 +30,53 @@ const routes: Routes = [
    path: '',
     component: ContentLayoutComponent,
       children: [
-          {path: 'products/physical/product-detail' , component: ProductDetailComponent,  resolve : {
-                  product: ProductResolverService
+            {path: 'products/physical/product-detail' , component: ProductDetailComponent,  resolve : {
+                    product: ProductResolverService
               }}
       ],
   },
+
   {
     path: '',
     component: ContentLayoutComponent,
     children: [
       {path: 'products/digital/digital-add-product' , component: DigitalAddComponent, resolve : {
           product: ProductResolverService
+        }  }
+    ],
+  }, {
+    path: '',
+    component: ContentLayoutComponent,
+    children: [
+      {path: 'sales/orders/add-order' , component: AddOrderComponent, resolve : {
+          order: OrderResolverServiceService
+        }  }
+    ],
+  },
+  {
+    path: '',
+    component: ContentLayoutComponent,
+    children: [
+      {path: 'vendors/store-detail' , component: StoreDetailComponent,  resolve : {
+          store: StoreResolverService
+        }}
+    ],
+  },
+  {
+    path: '',
+    component: ContentLayoutComponent,
+    children: [
+      {path: 'vendors/create-vendors' , component: CreateVendorsComponent, resolve : {
+          store: StoreResolverService
+        }  }
+    ],
+  },
+  {
+    path: '',
+    component: ContentLayoutComponent,
+    children: [
+      {path: 'vendors/create-storecatalog' , component: CreateStorecatalogComponent, resolve : {
+          catalog: StrCtlgResolverService
         }  }
     ],
   },
@@ -42,6 +89,7 @@ const routes: Routes = [
     path: 'auth/login',
     component: LoginComponent,
   },
+
 
 ];
 

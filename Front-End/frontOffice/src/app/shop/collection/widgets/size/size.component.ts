@@ -21,7 +21,7 @@ export class SizeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  get filterbysize() {
+  /* get filterbysize() {
     const uniqueSize = []
     this.products.filter((product) => {
       product.variants.filter((variant) => {
@@ -32,7 +32,7 @@ export class SizeComponent implements OnInit {
       })
     })
     return uniqueSize
-  }
+  } */
 
   appliedFilter(event) {
     let index = this.size.indexOf(event.target.value);  // checked and unchecked value

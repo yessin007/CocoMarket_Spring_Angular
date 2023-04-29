@@ -18,7 +18,7 @@ export class FashionTwoComponent implements OnInit {
 
   constructor(public productService: ProductService) {
     this.productService.getProducts.subscribe(response => {
-      this.products = response.filter(item => item.type == 'fashion');
+      this.products = response.filter(item => item.productCategory == 'fashion');
       // Get Product Collection
       this.products.filter((item, i) => {
         item.collection.filter((collection) => {

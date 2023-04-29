@@ -12,9 +12,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.zxing.WriterException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import javax.websocket.server.PathParam;
@@ -23,22 +25,52 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin("*")
 @RequestMapping("/api/store")
 public class StoreController {
     StoreService storeService;
     StoreRepository storeRepository;
     ProductServices productServices;
 
-    @PostMapping("/addStore")
-    public Store add(@RequestBody Store store) throws IOException, WriterException {
-        return storeService.add(store);
-    }
+    @PostMapping(value="/addStore",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public Store add(@RequestPart("store") Store store,
+                     @RequestPart("imageFile") MultipartFile[] file)  {
 
+        try {
+            Set<ImageSModel> images = uploadImage(file);
+            store.setStoreImages(images);
+            return storeService.add(store);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null ;
+        }
+
+    }
+    public Set<ImageSModel> uploadImage(MultipartFile[] multipartFiles)  throws IOException {
+        Set<ImageSModel> imageSModels = new HashSet<>();
+        for(MultipartFile file : multipartFiles){
+            ImageSModel imageSModel =new ImageSModel(
+                    file.getOriginalFilename(),
+                    file.getContentType(),
+                    file.getBytes()
+            );
+            imageSModels.add(imageSModel);
+        }
+        return imageSModels ;
+    }
+  /*  @PostMapping("/add-Post-image/{idpost}")
+    @ResponseBody
+    public ResponseEntity<?> addpostimage(@RequestParam MultipartFile image,@PathVariable("idpost") Long idpost) throws IOException {
+        return storeService.addimagepost(image,idpost);
+
+    }*/
     @GetMapping("/get_all_Stores")
     public List<Store> findAll() {
         return storeService.findAll();
@@ -48,7 +80,10 @@ public class StoreController {
     public Store update(@RequestBody Store store) {
         return storeService.update(store);
     }
-
+    @GetMapping("/retrive_Store/{storeId}")
+    public Store retrieveStore(@PathVariable("storeId") Long storeId) {
+        return storeService.retrieveItem(storeId);
+    }
     @DeleteMapping("/deleteStore/{storeId}")
     public void delete(@PathVariable("storeId") Long storeId) {
         storeService.delete(storeId);

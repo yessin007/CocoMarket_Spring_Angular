@@ -41,8 +41,8 @@ export class DigitalAddComponent implements OnInit {
       };
       console.log(fileHandle);
       this.array.push(fileHandle);
-      this.product.productImages = this.array;
-      console.log(this.product.productImages);
+      this.product.image = this.array;
+      console.log(this.product.image);
     }
   }
   onRemove(event) {
@@ -79,12 +79,10 @@ export class DigitalAddComponent implements OnInit {
     //this.product.productImages = this.files;
     formData.append('product', new Blob([JSON.stringify(product)], {type: 'application/json'}));
     // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < product.productImages.length ; i++) {
-      formData.append('imageFile', product.productImages[i].filefile, product.productImages[i].filefile.name);
+    for (let i = 0; i < product.image.length ; i++) {
+      formData.append('imageFile', product.image[i].filefile, product.image[i].filefile.name);
     }
     return formData;
   }
-
-  ngOnInit() {this.product.description = 'Put your description here...'; console.log(this.product); this.product = this.activatedRoute.snapshot.data.product; }
-
+  ngOnInit() { this.product = this.activatedRoute.snapshot.data.product; console.log(this.product);  }
 }

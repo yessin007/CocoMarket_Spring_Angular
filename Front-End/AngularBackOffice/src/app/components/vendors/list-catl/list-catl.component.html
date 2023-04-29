@@ -1,0 +1,53 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Page Details</h5>
+                </div>
+                <div class="card-body">
+                    <div class="custom-datatable">
+                        <div class="clearfix"></div>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th >Catalog Name</th>
+                                <th  >Catalog Description</th>
+                                <th >Update/Delete</th>
+
+                            </tr>
+
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let item of catalogList ">
+                                <td>
+                                    <div *ngFor="let image of item.catalogImages">
+                                        <img [src]="image.url"   style="width: 70px">
+                                    </div>
+                                </td>
+                                <th scope="row">
+                                    {{ item.catalogName }}
+                                </th>
+                                <th scope="row">
+                                    {{ item.catalogDescription }}
+                                </th>
+
+
+                                <th scope="row">
+                                    <a  (click)="editCatalogDetails(item.catalogId)"  href="javascript:void(0)"><i class='fa fa-edit f-12'></i></a>&nbsp;
+                                    <a (click)="deleteCatalog(item.catalogId)" href="javascript:void(0)"><i class="fa fa-trash-o" ></i> &nbsp;&nbsp;&nbsp;</a>
+                                </th>
+
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
