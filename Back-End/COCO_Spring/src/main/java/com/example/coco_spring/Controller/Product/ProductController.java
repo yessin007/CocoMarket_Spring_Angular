@@ -59,7 +59,7 @@ public class ProductController {
     }
 
     @PostMapping(value = "/addproduct",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    Product addProduct(@RequestPart("product") Product product, @RequestPart("imageFile") MultipartFile[] files){
+    Product addProduct(@RequestPart("product") Product product, @RequestPart("imageFile") MultipartFile [] files){
         //return productRepository.save(product);
         collection.add("featured products");
         collection.add("on sale");
@@ -87,9 +87,10 @@ public class ProductController {
         return productImagesSet;
     }
     @GetMapping("/getallproducts")
-    List<Product> getAllProducts() {
-        return productRepository.findAll();
+    List<Product> getAllProducts(@RequestParam(defaultValue = "") String searchKey) {
+        return productServices.getAllProducts(searchKey);
     }
+
     @DeleteMapping("/deleteproduct/{productId}")
     public  void deleteProduct(@PathVariable("productId") Long prodId){
         Product product=productRepository.findById(prodId).get();
@@ -126,5 +127,21 @@ public class ProductController {
     @GetMapping("/insuranceprice/{idprod}/{iduser}")
     public double calculateProductInsurance(@PathVariable("idprod") Long productId,@PathVariable("iduser") Long idUser) {
         return productServices.calculateProductInsurance(productId,idUser);
+    }
+    @GetMapping("/gettotalpriceproducts")
+    public  double getTotAlPriceProducts(){
+        return productServices.productTotalPrice();
+    }
+    @GetMapping ("/topfivemostlikedproducts")
+    public List<Product> top5MostLikedProducts(){
+        return productServices.top5MostLikedProducts();
+    }
+    @GetMapping ("/getnumberoflikes/{productId}")
+    public int getNumberOflikes(@PathVariable("productId") Long productId){
+        return productServices.numberOfLikes(productId);
+    }
+    @GetMapping("/getaveragelikesofproduct/{productId}")
+    public double getAverageLikesOfProduct(@PathVariable("productId") Long productId){
+        return productServices.getAverageRatingByProduct(productId);
     }
 }

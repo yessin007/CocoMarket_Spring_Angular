@@ -1,3 +1,8 @@
+
 export class Delivery {
-    cancelled: boolean;
+    id: number;
+    clientLatitude: number;
+    clientLongitude: number;
+    clientAddress: string;
+    statut : string ;
 }

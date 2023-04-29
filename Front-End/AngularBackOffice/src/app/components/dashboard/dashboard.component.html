@@ -28,8 +28,8 @@
                             </div>
                         </div>
                         <div class="media-body col-8"><span class="m-0">Products</span>
-                            <h3 class="mb-0">$ <span class="counter" [CountTo]="9856" [from]="0"
-                                    [duration]="2">9856</span><small> This Month</small></h3>
+                            <h3 class="mb-0">TND <span class="counter" [CountTo]="price" [from]="0"
+                                    [duration]="2">{{price}}</span><small> This Month</small></h3>
                         </div>
                     </div>
                 </div>
@@ -72,12 +72,31 @@
         <div class="col-xl-6 xl-100">
             <div class="card height-equal">
                 <div class="card-header">
-                    <h5>Market Value</h5>
+                    <h5>Top Liked Products</h5>
                 </div>
                 <div class="card-body">
-                    <div class="market-chart">
-                        <x-chartist class="board-chart ct-golden-section" [configuration]="chart3">
-                        </x-chartist>
+                    <div class="user-status table-responsive latest-order-table">
+                        <table class="table table-bordernone">
+                            <thead>
+                            <tr>
+                                <th scope="col">Product Reference</th>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Price Of Unit</th>
+                                <th scope="col">Stock</th>
+                                <th scope="col">Likes</th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let product of top5MostLikeProducts">
+                            <tr>
+                                <td class="digits">{{product.reference}}</td>
+                                <td class="font-danger">{{product.title}}</td>
+                                <td class="digits">{{product.price}}</td>
+                                <td class="digits">{{product.stock}}</td>
+                                <td class="digits">{{product.numberOfLikes}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <a href="javascript:void(0)" class="btn btn-primary">View All Products</a>
                     </div>
                 </div>
             </div>

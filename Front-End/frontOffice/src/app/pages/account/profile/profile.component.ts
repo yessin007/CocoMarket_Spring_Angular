@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../../shared/services/auth.service";
 import {Router} from "@angular/router";
 import {User} from '../../../shared/models/User';
+import {AgmMap} from "@agm/core";
 
 @Component({
   selector: 'app-profile',
@@ -12,6 +13,9 @@ export class ProfileComponent implements OnInit {
 
 	currentUser: User = new User;
 	isLoggedIn = false;
+  lat = 35.9038537;
+  lng = 10.542212;
+  constructor() { }
 
 	rform: any ={
 		name: null,
@@ -62,4 +66,8 @@ export class ProfileComponent implements OnInit {
 	onSubmit() {
 		console.log("test edit");
 	}
+  onChosenPos(event: google.maps.MapMouseEvent){
+    console.log('Map clicked', event);
+
+  }
 }

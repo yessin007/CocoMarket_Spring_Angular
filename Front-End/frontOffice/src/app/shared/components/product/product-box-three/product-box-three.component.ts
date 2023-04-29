@@ -22,7 +22,10 @@ export class ProductBoxThreeComponent implements OnInit {
   constructor(private productService: ProductService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-
+    this.getAvgLike(this.product.productId);
+  }
+  getAvgLike(productId){
+    this.productService.getAverageLikesOfProduct(productId).subscribe((prod => this.product.productAvgLike = prod));
   }
 
   addToCart(product: any) {

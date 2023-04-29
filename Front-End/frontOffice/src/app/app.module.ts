@@ -15,7 +15,9 @@ import { AppComponent } from './app.component';
 import { ShopComponent } from './shop/shop.component';
 import { PagesComponent } from './pages/pages.component';
 import { ElementsComponent } from './elements/elements.component';
+import {AgmCoreModule} from "@agm/core";
 
+import { NgxStarRatingModule } from 'ngx-star-rating';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -27,7 +29,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     ShopComponent,
     PagesComponent,
-    ElementsComponent
+    ElementsComponent,
+    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -36,6 +39,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgbModule,
     LoadingBarHttpClientModule,
     LoadingBarRouterModule,
+    NgxStarRatingModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       progressBar: false,
@@ -49,8 +53,14 @@ export function HttpLoaderFactory(http: HttpClient) {
         }
     }),
     SharedModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAvHALSEQwNE3b-b7eHSZIDv-KK1wr7CRQ'
+    }),
+
+
   ],
+
   providers: [],
   bootstrap: [AppComponent]
 })
