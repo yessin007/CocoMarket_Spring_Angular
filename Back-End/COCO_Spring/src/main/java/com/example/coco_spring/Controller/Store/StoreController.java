@@ -200,7 +200,7 @@ public class StoreController {
         return storeService.add(store);
     }
 
-
+/*
     @GetMapping("/AnalyzePostComments")
     public Map<String, Map<String,Float>> analizeSentimentOfComments() {
         return storeService.analizeSentimentOfComments();
@@ -211,6 +211,6 @@ public class StoreController {
     public ResponseEntity<Map<String, Object>> setLatLngToStore(@PathVariable("storeId") Long storeId) {
         return storeService.setLatLngToStore(storeId);
 
-    }
+    }*/
 }
 

@@ -42,51 +42,56 @@ import { MasonryGridTwoComponent } from './portfolio/masonry-grid-two/masonry-gr
 import { MasonryGridThreeComponent } from './portfolio/masonry-grid-three/masonry-grid-three.component';
 import { MasonryGridFourComponent } from './portfolio/masonry-grid-four/masonry-grid-four.component';
 import { MasonryFullWidthComponent } from './portfolio/masonry-full-width/masonry-full-width.component';
+import {AgmCoreModule} from "@agm/core";
+import { GoogleMapsModule } from '@angular/google-maps';
+import {BrowserModule} from "@angular/platform-browser";
 
 @NgModule({
-    declarations: [
-        WishlistComponent,
-        CartComponent,
-        DashboardComponent,
-        LoginComponent,
-        RegisterComponent,
-        ForgetPasswordComponent,
-        ProfileComponent,
-        ContactComponent,
-        CheckoutComponent,
-        AboutUsComponent,
-        SearchComponent,
-        TypographyComponent,
-        ReviewComponent,
-        OrderSuccessComponent,
-        CompareOneComponent,
-        CompareTwoComponent,
-        CollectionComponent,
-        LookbookComponent,
-        ErrorComponent,
-        ComingSoonComponent,
-        FaqComponent,
-        BlogLeftSidebarComponent,
-        BlogRightSidebarComponent,
-        BlogNoSidebarComponent,
-        BlogDetailsComponent,
-        GridTwoComponent,
-        GridThreeComponent,
-        GridFourComponent,
-        MasonryGridTwoComponent,
-        MasonryGridThreeComponent,
-        MasonryGridFourComponent,
-        MasonryFullWidthComponent
-    ],
-    exports: [
-        ReviewComponent
-    ],
-    imports: [
-        CommonModule,
-        GalleryModule,
-        LightboxModule,
-        SharedModule,
-        PagesRoutingModule
-    ]
+  declarations: [
+    WishlistComponent,
+    CartComponent,
+    DashboardComponent,
+    LoginComponent,
+    RegisterComponent,
+    ForgetPasswordComponent,
+    ProfileComponent,
+    ContactComponent,
+    CheckoutComponent,
+    AboutUsComponent,
+    SearchComponent,
+    TypographyComponent,
+    ReviewComponent,
+    OrderSuccessComponent,
+    CompareOneComponent,
+    CompareTwoComponent,
+    CollectionComponent,
+    LookbookComponent,
+    ErrorComponent,
+    ComingSoonComponent,
+    FaqComponent,
+    BlogLeftSidebarComponent,
+    BlogRightSidebarComponent,
+    BlogNoSidebarComponent,
+    BlogDetailsComponent,
+    GridTwoComponent,
+    GridThreeComponent,
+    GridFourComponent,
+    MasonryGridTwoComponent,
+    MasonryGridThreeComponent,
+    MasonryGridFourComponent,
+    MasonryFullWidthComponent
+  ],
+  imports: [
+    CommonModule,
+    GalleryModule,
+    LightboxModule,
+    SharedModule,
+    PagesRoutingModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAvHALSEQwNE3b-b7eHSZIDv-KK1wr7CRQ'
+    }),
+    GoogleMapsModule
+  ]
+
 })
 export class PagesModule { }
