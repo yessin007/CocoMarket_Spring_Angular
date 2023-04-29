@@ -21,7 +21,7 @@ export class MarijuanaComponent implements OnInit, OnDestroy {
 
   constructor(public productService: ProductService) {
     this.productService.getProducts.subscribe(response => {
-      this.products = response.filter(item => item.type == 'marijuana');
+      this.products = response.filter(item => item.productCategory == 'marijuana');
       // Get Product Collection
       this.products.filter((item) => {
         item.collection.filter((collection) => {

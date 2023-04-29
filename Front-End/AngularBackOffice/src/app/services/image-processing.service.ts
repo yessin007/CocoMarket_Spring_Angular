@@ -11,7 +11,7 @@ export class ImageProcessingService {
   constructor(private sanitizer: DomSanitizer) { }
 
   public createImages(product: Product) {
-    const productImages: any[] = product.productImages;
+    const productImages: any[] = product.image;
     const productImagesToFileHandle: FileHandle[] = [];
     for(let i = 0; i < productImages.length; i++){
       const imageFileData = productImages[i];
@@ -26,7 +26,7 @@ export class ImageProcessingService {
       };
       productImagesToFileHandle.push(finalFileHandle);
     }
-    product.productImages = productImagesToFileHandle;
+    product.image = productImagesToFileHandle;
     return product;
   }
   public dataURItoBlob(picBytes, imageType){

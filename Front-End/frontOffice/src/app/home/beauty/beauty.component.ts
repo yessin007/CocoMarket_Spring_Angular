@@ -20,7 +20,7 @@ export class BeautyComponent implements OnInit, OnDestroy {
 
   constructor(public productService: ProductService) {
       this.productService.getProducts.subscribe(response => 
-        this.products = response.filter(item => item.type == 'beauty')
+        this.products = response.filter(item => item.productCategory == 'beauty')
       );
   }
 

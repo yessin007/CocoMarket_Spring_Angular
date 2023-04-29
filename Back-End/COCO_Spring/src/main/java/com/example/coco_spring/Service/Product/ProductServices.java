@@ -23,6 +23,7 @@ public class ProductServices implements IProductServices {
     ProductRepository productRepository;
     UserRepository userRepository;
     OrderRepository orderRepository;
+    ReviewRepository reviewRepository;
 
     @Override
     public List<Product> retrieveAllProducts() {
@@ -70,6 +71,13 @@ public class ProductServices implements IProductServices {
         }
         return premium;
     }
+    public List<Product> getAllProducts(String searchKey){
+        if (searchKey.equals("")) {
+            return productRepository.findAll();
+        }else{
+            return productRepository.findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(searchKey, searchKey);
+        }
+    }
     /* "The premium is calculated based on the number of years of warranty provided with the product."
      - (Source: https://www.thebalance.com/what-is-insurance-premium-4163879)
 "If the product has a warranty of one year or less, the premium is increased by 5% of the product's price."
@@ -90,7 +98,7 @@ Regarding the calculation of the premium based on the price and date:
 "If the product is over a year old and costs more than $200, the premium is increased by 2% of the product's price."
 - (Source: https://www.insurance.com/home-and-renters-insurance/homeowners-insurance-basics/what-determines-the-price-of-homeowners-insurance.aspx) */
     public List<Product> findByName(String name) {
-        return productRepository.findByProductName(name);
+        return productRepository.findByTitle(name);
     }
 
     public ProductCategory TopProductCategoryByUserThisWeek (User u){ // add by Ahmed lasmar for the daily offers mail

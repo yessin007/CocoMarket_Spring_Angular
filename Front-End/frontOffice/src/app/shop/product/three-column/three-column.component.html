@@ -6,10 +6,10 @@
             <div class="row">
                 <div class="col-lg-4">
                     <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar class="product-slick">
-                        <ng-container *ngFor="let image of product.images; index as i">
+                        <ng-container *ngFor="let image of product.image; index as i">
                             <ng-template carouselSlide [id]="i">
                                 <div>
-                                    <img [defaultImage]="'assets/images/product/placeholder.jpg'" [lazyLoad]="image.src" [alt]="image.alt" class="img-fluid">
+                                    <img [src]="image.url" class="img-fluid">
                                 </div>
                             </ng-template>
                         </ng-container>
@@ -18,10 +18,10 @@
                         <div class="col-12">
                             <div class="slider-nav">
                                 <owl-carousel-o [options]="ProductDetailsThumbConfig" class="product-slick">
-                                    <ng-container *ngFor="let image of product.images; index as i">
+                                    <ng-container *ngFor="let image of product.image; index as i">
                                         <ng-template carouselSlide [id]="i">
                                             <div class="owl-thumb" [class.active]="i == activeSlide">
-                                                <img [defaultImage]="'assets/images/product/placeholder.jpg'" [lazyLoad]="image.src" [alt]="image.alt" class="img-fluid" (click)="owlCar.to(activeSlide = i.toString())">
+                                                <img [src]="image.url"  class="img-fluid" (click)="owlCar.to(activeSlide = i.toString())">
                                             </div>
                                         </ng-template>
                                     </ng-container>
@@ -110,24 +110,7 @@
                         <h3>
                             {{ (product?.price | discount:product) * productService.Currency?.price | currency: productService.Currency?.currency:'symbol' }}
                         </h3>
-                        <ul class="color-variant" *ngIf="Color(product?.variants).length">
-                            <li [class]="color" [class.active]="activeSlide == i.toString()" *ngFor="let color of Color(product?.variants); index as i" [ngStyle]="{'background-color': color}" (click)="owlCar.to(activeSlide = i.toString())">
-                            </li>
-                        </ul>
                         <div class="product-description border-product">
-                            <h6 class="product-title size-text" *ngIf="Size(product.variants).length">
-                                select size
-                                <span>
-                              <a href="javascrip:void(0)" (click)="SizeChart.openModal()">size chart</a>
-                            </span>
-                            </h6>
-                            <div class="size-box" *ngIf="Size(product.variants).length">
-                                <ul>
-                                    <li [class.active]="selectedSize == size" *ngFor="let size of Size(product.variants)">
-                                        <a href="javascript:void(0)" (click)="selectSize(size)">{{ size | titlecase }}</a>
-                                    </li>
-                                </ul>
-                            </div>
                             <h5 class="avalibility" *ngIf="counter <= product.stock"><span>In Stock</span></h5>
                             <h5 class="avalibility" *ngIf="counter > product.stock"><span>Out of Stock</span></h5>
                             <h6 class="product-title">quantity</h6>

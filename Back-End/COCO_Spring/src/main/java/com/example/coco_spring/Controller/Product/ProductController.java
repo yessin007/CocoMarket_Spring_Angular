@@ -18,6 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.IOException;
@@ -30,6 +31,7 @@ import java.util.*;
 public class ProductController {
     ProductServices productServices;
     ProductRepository productRepository;
+    public List<String> collection = new ArrayList<>();
     StoreService storeService;
     @Autowired
     private ObjectMapper jsonMapper;
@@ -48,33 +50,64 @@ public class ProductController {
         List<Product> resultRes =new ArrayList<>();
         for (String l:resultList){
             for (Product product:products){
-                if(l.contains(product.getProductName())){
+                if(l.contains(product.getTitle())){
                     resultRes.add(product);
                 }
             }
         }
         return ResponseEntity.ok(resultRes);
     }
-    @PostMapping("/addproduct")
-    public Product addProduct (@RequestBody Product product){
-        return productServices.addAndUpdateProduct(product);
+
+    @PostMapping(value = "/addproduct",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    Product addProduct(@RequestPart("product") Product product, @RequestPart("imageFile") MultipartFile [] files){
+        //return productRepository.save(product);
+        collection.add("featured products");
+        collection.add("on sale");
+        collection.add("new arrival");
+        collection.add("best sellers");
+        collection.add("all products");
+
+        try {
+            Set<ProductImages> productImagesSet=uploadImages(files);
+            product.setImage(productImagesSet);
+            product.setCollection(collection);
+            product.setQuantity(product.getStock());
+            return productRepository.save(product);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
-    @GetMapping("/retriveproduct/{id}")
+    public Set<ProductImages> uploadImages(MultipartFile[] files) throws IOException {
+        Set<ProductImages> productImagesSet=new HashSet<>();
+        for (MultipartFile file:files){
+            ProductImages productImage = new ProductImages(file.getOriginalFilename(), file.getContentType(),file.getBytes());
+            productImagesSet.add(productImage);
+        }
+        return productImagesSet;
+    }
+    @GetMapping("/getallproducts")
+    List<Product> getAllProducts(@RequestParam(defaultValue = "") String searchKey) {
+        return productServices.getAllProducts(searchKey);
+    }
+
+    @DeleteMapping("/deleteproduct/{productId}")
+    public  void deleteProduct(@PathVariable("productId") Long prodId){
+        Product product=productRepository.findById(prodId).get();
+        productRepository.delete(product);
+    }
+    @GetMapping("/getproductdetails/{productId}")
+    public Product getProductDetailsById(@PathVariable("productId")Long productId){
+        return productRepository.findById(productId).get();
+    }
+     @GetMapping("/retriveproduct/{id}")
     public Product retrieveProduct (@PathVariable("id") Long productId){
         return productServices.retrieveProduct(productId);
-    }
-    @GetMapping("/retrieveallproducts")
-    public List<Product> retrieveAllProducts(){
-        return  productServices.retrieveAllProducts();
-    }
-    @DeleteMapping("/deleteproduct/{id}")
-    public void deleteProduct(@PathVariable("id") Long id){
-        productServices.deleteProduct(id);
     }
 
     @GetMapping("/compare/{product}")
     public Map<String,Product> comparePrices(@PathVariable("product") String productName) {
-        List<Product> productsByName = productRepository.findByProductName(productName);
+        List<Product> productsByName = productRepository.findByTitle(productName);
         productsByName.sort(Comparator.comparing(Product::getPrice));
         Map<String,Product> productByStore=new HashMap<>();
 

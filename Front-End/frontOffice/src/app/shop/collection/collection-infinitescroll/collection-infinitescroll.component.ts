@@ -49,7 +49,7 @@ export class CollectionInfinitescrollComponent implements OnInit {
         this.sortBy = params.sortBy ? params.sortBy : 'ascending';
 
         // Get Filtered Products..
-        this.productService.filterProducts(this.tags).subscribe(response => {
+       /* this.productService.filterProducts(this.tags).subscribe(response => {
 
           // All Products
           this.all_products = response;
@@ -66,7 +66,7 @@ export class CollectionInfinitescrollComponent implements OnInit {
     
           this.addItems();
           
-        })
+        }) */
       })
   }
 

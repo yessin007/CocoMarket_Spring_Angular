@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as chartData from '../../shared/data/chart';
 import { doughnutData, pieData } from '../../shared/data/chart';
+import {ProductService} from '../../services/product/product.service';
+import {Product} from '../../models/product';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,8 +12,8 @@ import { doughnutData, pieData } from '../../shared/data/chart';
 export class DashboardComponent implements OnInit {
   public doughnutData = doughnutData;
   public pieData = pieData;
-  constructor() {
-    Object.assign(this, { doughnutData, pieData })
+  constructor(private productService: ProductService) {
+    Object.assign(this, { doughnutData, pieData });
   }
 
   // doughnut 2
@@ -62,16 +64,29 @@ export class DashboardComponent implements OnInit {
   public smallLine4ChartType = chartData.smallLine4ChartType;
 
   public chart3 = chartData.chart3;
-
-
-
+  public price = 0;
+  public top5MostLikeProducts: Product[] = [];
+  public likes = 0;
   // events
   public chartClicked(e: any): void {
   }
   public chartHovered(e: any): void {
   }
+  public getProductsTotalPrice(){
+    this.productService.getTotalProductsPrice().subscribe((res) => {this.price = res; });
+  }
+  public getTopFiveMostLikedProducts(){
+    this.productService.getToopFiveMostLikeProducts().subscribe((res) => {this.top5MostLikeProducts = res; this.top5MostLikeProducts.forEach(
+product => {
+this.productService.getNumberOfLikesOfProduct(product.productId).subscribe(prod => product.numberOfLikes = prod);
+}
+    ); });
+
+  }
 
   ngOnInit() {
+    this.getProductsTotalPrice();
+    this.getTopFiveMostLikedProducts();
   }
 
 }

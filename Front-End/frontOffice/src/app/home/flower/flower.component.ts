@@ -17,7 +17,7 @@ export class FlowerComponent implements OnInit, OnDestroy {
   public active;
   constructor(public productService: ProductService) {
     this.productService.getProducts.subscribe(response => {
-      this.products = response.filter(item => item.type == 'flower');
+      this.products = response.filter(item => item.productCategory == 'flower');
       // Get Product Collection
       this.products.filter((item) => {
         item.collection.filter((collection) => {

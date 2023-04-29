@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import {Store} from '../../../models/store';
-import {Product} from '../../../models/product';
 import {StoreService} from '../../../services/store/store.service';
 import {FileHandle} from '../../../models/FileHandle';
 import {DomSanitizer} from '@angular/platform-browser';
+import {ActivatedRoute} from '@angular/router';
+import {User} from '../../../models/User';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-create-vendors',
@@ -18,10 +20,23 @@ export class CreateVendorsComponent implements OnInit {
   files: File[] = [];
   array: FileHandle[] = [];
   store: Store = new Store();
-
-  constructor(private formBuilder: UntypedFormBuilder, private sanitizer: DomSanitizer, private storeService: StoreService) {
+  // tslint:disable-next-line:new-parens
+  currentUser: User = new User;
+  // tslint:disable-next-line:ban-types
+  protected currentToken!: String;
+  constructor(private formBuilder: UntypedFormBuilder, private sanitizer: DomSanitizer
+              // tslint:disable-next-line:align
+              , private storeService: StoreService, private activatedRoute: ActivatedRoute
+              // tslint:disable-next-line:align
+              , private auth: AuthService) {
     this.createAccountForm();
     this.createPermissionForm();
+    this.auth.currentUser.subscribe(data => {
+      this.currentUser = data;
+    });
+    this.auth.currentToken.subscribe( data => {
+      this.currentToken = data;
+    });
   }
   onSelect(event) {
     console.log(event);
@@ -61,8 +76,14 @@ export class CreateVendorsComponent implements OnInit {
   }
 
 
-  ngOnInit() { }
+  ngOnInit() {
+
+    this.store = this.activatedRoute.snapshot.data.store;
+    console.log(this.store);
+  }
   onSubmit(storeForm: NgForm) {
+    console.log(this.currentToken);
+
     const storeFormData = this.prepareFormData(this.store);
     this.storeService.addStore(storeFormData).subscribe(
         (store: Store) => {
@@ -80,9 +101,11 @@ export class CreateVendorsComponent implements OnInit {
     const formData = new FormData();
 
     formData.append('store', new Blob([JSON.stringify(store)], {type: 'application/json'}));
-    // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < store.storeImages.length ; i++) {
-      formData.append('imageFile', store.storeImages[i].filefile, store.storeImages[i].filefile.name);
+    if (store.storeImages && store.storeImages.length) {
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < store.storeImages.length; i++) {
+        formData.append('imageFile', store.storeImages[i].filefile, store.storeImages[i].filefile.name);
+      }
     }
     return formData;
   }
