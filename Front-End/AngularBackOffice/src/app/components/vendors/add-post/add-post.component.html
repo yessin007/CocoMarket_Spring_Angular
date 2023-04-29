@@ -1,0 +1,44 @@
+<div class="col-md-4">
+    <!-- Modal -->
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New Post</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="alert alert-primary text-white font-weight-bold" role="alert" *ngIf=" errorMessage != 'valide' && errorMessage != 'null'">
+                            {{errorMessage}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="alert alert-success text-white font-weight-bold" role="alert" *ngIf="errorMessage == 'valide'">
+                            {{errorMessage}}
+                        </div>
+                    </div>
+                    <form>
+                        <div class="input-group input-group-outline my-3">
+
+                            <label class="form-label">Post Title</label>
+
+                            <input type="text" [(ngModel)]= "post.postTitle" name="az" class="form-control">
+                        </div>
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label">Post Body</label>
+                            <textarea  type="text" [(ngModel)]= "post.body"  name="aab" class="form-control"></textarea>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" (click)="addnewpost()" class="btn bg-gradient-primary btn-block mb-3" *ngIf="errorMessage != 'valide'" >verifier</button>
+                    <button type="button" (click)="addnewpost()" class="btn bg-gradient-primary btn-block mb-3" *ngIf="errorMessage == 'valide'" data-bs-toggle="modal" data-bs-target="#exampleModalMessage1">Next</button>
+
+                </div>
+            </div>
+</div>
+

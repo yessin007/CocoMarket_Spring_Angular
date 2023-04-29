@@ -125,6 +125,7 @@ export class NavService {
 				// tslint:disable-next-line:indent
 				{ path: '/vendors/all-stores', title: 'All Stores', type: 'link' },
 
+				{ path: '/vendors/add-post', title: 'Add Post', type: 'link' },
 
 
 
