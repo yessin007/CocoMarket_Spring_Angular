@@ -27,5 +27,9 @@ export class ProductService {
     return this.httpClient.get<Product>(this.GET_PRODUCT_DETAILS__API_URL + productId);
   }
 
+  getProduct(id: number): Observable<Product> {
+    const url = `${this.GET_PRODUCT_DETAILS__API_URL}/${id}`;
+    return this.httpClient.get<Product>(url);
+  }
 
 }
