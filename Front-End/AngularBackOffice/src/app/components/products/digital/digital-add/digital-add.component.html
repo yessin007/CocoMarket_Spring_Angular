@@ -83,7 +83,7 @@
                         <div class="digital-add needs-validation">
                             <div class="form-group mb-0">
                                 <div class="description-sm">
-                                    <ckeditor [editor]="Editor" name="desc" (click)="clearDescription()" [(ngModel)]="product.description" data="<p>Put your description here...</p>"></ckeditor>
+                                    <textarea class="form-control" name="reviewText" [(ngModel)]="product.description" placeholder="Enter your description here" id="exampleFormControlTextarea1" rows="6"></textarea>
                                 </div>
                             </div>
                         </div>

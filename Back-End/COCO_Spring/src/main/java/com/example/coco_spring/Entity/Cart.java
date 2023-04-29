@@ -1,10 +1,7 @@
 package com.example.coco_spring.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,7 +12,6 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-@RequiredArgsConstructor
 @Table( name = "Carts")
 public class Cart implements Serializable {
 

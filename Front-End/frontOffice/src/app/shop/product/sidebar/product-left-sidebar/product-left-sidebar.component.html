@@ -144,12 +144,12 @@
                     <li [ngbNavItem]="3">
                       <a ngbNavLink>Write Review</a>
                          <ng-template ngbNavContent>
-                           <form class="theme-form">
+                           <form  class="theme-form">
                              <div class="row">
                                <div class="col-md-12 ">
                                  <div class="media rating-sec">
                                    <label>Rating</label>
-                                   <ngx-star-rating  [id]="'rating2'" [disabled] ="true"></ngx-star-rating>
+                                   <ngx-star-rating name="rating" [(ngModel)]="review.rating"></ngx-star-rating>
                                  </div>
                                </div>
                                <div class="col-md-12">
@@ -191,7 +191,8 @@
                 <li>
                   <div class="media"><img src="assets/images/up.jpg" alt="Generic placeholder image">
                     <div class="media-body">
-                      <h6> {{review.user.name}}  {{review.user.lastName}}<span>( {{ review.createdAt | date: 'yyyy-MM-dd' }} )</span></h6>
+                      <h6>{{review.user?.name}}  {{review.user?.lastName}}<span>( {{ review.createdAt | date: 'yyyy-MM-dd' }} )</span></h6>
+                      <bar-rating [rate]="review.rating" [readOnly]="true"></bar-rating>
                       <h3>{{review.reviewText}}</h3>
                       <p>{{review.reviewText}}</p>
                       <ul class="comnt-sec">

@@ -59,7 +59,7 @@ public class ProductController {
     }
 
     @PostMapping(value = "/addproduct",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    Product addProduct(@RequestPart("product") Product product, @RequestPart("imageFile") MultipartFile[] files){
+    Product addProduct(@RequestPart("product") Product product, @RequestPart("imageFile") MultipartFile [] files){
         //return productRepository.save(product);
         collection.add("featured products");
         collection.add("on sale");
@@ -87,9 +87,10 @@ public class ProductController {
         return productImagesSet;
     }
     @GetMapping("/getallproducts")
-    List<Product> getAllProducts() {
-        return productRepository.findAll();
+    List<Product> getAllProducts(@RequestParam(defaultValue = "") String searchKey) {
+        return productServices.getAllProducts(searchKey);
     }
+
     @DeleteMapping("/deleteproduct/{productId}")
     public  void deleteProduct(@PathVariable("productId") Long prodId){
         Product product=productRepository.findById(prodId).get();
