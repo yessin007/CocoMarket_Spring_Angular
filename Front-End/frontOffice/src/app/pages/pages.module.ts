@@ -46,6 +46,7 @@ import {AgmCoreModule} from "@agm/core";
 import { GoogleMapsModule } from '@angular/google-maps';
 import {BrowserModule} from "@angular/platform-browser";
 
+
 @NgModule({
   declarations: [
     WishlistComponent,
@@ -79,7 +80,8 @@ import {BrowserModule} from "@angular/platform-browser";
     MasonryGridTwoComponent,
     MasonryGridThreeComponent,
     MasonryGridFourComponent,
-    MasonryFullWidthComponent
+    MasonryFullWidthComponent,
+
   ],
   imports: [
     CommonModule,

@@ -11,28 +11,14 @@ import {Router} from "@angular/router";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
-  constructor(private getCurrentLocationn: GetCurrentLocation) { }
-
-  ngOnInit(): void {
-  }
-  getCurrentLocation() {
-    console.log(this.getCurrentLocationn.getCurrentLocation());
-  }
-
-  }
-
-
-	// tslint:disable-next-line:new-parens
-	currentUser: User = new User;
+	currentUser: User = new User();
 	isLoggedIn = false;
 	isLoginFailed = false;
 	form: any = {
 		username: null,
 		password: null
 	};
-
-	constructor( private authService: AuthService, private router: Router) {
+	constructor( private authService: AuthService, private router: Router, private getCurrentLocationn: GetCurrentLocation) {
 		this.authService.currentUser.subscribe(data => {
 			this.currentUser = data;
 		});
@@ -52,6 +38,9 @@ export class LoginComponent implements OnInit {
 		console.log('login page open');
 	}
 
+  getCurrentLocation() {
+    console.log(this.getCurrentLocationn.getCurrentLocation());
+  }
 	onSubmit(): void {
 		// tslint:disable-next-line:indent
 		const { username, password } = this.form;
@@ -77,4 +66,6 @@ export class LoginComponent implements OnInit {
 	toForgetPage() {
 		this.router.navigate(['pages/forget/password']);
 	}
-}
+  }
+
+
