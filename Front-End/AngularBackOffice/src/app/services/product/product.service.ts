@@ -7,10 +7,13 @@ import {Product} from '../../models/product';
   providedIn: 'root'
 })
 export class ProductService {
-  readonly PRODUCT_API_URL = 'http://localhost:8089/maram/api/product/addproduct';
+  readonly PRODUCT_API_URL = 'http://localhost:8089/radhwen/api/product/addproduct';
   readonly GET_ALL_PRODUCTS_API_URL = 'http://localhost:8089/radhwen/api/product/getallproducts?searchKey=';
-  readonly DELETE_PRODUCT_API_URL = 'http://localhost:8089/maram/api/product/deleteproduct/';
-  readonly GET_PRODUCT_DETAILS__API_URL = 'http://localhost:8089/maram/api/product/getproductdetails/';
+  readonly DELETE_PRODUCT_API_URL = 'http://localhost:8089/radhwen/api/product/deleteproduct/';
+  readonly GET_PRODUCT_DETAILS__API_URL = 'http://localhost:8089/radhwen/api/product/getproductdetails/';
+  readonly GET_TOTAL_PRODUCTS_PRICE = 'http://localhost:8089/radhwen/api/product/gettotalpriceproducts';
+  readonly GET_TOP_FIVE_MOST_LIKED_PRODUCTS = 'http://localhost:8089/radhwen/api/product/topfivemostlikedproducts';
+  readonly GET_NUMBER_OF_LIKES_OF_PRODUCT = 'http://localhost:8089/radhwen/api/product/getnumberoflikes/';
 
   constructor(private httpClient: HttpClient) { }
   addProduct(product: FormData): Observable<any> {
@@ -26,6 +29,14 @@ export class ProductService {
   getProductDetails(productId){
     return this.httpClient.get<Product>(this.GET_PRODUCT_DETAILS__API_URL + productId);
   }
-
+  getTotalProductsPrice(): Observable<number>{
+    return this.httpClient.get<number>(this.GET_TOTAL_PRODUCTS_PRICE);
+  }
+  getToopFiveMostLikeProducts(): Observable<Product[]>{
+    return this.httpClient.get<Product[]>(this.GET_TOP_FIVE_MOST_LIKED_PRODUCTS);
+  }
+  getNumberOfLikesOfProduct(productId: number): Observable<number>{
+    return this.httpClient.get<number>(this.GET_NUMBER_OF_LIKES_OF_PRODUCT + productId);
+  }
 
 }
