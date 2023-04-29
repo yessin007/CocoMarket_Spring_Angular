@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
 
 	aform: any = {
 		address: null,
-		zipCode: null,
+		zip: 0,
 		city: null,
 		country: null,
 	};
@@ -50,7 +50,7 @@ export class ProfileComponent implements OnInit {
 		this.rform.cin = this.currentUser.cin;
 
 		this.aform.address = this.currentUser.address;
-		this.aform.zipCode = this.currentUser.zipCode;
+		this.aform.zip = this.currentUser.zipCode;
 		console.log('zipCode: '+this.aform.zipCode + ' from ' + this.currentUser.zipCode);
 		this.aform.city = this.currentUser.city;
 		console.log('city' +this.aform.city +'from '+ this.currentUser.city);

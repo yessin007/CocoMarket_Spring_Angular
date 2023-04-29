@@ -124,11 +124,11 @@
 						</div>
 						<div class="col-md-6">
 							<label for="email">Zip Code *</label>
-							<input type="text" class="form-control" id="zip-code"
-								   [(ngModel)]="aform.zipCode" placeholder="Enter your zip-code"
+							<input type="number" class="form-control"
+								   [(ngModel)]="aform.zip" placeholder="Enter your zip-code"
 								   required
-								   #address="ngModel"
-								   [ngClass]="{ 'is-invalid': f.submitted && address.errors }">
+								   #zip="ngModel"
+								   [ngClass]="{ 'is-invalid': f.submitted && zip.errors }">
 							<div *ngIf="address.errors && f.submitted" class="invalid-feedback">
 								zip-code is required!
 							</div>
