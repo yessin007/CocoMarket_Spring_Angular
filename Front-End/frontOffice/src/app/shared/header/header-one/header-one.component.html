@@ -32,6 +32,11 @@
 						  Register
 					  </a>
 				  </li>
+				  <li *ngIf="isLoggedIn">
+					  <a data-lng="en" [routerLink]="['/pages/profile']">
+						  Profile
+					  </a>
+				  </li>
                 <li *ngIf="isLoggedIn">
                   <a data-lng="es" (click)="logout()">
                     Logout

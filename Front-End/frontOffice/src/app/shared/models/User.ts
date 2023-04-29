@@ -7,11 +7,11 @@ export class User  {
 	password!: string;
 	codeReset!: number;
 	address!: string;
-	dayOfBirth!: Date;
-	cin!: string;
 	zipCode!: number;
 	city!: string;
 	country!: string;
+	dayOfBirth!: Date;
+	cin!: string;
 	telNum!: string;
 	expired!: boolean;
 	dateToUnexired!: Date;
