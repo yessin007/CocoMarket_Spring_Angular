@@ -27,14 +27,9 @@
                     Login
                   </a>
                 </li>
-				<li *ngIf="!isLoggedIn">
-				  <a data-lng="en" [routerLink]="['/pages/register']">
-					  Register
-				  </a>
-			    </li>
-				  <li *ngIf="isLoggedIn">
-					  <a data-lng="en" [routerLink]="['/pages/profile']">
-						  Profile
+				  <li *ngIf="!isLoggedIn">
+					  <a data-lng="en" [routerLink]="['/pages/register']">
+						  Register
 					  </a>
 				  </li>
                 <li *ngIf="isLoggedIn">

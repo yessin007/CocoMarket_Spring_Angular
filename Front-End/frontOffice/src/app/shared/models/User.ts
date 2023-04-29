@@ -7,9 +7,6 @@ export class User  {
 	password!: string;
 	codeReset!: number;
 	address!: string;
-	zipCode!: number;
-	city!: string;
-	country!: string;
 	dayOfBirth!: Date;
 	cin!: string;
 	telNum!: string;
