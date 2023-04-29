@@ -4,14 +4,12 @@ import {Store} from '../../models/store';
 import {Observable} from 'rxjs';
 import {AuthService} from '../auth.service';
 // @ts-ignore
-import {RequestBaseService} from '../request-base.service';
-import {PosteStore} from '../../models/PostStore';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class StoreService extends RequestBaseService{
+export class StoreService {
   // tslint:disable-next-line:variable-name
   readonly ADD_Store = 'http://localhost:8089/maram/api/store/addStore';
   // tslint:disable-next-line:variable-name
@@ -24,9 +22,8 @@ export class StoreService extends RequestBaseService{
   private apiUrl = 'http://localhost:8089/maram/store';
 
 
-  constructor(private httpClient: HttpClient, private auth: AuthService) {
+  constructor(private httpClient: HttpClient) {
     // @ts-ignore
-    super(auth, httpClient);
 
   }
   addStore(store: FormData): Observable<any> {
