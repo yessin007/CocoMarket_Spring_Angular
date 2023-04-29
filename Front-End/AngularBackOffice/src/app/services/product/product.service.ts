@@ -36,13 +36,15 @@ export class ProductService {
   getToopFiveMostLikeProducts(): Observable<Product[]>{
     return this.httpClient.get<Product[]>(this.GET_TOP_FIVE_MOST_LIKED_PRODUCTS);
   }
-  getNumberOfLikesOfProduct(productId: number): Observable<number>{
+  getNumberOfLikesOfProduct(productId: number): Observable<number> {
     return this.httpClient.get<number>(this.GET_NUMBER_OF_LIKES_OF_PRODUCT + productId);
+  }
 
-  getProduct(id: number): Observable<Product> {
+    getProduct(id: number): Observable<Product> {
     const url = `${this.GET_PRODUCT_DETAILS__API_URL}/${id}`;
     return this.httpClient.get<Product>(url);
 
   }
+
 
 }

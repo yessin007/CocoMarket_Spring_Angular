@@ -10,6 +10,7 @@ import {ListCatlComponent} from './list-catl/list-catl.component';
 
 import {AllStoresComponent} from './all-stores/all-stores.component';
 import {AddPostComponent} from "./add-post/add-post.component";
+import {StoreDetailComponent} from "./store-detail/store-detail.component";
 
 
 const routes: Routes = [
