@@ -21,6 +21,13 @@ export class ProfileComponent implements OnInit {
 		cin: null,
 		dayOfBirth: new Date,
 	};
+
+	aform: any = {
+		address: null,
+		zipCode: null,
+        city: null,
+        country: null,
+	};
 	constructor( private authService: AuthService, private router: Router) {
 		this.authService.currentUser.subscribe(data => {
 			this.currentUser = data;
@@ -31,16 +38,26 @@ export class ProfileComponent implements OnInit {
 		else this.router.navigate(['']);
 	}
 
-  ngOnInit(): void {
+	ngOnInit(): void {
 		this.rform.name = this.currentUser.name;
 		this.rform.lastName = this.currentUser.lastName;
 		this.rform.username = this.currentUser.username;
 		this.rform.email = this.currentUser.email;
-		console.info(this.currentUser.dayOfBirth + ' is ' + this.rform.dayOfBirth);
-		// this.rform.dayOfBirth = this.currentUser.dayOfBirth;
-	  this.rform.dayOfBirth = new Date(this.currentUser.dayOfBirth);
-	  this.rform.cin = this.currentUser.cin;
-  }
+		const date = new Date(this.currentUser.dayOfBirth);
+		const isoDate = date.toISOString().slice(0, 10); // extract yyyy-mm-dd portion
+		this.rform.dayOfBirth = isoDate;
+		// console.info(this.currentUser.dayOfBirth + ' date ' + date + ' isoDate ' + isoDate);
+		this.rform.cin = this.currentUser.cin;
+
+		this.aform.address = this.currentUser.address;
+		this.aform.zipCode = this.currentUser.zipCode;
+		console.log('zipCode: '+this.aform.zipCode + ' from ' + this.currentUser.zipCode);
+		this.aform.city = this.currentUser.city;
+		console.log('city' +this.aform.city +'from '+ this.currentUser.city);
+		this.aform.country = this.currentUser.country;
+		console.log('country' +this.aform.country +' from' +this.currentUser.country);
+	}
+
 
 	onSubmit() {
 		console.log("test edit");
