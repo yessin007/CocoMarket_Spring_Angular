@@ -4,8 +4,7 @@ import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Repository.*;
 import com.example.coco_spring.Service.*;
 
-import com.vader.sentiment.analyzer.SentimentAnalyzer;
-import com.vader.sentiment.analyzer.SentimentPolarities;
+
 
 import com.example.coco_spring.Service.Delivery.LocationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -307,7 +306,7 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
 
     }
 
-
+/*
     final SentimentPolarities sentimentPolarities =
             SentimentAnalyzer.getScoresFor("that's a rare and valuable feature.");
     public Map<String, Map<String,Float>> analizeSentimentOfComments(){
@@ -324,7 +323,7 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
         }
         return  result;
     }
-
+*/
 
     public ResponseEntity<Map<String, Object>> setLatLngToStore(Long storeId) {
         try {

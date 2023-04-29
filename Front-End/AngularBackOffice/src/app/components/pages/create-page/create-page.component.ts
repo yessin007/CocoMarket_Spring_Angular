@@ -3,6 +3,7 @@ import {NgForm, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import { Provider } from 'src/app/models/provider';
 import {Product} from "../../../models/product";
 import {ProviderService} from "../../../services/provider/provider.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-create-page',
@@ -15,7 +16,7 @@ export class CreatePageComponent implements OnInit {
   public active = 1;
   provider: Provider = new Provider();
 
-  constructor(private formBuilder: UntypedFormBuilder, private providerService: ProviderService) {
+  constructor(private formBuilder: UntypedFormBuilder, private providerService: ProviderService, private route: ActivatedRoute) {
     this.createGeneralForm();
     this.createSeoForm();
   }
@@ -36,6 +37,7 @@ export class CreatePageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.provider = this.route.snapshot.data.provider;
   }
 
   onSubmit() {

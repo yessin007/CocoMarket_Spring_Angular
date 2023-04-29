@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { ListPageComponent } from './list-page/list-page.component';
 import { CreatePageComponent } from './create-page/create-page.component';
 import {ProviderLocationComponent} from "./provider-location/provider-location.component";
+import {DeliveryComponentComponent} from "./delivery-component/delivery-component.component";
+import {ProviderResolverService} from "../../services/provider-resolver/provider-resolver.service";
 
 const routes: Routes = [
   {
@@ -22,6 +24,17 @@ const routes: Routes = [
         data: {
           title: "Create Page",
           breadcrumb: "Create Page"
+        },
+        resolve : {
+          provider: ProviderResolverService
+        }
+      },
+      {
+        path: 'delivery-component',
+        component: DeliveryComponentComponent,
+        data: {
+          title: "Deliveries List",
+          breadcrumb: "Deliveries List"
         }
       },
       {
