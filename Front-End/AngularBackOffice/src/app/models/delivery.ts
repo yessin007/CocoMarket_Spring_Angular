@@ -1,3 +1,4 @@
+import {Provider} from './provider';
 
 export class Delivery {
     id: number;
@@ -5,4 +6,5 @@ export class Delivery {
     clientLongitude: number;
     clientAddress: string;
     statut : string ;
+    provider : Provider;
 }

@@ -14,9 +14,12 @@
                             <tr>
                                 <th> </th>
                                 <th scope="col" sortable="name" (sort)="onSort($event)">ID</th>
+                                <th scope="col" sortable="name" (sort)="onSort($event)">Delivery Man</th>
                                 <th scope="col" sortable="status" (sort)="onSort($event)">Client Latitude</th>
                                 <th scope="col" sortable="created_on" (sort)="onSort($event)">Client Longitude</th>
                                 <th scope="col" sortable="created_on" (sort)="onSort($event)">Status</th>
+                                <th scope="col" sortable="action" (sort)="onSort($event)">Dispatch</th>
+
                                 <th scope="col" sortable="action" (sort)="onSort($event)">Change Status</th>
                             </tr>
 
@@ -29,17 +32,27 @@
                                     {{ item.id }}
                                 </th>
                                 <th scope="row">
+                                    {{ item.provider?.firstName }}
+
+                                </th>
+                                <th scope="row">
                                     {{ item.clientLatitude }}
                                 </th>
                                 <th scope="row">
                                     {{item.clientLongitude}}
                                 </th>
+
                                 <th scope="row">
                                     {{item.statut}}
                                 </th>
-
                                 <th scope="row">
                                     <div class="example-button-row" *ngIf="item.statut == 'PENDING'">
+                                    <button mat-button color="accent" (click)="dispatch(item.id)"  >Dispatch</button>
+                                    </div>
+                                </th>
+
+                                <th scope="row">
+                                    <div class="example-button-row" *ngIf="item.statut == 'IN_PROGRESS'">
                                     <button mat-button color="accent"  (click)="changeStatusToDelivered(item.id)" >Change to Delivered</button>
                                     </div>
                                 </th>
