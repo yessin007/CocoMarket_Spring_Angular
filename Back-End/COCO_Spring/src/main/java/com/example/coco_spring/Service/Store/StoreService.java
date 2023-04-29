@@ -18,10 +18,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import java.awt.image.BufferedImage;
 import java.util.*;
 
+import javax.imageio.ImageIO;
 import javax.mail.MessagingException;
 import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
@@ -71,6 +74,8 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
 
         return storeRepository.save(store);
     }
+
+    
 
     @Override
     public void delete(Long storeId) {
