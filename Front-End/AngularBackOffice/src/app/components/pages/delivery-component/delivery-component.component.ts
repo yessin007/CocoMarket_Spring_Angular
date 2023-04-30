@@ -7,7 +7,6 @@ import {Delivery} from '../../../models/delivery';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DeliveriesService} from '../../../services/deliveries.service';
 import {NgbdSortableHeader, SortEvent} from '../../../shared/directives/NgbdSortableHeader';
-import {Provider} from "../../../models/provider";
 
 @Component({
   selector: 'app-delivery-component',
@@ -15,9 +14,9 @@ import {Provider} from "../../../models/provider";
   styleUrls: ['./delivery-component.component.scss'],
   providers: [TableService, DecimalPipe]
 })
-export class DeliveryComponentComponent implements OnInit, AfterViewInit{
+export class DeliveryComponentComponent implements OnInit{
 
-  constructor(public service: TableService, private deliveryService: DeliveriesService, private route: Router,private cdRef: ChangeDetectorRef) {
+  constructor(public service: TableService, private deliveryService: DeliveriesService, private route: Router, private cdRef: ChangeDetectorRef) {
     this.tableItem$ = service.tableItem$;
     this.total$ = service.total$;
     this.service.setUserData(LISTPAGEDB);
@@ -30,7 +29,6 @@ export class DeliveryComponentComponent implements OnInit, AfterViewInit{
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
   item: any;
   i: any;
-  animationState = '';
   onSort({ column, direction }: SortEvent) {
     // resetting other headers
     this.headers.forEach((header) => {
@@ -85,11 +83,4 @@ export class DeliveryComponentComponent implements OnInit, AfterViewInit{
       });
     });
   }
-
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.animationState = 'delivery-component';
-    });
-  }
-
 }

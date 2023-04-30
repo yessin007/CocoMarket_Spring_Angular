@@ -6,5 +6,6 @@ export class Delivery {
     clientLongitude: number;
     clientAddress: string;
     statut : string ;
-    provider : Provider;
+    firstName : string;
+    lastName : string;
 }

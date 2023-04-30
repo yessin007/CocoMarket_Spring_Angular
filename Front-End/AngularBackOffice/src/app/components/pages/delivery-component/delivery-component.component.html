@@ -13,7 +13,7 @@
                             <thead>
                             <tr>
                                 <th> </th>
-                                <th scope="col" sortable="name" (sort)="onSort($event)">ID</th>
+                                <th scope="col" sortable="name" (sort)="onSort($event)">Delivery ID</th>
                                 <th scope="col" sortable="name" (sort)="onSort($event)">Delivery Man</th>
                                 <th scope="col" sortable="status" (sort)="onSort($event)">Client Latitude</th>
                                 <th scope="col" sortable="created_on" (sort)="onSort($event)">Client Longitude</th>
@@ -32,7 +32,7 @@
                                     {{ item.id }}
                                 </th>
                                 <th scope="row">
-                                    {{ item.provider?.firstName }}
+                                    {{ item.firstName }} {{ item.lastName }}
 
                                 </th>
                                 <th scope="row">
