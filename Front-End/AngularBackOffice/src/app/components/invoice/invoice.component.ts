@@ -20,7 +20,7 @@ export class InvoiceComponent implements OnInit {
   constructor(public service: TableService) {
     this.tableItem$ = service.tableItem$;
     this.total$ = service.total$;
-    this.service.setUserData(INVOICEDB)
+    this.service.setUserData(INVOICEDB);
   }
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import {Deliveries} from "../shared/services/Deliveries";
+import {Deliveries} from '../shared/services/Deliveries';
 
 @Component({
   selector: 'app-pages',
@@ -11,9 +11,9 @@ import {Deliveries} from "../shared/services/Deliveries";
 })
 export class PagesComponent implements OnInit {
 
-  public url : any; 
+  public url: any;
 
-  constructor(private router: Router) {  
+  constructor(private router: Router) {
     this.router.events.subscribe((event) => {
           if (event instanceof NavigationEnd) {
             this.url = event.url;

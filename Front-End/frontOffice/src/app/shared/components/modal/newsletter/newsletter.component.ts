@@ -10,33 +10,34 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 })
 export class NewsletterComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild("newsletter", { static: false }) NewsLetterModal: TemplateRef<any>;
+  @ViewChild('newsletter', { static: false }) NewsLetterModal: TemplateRef<any>;
 
   public closeResult: string;
-  public modalOpen: boolean = false;
+  public modalOpen = false;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object,
-    private modalService: NgbModal) { }
+              private modalService: NgbModal) { }
 
   ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
-    if(localStorage.getItem("newsletter") !== 'true')
+    if (localStorage.getItem('newsletter') !== 'true') {
        this.openModal();
-    localStorage.setItem("newsletter", 'true');
+    }
+    localStorage.setItem('newsletter', 'true');
   }
 
   openModal() {
-    if (isPlatformBrowser(this.platformId)) { // For SSR 
-      this.modalService.open(this.NewsLetterModal, { 
+    if (isPlatformBrowser(this.platformId)) { // For SSR
+      this.modalService.open(this.NewsLetterModal, {
         size: 'lg',
         ariaLabelledBy: 'NewsLetter-Modal',
         centered: true,
         windowClass: 'theme-modal newsletterm NewsLetterModal'
       }).result.then((result) => {
         this.modalOpen = true;
-        `Result ${result}`
+        `Result ${result}`;
       }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
@@ -54,7 +55,7 @@ export class NewsletterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if(this.modalOpen){
+    if (this.modalOpen){
       this.modalService.dismissAll();
     }
   }

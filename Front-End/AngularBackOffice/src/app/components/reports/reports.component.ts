@@ -26,7 +26,7 @@ export class ReportsComponent implements OnInit {
   public columnChart1 = chartData.columnChart1;
   public lineChart = chartData.lineChart;
 
-  public chart5 = chartData.chart6
+  public chart5 = chartData.chart6;
 
   public tableItem$: Observable<ReportDB[]>;
   public searchText;
@@ -35,7 +35,7 @@ export class ReportsComponent implements OnInit {
   constructor(public service: TableService) {
     this.tableItem$ = service.tableItem$;
     this.total$ = service.total$;
-    this.service.setUserData(REPORTDB)
+    this.service.setUserData(REPORTDB);
   }
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;

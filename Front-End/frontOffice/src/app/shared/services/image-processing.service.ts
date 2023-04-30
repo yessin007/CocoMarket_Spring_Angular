@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {DomSanitizer} from "@angular/platform-browser";
-import {FileHandle, Product} from "../classes/product";
+import {DomSanitizer} from '@angular/platform-browser';
+import {FileHandle, Product} from '../classes/product';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class ImageProcessingService {
     const productImages: any[] = product.image;
     const productImagesToFileHandle: FileHandle[] = [];
     // tslint:disable-next-line:prefer-for-of
-    for(let i = 0; i < productImages.length; i++){
+    for (let i = 0; i < productImages.length; i++){
       const imageFileData = productImages[i];
       const imageBlob = this.dataURItoBlob(imageFileData.picByte, imageFileData.type);
       const imageFile = new File([imageBlob], imageFileData.name, {type: imageFileData.type});

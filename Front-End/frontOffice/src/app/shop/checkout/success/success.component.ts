@@ -10,17 +10,17 @@ import { ProductService } from '../../../shared/services/product.service';
 })
 export class SuccessComponent implements OnInit, AfterViewInit{
 
-  public orderDetails : Order = {};
+  public orderDetails: Order = {};
 
   constructor(public productService: ProductService,
-    private orderService: OrderService) { }
+              private orderService: OrderService) { }
 
-  ngOnInit(): void {	
+  ngOnInit(): void {
     this.orderService.checkoutItems.subscribe(response => this.orderDetails = response);
   }
 
   ngAfterViewInit() {
-    
+
   }
 
 }

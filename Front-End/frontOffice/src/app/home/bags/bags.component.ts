@@ -10,8 +10,8 @@ import { ProductService } from '../../shared/services/product.service';
 })
 export class BagsComponent implements OnInit, OnDestroy {
 
-  public themeLogo: string = 'assets/images/icon/logo-7.png'; // Change Logo
-  public themeLogoWhite: string = 'assets/images/icon/logo-8.png'; // Change Logo
+  public themeLogo = 'assets/images/icon/logo-7.png'; // Change Logo
+  public themeLogoWhite = 'assets/images/icon/logo-8.png'; // Change Logo
 
   public products: Product[] = [];
   public productCollections: any[] = [];
@@ -27,9 +27,9 @@ export class BagsComponent implements OnInit, OnDestroy {
       this.products.filter((item) => {
         item.collection.filter((collection) => {
           const index = this.productCollections.indexOf(collection);
-          if (index === -1) this.productCollections.push(collection);
-        })
-      })
+          if (index === -1) { this.productCollections.push(collection); }
+        });
+      });
     });
   }
 
@@ -88,9 +88,9 @@ export class BagsComponent implements OnInit, OnDestroy {
   getCollectionProducts(collection) {
     return this.products.filter((item) => {
       if (item.collection.find(i => i === collection)) {
-        return item
+        return item;
       }
-    })
+    });
   }
 
 }

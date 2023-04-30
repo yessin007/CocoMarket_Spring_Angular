@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { QuickViewComponent } from "../../modal/quick-view/quick-view.component";
-import { CartModalComponent } from "../../modal/cart-modal/cart-modal.component";
-import { Product } from "../../../classes/product";
-import { ProductService } from "../../../services/product.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import { QuickViewComponent } from '../../modal/quick-view/quick-view.component';
+import { CartModalComponent } from '../../modal/cart-modal/cart-modal.component';
+import { Product } from '../../../classes/product';
+import { ProductService } from '../../../services/product.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-product-box-three',
@@ -14,10 +14,10 @@ export class ProductBoxThreeComponent implements OnInit {
 
   @Input() product: Product;
   @Input() currency: any = this.productService.Currency; // Default Currency
-  @Input() cartModal: boolean = false; // Default False
-  
-  @ViewChild("quickView") QuickView: QuickViewComponent;
-  @ViewChild("cartModal") CartModal: CartModalComponent;
+  @Input() cartModal = false; // Default False
+
+  @ViewChild('quickView') QuickView: QuickViewComponent;
+  @ViewChild('cartModal') CartModal: CartModalComponent;
 
   constructor(private productService: ProductService, private route: ActivatedRoute, private router: Router) { }
 

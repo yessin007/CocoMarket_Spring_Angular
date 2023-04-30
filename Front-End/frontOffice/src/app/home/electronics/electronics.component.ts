@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Product } from '../../shared/classes/product';
 import { ProductService } from '../../shared/services/product.service';
-import {ImageProcessingService} from "../../shared/services/image-processing.service";
-import {map} from "rxjs/operators";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ImageProcessingService} from '../../shared/services/image-processing.service';
+import {map} from 'rxjs/operators';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-electronics',
@@ -38,7 +38,7 @@ export class ElectronicsComponent implements OnInit, OnDestroy {
     image: 'assets/images/collection/electronics/3.jpg',
     save: '10% off',
     title: 'best deal'
-  }]
+  }];
   public Initialization() {
     this.productService.getProducts.subscribe(response => {
       // tslint:disable-next-line:triple-equals
@@ -69,9 +69,9 @@ export class ElectronicsComponent implements OnInit, OnDestroy {
   public getCollectionProducts(collection) {
     return this.products.filter((item) => {
       if (item.collection.find(i => i === collection)) {
-        return item
+        return item;
       }
-    })
+    });
   }
   // change the path
   showProductDetails(productID) {

@@ -10,7 +10,7 @@ import { Lightbox } from 'ng-gallery/lightbox';
 })
 
 export class GridFourComponent implements OnInit {
-  public galleryFilter: string = 'all'
+  public galleryFilter = 'all';
   items: GalleryItem[];
 
   public imageData = AllImage;
@@ -35,18 +35,18 @@ export class GridFourComponent implements OnInit {
 
   filter(term) {
     if (term == 'all') {
-      this.imageData = AllImage
+      this.imageData = AllImage;
     } else if (term == 'fashion') {
-      this.imageData = FashionImage
+      this.imageData = FashionImage;
     } else if (term == 'bags') {
-      this.imageData = BagImages
+      this.imageData = BagImages;
     } else if (term == 'shoes') {
-      this.imageData = ShoesImages
+      this.imageData = ShoesImages;
     } else if (term == 'watch') {
-      this.imageData = WatchImages
+      this.imageData = WatchImages;
     }
 
-    console.log("image", this.imageData);
+    console.log('image', this.imageData);
 
     this.items = this.imageData.map(item => new ImageItem({ src: item.srcUrl, thumb: item.previewUrl }));
 
@@ -65,7 +65,7 @@ export class GridFourComponent implements OnInit {
     // Load items into the lightbox gallery ref
     lightboxRef.load(this.items);
 
-    this.galleryFilter = term
+    this.galleryFilter = term;
   }
 }
 
@@ -109,7 +109,7 @@ const FashionImage = [
     srcUrl: 'assets/images/portfolio/grid/1.jpg',
     previewUrl: 'assets/images/portfolio/grid/1.jpg'
   }
-]
+];
 
 const BagImages = [
   {
@@ -135,7 +135,7 @@ const ShoesImages = [
     srcUrl: 'assets/images/portfolio/grid/8.jpg',
     previewUrl: 'assets/images/portfolio/grid/8.jpg'
   }
-]
+];
 
 const WatchImages = [
   {
@@ -146,4 +146,4 @@ const WatchImages = [
     srcUrl: 'assets/images/portfolio/grid/6.jpg',
     previewUrl: 'assets/images/portfolio/grid/6.jpg'
   }
-]
+];

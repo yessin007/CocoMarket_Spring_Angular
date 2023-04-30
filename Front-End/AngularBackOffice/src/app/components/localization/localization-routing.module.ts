@@ -10,16 +10,16 @@ const routes: Routes = [
     path: 'translations',
     component: TranslationsComponent,
     data: {
-      title: "Translations",
-      breadcrumb: "Translations"
+      title: 'Translations',
+      breadcrumb: 'Translations'
     }
   },
   {
     path: 'currency-rates',
     component: RatesComponent,
     data: {
-      title: "Currency Rates",
-      breadcrumb: "Currency Rates"
+      title: 'Currency Rates',
+      breadcrumb: 'Currency Rates'
     }
   },
   {

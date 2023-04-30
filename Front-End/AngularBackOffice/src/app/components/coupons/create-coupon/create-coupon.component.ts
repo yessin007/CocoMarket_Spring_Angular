@@ -45,14 +45,14 @@ export class CreateCouponComponent implements OnInit {
       category: [''],
       min: [''],
       max: ['']
-    })
+    });
   }
 
   createUsageForm() {
     this.usageForm = this.formBuilder.group({
       limit: [''],
       customer: ['']
-    })
+    });
   }
   ngOnInit() {
 

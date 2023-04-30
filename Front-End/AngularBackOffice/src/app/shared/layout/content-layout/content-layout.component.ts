@@ -10,15 +10,15 @@ import {  fadeIn } from 'ng-animate';
   animations: [
     trigger('animateRoute', [transition('* => *', useAnimation(fadeIn, {
       // Set the duration to 5seconds and delay to 2 seconds
-      //params: { timing: 3}
+      // params: { timing: 3}
     }))])
   ]
 })
 export class ContentLayoutComponent implements OnInit {
 
   public right_side_bar: boolean;
-  public layoutType: string = 'RTL';
-  public layoutClass: boolean = false;
+  public layoutType = 'RTL';
+  public layoutClass = false;
 
   constructor(public navServices: NavService) { }
 
@@ -27,7 +27,7 @@ export class ContentLayoutComponent implements OnInit {
   }
 
   public rightSidebar($event) {
-    this.right_side_bar = $event
+    this.right_side_bar = $event;
   }
 
   public clickRtl(val) {

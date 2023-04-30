@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Product } from "../../../classes/product";
-import {Router} from "@angular/router";
+import { Product } from '../../../classes/product';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-product-box-vertical',
@@ -9,11 +9,11 @@ import {Router} from "@angular/router";
 })
 export class ProductBoxVerticalComponent implements OnInit {
 
-  @Input() product : Product;
-  @Input() currency : any;
+  @Input() product: Product;
+  @Input() currency: any;
 
-  public ImageSrc : string
-  
+  public ImageSrc: string;
+
   constructor(private  router: Router) { }
 
   ngOnInit(): void {
@@ -24,10 +24,10 @@ export class ProductBoxVerticalComponent implements OnInit {
     const uniqColor = [];
     for (let i = 0; i < Object.keys(variants).length; i++) {
       if (uniqColor.indexOf(variants[i].color) === -1 && variants[i].color) {
-        uniqColor.push(variants[i].color)
+        uniqColor.push(variants[i].color);
       }
     }
-    return uniqColor
+    return uniqColor;
   }
   showProductDetails(productID) {
     this.router.navigate(['shop/product/left/sidebar/', {productId: productID}]);
@@ -42,9 +42,9 @@ export class ProductBoxVerticalComponent implements OnInit {
           if (img.image_id === item.image_id) {
             this.ImageSrc = img.src;
           }
-        })
+        });
       }
-    })
+    });
   }
 
 }

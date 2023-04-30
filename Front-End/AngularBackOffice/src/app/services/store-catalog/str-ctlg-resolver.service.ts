@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {CatalogServiceService} from "../catalogService/catalog-service.service";
-import {StoreCatalog} from "../../models/storeCatalog";
-import {ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
-import {Observable, of} from "rxjs";
+import {CatalogServiceService} from '../catalogService/catalog-service.service';
+import {StoreCatalog} from '../../models/storeCatalog';
+import {ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
+import {Observable, of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

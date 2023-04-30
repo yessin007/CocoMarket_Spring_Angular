@@ -20,7 +20,7 @@ export class RatesComponent implements OnInit {
   constructor(public service: TableService) {
     this.tableItem$ = service.tableItem$;
     this.total$ = service.total$;
-    this.service.setUserData(RATEDB)
+    this.service.setUserData(RATEDB);
   }
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;

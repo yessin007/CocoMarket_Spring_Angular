@@ -6,16 +6,16 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./countdown.component.scss']
 })
 export class CountdownComponent implements OnInit {
-  
+
   @Input() date: string;
 
   public timerdate;
   public now;
 
-  constructor() { 
+  constructor() {
     window.setInterval(() => {
-      this.now = Math.trunc(new Date().getTime() / 1000)
-    }, 1000)
+      this.now = Math.trunc(new Date().getTime() / 1000);
+    }, 1000);
   }
 
   ngOnInit(): void {
@@ -24,19 +24,19 @@ export class CountdownComponent implements OnInit {
   }
 
   get seconds() {
-    return (this.timerdate - this.now) % 60
+    return (this.timerdate - this.now) % 60;
   }
 
   get minutes() {
-    return Math.trunc((this.timerdate - this.now) / 60) % 60
+    return Math.trunc((this.timerdate - this.now) / 60) % 60;
   }
 
   get hours() {
-    return Math.trunc((this.timerdate - this.now) / 60 / 60) % 24
+    return Math.trunc((this.timerdate - this.now) / 60 / 60) % 24;
   }
 
   get days() {
-    return Math.trunc((this.timerdate - this.now) / 60 / 60 / 24)
+    return Math.trunc((this.timerdate - this.now) / 60 / 60 / 24);
   }
 
 }

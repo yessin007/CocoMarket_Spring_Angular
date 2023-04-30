@@ -11,7 +11,7 @@ import { ProductService } from '../../shared/services/product.service';
 })
 export class ToolsComponent implements OnInit, OnDestroy {
 
-  public themeLogo: string = 'assets/images/icon/logo-5.png';
+  public themeLogo = 'assets/images/icon/logo-5.png';
 
   public products: Product[] = [];
   public productCollections: any[] = [];
@@ -19,17 +19,17 @@ export class ToolsComponent implements OnInit, OnDestroy {
   tabs = [1, 2, 3, 4, 5];
 
   constructor(private _sanitizer: DomSanitizer,
-    public productService: ProductService) {
+              public productService: ProductService) {
     this.productService.getProducts.subscribe(response => {
       this.products = response.filter(item => item.productCategory == 'tools');
       // Get Product Collection
       this.products.filter((item) => {
         item.collection.filter((collection) => {
           const index = this.productCollections.indexOf(collection);
-          if (index === -1) this.productCollections.push(collection);
-        })
-      })
-      console.log("this.products", this.products);
+          if (index === -1) { this.productCollections.push(collection); }
+        });
+      });
+      console.log('this.products', this.products);
 
     });
   }
@@ -58,7 +58,7 @@ export class ToolsComponent implements OnInit, OnDestroy {
     image: 'assets/images/categories/10.jpg',
     title: 'other parts',
     text: this._sanitizer.bypassSecurityTrustHtml('<li><a href="#">Shock-resistant parts</a></li><li><a href="#">Skeleton parts</a></li><li><a href="#">Slow parts</a></li><li><a href="#">Solar-powered parts</a></li>'),
-  }]
+  }];
 
   // Logo
   public logos = [{
@@ -81,21 +81,21 @@ export class ToolsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // Add class in body
-    document.body.classList.add("tools-bg");
+    document.body.classList.add('tools-bg');
   }
 
   ngOnDestroy(): void {
     // Remove class in body
-    document.body.classList.remove("tools-bg");
+    document.body.classList.remove('tools-bg');
   }
 
   // Product Tab collection
   getCollectionProducts(collection) {
     return this.products.filter((item) => {
       if (item.collection.find(i => i === collection)) {
-        return item
+        return item;
       }
-    })
+    });
   }
 
 }

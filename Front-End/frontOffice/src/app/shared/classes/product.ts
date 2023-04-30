@@ -1,5 +1,5 @@
 // Products
-import {SafeUrl} from "@angular/platform-browser";
+import {SafeUrl} from '@angular/platform-browser';
 
 export interface Product {
 

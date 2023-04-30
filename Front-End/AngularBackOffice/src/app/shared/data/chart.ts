@@ -9,54 +9,54 @@
 //   events?: any;
 // }
 
-export var doughnutData = [
+export let doughnutData = [
   {
     value: 100,
-    name: "Frontend"
+    name: 'Frontend'
 
   },
   {
     value: 150,
-    name: "Backend"
+    name: 'Backend'
   },
   {
     value: 150,
-    name: "Api"
+    name: 'Api'
   },
   {
     value: 100,
-    name: "Issues"
+    name: 'Issues'
   }
 ];
 
-export var view: any[] = [409, 204];
+export let view: any[] = [409, 204];
 
-export var pieData = [
+export let pieData = [
   {
     value: 300,
-    name: "Frontend"
+    name: 'Frontend'
 
   },
   {
     value: 50,
-    name: "Backend"
+    name: 'Backend'
   },
   {
     value: 100,
-    name: "Api"
+    name: 'Api'
   },
-]
+];
 
-//Options
-export var doughnutChartShowLabels = false;
-export var doughnutChartTooltip = false;
-export var doughnutChartGradient = false;
-export var doughnutChartcolorScheme = {
-  domain: ["#ff7f83", "#02cccd", "#a5a5a5", "#ffbc58"],
+// Options
+export let doughnutChartShowLabels = false;
+export let doughnutChartTooltip = false;
+export let doughnutChartGradient = false;
+export let doughnutChartcolorScheme = {
+  domain: ['#ff7f83', '#02cccd', '#a5a5a5', '#ffbc58'],
 };
 
 // Chart 5 Line chart with area
-export var chart5: any= {
+export let chart5: any = {
   type: 'Line',
   data: {
     labels: [1, 2, 3, 4, 5, 6, 7, 8],
@@ -75,21 +75,21 @@ export var chart5: any= {
     seriesBarDistance: 12,
     axisX: {
       showGrid: false,
-      labelInterpolationFnc: function (value) {
+      labelInterpolationFnc(value) {
         return value[0];
       }
     }
   },
 };
 
-//line chart
-export var lineChartData: Array<any> = [
+// line chart
+export let lineChartData: Array<any> = [
   { data: [20, 5, 80, 10, 100, 15] },
   { data: [0, 50, 20, 70, 30, 27] },
   { data: [0, 30, 40, 10, 86, 40] }
 ];
-export var lineChartLabels: Array<any> = ["1 min.", "10 min.", "20 min.", "30 min.", "40 min.", "50 min."];
-export var lineChartOptions: any = {
+export let lineChartLabels: Array<any> = ['1 min.', '10 min.', '20 min.', '30 min.', '40 min.', '50 min.'];
+export let lineChartOptions: any = {
   scaleShowGridLines: true,
   scaleGridLineWidth: 1,
   scaleShowHorizontalLines: true,
@@ -111,49 +111,49 @@ export var lineChartOptions: any = {
     }
   },
 };
-export var lineChartColors: Array<any> = [
+export let lineChartColors: Array<any> = [
   {
-    backgroundColor: "transparent",
-    borderColor: "#01cccd",
-    pointColor: "#01cccd",
-    pointStrokeColor: "#fff",
-    pointHighlightFill: "#fff",
-    pointHighlightStroke: "#000"
+    backgroundColor: 'transparent',
+    borderColor: '#01cccd',
+    pointColor: '#01cccd',
+    pointStrokeColor: '#fff',
+    pointHighlightFill: '#fff',
+    pointHighlightStroke: '#000'
   },
   {
-    backgroundColor: "transparent",
-    borderColor: "#a5a5a5",
-    pointColor: "#a5a5a5",
-    pointStrokeColor: "#fff",
-    pointHighlightFill: "#000",
-    pointHighlightStroke: "rgba(30, 166, 236, 1)",
+    backgroundColor: 'transparent',
+    borderColor: '#a5a5a5',
+    pointColor: '#a5a5a5',
+    pointStrokeColor: '#fff',
+    pointHighlightFill: '#000',
+    pointHighlightStroke: 'rgba(30, 166, 236, 1)',
   },
   {
-    backgroundColor: "transparent",
-    borderColor: "#ff7f83",
-    pointColor: "#ff7f83",
-    pointStrokeColor: "#fff",
-    pointHighlightFill: "#000",
-    pointHighlightStroke: "rgba(30, 166, 236, 1)",
+    backgroundColor: 'transparent',
+    borderColor: '#ff7f83',
+    pointColor: '#ff7f83',
+    pointStrokeColor: '#fff',
+    pointHighlightFill: '#000',
+    pointHighlightStroke: 'rgba(30, 166, 236, 1)',
   }
 ];
-export var lineChartLegend = false;
-export var lineChartType = 'line';
+export let lineChartLegend = false;
+export let lineChartType = 'line';
 
 
-//line chart
-export var smallLineChartData: Array<any> = [
+// line chart
+export let smallLineChartData: Array<any> = [
   { data: [20, 5, 120, 10, 140, 15] },
 ];
-export var smallLineChartLabels: Array<any> = ["", "", "", "", "", ""];
-export var smallLineChartOptions: any = {
+export let smallLineChartLabels: Array<any> = ['', '', '', '', '', ''];
+export let smallLineChartOptions: any = {
   scaleShowHorizontalLines: false,
   pointDotStrokeWidth: 0,
   scaleShowVerticalLines: false,
   responsive: true,
-  backgroundColor: "transparent",
-  borderColor: "#ff8084",
-  pointColor: "#ff8084",
+  backgroundColor: 'transparent',
+  borderColor: '#ff8084',
+  pointColor: '#ff8084',
   elements: {
     point: {
       radius: 0
@@ -180,15 +180,15 @@ export var smallLineChartOptions: any = {
     },
   }
 };
-export var smallLineChartLegend = false;
-export var smallLineChartType = 'line';
+export let smallLineChartLegend = false;
+export let smallLineChartType = 'line';
 
-//line chart
-export var smallLine2ChartData: Array<any> = [
+// line chart
+export let smallLine2ChartData: Array<any> = [
   { data: [85, 83, 90, 70, 85, 60, 65, 63, 68, 68, 65, 40, 60, 75, 70, 90] },
 ];
-export var smallLine2ChartLabels: Array<any> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17'];
-export var smallLine2ChartOptions: any = {
+export let smallLine2ChartLabels: Array<any> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17'];
+export let smallLine2ChartOptions: any = {
   scaleShowHorizontalLines: false,
   pointDotStrokeWidth: 0,
   scaleShowVerticalLines: false,
@@ -222,23 +222,23 @@ export var smallLine2ChartOptions: any = {
     },
   }
 };
-export var smallLine2ChartLegend = false;
-export var smallLine2ChartType = 'line';
+export let smallLine2ChartLegend = false;
+export let smallLine2ChartType = 'line';
 
 
-//line chart
-export var smallLine3ChartData: Array<any> = [
+// line chart
+export let smallLine3ChartData: Array<any> = [
   { data: [85, 83, 90, 70, 85, 60, 65, 63, 68, 68, 65, 40, 60, 75, 70, 90] },
 ];
-export var smallLine3ChartLabels: Array<any> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17'];
-export var smallLine3ChartOptions: any = {
+export let smallLine3ChartLabels: Array<any> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17'];
+export let smallLine3ChartOptions: any = {
   scaleShowHorizontalLines: false,
   pointDotStrokeWidth: 0,
   scaleShowVerticalLines: false,
   responsive: true,
-  backgroundColor: "transparent",
-  borderColor: "#f0b54d",
-  pointColor: "#f0b54d",
+  backgroundColor: 'transparent',
+  borderColor: '#f0b54d',
+  pointColor: '#f0b54d',
   elements: {
     point: {
       radius: 0
@@ -268,25 +268,25 @@ export var smallLine3ChartOptions: any = {
     },
   }
 };
-export var smallLine3ChartLegend = false;
-export var smallLine3ChartType = 'line';
+export let smallLine3ChartLegend = false;
+export let smallLine3ChartType = 'line';
 
-//line chart
-export var smallLine4ChartData: Array<any> = [
+// line chart
+export let smallLine4ChartData: Array<any> = [
   { data: [85, 83, 90, 70, 85, 60, 65, 63, 68, 68, 65, 40, 60, 68, 75, 70, 90] },
 ];
-export var smallLine4ChartLabels: Array<any> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17'];
-export var smallLine4ChartOptions: any = {
+export let smallLine4ChartLabels: Array<any> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17'];
+export let smallLine4ChartOptions: any = {
   scaleShowHorizontalLines: false,
   pointDotStrokeWidth: 0,
   scaleShowVerticalLines: false,
   responsive: true,
-  backgroundColor: "transparent",
-  borderColor: "#a5a5a5",
-  pointColor: "#a5a5a5",
-  pointStrokeColor: "#fff",
-  pointHighlightFill: "#fff",
-  pointHighlightStroke: "#000",
+  backgroundColor: 'transparent',
+  borderColor: '#a5a5a5',
+  pointColor: '#a5a5a5',
+  pointStrokeColor: '#fff',
+  pointHighlightFill: '#fff',
+  pointHighlightStroke: '#000',
   elements: {
     point: {
       radius: 0
@@ -316,23 +316,23 @@ export var smallLine4ChartOptions: any = {
     },
   }
 };
-export var smallLine4ChartColors: Array<any> = [
+export let smallLine4ChartColors: Array<any> = [
   {
-    backgroundColor: "transparent",
-    borderColor: "#a5a5a5",
-    pointColor: "#a5a5a5",
-    pointStrokeColor: "#fff",
-    pointHighlightFill: "#fff",
-    pointHighlightStroke: "#000",
+    backgroundColor: 'transparent',
+    borderColor: '#a5a5a5',
+    pointColor: '#a5a5a5',
+    pointStrokeColor: '#fff',
+    pointHighlightFill: '#fff',
+    pointHighlightStroke: '#000',
   },
 
 ];
-export var smallLine4ChartLegend = false;
-export var smallLine4ChartType = 'line';
+export let smallLine4ChartLegend = false;
+export let smallLine4ChartType = 'line';
 
 
 // Chart 3
-export var chart3: any = {
+export let chart3: any = {
   type: 'Bar',
   data: {
     labels: ['100', '200', '300', '400', '500', '600', '700', '800'],
@@ -346,7 +346,7 @@ export var chart3: any = {
     seriesBarDistance: 12,
     axisX: {
       showGrid: false,
-      labelInterpolationFnc: function (value) {
+      labelInterpolationFnc(value) {
         return value[0];
       }
     }
@@ -359,16 +359,16 @@ export var chart3: any = {
 };
 
 
-//report component
+// report component
 
-//line chart
-export var salesChartData: Array<any> = [
+// line chart
+export let salesChartData: Array<any> = [
   { data: [10, 50, 0, 80, 10, 70] },
   { data: [20, 40, 15, 70, 30, 27] },
   { data: [5, 30, 20, 40, 50, 20] }
 ];
-export var salesChartLabels: Array<any> = ["1 min.", "10 min.", "20 min.", "30 min.", "40 min.", "50 min."];
-export var salesChartOptions: any = {
+export let salesChartLabels: Array<any> = ['1 min.', '10 min.', '20 min.', '30 min.', '40 min.', '50 min.'];
+export let salesChartOptions: any = {
   scaleShowGridLines: true,
   scaleGridLineWidth: 1,
   scaleShowHorizontalLines: true,
@@ -390,36 +390,36 @@ export var salesChartOptions: any = {
     }
   },
 };
-export var salesChartColors: Array<any> = [
+export let salesChartColors: Array<any> = [
   {
-    backgroundColor: "transparent",
-    borderColor: "#01cccd",
-    pointColor: "#01cccd",
-    pointStrokeColor: "#fff",
-    pointHighlightFill: "#fff",
-    pointHighlightStroke: "#000"
+    backgroundColor: 'transparent',
+    borderColor: '#01cccd',
+    pointColor: '#01cccd',
+    pointStrokeColor: '#fff',
+    pointHighlightFill: '#fff',
+    pointHighlightStroke: '#000'
   },
   {
-    backgroundColor: "transparent",
-    borderColor: "#a5a5a5",
-    pointColor: "#a5a5a5",
-    pointStrokeColor: "#fff",
-    pointHighlightFill: "#000",
-    pointHighlightStroke: "rgba(30, 166, 236, 1)",
+    backgroundColor: 'transparent',
+    borderColor: '#a5a5a5',
+    pointColor: '#a5a5a5',
+    pointStrokeColor: '#fff',
+    pointHighlightFill: '#000',
+    pointHighlightStroke: 'rgba(30, 166, 236, 1)',
   },
   {
-    backgroundColor: "transparent",
-    borderColor: "#ff7f83",
-    pointColor: "#ff7f83",
-    pointStrokeColor: "#fff",
-    pointHighlightFill: "#000",
-    pointHighlightStroke: "rgba(30, 166, 236, 1)",
+    backgroundColor: 'transparent',
+    borderColor: '#ff7f83',
+    pointColor: '#ff7f83',
+    pointStrokeColor: '#fff',
+    pointHighlightFill: '#000',
+    pointHighlightStroke: 'rgba(30, 166, 236, 1)',
   }
 ];
-export var salesChartLegend = false;
-export var salesChartType = 'line';
+export let salesChartLegend = false;
+export let salesChartType = 'line';
 
-export var areaChart1: any = {
+export let areaChart1: any = {
   chartType: 'AreaChart',
   dataTable: [
     ['Year', 'Sales', 'Expenses'],
@@ -434,38 +434,38 @@ export var areaChart1: any = {
     vAxis: { minValue: 0 },
     width: '100%',
     height: 340,
-    colors: ["#ff7f83", "#a5a5a5"],
+    colors: ['#ff7f83', '#a5a5a5'],
     backgroundColor: 'transparent'
   },
 };
 
-export var columnChart1: any = {
+export let columnChart1: any = {
   chartType: 'ColumnChart',
   dataTable: [
-    ["Year", "Sales", "Expenses"],
-    ["100", 2.5, 3.8],
-    ["200", 3, 1.8],
-    ["300", 3, 4.3],
-    ["400", 0.9, 2.3],
-    ["500", 1.3, 3.6],
-    ["600", 1.8, 2.8],
-    ["700", 3.8, 2.8],
-    ["800", 1.5, 2.8]
+    ['Year', 'Sales', 'Expenses'],
+    ['100', 2.5, 3.8],
+    ['200', 3, 1.8],
+    ['300', 3, 4.3],
+    ['400', 0.9, 2.3],
+    ['500', 1.3, 3.6],
+    ['600', 1.8, 2.8],
+    ['700', 3.8, 2.8],
+    ['800', 1.5, 2.8]
   ],
   options: {
     legend: { position: 'none' },
-    bars: "vertical",
+    bars: 'vertical',
     vAxis: {
-      format: "decimal"
+      format: 'decimal'
     },
     height: 340,
     width: '100%',
-    colors: ["#ff7f83", "#a5a5a5"],
+    colors: ['#ff7f83', '#a5a5a5'],
     backgroundColor: 'transparent'
   },
 };
 
-export var lineChart: any = {
+export let lineChart: any = {
   chartType: 'LineChart',
   dataTable: [
     ['Month', 'Guardians of the Galaxy', 'The Avengers'],
@@ -480,7 +480,7 @@ export var lineChart: any = {
     [90, 20, 0]
   ],
   options: {
-    colors: ["#ff8084", "#a5a5a5"],
+    colors: ['#ff8084', '#a5a5a5'],
     legend: { position: 'none' },
     height: 500,
     width: '100%',
@@ -488,7 +488,7 @@ export var lineChart: any = {
   },
 };
 
-export var chart6: any = {
+export let chart6: any = {
   type: 'Line',
   data: {
     labels: [],

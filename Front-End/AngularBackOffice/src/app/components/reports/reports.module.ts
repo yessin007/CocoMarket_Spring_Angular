@@ -5,7 +5,7 @@ import { ReportsComponent } from './reports.component';
 import { NgChartsModule } from 'ng2-charts';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { ChartistModule } from 'ng-chartist'
+import { ChartistModule } from 'ng-chartist';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 

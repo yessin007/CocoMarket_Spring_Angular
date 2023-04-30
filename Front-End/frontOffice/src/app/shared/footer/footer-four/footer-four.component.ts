@@ -7,11 +7,11 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class FooterFourComponent implements OnInit {
 
-  @Input() class: string = 'footer-light' // Default class 
-  @Input() themeLogo: string = 'assets/images/icon/logo.png' // Default Logo
+  @Input() class = 'footer-light'; // Default class
+  @Input() themeLogo = 'assets/images/icon/logo.png'; // Default Logo
 
   public today: number = Date.now();
-  
+
   constructor() { }
 
   ngOnInit(): void {

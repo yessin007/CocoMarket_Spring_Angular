@@ -1,19 +1,19 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { SortEvent } from 'src/app/shared/directives/shorting.directive';
-import { NgbdSortableHeader } from "src/app/shared/directives/NgbdSortableHeader";
+import { NgbdSortableHeader } from 'src/app/shared/directives/NgbdSortableHeader';
 import { TableService } from 'src/app/shared/service/table.service';
 import { Observable } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { OrderDB, ORDERDB } from 'src/app/shared/tables/order-list';
-import {OrderService} from "../../../services/order/order.service";
-import {Order} from "../../../models/order";
-import {map} from "rxjs/operators";
-import {Product} from "../../../models/product";
-import {HttpErrorResponse} from "@angular/common/http";
-import {Router} from "@angular/router";
-import {AuthService} from "../../../services/auth.service";
-import {User} from "../../../models/User";
+import {OrderService} from '../../../services/order/order.service';
+import {Order} from '../../../models/order';
+import {map} from 'rxjs/operators';
+import {Product} from '../../../models/product';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Router} from '@angular/router';
+import {AuthService} from '../../../services/auth.service';
+import {User} from '../../../models/User';
 
 @Component({
   selector: 'app-orders',

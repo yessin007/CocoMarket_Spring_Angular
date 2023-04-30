@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, TemplateRef, Input,
   Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { Product } from "../../../classes/product";
+import { Product } from '../../../classes/product';
 
 @Component({
   selector: 'app-size-modal',
@@ -10,30 +10,30 @@ import { Product } from "../../../classes/product";
   styleUrls: ['./size-modal.component.scss']
 })
 export class SizeModalComponent implements OnInit, OnDestroy  {
-  
+
   @Input() product: Product;
 
-  @ViewChild("sizeChart", { static: false }) SizeChart: TemplateRef<any>;
+  @ViewChild('sizeChart', { static: false }) SizeChart: TemplateRef<any>;
 
   public closeResult: string;
-  public modalOpen: boolean = false;
+  public modalOpen = false;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object,
-    private modalService: NgbModal) { }
+              private modalService: NgbModal) { }
 
   ngOnInit(): void {
   }
 
   openModal() {
     this.modalOpen = true;
-    if (isPlatformBrowser(this.platformId)) { // For SSR 
-      this.modalService.open(this.SizeChart, { 
+    if (isPlatformBrowser(this.platformId)) { // For SSR
+      this.modalService.open(this.SizeChart, {
         size: 'md',
         ariaLabelledBy: 'size-modal',
         centered: true,
-        windowClass: 'SizeChart' 
+        windowClass: 'SizeChart'
       }).result.then((result) => {
-        `Result ${result}`
+        `Result ${result}`;
       }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
@@ -51,7 +51,7 @@ export class SizeModalComponent implements OnInit, OnDestroy  {
   }
 
   ngOnDestroy() {
-    if(this.modalOpen){
+    if (this.modalOpen){
       this.modalService.dismissAll();
     }
   }

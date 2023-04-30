@@ -81,12 +81,12 @@ export class TableService {
     set sortDirection(sortDirection: SortDirection) { this._set({ sortDirection }); }
 
     setUserData(val: object) {
-        console.log("val", val);
+        console.log('val', val);
 
         this.userData = val;
     }
 
-    
+
 
     private _set(patch: Partial<State>) {
         Object.assign(this._state, patch);
@@ -98,7 +98,7 @@ export class TableService {
 
         // 1. sort
         let tableItem = sort(this.userData, sortColumn, sortDirection);
-        console.log("tableItem", tableItem);
+        console.log('tableItem', tableItem);
 
         // 2. filter
         const total = tableItem.length;
@@ -106,7 +106,7 @@ export class TableService {
         tableItem = tableItem
             .map((item, i) => ({ id: i + 1, ...item }))
             .slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
-        console.log("total ", tableItem);
+        console.log('total ', tableItem);
         return of({ tableItem, total });
     }
 

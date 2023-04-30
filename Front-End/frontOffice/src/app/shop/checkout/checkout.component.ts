@@ -3,9 +3,9 @@ import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms
 import { Observable } from 'rxjs';
 // import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { environment } from '../../../environments/environment';
-import { Product } from "../../shared/classes/product";
-import { ProductService } from "../../shared/services/product.service";
-import { OrderService } from "../../shared/services/order.service";
+import { Product } from '../../shared/classes/product';
+import { ProductService } from '../../shared/services/product.service';
+import { OrderService } from '../../shared/services/order.service';
 
 @Component({
   selector: 'app-checkout',
@@ -14,15 +14,15 @@ import { OrderService } from "../../shared/services/order.service";
 })
 export class CheckoutComponent implements OnInit {
 
-  public checkoutForm:  UntypedFormGroup;
+  public checkoutForm: UntypedFormGroup;
   public products: Product[] = [];
   // public payPalConfig ? : IPayPalConfig;
-  public payment: string = 'Stripe';
-  public amount:  any;
+  public payment = 'Stripe';
+  public amount: any;
 
   constructor(private fb: UntypedFormBuilder,
-    public productService: ProductService,
-    private orderService: OrderService) { 
+              public productService: ProductService,
+              private orderService: OrderService) {
     this.checkoutForm = this.fb.group({
       firstname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       lastname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
@@ -33,7 +33,7 @@ export class CheckoutComponent implements OnInit {
       town: ['', Validators.required],
       state: ['', Validators.required],
       postalcode: ['', Validators.required]
-    })
+    });
   }
 
   ngOnInit(): void {
@@ -48,7 +48,7 @@ export class CheckoutComponent implements OnInit {
 
   // Stripe Payment Gateway
   stripeCheckout() {
-    var handler = (<any>window).StripeCheckout.configure({
+    let handler = (window as any).StripeCheckout.configure({
       key: environment.stripe_token, // publishble key
       locale: 'auto',
       token: (token: any) => {
@@ -61,7 +61,7 @@ export class CheckoutComponent implements OnInit {
       name: 'Multikart',
       description: 'Online Fashion Store',
       amount: this.amount * 100
-    }) 
+    });
   }
 
   // Paypal Payment Gateway

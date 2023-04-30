@@ -15,13 +15,15 @@ import { AppComponent } from './app.component';
 import { ShopComponent } from './shop/shop.component';
 import { PagesComponent } from './pages/pages.component';
 import { ElementsComponent } from './elements/elements.component';
-import {AgmCoreModule} from "@agm/core";
+import {AgmCoreModule} from '@agm/core';
+import { GoogleMapsModule } from '@angular/google-maps'
 
 import { NgxStarRatingModule } from 'ngx-star-rating';
+import {MapComponent} from './pages/map/map.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
-   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -30,7 +32,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ShopComponent,
     PagesComponent,
     ElementsComponent,
-    
+      
+
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -57,6 +60,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAvHALSEQwNE3b-b7eHSZIDv-KK1wr7CRQ'
     }),
+
 
 
   ],

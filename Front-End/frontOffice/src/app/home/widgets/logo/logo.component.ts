@@ -7,14 +7,14 @@ import { LogoSlider } from '../../../shared/data/slider';
   styleUrls: ['./logo.component.scss']
 })
 export class LogoComponent implements OnInit {
-  
-  @Input() logos: any[] = [];
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  @Input() logos: any[] = [];
 
   public LogoSliderConfig: any = LogoSlider;
+
+  ngOnInit(): void {
+  }
 
 }

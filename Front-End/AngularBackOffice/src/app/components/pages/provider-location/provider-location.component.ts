@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {ProviderLocation} from "../../../models/providerLocation";
-import {ProviderService} from "../../../services/provider/provider.service";
-import {response} from "express";
+import {ProviderLocation} from '../../../models/providerLocation';
+import {ProviderService} from '../../../services/provider/provider.service';
+import {response} from 'express';
 
 @Component({
   selector: 'app-provider-location',

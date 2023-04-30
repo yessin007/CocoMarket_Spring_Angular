@@ -14,7 +14,7 @@ export class VegetableComponent implements OnInit {
   public ProductSliderConfig: any = ProductSlider;
 
   constructor(public productService: ProductService) {
-    this.productService.getProducts.subscribe(response => 
+    this.productService.getProducts.subscribe(response =>
       this.products = response.filter(item => item.productCategory == 'vegetables')
     );
   }
@@ -51,7 +51,7 @@ export class VegetableComponent implements OnInit {
     date: '28 January 2018',
     title: 'Lorem ipsum dolor sit consectetur adipiscing elit,',
     by: 'John Dio'
-  }]
+  }];
 
   ngOnInit(): void {
   }

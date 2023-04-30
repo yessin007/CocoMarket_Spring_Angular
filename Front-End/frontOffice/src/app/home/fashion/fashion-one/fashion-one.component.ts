@@ -21,9 +21,9 @@ export class FashionOneComponent implements OnInit {
       this.products.filter((item) => {
         item.collection.filter((collection) => {
           const index = this.productCollections.indexOf(collection);
-          if (index === -1) this.productCollections.push(collection);
-        })
-      })
+          if (index === -1) { this.productCollections.push(collection); }
+        });
+      });
     });
   }
 
@@ -37,7 +37,7 @@ export class FashionOneComponent implements OnInit {
     title: 'welcome to fashion',
     subTitle: 'Women fashion',
     image: 'assets/images/slider/2.jpg'
-  }]
+  }];
 
   // Collection banner
   public collections = [{
@@ -99,9 +99,9 @@ export class FashionOneComponent implements OnInit {
   getCollectionProducts(collection) {
     return this.products.filter((item) => {
       if (item.collection.find(i => i === collection)) {
-        return item
+        return item;
       }
-    })
+    });
   }
 
 }

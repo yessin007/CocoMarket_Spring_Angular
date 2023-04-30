@@ -9,11 +9,11 @@ import { ProductService } from '../../shared/services/product.service';
 })
 export class GymComponent implements OnInit, OnDestroy {
 
-  public themeLogo: string = 'assets/images/icon/logo-2.png'; // Change Logo
+  public themeLogo = 'assets/images/icon/logo-2.png'; // Change Logo
   public products: Product[] = [];
 
   constructor(public productService: ProductService) {
-    this.productService.getProducts.subscribe(response => 
+    this.productService.getProducts.subscribe(response =>
       this.products = response.filter(item => item.productCategory == 'gym')
     );
   }
@@ -27,7 +27,7 @@ export class GymComponent implements OnInit, OnDestroy {
     subTitle: 'Protien Powder',
     image: 'assets/images/slider/20.jpg'
   }];
-  
+
   // Blog
   public blogs = [{
     image: 'assets/images/blog/28.jpg',

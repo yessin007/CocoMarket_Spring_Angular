@@ -8,8 +8,8 @@ const routes: Routes = [
     path: '',
     component: ReportsComponent,
     data: {
-      title: "Reports",
-      breadcrumb: "Reports"
+      title: 'Reports',
+      breadcrumb: 'Reports'
     }
   },
 ];

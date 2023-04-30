@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ProductService} from "../../shared/services/product.service";
-import {Review} from "../../shared/classes/review";
-import {User} from "../../shared/models/User";
-import {Product} from "../../shared/classes/product";
-import {ActivatedRoute} from "@angular/router";
+import {ProductService} from '../../shared/services/product.service';
+import {Review} from '../../shared/classes/review';
+import {User} from '../../shared/models/User';
+import {Product} from '../../shared/classes/product';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-review',

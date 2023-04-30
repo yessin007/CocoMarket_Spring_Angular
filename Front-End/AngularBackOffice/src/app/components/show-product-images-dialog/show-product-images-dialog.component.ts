@@ -1,7 +1,7 @@
  import {Component, Inject, OnInit} from '@angular/core';
-import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+ import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
-@Component({
+ @Component({
   selector: 'app-show-product-images-dialog',
   templateUrl: './show-product-images-dialog.component.html',
   styleUrls: ['./show-product-images-dialog.component.scss']

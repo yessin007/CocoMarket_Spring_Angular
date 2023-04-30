@@ -14,41 +14,41 @@ import { ProductTabsComponent } from './product/product-tabs/product-tabs.compon
 import { MultiSliderComponent } from './product/multi-slider/multi-slider.component';
 
 const routes: Routes = [
-  { 
-    path: 'theme/title', 
-    component: TitleComponent 
+  {
+    path: 'theme/title',
+    component: TitleComponent
   },
-  { 
-    path: 'theme/collection-banner', 
-    component: CollectionBannerComponent 
+  {
+    path: 'theme/collection-banner',
+    component: CollectionBannerComponent
   },
-  { 
-    path: 'theme/home-slider', 
-    component: HomeSliderComponent 
+  {
+    path: 'theme/home-slider',
+    component: HomeSliderComponent
   },
-  { 
-    path: 'theme/category', 
-    component: CategoryComponent 
+  {
+    path: 'theme/category',
+    component: CategoryComponent
   },
-  { 
-    path: 'theme/services', 
-    component: ServicesComponent 
+  {
+    path: 'theme/services',
+    component: ServicesComponent
   },
-  { 
-    path: 'product/slider', 
-    component: ProductSliderComponent 
+  {
+    path: 'product/slider',
+    component: ProductSliderComponent
   },
-  { 
-    path: 'product/banners', 
-    component: BannersComponent 
+  {
+    path: 'product/banners',
+    component: BannersComponent
   },
-  { 
-    path: 'product/tabs', 
-    component: ProductTabsComponent 
+  {
+    path: 'product/tabs',
+    component: ProductTabsComponent
   },
-  { 
-    path: 'product/multi-slider', 
-    component: MultiSliderComponent 
+  {
+    path: 'product/multi-slider',
+    component: MultiSliderComponent
   }
 ];
 

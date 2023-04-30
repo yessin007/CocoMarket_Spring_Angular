@@ -9,7 +9,7 @@ export class AssignLocation {
 
     constructor(private httpClient: HttpClient) {
     }
-    setLatLngToProvider (id){
+    setLatLngToProvider(id){
 
 
    }

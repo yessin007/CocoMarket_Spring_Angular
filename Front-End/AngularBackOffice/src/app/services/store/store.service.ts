@@ -4,7 +4,7 @@ import {Store} from '../../models/store';
 import {Observable} from 'rxjs';
 import {AuthService} from '../auth.service';
 import {RequestBaseService} from '../request-base.service';
-import {PosteStore} from "../../models/PostStore";
+import {PosteStore} from '../../models/PostStore';
 
 
 @Injectable({
@@ -29,7 +29,7 @@ export class StoreService extends RequestBaseService{
 
   }
   addStore(store: FormData): Observable<any> {
-    return this.httpClient.post(this.ADD_Store, store ,{headers: this.getHeaders});
+    return this.httpClient.post(this.ADD_Store, store , {headers: this.getHeaders});
   }
   getAllStores() {
     return this.httpClient.get<Store[]>(this.Get_Store);

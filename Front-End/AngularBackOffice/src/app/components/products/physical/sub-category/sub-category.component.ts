@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { CATEGORY, Category } from 'src/app/shared/tables/category';
 import { TableService } from '../../../../shared/service/table.service';
 import { SortEvent } from '../../../../shared/directives/shorting.directive';
-import { NgbdSortableHeader } from "../../../../shared/directives/NgbdSortableHeader";
+import { NgbdSortableHeader } from '../../../../shared/directives/NgbdSortableHeader';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -27,7 +27,7 @@ export class SubCategoryComponent {
   constructor(public service: TableService, private modalService: NgbModal) {
     this.tableItem$ = service.tableItem$;
     this.total$ = service.total$;
-    this.service.setUserData(CATEGORY)
+    this.service.setUserData(CATEGORY);
   }
 
 

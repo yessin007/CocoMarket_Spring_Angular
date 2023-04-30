@@ -5,7 +5,7 @@ import {map} from 'rxjs/operators';
 import {Store} from '../../../models/store';
 import {HttpErrorResponse} from '@angular/common/http';
 import {ImageProceesingsService} from '../../../services/img/image-proceesings.service';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-all-stores',
@@ -16,7 +16,7 @@ export class AllStoresComponent  implements OnInit {
   // tslint:disable-next-line:variable-name
   public storeList: Store[] = [];
 
-  constructor( private  storeservice : StoreService, private  imageProcessingService: ImageProceesingsService, private route: Router  ) {
+  constructor( private  storeservice: StoreService, private  imageProcessingService: ImageProceesingsService, private route: Router  ) {
   }
   ngOnInit(): void {
     this.getAllStores();

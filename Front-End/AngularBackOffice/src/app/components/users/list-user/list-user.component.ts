@@ -12,7 +12,7 @@ import { UserListDB, USERLISTDB } from 'src/app/shared/tables/list-users';
   providers: [TableService, DecimalPipe]
 })
 export class ListUserComponent implements OnInit {
-  public user_list = []
+  public user_list = [];
 
   public tableItem$: Observable<UserListDB[]>;
   public searchText;
@@ -21,7 +21,7 @@ export class ListUserComponent implements OnInit {
   constructor(public service: TableService) {
     this.tableItem$ = service.tableItem$;
     this.total$ = service.total$;
-    this.service.setUserData(USERLISTDB)
+    this.service.setUserData(USERLISTDB);
   }
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;

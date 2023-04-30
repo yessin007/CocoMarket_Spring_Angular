@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 const state = {
-  checkoutItems: JSON.parse(localStorage['checkoutItems'] || '[]')
-}
+  checkoutItems: JSON.parse(localStorage.checkoutItems || '[]')
+};
 
 @Injectable({
   providedIn: 'root'
@@ -19,21 +19,21 @@ export class OrderService {
       observer.next(state.checkoutItems);
       observer.complete();
     });
-    return <Observable<any>>itemsStream;
+    return itemsStream as Observable<any>;
   }
 
   // Create order
   public createOrder(product: any, details: any, orderId: any, amount: any) {
-    var item = {
+    let item = {
         shippingDetails: details,
-        product: product,
-        orderId: orderId,
+        product,
+        orderId,
         totalAmount: amount
     };
     state.checkoutItems = item;
-    localStorage.setItem("checkoutItems", JSON.stringify(item));
-    localStorage.removeItem("cartItems");
+    localStorage.setItem('checkoutItems', JSON.stringify(item));
+    localStorage.removeItem('cartItems');
     this.router.navigate(['/shop/checkout/success', orderId]);
   }
-  
+
 }

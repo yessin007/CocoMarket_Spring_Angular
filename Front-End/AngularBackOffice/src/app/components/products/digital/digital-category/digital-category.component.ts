@@ -2,7 +2,7 @@ import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { DIGITALCATEGORY, DigitalCategoryDB } from 'src/app/shared/tables/digital-category';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { SortEvent } from 'src/app/shared/directives/shorting.directive';
-import { NgbdSortableHeader } from "src/app/shared/directives/NgbdSortableHeader";
+import { NgbdSortableHeader } from 'src/app/shared/directives/NgbdSortableHeader';
 import { TableService } from 'src/app/shared/service/table.service';
 import { Observable } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
@@ -20,7 +20,7 @@ export class DigitalCategoryComponent implements OnInit {
 
   constructor(public service: TableService, private modalService: NgbModal) {
     this.tableItem$ = service.tableItem$;
-    this.service.setUserData(DIGITALCATEGORY)
+    this.service.setUserData(DIGITALCATEGORY);
   }
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;

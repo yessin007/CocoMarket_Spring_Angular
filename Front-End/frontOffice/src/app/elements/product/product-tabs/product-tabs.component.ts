@@ -19,9 +19,9 @@ export class ProductTabsComponent implements OnInit {
       this.products.filter((item) => {
         item.collection.filter((collection) => {
           const index = this.productCollections.indexOf(collection);
-          if (index === -1) this.productCollections.push(collection);
-        })
-      })
+          if (index === -1) { this.productCollections.push(collection); }
+        });
+      });
     });
   }
 
@@ -29,9 +29,9 @@ export class ProductTabsComponent implements OnInit {
   getCollectionProducts(collection) {
     return this.products.filter((item) => {
       if (item.collection.find(i => i === collection)) {
-        return item
+        return item;
       }
-    })
+    });
   }
 
   ngOnInit(): void {

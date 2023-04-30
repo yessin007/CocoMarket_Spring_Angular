@@ -3,21 +3,21 @@ import {Component, Inject, OnInit, QueryList, ViewChildren} from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { SortEvent } from 'src/app/shared/directives/shorting.directive';
-import { NgbdSortableHeader } from "src/app/shared/directives/NgbdSortableHeader";
+import { NgbdSortableHeader } from 'src/app/shared/directives/NgbdSortableHeader';
 import { TableService } from 'src/app/shared/service/table.service';
 import { DigitalCategoryDB } from 'src/app/shared/tables/digital-category';
 import { DIGITALLIST, DigitalListDB } from 'src/app/shared/tables/digital-list';
-import {ProductService} from "../../../../services/product/product.service";
-import {Product} from "../../../../models/product";
-import {HttpErrorResponse} from "@angular/common/http";
-import {MatDialog} from "@angular/material/dialog";
+import {ProductService} from '../../../../services/product/product.service';
+import {Product} from '../../../../models/product';
+import {HttpErrorResponse} from '@angular/common/http';
+import {MatDialog} from '@angular/material/dialog';
 import {
   ShowProductImagesDialogComponent
-} from "../../../show-product-images-dialog/show-product-images-dialog.component";
-import {ImageProcessingService} from "../../../../services/image-processing.service";
-import {map} from "rxjs/operators";
-import {Router} from "@angular/router";
-import {FileHandle} from "../../../../models/FileHandle";
+} from '../../../show-product-images-dialog/show-product-images-dialog.component';
+import {ImageProcessingService} from '../../../../services/image-processing.service';
+import {map} from 'rxjs/operators';
+import {Router} from '@angular/router';
+import {FileHandle} from '../../../../models/FileHandle';
 
 
 @Component({
@@ -39,7 +39,7 @@ export class DigitalListComponent implements OnInit {
   image: FileHandle;
 
   onSort({ column, direction }: SortEvent) {
-    console.log("ddsds");
+    console.log('ddsds');
 
     // resetting other headers
     this.headers.forEach((header) => {

@@ -23,14 +23,8 @@ export class NavService {
 	constructor() { }
 
 	public screenWidth: any;
-	public leftMenuToggle: boolean = false;
-	public mainMenuToggle: boolean = false;
-
-	// Windows width
-	@HostListener('window:resize', ['$event'])
-	onResize(event?) {
-		this.screenWidth = window.innerWidth;
-	}
+	public leftMenuToggle = false;
+	public mainMenuToggle = false;
 
 	MENUITEMS: Menu[] = [
 		{
@@ -148,7 +142,7 @@ export class NavService {
 				{ path: '/pages/typography', title: 'typography', type: 'link', badge: true, badgeText: 'new' },
 				{ path: '/pages/review', title: 'review', type: 'link', badge: true, badgeText: 'new' },
 				{ path: '/pages/order/success', title: 'order-success', type: 'link' },
-					{ 
+					{
 						title: 'compare', type: 'sub', active: false, children: [
 							{ path: '/pages/compare/one', title: 'compare-1', type: 'link' },
 							{ path: '/pages/compare/two', title: 'compare-2', type: 'link', badge: true, badgeText: 'new' }
@@ -286,5 +280,11 @@ export class NavService {
 	// Array
 	items = new BehaviorSubject<Menu[]>(this.MENUITEMS);
 	leftMenuItems = new BehaviorSubject<Menu[]>(this.LEFTMENUITEMS);
+
+	// Windows width
+	@HostListener('window:resize', ['$event'])
+	onResize(event?) {
+		this.screenWidth = window.innerWidth;
+	}
 
 }

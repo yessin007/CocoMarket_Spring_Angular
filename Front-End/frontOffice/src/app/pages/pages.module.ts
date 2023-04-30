@@ -42,9 +42,10 @@ import { MasonryGridTwoComponent } from './portfolio/masonry-grid-two/masonry-gr
 import { MasonryGridThreeComponent } from './portfolio/masonry-grid-three/masonry-grid-three.component';
 import { MasonryGridFourComponent } from './portfolio/masonry-grid-four/masonry-grid-four.component';
 import { MasonryFullWidthComponent } from './portfolio/masonry-full-width/masonry-full-width.component';
-import {AgmCoreModule} from "@agm/core";
+import {AgmCoreModule} from '@agm/core';
 import { GoogleMapsModule } from '@angular/google-maps';
-import {BrowserModule} from "@angular/platform-browser";
+import {BrowserModule} from '@angular/platform-browser';
+import { MapComponent } from './map/map.component';
 
 
 @NgModule({
@@ -81,6 +82,7 @@ import {BrowserModule} from "@angular/platform-browser";
     MasonryGridThreeComponent,
     MasonryGridFourComponent,
     MasonryFullWidthComponent,
+    MapComponent,
 
   ],
   imports: [

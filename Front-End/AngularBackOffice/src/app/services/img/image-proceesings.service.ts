@@ -13,7 +13,7 @@ export class ImageProceesingsService {
   public createImages(store: Store) {
     const storeImages: any[] = store.storeImages;
     const storeImagesToFileHandle: FileHandle[] = [];
-    for(let i = 0; i < storeImages.length; i++){
+    for (let i = 0; i < storeImages.length; i++){
       const imageFileData = storeImages[i];
       const imageBlob = this.dataURItoBlob(imageFileData.picByte, imageFileData.type);
       const imageFile = new File([imageBlob], imageFileData.name, {type: imageFileData.type});
@@ -33,7 +33,7 @@ export class ImageProceesingsService {
     const byteString = window.atob(picBytes);
     const arrayBuffer = new ArrayBuffer(byteString.length);
     const int8Array = new Uint8Array(arrayBuffer);
-    for(let i = 0; i < byteString.length; i++){
+    for (let i = 0; i < byteString.length; i++){
       int8Array[i] = byteString.charCodeAt(i);
     }
     const blob = new Blob([int8Array], { type: imageType });

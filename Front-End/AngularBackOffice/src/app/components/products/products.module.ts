@@ -24,7 +24,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 // search module
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SharedModule } from 'src/app/shared/shared.module';
-import {CarouselModule} from "ngx-bootstrap/carousel";
+import {CarouselModule} from 'ngx-bootstrap/carousel';
 // import { NgbdSortableHeader } from "src/app/shared/directives/NgbdSortableHeader";
 // import {  } from '../../directives/shorting.directive/';
 

@@ -19,7 +19,7 @@ export class TaxesComponent implements OnInit {
   constructor(public service: TableService) {
     this.tableItem$ = service.tableItem$;
     this.total$ = service.total$;
-    this.service.setUserData(TAXESDB)
+    this.service.setUserData(TAXESDB);
   }
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;

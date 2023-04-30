@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { QuickViewComponent } from "../../modal/quick-view/quick-view.component";
-import { CartModalComponent } from "../../modal/cart-modal/cart-modal.component";
-import { Product } from "../../../classes/product";
-import { ProductService } from "../../../services/product.service";
-import {ImageProcessingService} from "../../../services/image-processing.service";
-import {Router} from "@angular/router";
+import { QuickViewComponent } from '../../modal/quick-view/quick-view.component';
+import { CartModalComponent } from '../../modal/cart-modal/cart-modal.component';
+import { Product } from '../../../classes/product';
+import { ProductService } from '../../../services/product.service';
+import {ImageProcessingService} from '../../../services/image-processing.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-product-box-one',
@@ -14,22 +14,22 @@ import {Router} from "@angular/router";
 export class ProductBoxOneComponent implements OnInit {
 
   @Input() product: Product;
-  @Input() currency: any = this.productService.Currency; // Default Currency 
-  @Input() thumbnail: boolean = false; // Default False 
-  @Input() onHowerChangeImage: boolean = false; // Default False
-  @Input() cartModal: boolean = false; // Default False
-  @Input() loader: boolean = false;
-  
-  @ViewChild("quickView") QuickView: QuickViewComponent;
-  @ViewChild("cartModal") CartModal: CartModalComponent;
+  @Input() currency: any = this.productService.Currency; // Default Currency
+  @Input() thumbnail = false; // Default False
+  @Input() onHowerChangeImage = false; // Default False
+  @Input() cartModal = false; // Default False
+  @Input() loader = false;
 
-  public ImageSrc : string;
-  public image : string;
+  @ViewChild('quickView') QuickView: QuickViewComponent;
+  @ViewChild('cartModal') CartModal: CartModalComponent;
+
+  public ImageSrc: string;
+  public image: string;
 
   constructor(private productService: ProductService, private imageProcessinService: ImageProcessingService, private router: Router) { }
 
   ngOnInit(): void {
-    if(this.loader) {
+    if (this.loader) {
       setTimeout(() => { this.loader = false; }, 2000); // Skeleton Loader
     }
   }
@@ -41,10 +41,10 @@ export class ProductBoxOneComponent implements OnInit {
     const uniqColor = [];
     for (let i = 0; i < Object.keys(variants).length; i++) {
       if (uniqColor.indexOf(variants[i].color) === -1 && variants[i].color) {
-        uniqColor.push(variants[i].color)
+        uniqColor.push(variants[i].color);
       }
     }
-    return uniqColor
+    return uniqColor;
   }
 
   // Change Variants

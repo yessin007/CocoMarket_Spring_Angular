@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {map} from "rxjs/operators";
-import {Product} from "../../shared/classes/product";
-import {ProductService} from "../../shared/services/product.service";
-import {ImageProcessingService} from "../../shared/services/image-processing.service";
-import {Route, Router} from "@angular/router";
+import {map} from 'rxjs/operators';
+import {Product} from '../../shared/classes/product';
+import {ProductService} from '../../shared/services/product.service';
+import {ImageProcessingService} from '../../shared/services/image-processing.service';
+import {Route, Router} from '@angular/router';
 
 @Component({
   selector: 'app-search',

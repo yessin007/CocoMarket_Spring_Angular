@@ -2,7 +2,7 @@ import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { DIGITALSUBCATEGORY, DigitalSubCategoryDB } from 'src/app/shared/tables/digital-sub-category';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { SortEvent } from 'src/app/shared/directives/shorting.directive';
-import { NgbdSortableHeader } from "src/app/shared/directives/NgbdSortableHeader";
+import { NgbdSortableHeader } from 'src/app/shared/directives/NgbdSortableHeader';
 import { DecimalPipe } from '@angular/common';
 import { TableService } from 'src/app/shared/service/table.service';
 import { Observable } from 'rxjs';
@@ -15,14 +15,16 @@ import { Observable } from 'rxjs';
 })
 
 export class DigitalSubCategoryComponent implements OnInit {
-  public closeResult: string;
-  tableItem$: Observable<DigitalSubCategoryDB[]>;
-  public digital_categories = []
 
   constructor(public service: TableService, private modalService: NgbModal) {
     this.tableItem$ = service.tableItem$;
-    this.service.setUserData(DIGITALSUBCATEGORY)
+    this.service.setUserData(DIGITALSUBCATEGORY);
   }
+  public closeResult: string;
+  tableItem$: Observable<DigitalSubCategoryDB[]>;
+  public digital_categories = [];
+
+  @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
   open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
@@ -41,8 +43,6 @@ export class DigitalSubCategoryComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-
-  @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
   onSort({ column, direction }: SortEvent) {
     // resetting other headers

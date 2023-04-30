@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {StoreService} from "../../../services/store/store.service";
-import {Router} from "@angular/router";
+import {StoreService} from '../../../services/store/store.service';
+import {Router} from '@angular/router';
 import {PosteStore} from '../../../models/PostStore';
 
 @Component({
@@ -14,7 +14,7 @@ export class AddPostComponent implements OnInit{
   fileToUpload: File | null = null;
   imagenMin: File;
 
-  constructor(private cs: StoreService,) {
+  constructor(private cs: StoreService, ) {
   }
 
   ngOnInit(): void {

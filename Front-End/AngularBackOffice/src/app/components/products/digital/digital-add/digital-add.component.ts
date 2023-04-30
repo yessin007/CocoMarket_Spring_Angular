@@ -5,7 +5,7 @@ import {ProductService} from '../../../../services/product/product.service';
 import {NgForm} from '@angular/forms';
 import {DomSanitizer} from '@angular/platform-browser';
 import {FileHandle} from '../../../../models/FileHandle';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-digital-add',
@@ -23,7 +23,7 @@ export class DigitalAddComponent implements OnInit {
   product: Product = new Product();
   onSelect(event) {
     console.log(event);
-    //this.files.push(...event.addedFiles);
+    // this.files.push(...event.addedFiles);
     if (event.addedFiles){
       const file = event.addedFiles[0];
       const reader = new FileReader();
@@ -76,7 +76,7 @@ export class DigitalAddComponent implements OnInit {
   }
   prepareFormData(product: Product): FormData{
     const formData = new FormData();
-    //this.product.productImages = this.files;
+    // this.product.productImages = this.files;
     formData.append('product', new Blob([JSON.stringify(product)], {type: 'application/json'}));
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < product.image.length ; i++) {

@@ -18,7 +18,7 @@ import {map} from 'rxjs/operators';
 })
 export class ListCatlComponent implements OnInit{
   catalogList: StoreCatalog[] = [];
-  constructor(private catalogservice: CatalogServiceService, private route: Router, private http: HttpClient , private  imageProcessingService : ImageProcessingService ){}
+  constructor(private catalogservice: CatalogServiceService, private route: Router, private http: HttpClient , private  imageProcessingService: ImageProcessingService ){}
   ngOnInit(): void {
     this.getAllCatalogs();
 

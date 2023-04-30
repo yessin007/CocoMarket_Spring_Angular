@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProductService } from "../../../services/product.service";
-import { Product } from "../../../classes/product";
+import { ProductService } from '../../../services/product.service';
+import { Product } from '../../../classes/product';
 
 @Component({
   selector: 'app-cart-variation',
@@ -10,7 +10,7 @@ import { Product } from "../../../classes/product";
 })
 export class CartVariationComponent implements OnInit, OnDestroy {
 
-  @Input() direction: string = 'right'; // Default Direction Right
+  @Input() direction = 'right'; // Default Direction Right
 
   public products: Product[] = [];
 

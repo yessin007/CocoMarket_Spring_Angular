@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { VideoModalComponent } from "../../shared/components/modal/video-modal/video-modal.component";
+import { VideoModalComponent } from '../../shared/components/modal/video-modal/video-modal.component';
 import { ProductSlider } from '../../shared/data/slider';
 import { Product } from '../../shared/classes/product';
 import { ProductService } from '../../shared/services/product.service';
@@ -11,15 +11,15 @@ import { ProductService } from '../../shared/services/product.service';
 })
 export class BeautyComponent implements OnInit, OnDestroy {
 
-  public themeLogo: string = 'assets/images/icon/logo-7.png'; // Change Logo
+  public themeLogo = 'assets/images/icon/logo-7.png'; // Change Logo
   public products: Product[] = [];
 
   public ProductSliderConfig: any = ProductSlider;
 
-  @ViewChild("videoModal") VideoModal: VideoModalComponent;
+  @ViewChild('videoModal') VideoModal: VideoModalComponent;
 
   constructor(public productService: ProductService) {
-      this.productService.getProducts.subscribe(response => 
+      this.productService.getProducts.subscribe(response =>
         this.products = response.filter(item => item.productCategory == 'beauty')
       );
   }
@@ -56,7 +56,7 @@ export class BeautyComponent implements OnInit, OnDestroy {
     date: '28 January 2018',
     title: 'Lorem ipsum dolor sit consectetur adipiscing elit,',
     by: 'John Dio'
-  }]
+  }];
 
   ngOnInit(): void {
     // Change color for this layout

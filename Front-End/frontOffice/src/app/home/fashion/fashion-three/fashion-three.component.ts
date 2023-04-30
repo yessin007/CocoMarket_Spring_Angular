@@ -10,9 +10,9 @@ import { ProductService } from '../../../shared/services/product.service';
 })
 export class FashionThreeComponent implements OnInit, OnDestroy {
 
-  public products : Product[] = [];
+  public products: Product[] = [];
   public productCollections: any[] = [];
-  active
+  active;
 
   constructor(public productService: ProductService) {
     this.productService.getProducts.subscribe(response => {
@@ -21,9 +21,9 @@ export class FashionThreeComponent implements OnInit, OnDestroy {
       this.products.filter((item) => {
         item.collection.filter((collection) => {
           const index = this.productCollections.indexOf(collection);
-          if (index === -1) this.productCollections.push(collection);
-        })
-      })
+          if (index === -1) { this.productCollections.push(collection); }
+        });
+      });
     });
   }
 
@@ -51,9 +51,9 @@ export class FashionThreeComponent implements OnInit, OnDestroy {
   getCollectionProducts(collection) {
     return this.products.filter((item) => {
       if (item.collection.find(i => i === collection)) {
-        return item
+        return item;
       }
-    })
+    });
   }
-  
+
 }

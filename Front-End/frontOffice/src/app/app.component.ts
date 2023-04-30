@@ -10,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  
+
   // For Progressbar
   loaders = this.loader.progress$.pipe(
     delay(1000),
@@ -18,9 +18,9 @@ export class AppComponent {
     map(v => v[1]),
   );
 
-  
+
   constructor(@Inject(PLATFORM_ID) private platformId: Object,
-    private loader: LoadingBarService, translate: TranslateService) {
+              private loader: LoadingBarService, translate: TranslateService) {
     if (isPlatformBrowser(this.platformId)) {
       translate.setDefaultLang('en');
       translate.addLangs(['en', 'fr']);

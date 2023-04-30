@@ -5,8 +5,8 @@ import { map, startWith, delay } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from '../classes/product';
 import {ImageProcessingService} from './image-processing.service';
-import {Review} from "../classes/review";
-import {User} from "../models/User";
+import {Review} from '../classes/review';
+import {User} from '../models/User';
 
 const state = {
   products: JSON.parse(localStorage.products || '[]'),

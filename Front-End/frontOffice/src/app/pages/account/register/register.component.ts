@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../../../shared/services/auth.service";
+import {AuthService} from '../../../shared/services/auth.service';
 import {Router} from '@angular/router';
-import {User} from "../../../shared/models/User";
+import {User} from '../../../shared/models/User';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +10,7 @@ import {User} from "../../../shared/models/User";
 })
 export class RegisterComponent implements OnInit {
 
-	rform: any ={
+	rform: any = {
 		name: null,
 		lastName: null,
 		username: null,
@@ -38,8 +38,8 @@ export class RegisterComponent implements OnInit {
 				response => {
 					console.log(response);
 					// handle successful registration response here
-					console.info("Registration is successful complete! check your mail for the verification");
-					alert("Registration is successful complete! check your mail for the verification");
+					console.info('Registration is successful complete! check your mail for the verification');
+					alert('Registration is successful complete! check your mail for the verification');
 					this.router.navigate(['pages/login']);
 				},
 				error => {

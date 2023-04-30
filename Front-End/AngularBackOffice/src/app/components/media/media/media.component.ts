@@ -14,17 +14,19 @@ import { MediaDB, MEDIADB } from 'src/app/shared/tables/media';
 })
 export class MediaComponent implements OnInit {
 
+  constructor(public service: TableService) {
+    this.tableItem$ = service.tableItem$;
+    this.total$ = service.total$;
+    this.service.setUserData(MEDIADB);
+  }
+
   public tableItem$: Observable<MediaDB[]>;
   public searchText;
   total$: Observable<number>;
 
-  constructor(public service: TableService) {
-    this.tableItem$ = service.tableItem$;
-    this.total$ = service.total$;
-    this.service.setUserData(MEDIADB)
-  }
-
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
+
+  files: File[] = [];
 
   onSort({ column, direction }: SortEvent) {
     // resetting other headers
@@ -38,8 +40,6 @@ export class MediaComponent implements OnInit {
     this.service.sortDirection = direction;
 
   }
-
-  files: File[] = [];
 
   onSelect(event) {
     console.log(event);

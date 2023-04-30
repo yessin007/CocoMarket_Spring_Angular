@@ -20,7 +20,7 @@ export class TranslationsComponent implements OnInit {
   constructor(public service: TableService) {
     this.tableItem$ = service.tableItem$;
     this.total$ = service.total$;
-    this.service.setUserData(TRANSLATIONDB)
+    this.service.setUserData(TRANSLATIONDB);
   }
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;

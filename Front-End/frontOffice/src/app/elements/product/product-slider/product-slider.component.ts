@@ -13,8 +13,8 @@ export class ProductSliderComponent implements OnInit {
   public products: Product[] = [];
 
   public ProductSliderConfig: any = ProductSlider;
-  
-  constructor(public productService: ProductService) { 
+
+  constructor(public productService: ProductService) {
     this.productService.getProducts.subscribe(response => this.products = response);
   }
 

@@ -8,15 +8,15 @@ import { CollectionSlider } from '../../../shared/data/slider';
 })
 export class CollectionComponent implements OnInit {
 
+  constructor() { }
+
   @Input() categories: any[];
   @Input() category: string;
   @Input() class: string;
 
-  constructor() { }
+   public CollectionSliderConfig: any = CollectionSlider;
 
   ngOnInit(): void {
   }
-
-   public CollectionSliderConfig: any = CollectionSlider;
 
 }

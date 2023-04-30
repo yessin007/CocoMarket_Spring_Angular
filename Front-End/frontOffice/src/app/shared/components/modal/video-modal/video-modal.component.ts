@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy, ViewChild, TemplateRef,
   Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import {Product} from "../../../classes/product";
-import {ActivatedRoute} from "@angular/router";
+import {Product} from '../../../classes/product';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-video-modal',
@@ -11,30 +11,30 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./video-modal.component.scss']
 })
 export class VideoModalComponent implements OnInit, OnDestroy {
-  
-  @ViewChild("videoModal", { static: false }) VideoModal: TemplateRef<any>;
+
+  @ViewChild('videoModal', { static: false }) VideoModal: TemplateRef<any>;
 
   public closeResult: string;
-  public modalOpen: boolean = false;
+  public modalOpen = false;
   public product: Product = {};
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object,
-    private modalService: NgbModal, private route: ActivatedRoute) { }
+              private modalService: NgbModal, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.route.data.subscribe(response => this.product = response.data)
+    this.route.data.subscribe(response => this.product = response.data);
   }
 
   openModal() {
     this.modalOpen = true;
-    if (isPlatformBrowser(this.platformId)) { // For SSR 
-      this.modalService.open(this.VideoModal, { 
+    if (isPlatformBrowser(this.platformId)) { // For SSR
+      this.modalService.open(this.VideoModal, {
         size: 'lg',
         ariaLabelledBy: 'Video-Modal',
         centered: true,
-        windowClass: 'modal fade video-modal' 
+        windowClass: 'modal fade video-modal'
       }).result.then((result) => {
-        `Result ${result}`
+        `Result ${result}`;
       }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
@@ -52,7 +52,7 @@ export class VideoModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if(this.modalOpen){
+    if (this.modalOpen){
       this.modalService.dismissAll();
     }
   }

@@ -32,27 +32,12 @@
                   <button id="toggle-button" class="btn-solid btn" (click)="hideContent() ; getCurrentLocation()" >Use Current Location</button>
                   <div id="page-content" *ngIf="!isContentHidden">
                     <div style="width: 100%; height: 500px;">
-                      <iframe src="https://storage.googleapis.com/maps-solutions-xk745ul9c5/address-selection/jgj1/address-selection.html"
-                              width="100%" height="100%"
-                              style="border:0;"
-                              loading="lazy"
-                              id="address-iframe">
-                      </iframe>
-
-                      <script>
-                        window.addEventListener('message', event => {
-                          // Handle the message from the iframe here
-                          console.log(event.data);
-                        });
-                      </script>
 
                       <iframe id="address-selection"
                               src="https://storage.googleapis.com/maps-solutions-xk745ul9c5/address-selection/jgj1/address-selection.html"
                               width="100%" height="100%"
                               style="border:0;"
                               loading="lazy"
-
-                              
                       >
                       </iframe>
 
@@ -64,6 +49,8 @@
                           }
                         });
                       </script>
+                      <p id="address"></p>
+
 
                     </div>
                   </div>
@@ -183,9 +170,7 @@
         </div>
       </div>
     </div>
-  <div class="checkout-container">
-    <!-- Other checkout content here -->
-  </div>
+
 
 
 </section>

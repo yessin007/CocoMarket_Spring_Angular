@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import { Provider } from 'src/app/models/provider';
-import {Product} from "../../../models/product";
-import {ProviderService} from "../../../services/provider/provider.service";
-import {ActivatedRoute} from "@angular/router";
+import {Product} from '../../../models/product';
+import {ProviderService} from '../../../services/provider/provider.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-create-page',
@@ -26,14 +26,14 @@ export class CreatePageComponent implements OnInit {
       name: [''],
       desc: [''],
       status: ['']
-    })
+    });
   }
   createSeoForm() {
     this.seoForm = this.formBuilder.group({
       title: [''],
       keyword: [''],
       meta_desc: ['']
-    })
+    });
   }
 
   ngOnInit() {

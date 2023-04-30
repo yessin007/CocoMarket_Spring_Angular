@@ -22,7 +22,7 @@ import '@angular/localize/init';
  * BROWSER POLYFILLS
  */
 
- (window as any).global = window;   // Run `npm install --save classlist.js`.   // Run `npm install --save web-animations-js`.
+(window as any).global = window;   // Run `npm install --save classlist.js`.   // Run `npm install --save web-animations-js`.
 
 /**
  * By default, zone.js will patch all possible macroTask and DomEvents

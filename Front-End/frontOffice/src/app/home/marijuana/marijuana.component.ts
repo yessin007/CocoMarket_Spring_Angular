@@ -10,8 +10,8 @@ import { ProductService } from '../../shared/services/product.service';
 })
 export class MarijuanaComponent implements OnInit, OnDestroy {
 
-  public themeLogo: string = 'assets/images/icon/logo-3.png';
-  public themeFooterLogo: string = 'assets/images/icon/logo-9.png';
+  public themeLogo = 'assets/images/icon/logo-3.png';
+  public themeFooterLogo = 'assets/images/icon/logo-9.png';
 
   public products: Product[] = [];
   public productCollections: any[] = [];
@@ -26,9 +26,9 @@ export class MarijuanaComponent implements OnInit, OnDestroy {
       this.products.filter((item) => {
         item.collection.filter((collection) => {
           const index = this.productCollections.indexOf(collection);
-          if (index === -1) this.productCollections.push(collection);
-        })
-      })
+          if (index === -1) { this.productCollections.push(collection); }
+        });
+      });
     });
   }
 
@@ -117,9 +117,9 @@ export class MarijuanaComponent implements OnInit, OnDestroy {
   getCollectionProducts(collection) {
     return this.products.filter((item) => {
       if (item.collection.find(i => i === collection)) {
-        return item
+        return item;
       }
-    })
+    });
   }
 
 }

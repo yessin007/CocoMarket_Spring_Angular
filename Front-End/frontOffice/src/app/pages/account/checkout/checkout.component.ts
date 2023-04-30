@@ -1,8 +1,8 @@
 import {Component, Injectable, OnInit} from '@angular/core';
-import {GetCurrentLocation} from "../../../shared/services/GetCurrentLocation";
-import {AddDelivery} from "../../../shared/services/AddDelivery";
-import {Deliveries} from "../../../shared/services/Deliveries";
-import {response} from "express";
+import {GetCurrentLocation} from '../../../shared/services/GetCurrentLocation';
+import {AddDelivery} from '../../../shared/services/AddDelivery';
+import {Deliveries} from '../../../shared/services/Deliveries';
+import {response} from 'express';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class CheckoutComponent implements OnInit {
   constructor(private getCurrentLocationn: GetCurrentLocation, private addDeliveries: AddDelivery) {}
   isContentHidden = false;
 
-  delivery : Deliveries = new  Deliveries();
+  delivery: Deliveries = new  Deliveries();
 
 
     ngOnInit() {

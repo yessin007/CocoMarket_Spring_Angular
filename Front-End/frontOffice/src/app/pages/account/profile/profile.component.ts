@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AgmMap} from "@agm/core";
+import {AgmMap} from '@agm/core';
 
 @Component({
   selector: 'app-profile',

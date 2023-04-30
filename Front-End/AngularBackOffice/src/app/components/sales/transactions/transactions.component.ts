@@ -21,7 +21,7 @@ export class TransactionsComponent implements OnInit {
   constructor(public service: TableService) {
     this.tableItem$ = service.tableItem$;
     this.total$ = service.total$;
-    this.service.setUserData(TRANSACTIONDB)
+    this.service.setUserData(TRANSACTIONDB);
   }
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;

@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import {ProductResolverService} from "../../services/product-resolver/product-resolver.service";
-import {ProviderResolverService} from "../../services/provider-resolver/provider-resolver.service";
+import {ProductResolverService} from '../../services/product-resolver/product-resolver.service';
+import {ProviderResolverService} from '../../services/provider-resolver/provider-resolver.service';
 
 export const content: Routes = [
   {
@@ -11,28 +11,28 @@ export const content: Routes = [
     path: 'products',
     loadChildren: () => import('../../components/products/products.module').then(m => m.ProductsModule),
     data: {
-      breadcrumb: "Products",
+      breadcrumb: 'Products',
     },
   },
   {
     path: 'sales',
     loadChildren: () => import('../../components/sales/sales.module').then(m => m.SalesModule),
     data: {
-      breadcrumb: "Sales"
+      breadcrumb: 'Sales'
     }
   },
   {
     path: 'coupons',
     loadChildren: () => import('../../components/coupons/coupons.module').then(m => m.CouponsModule),
     data: {
-      breadcrumb: "Coupons"
+      breadcrumb: 'Coupons'
     }
   },
   {
     path: 'pages',
     loadChildren: () => import('../../components/pages/pages.module').then(m => m.PagesModule),
     data: {
-      breadcrumb: "Pages"
+      breadcrumb: 'Pages'
     },
     resolve: {
       provider: ProviderResolverService
@@ -46,28 +46,28 @@ export const content: Routes = [
     path: 'menus',
     loadChildren: () => import('../../components/menus/menus.module').then(m => m.MenusModule),
     data: {
-      breadcrumb: "Menus"
+      breadcrumb: 'Menus'
     }
   },
   {
     path: 'users',
     loadChildren: () => import('../../components/users/users.module').then(m => m.UsersModule),
     data: {
-      breadcrumb: "Users"
+      breadcrumb: 'Users'
     }
   },
   {
     path: 'vendors',
     loadChildren: () => import('../../components/vendors/vendors.module').then(m => m.VendorsModule),
     data: {
-      breadcrumb: "Vendors"
+      breadcrumb: 'Vendors'
     }
   },
   {
     path: 'localization',
     loadChildren: () => import('../../components/localization/localization.module').then(m => m.LocalizationModule),
     data: {
-      breadcrumb: "Localization"
+      breadcrumb: 'Localization'
     }
   },
   {
@@ -78,14 +78,14 @@ export const content: Routes = [
     path: 'settings',
     loadChildren: () => import('../../components/setting/setting.module').then(m => m.SettingModule),
     data: {
-      breadcrumb: "Settings"
+      breadcrumb: 'Settings'
     }
   },
   {
     path: 'invoice',
     loadChildren: () => import('../../components/invoice/invoice.module').then(m => m.InvoiceModule),
     data: {
-      breadcrumb: "Invoice"
+      breadcrumb: 'Invoice'
     }
   }
 ];

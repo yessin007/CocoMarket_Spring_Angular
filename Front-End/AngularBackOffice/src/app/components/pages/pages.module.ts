@@ -9,7 +9,7 @@ import { CreatePageComponent } from './create-page/create-page.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ProviderLocationComponent } from './provider-location/provider-location.component';
 import { DeliveryComponentComponent } from './delivery-component/delivery-component.component';
-import {MatButtonModule} from "@angular/material/button";
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
 

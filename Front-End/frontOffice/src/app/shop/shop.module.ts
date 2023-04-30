@@ -43,14 +43,14 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { SuccessComponent } from './checkout/success/success.component';
 
 import {RouterModule} from '@angular/router';
-import {ElementsModule} from "../elements/elements.module";
-import {NgxStarRatingModule} from "ngx-star-rating";
-import {PagesModule} from "../pages/pages.module";
+import {ElementsModule} from '../elements/elements.module';
+import {NgxStarRatingModule} from 'ngx-star-rating';
+import {PagesModule} from '../pages/pages.module';
 
 
 @NgModule({
   declarations: [
-    ProductLeftSidebarComponent, 
+    ProductLeftSidebarComponent,
     ProductRightSidebarComponent,
     ProductNoSidebarComponent,
     ThreeColumnComponent,

@@ -3,8 +3,8 @@ import {Store} from '../../../models/store';
 import {ModalDismissReasons, NgbModal, NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
 import {Image} from '@ks89/angular-modal-gallery';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ImageProcessingService} from "../../../services/image-processing.service";
-import {StoreService} from "../../../services/store/store.service";
+import {ImageProcessingService} from '../../../services/image-processing.service';
+import {StoreService} from '../../../services/store/store.service';
 
 // @ts-ignore
 @Component({
@@ -17,7 +17,7 @@ export class StoreDetailComponent implements OnInit{
   store: Store;
   image: File[] = [];
   public closeResult: string;
-  public counter: number = 1;
+  public counter = 1;
   currentRate = 8;
 
   public imagesRect: Image[] = [

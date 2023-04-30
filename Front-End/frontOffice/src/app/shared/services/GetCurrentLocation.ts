@@ -1,7 +1,7 @@
 import {Injectable, Provider} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Deliveries} from './Deliveries';
-import {response} from "express";
+import {response} from 'express';
 @Injectable({
     providedIn: 'root'
 })
@@ -35,7 +35,7 @@ export class GetCurrentLocation {
         }
 
     }
-    setLatLngToProvider(url: string,d : Deliveries) {
+    setLatLngToProvider(url: string, d: Deliveries) {
         return this.httpClient.post<Deliveries>(url, d);
     }
 

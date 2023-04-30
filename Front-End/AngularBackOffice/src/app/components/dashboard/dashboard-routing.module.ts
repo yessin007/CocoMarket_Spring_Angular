@@ -11,8 +11,8 @@ const routes: Routes = [
         path: 'default',
         component: DashboardComponent,
         data: {
-          title: "Dashboard",
-          breadcrumb: "Dashboard"
+          title: 'Dashboard',
+          breadcrumb: 'Dashboard'
         }
       }
     ]

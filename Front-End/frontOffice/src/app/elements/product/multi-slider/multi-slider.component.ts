@@ -14,8 +14,8 @@ export class MultiSliderComponent implements OnInit {
 
   public ProductSliderOneConfig: any = ProductOneSlider;
 
-  constructor(public productService: ProductService) { 
-    this.productService.getProducts.subscribe(response => 
+  constructor(public productService: ProductService) {
+    this.productService.getProducts.subscribe(response =>
       this.products = response.filter(item => item.productCategory == 'bags')
     );
   }

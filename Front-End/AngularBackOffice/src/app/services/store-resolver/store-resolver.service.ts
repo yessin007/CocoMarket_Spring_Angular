@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 
 import {StoreService} from '../store/store.service';
 import {ImageProceesingsService} from '../img/image-proceesings.service';
-import {Product} from "../../models/product";
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from "@angular/router";
-import {Observable, of} from "rxjs";
-import {map} from "rxjs/operators";
-import {Store} from "../../models/store";
+import {Product} from '../../models/product';
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
+import {Observable, of} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {Store} from '../../models/store';
 
 @Injectable({
   providedIn: 'root'

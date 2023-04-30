@@ -18,6 +18,6 @@ export class AppComponent {
   }
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
-    //console.log("Hello");
+    // console.log("Hello");
   }
 }

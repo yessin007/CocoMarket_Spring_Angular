@@ -10,7 +10,7 @@ import { ProductService } from '../../../shared/services/product.service';
 })
 export class FashionTwoComponent implements OnInit {
 
-  public themeLogo: string = 'assets/images/icon/logo-5.png'; // Change Logo
+  public themeLogo = 'assets/images/icon/logo-5.png'; // Change Logo
 
   public products: Product[] = [];
   public productCollections: any[] = [];
@@ -23,9 +23,9 @@ export class FashionTwoComponent implements OnInit {
       this.products.filter((item, i) => {
         item.collection.filter((collection) => {
           const index = this.productCollections.indexOf(collection);
-          if (index === -1) this.productCollections.push(collection);
-        })
-      })
+          if (index === -1) { this.productCollections.push(collection); }
+        });
+      });
     });
   }
 
@@ -39,7 +39,7 @@ export class FashionTwoComponent implements OnInit {
     title: 'welcome to fashion',
     subTitle: 'Women fashion',
     image: 'assets/images/slider/4.jpg'
-  }]
+  }];
 
   // Collection banner
   public collections1 = [{
@@ -69,9 +69,9 @@ export class FashionTwoComponent implements OnInit {
   getCollectionProducts(collection) {
     return this.products.filter((item) => {
       if (item.collection.find(i => i === collection)) {
-        return item
+        return item;
       }
-    })
+    });
   }
 
 }

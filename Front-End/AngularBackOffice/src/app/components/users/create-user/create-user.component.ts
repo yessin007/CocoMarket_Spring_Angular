@@ -23,11 +23,11 @@ export class CreateUserComponent implements OnInit {
       email: [''],
       password: [''],
       confirmPwd: ['']
-    })
+    });
   }
   createPermissionForm() {
     this.permissionForm = this.formBuilder.group({
-    })
+    });
   }
 
   ngOnInit() {

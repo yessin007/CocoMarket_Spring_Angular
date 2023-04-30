@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import {ActivatedRoute, ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from '@angular/router';
 import { Product } from '../classes/product';
 import { ProductService } from './product.service';
-import {ImageProcessingService} from "./image-processing.service";
-import {Observable, of} from "rxjs";
-import {map} from "rxjs/operators";
+import {ImageProcessingService} from './image-processing.service';
+import {Observable, of} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class Resolver implements Resolve<Product> {
-  
+
   public product: Product = {};
 
   constructor(

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { TableService } from 'src/app/shared/service/table.service';
 import { SortEvent } from 'src/app/shared/directives/shorting.directive';
-import { NgbdSortableHeader } from "src/app/shared/directives/NgbdSortableHeader";
+import { NgbdSortableHeader } from 'src/app/shared/directives/NgbdSortableHeader';
 
 @Component({
   selector: 'app-category',
@@ -27,12 +27,12 @@ export class CategoryComponent implements OnInit {
   constructor(public service: TableService, private modalService: NgbModal) {
     this.tableItem$ = service.tableItem$;
     this.total$ = service.total$;
-    this.service.setUserData(CATEGORY)
+    this.service.setUserData(CATEGORY);
   }
 
   onSort({ column, direction }) {
     // resetting other headers
-    console.log("dsafsa");
+    console.log('dsafsa');
 
     this.headers.forEach((header) => {
       if (header.sortable !== column) {

@@ -5,7 +5,7 @@ export class Delivery {
     clientLatitude: number;
     clientLongitude: number;
     clientAddress: string;
-    statut : string ;
-    firstName : string;
-    lastName : string;
+    statut: string ;
+    firstName: string;
+    lastName: string;
 }

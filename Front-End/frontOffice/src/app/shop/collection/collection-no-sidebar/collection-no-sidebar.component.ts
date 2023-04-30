@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
-import { ProductService } from "../../../shared/services/product.service";
+import { ProductService } from '../../../shared/services/product.service';
 import { Product } from '../../../shared/classes/product';
 
 @Component({
@@ -11,15 +11,15 @@ import { Product } from '../../../shared/classes/product';
 })
 export class CollectionNoSidebarComponent implements OnInit {
 
-  public grid: string = 'col-xl-3 col-md-6';
-  public layoutView: string = 'grid-view';
+  public grid = 'col-xl-3 col-md-6';
+  public layoutView = 'grid-view';
   public products: Product[] = [];
-  public pageNo: number = 1;
+  public pageNo = 1;
   public paginate: any = {}; // Pagination use only
   public sortBy: string; // Sorting Order
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private viewScroller: ViewportScroller, public productService: ProductService) {   
+              private viewScroller: ViewportScroller, public productService: ProductService) {
       // Get Query params..
       this.route.queryParams.subscribe(params => {
 
@@ -27,14 +27,14 @@ export class CollectionNoSidebarComponent implements OnInit {
         this.pageNo = params.page ? params.page : this.pageNo;
 
         // Get Filtered Products..
-        this.productService.getProducts.subscribe(response => {         
+        this.productService.getProducts.subscribe(response => {
           // Sorting Filter
           this.products = this.productService.sortProducts(response, this.sortBy);
           // Paginate Products
           this.paginate = this.productService.getPager(this.products.length, +this.pageNo);     // get paginate object from service
           this.products = this.products.slice(this.paginate.startIndex, this.paginate.endIndex + 1); // get current page of items
-        })
-      })
+        });
+      });
   }
 
   ngOnInit(): void {
@@ -42,7 +42,7 @@ export class CollectionNoSidebarComponent implements OnInit {
 
   // SortBy Filter
   sortByFilter(value) {
-    this.router.navigate([], { 
+    this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { sortBy: value ? value : null},
       queryParamsHandling: 'merge', // preserve the existing query params in the route
@@ -54,9 +54,9 @@ export class CollectionNoSidebarComponent implements OnInit {
 
   // product Pagination
   setPage(page: number) {
-    this.router.navigate([], { 
+    this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { page: page },
+      queryParams: { page },
       queryParamsHandling: 'merge', // preserve the existing query params in the route
       skipLocationChange: false  // do trigger navigation
     }).finally(() => {
@@ -72,10 +72,12 @@ export class CollectionNoSidebarComponent implements OnInit {
   // Change Layout View
   updateLayoutView(value: string) {
     this.layoutView = value;
-    if(value == 'list-view')
+    if (value == 'list-view') {
       this.grid = 'col-lg-12';
-    else
+    }
+    else {
       this.grid = 'col-xl-3 col-md-6';
+    }
   }
 
 }

@@ -20,9 +20,6 @@ export interface Menu {
 
 export class NavService {
 
-	public  screenWidth:any
-	public collapseSidebar: boolean = false
-
 	constructor(@Inject(WINDOW) private window) {
 		this.onResize();
 		if (this.screenWidth < 991) {
@@ -30,13 +27,8 @@ export class NavService {
 		}
 	}
 
-
-	
-	// Windows width
-	@HostListener('window:resize', ['$event'])
-	onResize(event?) {
-		this.screenWidth = window.innerWidth;
-	}
+	public  screenWidth: any;
+	public collapseSidebar = false;
 
 
 	MENUITEMS: Menu[] = [
@@ -156,6 +148,14 @@ export class NavService {
 	];
 	// Array
 	items = new BehaviorSubject<Menu[]>(this.MENUITEMS);
+
+
+
+	// Windows width
+	@HostListener('window:resize', ['$event'])
+	onResize(event?) {
+		this.screenWidth = window.innerWidth;
+	}
 
 
 

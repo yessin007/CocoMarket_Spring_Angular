@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from "@angular/router";
-import {Provider} from "../../models/provider";
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
+import {Provider} from '../../models/provider';
 import { ProviderService } from '../provider/provider.service';
-import {Observable, of} from "rxjs";
+import {Observable, of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

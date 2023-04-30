@@ -6,8 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./layout-box.component.scss']
 })
 export class LayoutBoxComponent implements OnInit {
-  
-  public layoutsidebar: boolean = false;
+
+  public layoutsidebar = false;
   public activeItem: string;
 
   constructor() { }
@@ -15,14 +15,14 @@ export class LayoutBoxComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // Is active 
+  // Is active
   isActive(menuItem) {
-  	return this.activeItem === menuItem
+  	return this.activeItem === menuItem;
   }
 
   // Sidebar Toggle
   layoutSidebarToggle() {
-  	this.layoutsidebar = !this.layoutsidebar
+  	this.layoutsidebar = !this.layoutsidebar;
   }
 
   // collapse
@@ -36,12 +36,12 @@ export class LayoutBoxComponent implements OnInit {
 
   // Layout Type
   customizeLayoutType(val) {
-    if(val == 'rtl') {
-      document.body.classList.remove('ltr')
-      document.body.classList.add('rtl')
+    if (val == 'rtl') {
+      document.body.classList.remove('ltr');
+      document.body.classList.add('rtl');
     } else {
-      document.body.classList.remove('rtl')
-      document.body.classList.add('ltr')
+      document.body.classList.remove('rtl');
+      document.body.classList.add('ltr');
     }
   }
 
@@ -51,7 +51,7 @@ export class LayoutBoxComponent implements OnInit {
   }
 
   customizeLayoutDark() {
-    document.body.classList.toggle('dark')
+    document.body.classList.toggle('dark');
   }
 
 }

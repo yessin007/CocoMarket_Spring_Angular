@@ -31,10 +31,10 @@ export class LeftMenuComponent implements OnInit {
   }
 
   onHover(menuItem) {
-    if(window.innerWidth > 1200 && menuItem){
-       document.getElementById('unset').classList.add('sidebar-unset')
+    if (window.innerWidth > 1200 && menuItem){
+       document.getElementById('unset').classList.add('sidebar-unset');
     } else {
-      document.getElementById('unset').classList.remove('sidebar-unset')
+      document.getElementById('unset').classList.remove('sidebar-unset');
     }
   }
 

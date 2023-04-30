@@ -14,7 +14,7 @@ import { LISTCOUPLEDB, ListCouponsDB } from 'src/app/shared/tables/list-coupon';
 export class ListCouponComponent implements OnInit {
 
   public selected = [];
-  
+
   public tableItem$: Observable<ListCouponsDB[]>;
   public searchText;
   total$: Observable<number>;
@@ -22,7 +22,7 @@ export class ListCouponComponent implements OnInit {
   constructor(public service: TableService) {
     this.tableItem$ = service.tableItem$;
     this.total$ = service.total$;
-    this.service.setUserData(LISTCOUPLEDB)
+    this.service.setUserData(LISTCOUPLEDB);
   }
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;

@@ -10,8 +10,8 @@ const routes: Routes = [
         path: '',
         component: MediaComponent,
         data: {
-          title: "Media",
-          breadcrumb: "Media"
+          title: 'Media',
+          breadcrumb: 'Media'
         }
       }
     ]

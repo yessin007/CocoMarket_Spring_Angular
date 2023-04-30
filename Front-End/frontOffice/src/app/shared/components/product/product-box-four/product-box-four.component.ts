@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { QuickViewComponent } from "../../modal/quick-view/quick-view.component";
-import { CartModalComponent } from "../../modal/cart-modal/cart-modal.component";
-import { Product } from "../../../classes/product";
-import { ProductService } from "../../../services/product.service";
+import { QuickViewComponent } from '../../modal/quick-view/quick-view.component';
+import { CartModalComponent } from '../../modal/cart-modal/cart-modal.component';
+import { Product } from '../../../classes/product';
+import { ProductService } from '../../../services/product.service';
 
 @Component({
   selector: 'app-product-box-four',
@@ -12,14 +12,14 @@ import { ProductService } from "../../../services/product.service";
 export class ProductBoxFourComponent implements OnInit {
 
   @Input() product: Product;
-  @Input() currency: any = this.productService.Currency; // Default Currency 
-  @Input() onHowerChangeImage: boolean = false; // Default False
-  @Input() cartModal: boolean = false; // Default False
-  
-  @ViewChild("quickView") QuickView: QuickViewComponent;
-  @ViewChild("cartModal") CartModal: CartModalComponent;
+  @Input() currency: any = this.productService.Currency; // Default Currency
+  @Input() onHowerChangeImage = false; // Default False
+  @Input() cartModal = false; // Default False
 
-  public ImageSrc : string
+  @ViewChild('quickView') QuickView: QuickViewComponent;
+  @ViewChild('cartModal') CartModal: CartModalComponent;
+
+  public ImageSrc: string;
 
   constructor(private productService: ProductService) { }
 
@@ -31,10 +31,10 @@ export class ProductBoxFourComponent implements OnInit {
     const uniqColor = [];
     for (let i = 0; i < Object.keys(variants).length; i++) {
       if (uniqColor.indexOf(variants[i].color) === -1 && variants[i].color) {
-        uniqColor.push(variants[i].color)
+        uniqColor.push(variants[i].color);
       }
     }
-    return uniqColor
+    return uniqColor;
   }
 
   // Change Variants
@@ -45,9 +45,9 @@ export class ProductBoxFourComponent implements OnInit {
           if (img.image_id === item.image_id) {
             this.ImageSrc = img.src;
           }
-        })
+        });
       }
-    })
+    });
   }
 
   // Change Variants Image

@@ -10,9 +10,9 @@ export class CompareTwoComponent implements OnInit {
 
   constructor() { }
 
+  public CompareSliderConfig: any = CompareSlider;
+
   ngOnInit(): void {
   }
-
-  public CompareSliderConfig: any = CompareSlider;
 
 }

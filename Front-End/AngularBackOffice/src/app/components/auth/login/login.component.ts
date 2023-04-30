@@ -3,7 +3,7 @@ import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import {AuthService} from '../../../services/auth.service';
 import {User} from '../../../models/User';
 import {Router} from '@angular/router';
-import {RegisterRequest} from "../../../models/RegisterRequest";
+import {RegisterRequest} from '../../../models/RegisterRequest';
 
 @Component({
 	selector: 'app-login',
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 		username: null,
 		password: null
 	};
-	rform: any ={
+	rform: any = {
 		name: null,
 		lastName: null,
 		username: null,
@@ -99,7 +99,7 @@ export class LoginComponent implements OnInit {
 				});
 				this.isLoginFailed = false;
 				this.isLoggedIn = true;
-				this.reloadPage();// navigate to dashboard on success
+				this.reloadPage(); // navigate to dashboard on success
 			},
 			error: err => {
 				this.isLoginFailed = true;

@@ -7,14 +7,14 @@ import { BlogSlider } from '../../../shared/data/slider';
   styleUrls: ['./blog.component.scss']
 })
 export class BlogComponent implements OnInit {
-  
-  @Input() blogs: any[] = [];
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  @Input() blogs: any[] = [];
 
   public BlogSliderConfig: any = BlogSlider;
+
+  ngOnInit(): void {
+  }
 
 }

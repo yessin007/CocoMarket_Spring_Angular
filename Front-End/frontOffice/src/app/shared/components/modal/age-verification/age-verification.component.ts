@@ -11,41 +11,42 @@ import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms
 })
 export class AgeVerificationComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild("ageVerification") AgeVerificationModal: TemplateRef<any>;
+  @ViewChild('ageVerification') AgeVerificationModal: TemplateRef<any>;
 
   public closeResult: string;
-  public ageVerificationForm:  UntypedFormGroup;
+  public ageVerificationForm: UntypedFormGroup;
   public currdate: any;
   public setDate: any;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object,
-    private modalService: NgbModal,
-  	private fb: UntypedFormBuilder) { 
+              private modalService: NgbModal,
+  	           private fb: UntypedFormBuilder) {
   	this.ageVerificationForm = this.fb.group({
       day: ['', Validators.required],
       month: ['', Validators.required],
       year: ['', Validators.required],
-    })
+    });
   }
 
   ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
-  	if(localStorage.getItem("ageVerification") !== 'true')
+  	if (localStorage.getItem('ageVerification') !== 'true') {
        this.openModal();
+  	}
   }
 
   openModal() {
-    if (isPlatformBrowser(this.platformId)) { // For SSR 
-      this.modalService.open(this.AgeVerificationModal, { 
+    if (isPlatformBrowser(this.platformId)) { // For SSR
+      this.modalService.open(this.AgeVerificationModal, {
         size: 'md',
         backdrop: 'static',
         keyboard: false,
         centered: true,
         windowClass: 'bd-example-modal-md theme-modal agem'
       }).result.then((result) => {
-        `Result ${result}`
+        `Result ${result}`;
       }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
@@ -53,23 +54,23 @@ export class AgeVerificationComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   ageForm() {
-    var day = this.ageVerificationForm.value.day;
-    var month = this.ageVerificationForm.value.month;
-    var year = this.ageVerificationForm.value.year;
-    var age = 18;
-    var mydate = new Date();
-    mydate.setFullYear(year, month-1, day);
+    let day = this.ageVerificationForm.value.day;
+    let month = this.ageVerificationForm.value.month;
+    let year = this.ageVerificationForm.value.year;
+    let age = 18;
+    let mydate = new Date();
+    mydate.setFullYear(year, month - 1, day);
 
-    var currdate = new Date();
+    let currdate = new Date();
     this.currdate = currdate;
-    var setDate = new Date();         
-    this.setDate = setDate.setFullYear(mydate.getFullYear() + age, month-1, day);
+    let setDate = new Date();
+    this.setDate = setDate.setFullYear(mydate.getFullYear() + age, month - 1, day);
 
     if ((this.currdate - this.setDate) > 0){
-      localStorage.setItem('ageVerification','true')
+      localStorage.setItem('ageVerification', 'true');
       this.modalService.dismissAll();
     } else {
-      window.location.href = "https://www.google.com/";
+      window.location.href = 'https://www.google.com/';
     }
   }
 
@@ -84,7 +85,7 @@ export class AgeVerificationComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   ngOnDestroy() {
-    
+
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../../shared/services/auth.service';
-import {flash} from "ng-animate";
+import {flash} from 'ng-animate';
 
 @Component({
   selector: 'app-forget-password',
@@ -41,6 +41,6 @@ export class ForgetPasswordComponent implements OnInit {
 	}
 	onSubmit() {
 	  console.log(this.form.email);
-		this.onDemResetPassword();
+		 this.onDemResetPassword();
 	}
 }

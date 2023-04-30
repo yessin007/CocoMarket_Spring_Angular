@@ -10,7 +10,7 @@ import { ProductService } from '../../shared/services/product.service';
 })
 export class ShoesComponent implements OnInit, OnDestroy {
 
-  public themeLogo: string = 'assets/images/icon/logo-6.png'; // Change Logo
+  public themeLogo = 'assets/images/icon/logo-6.png'; // Change Logo
 
   public products: Product[] = [];
   public productCollections: any[] = [];
@@ -26,9 +26,9 @@ export class ShoesComponent implements OnInit, OnDestroy {
       this.products.filter((item) => {
         item.collection.filter((collection) => {
           const index = this.productCollections.indexOf(collection);
-          if (index === -1) this.productCollections.push(collection);
-        })
-      })
+          if (index === -1) { this.productCollections.push(collection); }
+        });
+      });
     });
   }
 
@@ -149,9 +149,9 @@ export class ShoesComponent implements OnInit, OnDestroy {
   getCollectionProducts(collection) {
     return this.products.filter((item) => {
       if (item.collection.find(i => i === collection)) {
-        return item
+        return item;
       }
-    })
+    });
   }
 
 }

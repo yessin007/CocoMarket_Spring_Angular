@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {GetCurrentLocation} from "../../../shared/services/GetCurrentLocation";
-import {User} from "../../../shared/models/User";
-import {UntypedFormGroup} from "@angular/forms";
-import {AuthService} from "../../../shared/services/auth.service";
-import {Router} from "@angular/router";
+import {GetCurrentLocation} from '../../../shared/services/GetCurrentLocation';
+import {User} from '../../../shared/models/User';
+import {UntypedFormGroup} from '@angular/forms';
+import {AuthService} from '../../../shared/services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
 				});
 				this.isLoginFailed = false;
 				this.isLoggedIn = true;
-				this.reloadPage();// navigate to dashboard on success
+				this.reloadPage(); // navigate to dashboard on success
 			},
 			error: err => {
 				this.isLoginFailed = true;

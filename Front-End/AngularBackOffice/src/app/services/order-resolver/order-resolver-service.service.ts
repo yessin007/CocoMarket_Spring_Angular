@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import {ProductService} from "../product/product.service";
-import {OrderService} from "../order/order.service";
-import {ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
-import {Observable, of} from "rxjs";
-import {Product} from "../../models/product";
-import {map} from "rxjs/operators";
-import {Order} from "../../models/order";
+import {ProductService} from '../product/product.service';
+import {OrderService} from '../order/order.service';
+import {ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
+import {Observable, of} from 'rxjs';
+import {Product} from '../../models/product';
+import {map} from 'rxjs/operators';
+import {Order} from '../../models/order';
 
 @Injectable({
   providedIn: 'root'

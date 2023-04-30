@@ -13,21 +13,21 @@ export class AddProductComponent implements OnInit {
   public Editor = ClassicEditor;
   public counter = 1;
   public url = [{
-    img: "assets/images/user.png",
+    img: 'assets/images/user.png',
   },
   {
-    img: "assets/images/user.png",
+    img: 'assets/images/user.png',
   },
   {
-    img: "assets/images/user.png",
+    img: 'assets/images/user.png',
   },
   {
-    img: "assets/images/user.png",
+    img: 'assets/images/user.png',
   },
   {
-    img: "assets/images/user.png",
+    img: 'assets/images/user.png',
   }
-  ]
+  ];
 
 
   constructor(private fb: UntypedFormBuilder) {
@@ -36,7 +36,7 @@ export class AddProductComponent implements OnInit {
       price: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       code: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       size: ['', Validators.required],
-    })
+    });
   }
 
   increment() {
@@ -47,21 +47,22 @@ export class AddProductComponent implements OnInit {
     this.counter -= 1;
   }
 
-  //FileUpload
+  // FileUpload
   readUrl(event: any, i) {
-    if (event.target.files.length === 0)
+    if (event.target.files.length === 0) {
       return;
-    //Image upload validation
-    var mimeType = event.target.files[0].type;
+    }
+    // Image upload validation
+    let mimeType = event.target.files[0].type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
     // Image upload
-    var reader = new FileReader();
+    let reader = new FileReader();
     reader.readAsDataURL(event.target.files[0]);
     reader.onload = (_event) => {
       this.url[i].img = reader.result.toString();
-    }
+    };
   }
 
   ngOnInit() {

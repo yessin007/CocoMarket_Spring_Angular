@@ -11,8 +11,8 @@ import { ProductService } from '../../shared/services/product.service';
 })
 export class WatchComponent implements OnInit, OnDestroy {
 
-  public themeLogo: string = 'assets/images/icon/logo-14.png'; // Change Logo
-  
+  public themeLogo = 'assets/images/icon/logo-14.png'; // Change Logo
+
   public products: Product[] = [];
   public productCollections: any[] = [];
 
@@ -20,17 +20,17 @@ export class WatchComponent implements OnInit, OnDestroy {
   public CollectionSliderConfig: any = CollectionSlider;
   public active;
 
-  constructor(private _sanitizer:DomSanitizer,
-    public productService: ProductService) {
+  constructor(private _sanitizer: DomSanitizer,
+              public productService: ProductService) {
     this.productService.getProducts.subscribe(response => {
       this.products = response.filter(item => item.productCategory == 'watch');
       // Get Product Collection
       this.products.filter((item) => {
         item.collection.filter((collection) => {
           const index = this.productCollections.indexOf(collection);
-          if (index === -1) this.productCollections.push(collection);
-        })
-      })
+          if (index === -1) { this.productCollections.push(collection); }
+        });
+      });
     });
   }
 
@@ -84,7 +84,7 @@ export class WatchComponent implements OnInit, OnDestroy {
     image: 'assets/images/categories/1.png',
     title: 'watch models',
     text:  this._sanitizer.bypassSecurityTrustHtml('<li><a href="#">d1 milano</a></li><li><a href="#">damaskeening</a></li><li><a href="#">diving watch</a></li><li><a href="#">dollar watch</a></li>'),
-  }]
+  }];
 
   // collection
   public collections = [{
@@ -97,7 +97,7 @@ export class WatchComponent implements OnInit, OnDestroy {
     image: 'assets/images/collection/watch/3.jpg',
     title: 'minimum 10% off',
     text: 'gold watch`'
-  }]
+  }];
 
    // Blog
   public blogs = [{
@@ -120,7 +120,7 @@ export class WatchComponent implements OnInit, OnDestroy {
     date: '28 January 2018',
     title: 'Lorem ipsum dolor sit consectetur adipiscing elit,',
     by: 'John Dio'
-  }]
+  }];
 
   ngOnInit(): void {
     // Change color for this layout
@@ -136,9 +136,9 @@ export class WatchComponent implements OnInit, OnDestroy {
   getCollectionProducts(collection) {
     return this.products.filter((item) => {
       if (item.collection.find(i => i === collection)) {
-        return item
+        return item;
       }
-    })
+    });
   }
 
 }

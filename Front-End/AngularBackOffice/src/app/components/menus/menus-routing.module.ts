@@ -11,16 +11,16 @@ const routes: Routes = [
         path: 'list-menu',
         component: ListMenuComponent,
         data: {
-          title: "Menu Lists",
-          breadcrumb: "Menu Lists"
+          title: 'Menu Lists',
+          breadcrumb: 'Menu Lists'
         }
       },
       {
         path: 'create-menu',
         component: CreateMenuComponent,
         data: {
-          title: "Create Menu",
-          breadcrumb: "Create Menu"
+          title: 'Create Menu',
+          breadcrumb: 'Create Menu'
         }
       }
     ]
