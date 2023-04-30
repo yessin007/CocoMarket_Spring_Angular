@@ -144,4 +144,12 @@ public class ProductController {
     public double getAverageLikesOfProduct(@PathVariable("productId") Long productId){
         return productServices.getAverageRatingByProduct(productId);
     }
+    @GetMapping("/verifyifliked/{userId}/{productId}")
+    public boolean verifyIfLiked(@PathVariable("productId") Long productId,@PathVariable("userId") Long userId){
+        return productServices.verifyIfLiked(userId,productId);
+    }
+    @GetMapping("/verifyifdisliked/{userId}/{productId}")
+    public boolean verifyIfDisiked(@PathVariable("productId") Long productId,@PathVariable("userId") Long userId){
+        return productServices.verifyIfDisliked(userId,productId);
+    }
 }
