@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductSlider } from '../../../shared/data/slider';
 import { Product } from '../../../shared/classes/product';
 import { ProductService } from '../../../shared/services/product.service';
+import {ImageProcessingService} from "../../../shared/services/image-processing.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-fashion-one',
@@ -9,45 +11,36 @@ import { ProductService } from '../../../shared/services/product.service';
   styleUrls: ['./fashion-one.component.scss']
 })
 export class FashionOneComponent implements OnInit {
-
   public products: Product[] = [];
   public productCollections: any[] = [];
   public active;
-
-  constructor(public productService: ProductService) {
-    this.productService.getProducts.subscribe(response => {
-      this.products = response.filter(item => item.productCategory == 'fashion');
-      // Get Product Collection
-      this.products.filter((item) => {
-        item.collection.filter((collection) => {
-          const index = this.productCollections.indexOf(collection);
-          if (index === -1) this.productCollections.push(collection);
-        })
-      })
-    });
+  public product;
+  constructor(public productService: ProductService, private imageProcessingService: ImageProcessingService, private route: ActivatedRoute
+              // tslint:disable-next-line:align
+      , private router: Router) {
   }
 
   public ProductSliderConfig: any = ProductSlider;
 
   public sliders = [{
-    title: 'welcome to fashion',
-    subTitle: 'Men fashion',
-    image: 'assets/images/slider/1.jpg'
+    title: 'welcome to electronics',
+    subTitle: 'Find Your Best Products With COCO',
+    image: 'assets/images/slider/cee.png'
   }, {
     title: 'welcome to fashion',
-    subTitle: 'Women fashion',
-    image: 'assets/images/slider/2.jpg'
+    subTitle: 'You Are The Style',
+    image: 'assets/images/slider/cfff.png'
   }]
 
   // Collection banner
   public collections = [{
-    image: 'assets/images/collection/fashion/1.jpg',
-    save: 'save 50%',
-    title: 'men'
+    image: 'assets/images/wcc.png',
+    save: '',
+    title: ''
   }, {
-    image: 'assets/images/collection/fashion/2.jpg',
-    save: 'save 50%',
-    title: 'women'
+    image: 'assets/images/wccc.png',
+    save: '',
+    title: ''
   }];
 
   // Blog
@@ -93,15 +86,33 @@ export class FashionOneComponent implements OnInit {
   }];
 
   ngOnInit(): void {
+    this.Initialization();
   }
 
   // Product Tab collection
-  getCollectionProducts(collection) {
+  public getCollectionProducts(collection) {
     return this.products.filter((item) => {
-      if (item.collection.find(i => i === collection)) {
-        return item
+      if (item.productCategory === collection) {
+        return item;
       }
-    })
+    });
+  }
+  public Initialization() {
+    this.productService.getProducts.subscribe(response => {
+      // tslint:disable-next-line:triple-equals
+      this.products = response/*.filter(item => item.productCategory == 'electronics')*/;
+      // Get Product Collection
+      this.products.filter((item) => {
+        item.collection.filter((collection) => {
+          const index = this.productCollections.indexOf(item.productCategory);
+          if (index === -1) { this.productCollections.push(item.productCategory); }
+        });
+      });
+      this.active = this.productCollections[0];
+    });
+  }
+  showProductDetails(productID) {
+    this.router.navigate(['/shop/product/left/sidebar/', {productId: productID}]);
   }
 
 }

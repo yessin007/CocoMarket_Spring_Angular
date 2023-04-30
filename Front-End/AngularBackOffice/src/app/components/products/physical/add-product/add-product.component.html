@@ -8,24 +8,19 @@
         </div>
         <div class="card-body">
           <div class="row product-adding">
-            <div class="col-xl-5">
-              <div class="add-product">
-                <div class="row">
-                  <div class="col-xl-9 xl-50 col-sm-6 col-9">
-                    <img src="assets/images/pro3/1.jpg" alt="" class="img-fluid image_zoom_1">
+            <label class="col-form-label pt-0"> Product Upload</label>
+            <div class="card-body dropzone-custom p-0">
+              <ngx-dropzone class="dropzone-border" (change)="onSelect($event)">
+                <ngx-dropzone-label>
+                  <div class="dz-message needsclick">
+                    <i class="fa fa-cloud-upload"></i>
+                    <h4 class="mb-0 f-w-600">Drop files here or click to upload.</h4>
                   </div>
-                  <div class="col-xl-3 xl-50 col-sm-6 col-3">
-                    <ul class="file-upload-product">
-                      <li *ngFor="let item of url; let i=index">
-                        <div class="box-input-file">
-                          <input class="upload" type="file" (change)="readUrl($event,i)">
-                          <img class="imgUpload" alt="" [src]="item.img">
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+                </ngx-dropzone-label>
+                  <ngx-dropzone-image-preview [file]="f.filefile"*ngFor="let f of array" [removable]="true" (removed)="onRemove(f)">
+                    <img [src]="f.url" alt="">
+                  </ngx-dropzone-image-preview>
+              </ngx-dropzone>
             </div>
             <div class="col-xl-7">
               <form class="needs-validation" [formGroup]="productForm" novalidate>
@@ -37,7 +32,7 @@
                     </div>
                     <div class="col-xl-8 col-sm-7">
                       <input class="form-control" id="validationCustom01" type="text"
-                        [formControl]="productForm.controls['name']" required>
+                        [formControl]="productForm.controls['name']" name="title" [(ngModel)]="product.title" required>
                       <div *ngIf="productForm.controls.name.touched && productForm.controls.name.errors?.required"
                         class="text text-danger">
                         Title Name is required.
@@ -50,7 +45,7 @@
                     </div>
                     <div class="col-xl-8 col-sm-7">
                       <input class="form-control" id="validationCustom02" type="number"
-                        [formControl]="productForm.controls['price']" required="">
+                        [formControl]="productForm.controls['price']" name="price" [(ngModel)]="product.price" required="">
                     </div>
                     <div *ngIf="productForm.controls.price.touched && productForm.controls.price.errors?.required"
                       class="text text-danger">
@@ -59,16 +54,16 @@
                   </div>
                   <div class="form-group row">
                     <div class="col-xl-3 col-sm-4">
-                      <label for="validationCustom03" class="mb-0">Product Code
+                      <label for="validationCustom03" class="mb-0">Product Reference
                         :</label>
                     </div>
                     <div class="col-xl-8 col-sm-7">
                       <input class="form-control" id="validationCustom03" type="number"
-                        [formControl]="productForm.controls['code']" required="">
+                        [formControl]="productForm.controls['code']" name="ref" [(ngModel)]="product.reference" required="">
                     </div>
                     <div *ngIf="productForm.controls.code.touched && productForm.controls.code.errors?.required"
                       class="text text-danger">
-                      Product <Code></Code> is required.
+                      Product <Code>reference</Code> is required.
                     </div>
                   </div>
                   <div class="form-group row">
