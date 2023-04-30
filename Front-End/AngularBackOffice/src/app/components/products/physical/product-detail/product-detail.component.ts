@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Image } from '@ks89/angular-modal-gallery';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
+
 import {Product} from '../../../../models/product';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ImageProcessingService} from '../../../../services/image-processing.service';
@@ -9,6 +10,7 @@ import {Store} from '../../../../models/store';
 import {StoreService} from '../../../../services/store/store.service';
 import {ImageProceesingsService} from '../../../../services/img/image-proceesings.service';
 import {ProductService} from '../../../../services/product/product.service';
+
 
 @Component({
   selector: 'app-product-detail',
@@ -18,8 +20,11 @@ import {ProductService} from '../../../../services/product/product.service';
 })
 export class ProductDetailComponent implements OnInit {
   public closeResult: string;
+
+  currentRate = 0;
+
   public counter = 1;
-  currentRate = 8;
+
   product: Product;
   image: File[] = [];
   stores: Store[];
@@ -34,9 +39,11 @@ export class ProductDetailComponent implements OnInit {
 
 
   constructor(private modalService: NgbModal, config: NgbRatingConfig, private activatedRoute: ActivatedRoute,
+
               private imageProcessingImage: ImageProcessingService , private storeService: StoreService
   ,           private imageProcessingService: ImageProceesingsService , private productservice: ProductService,
               private route: ActivatedRoute ) {
+
     config.max = 5;
     config.readonly = false;
   }
@@ -68,6 +75,7 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit() {
     this.product = this.activatedRoute.snapshot.data.product;
+    this.productService.getAverageLikesOfProduct(this.product.productId).subscribe((resp) => this.product.avgLikes = resp);
     console.log(this.product);
     const id = +this.route.snapshot.paramMap.get('id'); // Récupérer l'ID du produit à partir des paramètres de l'URL
     this.productservice.getProduct(id)

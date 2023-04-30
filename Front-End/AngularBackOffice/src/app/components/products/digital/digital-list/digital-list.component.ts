@@ -55,8 +55,8 @@ export class DigitalListComponent implements OnInit {
   public getAllProducts(){
     this.productService.getAllProducts()
         .pipe(
-            map((x: Product[], i) => x.map((product: Product) => this.imageProcessingService.createImages(product)))
-        )
+            map((x: Product[], i) => x.filter(product => product.productCategory === 'electronics')
+                .map((product: Product) => this.imageProcessingService.createImages(product))))
         .subscribe(
         (resp: Product[]) => {console.log(resp); this.digitalCategories = resp; },
         (error: HttpErrorResponse) => {console.log(error); }
