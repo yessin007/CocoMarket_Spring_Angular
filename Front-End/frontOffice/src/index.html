@@ -11,118 +11,85 @@
 	<!--Google font-->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvHALSEQwNE3b-b7eHSZIDv-KK1wr7CRQ&callback=initMap&libraries=places" defer></script>
     <script>
-        /**
-         * @license
-         * Copyright 2019 Google LLC. All Rights Reserved.
-         * SPDX-License-Identifier: Apache-2.0
-         */
-        let map;
-        let marker;
-        let geocoder;
-        let responseDiv;
-        let response;
-
+        // This sample requires the Places library. Include the libraries=places
+        // parameter when you first load the API. For example:
+        // <script
+        // src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
         function initMap() {
-            map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 8,
-                center: { lat: -34.397, lng: 150.644 },
-                mapTypeControl: false,
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -33.8688, lng: 151.2195 },
+                zoom: 13,
             });
-            geocoder = new google.maps.Geocoder();
-
-            const inputText = document.createElement("input");
-
-            inputText.type = "text";
-            inputText.placeholder = "Enter a location";
-
-            const submitButton = document.createElement("input");
-
-            submitButton.type = "button";
-            submitButton.value = "Geocode";
-            submitButton.classList.add("button", "button-primary");
-
-            const clearButton = document.createElement("input");
-
-            clearButton.type = "button";
-            clearButton.value = "Clear";
-            clearButton.classList.add("button", "button-secondary");
-            response = document.createElement("pre");
-            response.id = "response";
-            response.innerText = "";
-            responseDiv = document.createElement("div");
-            responseDiv.id = "response-container";
-            responseDiv.appendChild(response);
-
-            const instructionsElement = document.createElement("p");
-
-            instructionsElement.id = "instructions";
-            instructionsElement.innerHTML =
-                "<strong>Instructions</strong>: Enter an address in the textbox to geocode or click on the map to reverse geocode.";
-            map.controls[google.maps.ControlPosition.TOP_LEFT].push(inputText);
-            map.controls[google.maps.ControlPosition.TOP_LEFT].push(submitButton);
-            map.controls[google.maps.ControlPosition.TOP_LEFT].push(clearButton);
-            map.controls[google.maps.ControlPosition.LEFT_TOP].push(
-                instructionsElement
-            );
-            map.controls[google.maps.ControlPosition.LEFT_TOP].push(responseDiv);
-            marker = new google.maps.Marker({
-                map,
+            const input = document.getElementById("pac-input");
+            // Specify just the place data fields that you need.
+            const autocomplete = new google.maps.places.Autocomplete(input, {
+                fields: ["place_id", "geometry", "name", "formatted_address"],
             });
-            map.addListener("click", (e) => {
-                geocode({ location: e.latLng });
+
+            autocomplete.bindTo("bounds", map);
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            const infowindow = new google.maps.InfoWindow();
+            const infowindowContent = document.getElementById("infowindow-content");
+
+            infowindow.setContent(infowindowContent);
+
+            const geocoder = new google.maps.Geocoder();
+            const marker = new google.maps.Marker({ map: map });
+
+            marker.addListener("click", () => {
+                infowindow.open(map, marker);
             });
-            submitButton.addEventListener("click", () =>
-                geocode({ address: inputText.value })
-            );
-            clearButton.addEventListener("click", () => {
-                clear();
+            autocomplete.addListener("place_changed", () => {
+                infowindow.close();
+
+                const place = autocomplete.getPlace();
+
+                if (!place.place_id) {
+                    return;
+                }
+
+                geocoder
+                    .geocode({ placeId: place.place_id })
+                    .then(({ results }) => {
+                        map.setZoom(11);
+                        map.setCenter(results[0].geometry.location);
+                        // Set the position of the marker using the place ID and location.
+                        // @ts-ignore TODO This should be in @typings/googlemaps.
+                        marker.setPlace({
+                            placeId: place.place_id,
+                            location: results[0].geometry.location,
+                        });
+                        marker.setVisible(true);
+                        infowindowContent.children["place-name"].textContent = place.name;
+                        infowindowContent.children["place-id"].textContent = place.place_id;
+                        infowindowContent.children["place-address"].textContent =
+                            results[0].formatted_address;
+                        infowindow.open(map, marker);
+                    })
+                    .catch((e) => window.alert("Geocoder failed due to: " + e));
             });
-            clear();
-        }
-
-        function clear() {
-            marker.setMap(null);
-        }
-
-        function geocode(request) {
-            clear();
-            geocoder
-                .geocode(request)
-                .then((result) => {
-                    const { results } = result;
-
-                    map.setCenter(results[0].geometry.location);
-                    marker.setPosition(results[0].geometry.location);
-                    marker.setMap(map);
-                    response.innerText = JSON.stringify(result, null, 2);
-                    return results;
-                })
-                .catch((e) => {
-                    alert("Geocode was not successful for the following reason: " + e);
-                });
         }
 
         window.initMap = initMap;
     </script>
-    <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvHALSEQwNE3b-b7eHSZIDv-KK1wr7CRQ&callback=initMap&v=weekly" defer></script>
+
 
     <style>
-        /**
-         * @license
-         * Copyright 2019 Google LLC. All Rights Reserved.
-         * SPDX-License-Identifier: Apache-2.0
-         */
-        /**
-         * Always set the map height explicitly to define the size of the div element
-         * that contains the map.
-         */
+        /*
+  * Always set the map height explicitly to define the size of the div element
+  * that contains the map.
+  */
         #map {
             height: 100%;
         }
 
-        /* Optional: Makes the sample page fill the window. */
+        /*
+         * Optional: Makes the sample page fill the window.
+         */
         html,
         body {
             height: 100%;
@@ -130,78 +97,38 @@
             padding: 0;
         }
 
-        input[type="text"] {
+        .controls {
             background-color: #fff;
-            border: 0;
             border-radius: 2px;
-            box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-            margin: 10px;
-            padding: 0 0.5em;
-            font: 400 18px Roboto, Arial, sans-serif;
-            overflow: hidden;
-            line-height: 40px;
-            margin-right: 0;
-            min-width: 25%;
+            border: 1px solid transparent;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            box-sizing: border-box;
+            font-family: Roboto;
+            font-size: 15px;
+            font-weight: 300;
+            height: 29px;
+            margin-left: 17px;
+            margin-top: 10px;
+            outline: none;
+            padding: 0 11px 0 13px;
+            text-overflow: ellipsis;
+            width: 400px;
         }
 
-        input[type="button"] {
-            background-color: #fff;
-            border: 0;
-            border-radius: 2px;
-            box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-            margin: 10px;
-            padding: 0 0.5em;
-            font: 400 18px Roboto, Arial, sans-serif;
-            overflow: hidden;
-            height: 40px;
-            cursor: pointer;
-            margin-left: 5px;
-        }
-        input[type="button"]:hover {
-            background: rgb(235, 235, 235);
-        }
-        input[type="button"].button-primary {
-            background-color: #1a73e8;
-            color: white;
-        }
-        input[type="button"].button-primary:hover {
-            background-color: #1765cc;
-        }
-        input[type="button"].button-secondary {
-            background-color: white;
-            color: #1a73e8;
-        }
-        input[type="button"].button-secondary:hover {
-            background-color: #d2e3fc;
+        .controls:focus {
+            border-color: #4d90fe;
         }
 
-        #response-container {
-            background-color: #fff;
-            border: 0;
-            border-radius: 2px;
-            box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-            margin: 10px;
-            padding: 0 0.5em;
-            font: 400 18px Roboto, Arial, sans-serif;
-            overflow: hidden;
-            overflow: auto;
-            max-height: 50%;
-            max-width: 90%;
-            background-color: rgba(255, 255, 255, 0.95);
-            font-size: small;
+        .title {
+            font-weight: bold;
         }
 
-        #instructions {
-            background-color: #fff;
-            border: 0;
-            border-radius: 2px;
-            box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-            margin: 10px;
-            padding: 0 0.5em;
-            font: 400 18px Roboto, Arial, sans-serif;
-            overflow: hidden;
-            padding: 1rem;
-            font-size: medium;
+        #infowindow-content {
+            display: none;
+        }
+
+        #map #infowindow-content {
+            display: inline;
         }
     </style>
     <script>

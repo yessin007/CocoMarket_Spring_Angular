@@ -1,12 +1,12 @@
-import {ChangeDetectorRef, Component, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {TableService} from "../../../shared/service/table.service";
-import {DecimalPipe} from "@angular/common";
-import {Observable} from "rxjs";
-import {LISTPAGEDB, ListPagesDB} from "../../../shared/tables/list-pages";
-import {Delivery} from "../../../models/delivery";
-import {ActivatedRoute, Router} from "@angular/router";
-import {DeliveriesService} from "../../../services/deliveries.service";
-import {NgbdSortableHeader, SortEvent} from "../../../shared/directives/NgbdSortableHeader";
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {TableService} from '../../../shared/service/table.service';
+import {DecimalPipe} from '@angular/common';
+import {Observable} from 'rxjs';
+import {LISTPAGEDB, ListPagesDB} from '../../../shared/tables/list-pages';
+import {Delivery} from '../../../models/delivery';
+import {ActivatedRoute, Router} from '@angular/router';
+import {DeliveriesService} from '../../../services/deliveries.service';
+import {NgbdSortableHeader, SortEvent} from '../../../shared/directives/NgbdSortableHeader';
 
 @Component({
   selector: 'app-delivery-component',
@@ -15,20 +15,20 @@ import {NgbdSortableHeader, SortEvent} from "../../../shared/directives/NgbdSort
   providers: [TableService, DecimalPipe]
 })
 export class DeliveryComponentComponent implements OnInit{
+
+  constructor(public service: TableService, private deliveryService: DeliveriesService, private route: Router, private cdRef: ChangeDetectorRef) {
+    this.tableItem$ = service.tableItem$;
+    this.total$ = service.total$;
+    this.service.setUserData(LISTPAGEDB);
+  }
   public selected = [];
   public tableItem$: Observable<ListPagesDB[]>;
   public searchText;
   total$: Observable<number>;
   deliveryList: Delivery[] = [];
-
-  constructor(public service: TableService, private deliveryService: DeliveriesService, private route : Router) {
-    this.tableItem$ = service.tableItem$;
-    this.total$ = service.total$;
-    this.service.setUserData(LISTPAGEDB)
-  }
-
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
-
+  item: any;
+  i: any;
   onSort({ column, direction }: SortEvent) {
     // resetting other headers
     this.headers.forEach((header) => {
@@ -46,24 +46,41 @@ export class DeliveryComponentComponent implements OnInit{
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
   }
-  item: any;
 
   ngOnInit() {
     this.retrieveDeliveryList();
+    this.cdRef.detectChanges();
+
   }
-  retrieveDeliveryList(){
+  retrieveDeliveryList() {
+    console.log('Before retrieving delivery list');
     this.deliveryService.retrieveDeliveryList().subscribe((response) => {
+      console.log('Response received:', response);
       this.deliveryList = response;
+    }, error => {
+      console.error('Error occurred while retrieving delivery list:', error);
+    }, () => {
+      console.log('Delivery list retrieved successfully');
     });
   }
+
   changeStatusToDelivered(id){
     this.deliveryService.changeStatusToDelivered(id).subscribe(item => {
       this.item = item;
+      console.log('Updated item:', this.item); // add console log here
       this.route.navigateByUrl('/', { skipLocationChange: true }).then(() => {
         this.route.navigate(['pages/delivery-component']);
       });
     });
+  }
 
-
+  dispatch(id){
+    this.deliveryService.dispatch(id).subscribe(item => {
+      this.item = item;
+      console.log('Updated item:', this.item); // add console log here
+      this.route.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.route.navigate(['pages/delivery-component']);
+      });
+    });
   }
 }

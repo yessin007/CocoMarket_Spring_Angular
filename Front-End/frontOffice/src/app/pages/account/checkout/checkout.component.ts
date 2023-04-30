@@ -21,8 +21,18 @@ export class CheckoutComponent implements OnInit {
 
   delivery : Deliveries = new  Deliveries();
 
-  ngOnInit() {
-  }
+
+    ngOnInit() {
+      window.addEventListener('message', event => {
+        // Check that the event is from the correct origin
+        if (event.origin !== 'https://storage.googleapis.com') {
+          return;
+        }
+
+        // Handle the message from the iframe here
+        console.log(event.data);
+      });
+    }
 
   hideContent() {
       this.isContentHidden = !this.isContentHidden;
