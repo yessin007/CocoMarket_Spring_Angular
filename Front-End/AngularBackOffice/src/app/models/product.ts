@@ -18,4 +18,6 @@ export class Product {
     productCategory: string;
     image: FileHandle[];
     numberOfLikes?: number;
+    avgLikes?: number;
+    collection?: string[];
 }

@@ -14,6 +14,7 @@ export class ProductService {
   readonly GET_TOTAL_PRODUCTS_PRICE = 'http://localhost:9092/COCO/api/product/gettotalpriceproducts';
   readonly GET_TOP_FIVE_MOST_LIKED_PRODUCTS = 'http://localhost:9092/COCO/api/product/topfivemostlikedproducts';
   readonly GET_NUMBER_OF_LIKES_OF_PRODUCT = 'http://localhost:9092/COCO/api/product/getnumberoflikes/';
+  readonly GET_AVERAGE_LIKES_OF_PRODUCT = 'http://localhost:9092/COCO/api/product/getaveragelikesofproduct/';
 
   constructor(private httpClient: HttpClient) { }
   addProduct(product: FormData): Observable<any> {
@@ -37,6 +38,9 @@ export class ProductService {
   }
   getNumberOfLikesOfProduct(productId: number): Observable<number>{
     return this.httpClient.get<number>(this.GET_NUMBER_OF_LIKES_OF_PRODUCT + productId);
+  }
+  public getAverageLikesOfProduct(productId){
+    return this.httpClient.get<number>(this.GET_AVERAGE_LIKES_OF_PRODUCT + productId);
   }
 
 }

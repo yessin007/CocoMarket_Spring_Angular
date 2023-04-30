@@ -25,6 +25,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SharedModule } from 'src/app/shared/shared.module';
 import {CarouselModule} from "ngx-bootstrap/carousel";
+import {BarRatingModule} from "ngx-bar-rating";
 // import { NgbdSortableHeader } from "src/app/shared/directives/NgbdSortableHeader";
 // import {  } from '../../directives/shorting.directive/';
 
@@ -43,7 +44,8 @@ import {CarouselModule} from "ngx-bootstrap/carousel";
         CKEditorModule,
         NgxDropzoneModule,
         SharedModule,
-        CarouselModule
+        CarouselModule,
+        BarRatingModule
     ],
   exports: [SubCategoryComponent],
   bootstrap: [SubCategoryComponent],

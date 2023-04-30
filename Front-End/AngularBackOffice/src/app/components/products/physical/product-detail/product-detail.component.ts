@@ -5,6 +5,7 @@ import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import {Product} from "../../../../models/product";
 import {ActivatedRoute} from "@angular/router";
 import {ImageProcessingService} from "../../../../services/image-processing.service";
+import {ProductService} from "../../../../services/product/product.service";
 
 @Component({
   selector: 'app-product-detail',
@@ -15,7 +16,7 @@ import {ImageProcessingService} from "../../../../services/image-processing.serv
 export class ProductDetailComponent implements OnInit {
   public closeResult: string;
   public counter: number = 1;
-  currentRate = 8;
+  currentRate = 0;
   product: Product;
   image: File[] = [];
 
@@ -27,7 +28,7 @@ export class ProductDetailComponent implements OnInit {
 
 
   constructor(private modalService: NgbModal, config: NgbRatingConfig, private activatedRoute: ActivatedRoute,
-              private imageProcessingImage: ImageProcessingService) {
+              private imageProcessingImage: ImageProcessingService, private productService: ProductService) {
     config.max = 5;
     config.readonly = false;
   }
@@ -59,6 +60,7 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit() {
     this.product = this.activatedRoute.snapshot.data.product;
+    this.productService.getAverageLikesOfProduct(this.product.productId).subscribe((resp) => this.product.avgLikes = resp);
     console.log(this.product);
   }
 

@@ -61,16 +61,9 @@ public class ProductController {
     @PostMapping(value = "/addproduct",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     Product addProduct(@RequestPart("product") Product product, @RequestPart("imageFile") MultipartFile [] files){
         //return productRepository.save(product);
-        collection.add("featured products");
-        collection.add("on sale");
-        collection.add("new arrival");
-        collection.add("best sellers");
-        collection.add("all products");
-
         try {
             Set<ProductImages> productImagesSet=uploadImages(files);
             product.setImage(productImagesSet);
-            product.setCollection(collection);
             product.setQuantity(product.getStock());
             return productRepository.save(product);
         }catch (Exception e){

@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import {
+    UntypedFormGroup,
+    UntypedFormBuilder,
+    Validators,
+    NgForm,
+    FormControl,
+    FormGroup,
+    FormBuilder
+} from '@angular/forms';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {FileHandle} from "../../../../models/FileHandle";
 import {ProductService} from "../../../../services/product/product.service";
@@ -14,32 +22,80 @@ import {Product} from "../../../../models/product";
   styleUrls: ['./add-product.component.scss']
 })
 export class AddProductComponent implements OnInit {
+
+
+
+  constructor(private fb: UntypedFormBuilder, private productService: ProductService, private sanitizer: DomSanitizer, private activatedRoute: ActivatedRoute) {
+    this.productForm = this.fb.group({
+      name: ['', [Validators.required]],
+      desc: ['', [Validators.required]],
+      price: ['', [Validators.required]],
+      code: ['', [Validators.required]],
+      stock: ['', Validators.required],
+      discount: [''],
+    });
+  }
   public productForm: UntypedFormGroup;
   public Editor = ClassicEditor;
   public counter = 1;
   files: File[] = [];
   array: FileHandle[] = [];
+    selectedItems: string[] = ['all products'];
  public product: Product = new Product() ;
-
-
-  constructor(private fb: UntypedFormBuilder,private productService: ProductService, private sanitizer: DomSanitizer, private activatedRoute: ActivatedRoute) {
-    this.productForm = this.fb.group({
-      name: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-      price: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-      code: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-      size: ['', Validators.required],
-    })
-  }
-
+  //FileUpload
+    onSale: boolean;
+    isNew: boolean;
+    isTrending: boolean;
+    onCheckboxChange(item: string, isChecked: boolean) {
+        if (isChecked) {
+            this.selectedItems.push(item);
+        } else {
+            const index = this.selectedItems.indexOf(item);
+            if (index !== -1) {
+                this.selectedItems.splice(index, 1);
+            }
+        }
+        this.product.collection = this.selectedItems;
+        console.log(this.product.collection);
+    }
   increment() {
     this.counter += 1;
+    this.product.stock = this.counter;
   }
 
   decrement() {
     this.counter -= 1;
+    this.product.stock = this.counter;
   }
+    clearDescription() {
+        this.product.description = '';
+    }
+    onSubmit() {
+        this.product.productCategory = 'fashion';
+        const productFormData = this.prepareFormData(this.product);
+        this.productService.addProduct(productFormData).subscribe(
+            (product: Product) => {
+                console.log('Product added successfully', product);
+                // Reset the form
+                this.product = new Product();
+            },
+            (error) => {
+                console.error('Failed to add product', error);
+            }
+        );
+        this.array = [];
+    }
 
-  //FileUpload
+    prepareFormData(product: Product): FormData{
+        const formData = new FormData();
+        //this.product.productImages = this.files;
+        formData.append('product', new Blob([JSON.stringify(product)], {type: 'application/json'}));
+        // tslint:disable-next-line:prefer-for-of
+        for (let i = 0; i < product.image.length ; i++) {
+            formData.append('imageFile', product.image[i].filefile, product.image[i].filefile.name);
+        }
+        return formData;
+    }
   readUrl(event: any, i) {
     if (event.target.files.length === 0) {
       return;
@@ -101,6 +157,7 @@ export class AddProductComponent implements OnInit {
     this.array.splice(this.array.indexOf(event), 1);
   }
   ngOnInit() {
+      this.product = this.activatedRoute.snapshot.data.product; console.log(this.product);
   }
 
 }

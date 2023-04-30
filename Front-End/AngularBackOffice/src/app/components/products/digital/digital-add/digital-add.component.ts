@@ -17,10 +17,24 @@ import {ActivatedRoute} from "@angular/router";
 export class DigitalAddComponent implements OnInit {
   public counter = 1;
   files: File[] = [];
+  selectedItems: string[] = ['all products'];
   array: FileHandle[] = [];
   public Editor = ClassicEditor;
+  isNew: boolean;
+  isTrending: boolean;
   constructor(private productService: ProductService, private sanitizer: DomSanitizer, private activatedRoute: ActivatedRoute) { }
   product: Product = new Product();
+  onCheckboxChange(item: string, isChecked: boolean) {
+    if (isChecked) {
+      this.selectedItems.push(item);
+    } else {
+      const index = this.selectedItems.indexOf(item);
+      if (index !== -1) {
+        this.selectedItems.splice(index, 1);
+      }
+    }
+    console.log(this.selectedItems);
+  }
   onSelect(event) {
     console.log(event);
     //this.files.push(...event.addedFiles);
@@ -61,6 +75,8 @@ export class DigitalAddComponent implements OnInit {
     this.product.description = '';
   }
   onSubmit(productForm: NgForm) {
+    this.product.productCategory = 'electronics';
+    this.product.collection = this.selectedItems;
     const productFormData = this.prepareFormData(this.product);
     this.productService.addProduct(productFormData).subscribe(
         (product: Product) => {
