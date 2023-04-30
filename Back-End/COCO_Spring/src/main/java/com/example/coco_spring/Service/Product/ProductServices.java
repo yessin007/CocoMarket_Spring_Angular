@@ -25,6 +25,7 @@ public class ProductServices implements IProductServices {
     UserRepository userRepository;
     OrderRepository orderRepository;
     ReviewRepository reviewRepository;
+    LikeDislikeRepository likeDislikeProductRepository;
 
     @Override
     public List<Product> retrieveAllProducts() {
@@ -163,5 +164,15 @@ Regarding the calculation of the premium based on the price and date:
         }
 
         return 0;
+    }
+    public boolean verifyIfLiked(Long userId, Long productId){
+        List<LikeDislikeProduct> likeDislikeProducts = likeDislikeProductRepository
+                .findByUser_IdAndProduct_ProductIdAndProductRate(userId, productId, ProductRate.LIKE);
+        return !likeDislikeProducts.isEmpty();
+    }
+    public boolean verifyIfDisliked(Long userId, Long productId){
+        List<LikeDislikeProduct> likeDislikeProducts = likeDislikeProductRepository
+                .findByUser_IdAndProduct_ProductIdAndProductRate(userId, productId, ProductRate.DISLIKE);
+        return !likeDislikeProducts.isEmpty();
     }
 }

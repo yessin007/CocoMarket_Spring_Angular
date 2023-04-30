@@ -29,12 +29,16 @@ export class ProductBoxOneComponent implements OnInit {
   constructor(private productService: ProductService, private imageProcessinService: ImageProcessingService, private router: Router) { }
 
   ngOnInit(): void {
+    this.getAvgLike(this.product.productId);
     if(this.loader) {
       setTimeout(() => { this.loader = false; }, 2000); // Skeleton Loader
     }
   }
   showProductDetails(productID) {
     this.router.navigate(['shop/product/left/sidebar/', {productId: productID}]);
+  }
+  getAvgLike(productId){
+    this.productService.getAverageLikesOfProduct(productId).subscribe((prod => this.product.productAvgLike = prod));
   }
   // Get Product Color
   Color(variants) {

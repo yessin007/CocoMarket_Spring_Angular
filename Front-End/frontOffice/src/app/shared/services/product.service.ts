@@ -33,6 +33,8 @@ export class ProductService {
   readonly GET_ALL_REVIEWS = 'http://localhost:9092/COCO/api/review/getallreviews/';
   readonly DISLIKE_PRODUCT = 'http://localhost:9092/COCO/api/review';
   readonly LIKE_PRODUCT = 'http://localhost:9092/COCO/api/review';
+  readonly VERIFY_LIKE_PRODUCT = 'http://localhost:9092/COCO/api/product';
+  readonly VERIFY_DISLIKE_PRODUCT = 'http://localhost:9092/COCO/api/product';
   readonly GET_AVERAGE_LIKES_OF_PRODUCT = 'http://localhost:9092/COCO/api/product/getaveragelikesofproduct/';
   currentUser: User = new User();
   public id ;
@@ -108,6 +110,11 @@ export class ProductService {
   public likeProduct(productId){
     return this.httpClient.post(this.LIKE_PRODUCT + '/' + this.id + '/like/' + productId , {});
   }
+  public verifyLikeProduct(productId): Observable<boolean>{
+    return this.httpClient.get<boolean>(this.VERIFY_LIKE_PRODUCT + '/verifyifliked/' + this.id + '/' + productId );
+  }
+  public verifyDisikeProduct(productId): Observable<boolean>{
+    return this.httpClient.get<boolean>(this.VERIFY_DISLIKE_PRODUCT + '/verifyifdisliked/' + this.id + '/' + productId); }
   public disLikeProduct(productId){
     return this.httpClient.post(this.DISLIKE_PRODUCT + '/' + this.id + '/dislike/' + productId , {});
   }

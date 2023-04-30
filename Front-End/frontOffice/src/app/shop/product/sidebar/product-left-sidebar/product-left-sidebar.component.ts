@@ -24,7 +24,8 @@ export class ProductLeftSidebarComponent implements OnInit {
   public activeSlide: any = 0;
   public selectedSize: any;
   public mobileSidebar = false;
-
+  public liked;
+  public disliked;
   rating = 3;
   starCount = 5;
   public reviews: Review[] = [];
@@ -44,6 +45,8 @@ export class ProductLeftSidebarComponent implements OnInit {
     this.product = this.route.snapshot.data.product;
     this.router.navigate(['shop/product/left/sidebar/', {productId: this.product.productId}]);
     this.getAllReviews();
+    this.verifyDislikeProduct();
+    this.verifyLikeProduct();
     console.log(this.product);
   }
   refresh(product){
@@ -73,7 +76,20 @@ export class ProductLeftSidebarComponent implements OnInit {
     }
     return uniqSize;
   }
-
+  verifyDislikeProduct(){
+    this.productService.verifyDisikeProduct(this.product.productId).subscribe((resp) => {
+      this.disliked = resp;
+     // console.log(resp);
+      console.log(this.disliked)
+    }) ;
+  }
+  verifyLikeProduct(){
+    this.productService.verifyLikeProduct(this.product.productId).subscribe((resp) => {
+      this.liked = resp;
+    //  console.log(resp);
+      console.log(this.liked);
+    }) ;
+  }
   reviewProduct(review: Review){
     this.productService.reviewProduct(review, this.product.productId).subscribe((product: Product) => {
           console.log('review added successfully', product);
@@ -135,10 +151,16 @@ export class ProductLeftSidebarComponent implements OnInit {
     this.productService.likeProduct(product.productId).subscribe((resp) => {
       console.log('like added successfully'); });
     this.productService.addToWishlist(product);
+    this.router.navigateByUrl('/home/fashion', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['shop/product/left/sidebar/', {productId: this.product.productId}]);
+    });
   }
   dislikeProduct(product: Product) {
     this.productService.disLikeProduct(product.productId).subscribe((resp) => {
       console.log('dislike product successfully'); });
+    this.router.navigateByUrl('/home/fashion', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['shop/product/left/sidebar/', {productId: this.product.productId}]);
+    });
   }
   // Toggle Mobile Sidebar
   toggleMobileSidebar() {
