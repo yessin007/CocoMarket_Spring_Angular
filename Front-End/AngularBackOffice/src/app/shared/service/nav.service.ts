@@ -53,11 +53,7 @@ export class NavService {
 				},
 				{
 					title: 'Consult Product', type: 'sub', children: [
-						{ path: '/products/physical/category', title: 'Clothing Products Brands', type: 'link' },
-						{ path: '/products/physical/sub-category', title: 'ClothingProducts Category', type: 'link' },
 						{ path: '/products/physical/product-list', title: 'Clothing Products List', type: 'link' },
-						{ path: '/products/physical/product-detail', title: 'Clothing Product Detail', type: 'link' },
-						{ path: '/products/digital/digital-category', title: 'Digital Product Category', type: 'link' },
 						{ path: '/products/digital/digital-product-list', title: 'Digital Products List', type: 'link' },
 
 					]

@@ -51,11 +51,6 @@
                                 <label for="validationdiscount" class="col-form-label pt-0"><span>*</span> Discount<span>%</span></label>
                                 <input class="form-control" id="validationdiscount" name="dicount" [(ngModel)]="product.discount" type="number" required="">
                             </div>
-                            <h3>Image Preview</h3>
-                            <div *ngFor="let f of product.image">
-                                <h4>{{f.filefile.name}}</h4>
-                                <img height="300px" width="300px" [src]="f.url">
-                            </div>
                             <label class="col-form-label pt-0"> Product Upload</label>
                             <div class="card-body dropzone-custom p-0">
                                 <ngx-dropzone class="dropzone-border" (change)="onSelect($event)">
@@ -65,9 +60,9 @@
                                             <h4 class="mb-0 f-w-600">Drop files here or click to upload.</h4>
                                         </div>
                                     </ngx-dropzone-label>
-                                    <ngx-dropzone-preview *ngFor="let f of array" [removable]="true" (removed)="onRemove(f)">
-                                        <ngx-dropzone-label>{{ f.filefile.name }} ({{ f.filefile.type }})</ngx-dropzone-label>
-                                    </ngx-dropzone-preview>
+                                    <ngx-dropzone-image-preview [file]="f.filefile" *ngFor="let f of array" [removable]="true" (removed)="onRemove(f)">
+                                        <img [src]="f.url" alt="">
+                                    </ngx-dropzone-image-preview>
                                 </ngx-dropzone>
                             </div>
                         </div>

@@ -32,7 +32,7 @@ public class SubsciptionService {
         List<Product> allProducts=productRepository.findAll();
         List<List<Product>> topChosen=new ArrayList<>();
         Map<ProductCategory,List<Product>> topRatedProductByCategoryMap=new HashMap<>();
-        List<Product> colthingAndApparelProducts= allProducts.stream().filter(p -> p.getProductCategory().equals(ProductCategory.ClothingAndApparel)).sorted((a,b)->reviewServices.numberOfLikes(a.getProductId())-reviewServices.numberOfLikes(b.getProductId())).limit(10).toList();
+        List<Product> colthingAndApparelProducts= allProducts.stream().filter(p -> p.getProductCategory().equals(ProductCategory.fashion)).sorted((a,b)->reviewServices.numberOfLikes(a.getProductId())-reviewServices.numberOfLikes(b.getProductId())).limit(10).toList();
         topChosen.add(colthingAndApparelProducts);
         List<Product> homeGoodsProducts= allProducts.stream().filter(p -> p.getProductCategory().equals(ProductCategory.HomeGoods)).sorted((a,b)->reviewServices.numberOfLikes(a.getProductId())-reviewServices.numberOfLikes(b.getProductId())).limit(10).toList();
         topChosen.add(homeGoodsProducts);
