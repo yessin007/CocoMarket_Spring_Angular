@@ -4,7 +4,7 @@
     <div class="collection-collapse-block-content">
         <div class="collection-brand-filter">
             <ul class="category-list">
-                <li *ngFor="let category of filterbyCategory">
+                <li *ngFor="let category of productCollections">
                     <a [routerLink]="['/shop/collection/left/sidebar']"
                        [queryParams]="{ category: category}">
                         {{ category }}

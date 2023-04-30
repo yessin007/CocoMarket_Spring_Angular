@@ -28,22 +28,8 @@ export class CollectionLeftSidebarComponent implements OnInit {
   public loader: boolean = true;
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private viewScroller: ViewportScroller, public productService: ProductService) {   
-      // Get Query params..
-      this.route.queryParams.subscribe(params => {
-
-        this.brands = params.brand ? params.brand.split(",") : [];
-        this.colors = params.color ? params.color.split(",") : [];
-        this.size  = params.size ? params.size.split(",")  : [];
-        this.minPrice = params.minPrice ? params.minPrice : this.minPrice;
-        this.maxPrice = params.maxPrice ? params.maxPrice : this.maxPrice;
-        this.tags = [...this.brands, ...this.colors, ...this.size]; // All Tags Array
-        
-        this.category = params.category ? params.category : null;
-        this.sortBy = params.sortBy ? params.sortBy : 'ascending';
-        this.pageNo = params.page ? params.page : this.pageNo;
-
-        // Get Filtered Products..
+              private viewScroller: ViewportScroller, public productService: ProductService) {
+    // Get Filtered Products..
         /*this.productService.filterProducts(this.tags).subscribe(response => {
           // Sorting Filter
           this.products = this.productService.sortProducts(response, this.sortBy);
@@ -51,17 +37,20 @@ export class CollectionLeftSidebarComponent implements OnInit {
           if(params.category)
             this.products = this.products.filter(item => item.productCategory == this.category);
           // Price Filter
-          this.products = this.products.filter(item => item.price >= this.minPrice && item.price <= this.maxPrice) 
+          this.products = this.products.filter(item => item.price >= this.minPrice && item.price <= this.maxPrice)
           // Paginate Products
           this.paginate = this.productService.getPager(this.products.length, +this.pageNo);     // get paginate object from service
           this.products = this.products.slice(this.paginate.startIndex, this.paginate.endIndex + 1); // get current page of items
         }) */
-      })
-  }
+      }
 
   ngOnInit(): void {
+  this.getAllProducts();
+  console.log(this.products);
   }
-
+  getAllProducts(){
+    this.productService.getProducts.subscribe((resp) => this.products = resp);
+  }
 
   // Append filter value to Url
   updateFilter(tags: any) {

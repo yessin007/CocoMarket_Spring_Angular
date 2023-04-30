@@ -25,7 +25,7 @@ export class SearchComponent implements OnInit {
         map((x: Product[], i) => x.map((product: Product) => this.imageProcessingService.createImages(product)))
     ).subscribe(response => {
       // tslint:disable-next-line:triple-equals
-      this.products = response.filter(item => item.productCategory == 'electronics');
+      this.products = response;
       // Get Product Collection
       this.products.filter((item) => {
           const index = this.productCollections.indexOf(item.productCategory);
