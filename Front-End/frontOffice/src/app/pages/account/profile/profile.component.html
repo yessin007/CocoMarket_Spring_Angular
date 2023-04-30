@@ -5,28 +5,89 @@
         <div class="row">
             <div class="col-sm-12">
                 <h3>PERSONAL DETAIL</h3>
-                <form class="theme-form">
+                <form class="theme-form"
+					  name="rform"
+					  (ngSubmit)="f.form.valid && onSubmit()"
+					  #f="ngForm"
+					  novalidate>
                     <div class="row">
                         <div class="col-md-6">
                             <label for="name">First Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="Enter Your name" required="">
+                            <input type="text" class="form-control" placeholder="Enter your FirstName"
+								   name="Rname"
+								   [(ngModel)]="rform.name"
+								   required
+								   #name="ngModel"
+								   [ngClass]="{ 'is-invalid': f.submitted && name.errors }">
+							<div *ngIf="name.errors && f.submitted" class="invalid-feedback">
+								First Name is required!
+							</div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="email">Last Name</label>
-                            <input type="text" class="form-control" id="last-name" placeholder="Email" required="">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="review">Phone number</label>
-                            <input type="text" class="form-control" id="review" placeholder="Enter your number" required="">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="email">Email</label>
-                            <input type="text" class="form-control" id="email" placeholder="Email" required="">
-                        </div>
+						<div class="col-md-6">
+							<label for="name">Last Name</label>
+							<input type="text" class="form-control" placeholder="Enter your LastName"
+								   name="RlastName"
+								   [(ngModel)]="rform.lastName"
+								   required
+								   #lastName="ngModel"
+								   [ngClass]="{ 'is-invalid': f.submitted && lastName.errors }">
+							<div *ngIf="lastName.errors && f.submitted" class="invalid-feedback">
+								Last Name is required!
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label for="name">UserName</label>
+							<input type="text" class="form-control" placeholder="Enter your UserName"
+								   name="Rname"
+								   [(ngModel)]="rform.username"
+								   required
+								   #username="ngModel"
+								   [ngClass]="{ 'is-invalid': f.submitted && username.errors }">
+							<div *ngIf="username.errors && f.submitted" class="invalid-feedback">
+								username is required!
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label for="name">UserName</label>
+							<input type="text" class="form-control" placeholder="Enter your Email Address"
+								   name="Remail"
+								   [(ngModel)]="rform.email"
+								   required
+								   #email="ngModel"
+								   [ngClass]="{ 'is-invalid': f.submitted && email.errors }">
+							<div *ngIf="email.errors && f.submitted" class="invalid-feedback">
+								Email is required!
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label for="name">Day of Birth</label>
+							<input type="date" class="form-control" placeholder="Enter your Day of Birth"
+								   name="RdayOfBirth"
+								   [(ngModel)]="rform.dayOfBirth"
+								   required
+								   #dayOfBirth="ngModel"
+								   [ngClass]="{ 'is-invalid': f.submitted && dayOfBirth.errors }">
+							<div *ngIf="dayOfBirth.errors && f.submitted" class="invalid-feedback">
+								Day of Birth is required!
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label for="name">ID number</label>
+							<input type="text" class="form-control" placeholder="Enter your ID number"
+								   name="Rcin"
+								   [(ngModel)]="rform.cin"
+								   required
+								   #cin="ngModel"
+								   [ngClass]="{ 'is-invalid': f.submitted && cin.errors }">
+							<div *ngIf="cin.errors && f.submitted" class="invalid-feedback">
+								ID number is required!
+							</div>
+						</div>
+						<!--
                         <div class="col-md-12">
                             <label for="review">Write Your Message</label>
                             <textarea class="form-control mb-0" placeholder="Write Your Message" id="exampleFormControlTextarea1" rows="6"></textarea>
-                        </div>
+                        </div>-->
                     </div>
                 </form>
             </div>
@@ -40,19 +101,37 @@
         <div class="row">
             <div class="col-sm-12">
                 <h3>SHIPPING ADDRESS</h3>
-                <form class="theme-form">
+                <form class="theme-form"
+					  name="aform"
+					  (ngSubmit)="f.form.valid && onSubmit()"
+					  #f="ngForm"
+					  novalidate>
                     <div class="row">
-                        <div class="col-md-6">
+                        <!--<div class="col-md-6">
                             <label for="name">flat / plot</label>
                             <input type="text" class="form-control" id="home-ploat" placeholder="company name" required="">
-                        </div>
+                        </div>-->
                         <div class="col-md-6">
                             <label for="name">Address *</label>
-                            <input type="text" class="form-control" id="address-two" placeholder="Address" required="">
+                            <input type="text" class="form-control" name="Raddress"
+								   [(ngModel)]="aform.address" placeholder="Enter your ID number"
+								   required
+								   #address="ngModel"
+								   [ngClass]="{ 'is-invalid': f.submitted && address.errors }">
+							<div *ngIf="address.errors && f.submitted" class="invalid-feedback">
+								address is required!
+							</div>
                         </div>
                         <div class="col-md-6">
                             <label for="email">Zip Code *</label>
-                            <input type="text" class="form-control" id="zip-code" placeholder="zip-code" required="">
+                            <input type="text" class="form-control" id="zip-code"
+								   [(ngModel)]="aform.zipCode" placeholder="Enter your zip-code"
+								   required
+								   #address="ngModel"
+								   [ngClass]="{ 'is-invalid': f.submitted && address.errors }">
+							<div *ngIf="address.errors && f.submitted" class="invalid-feedback">
+								zip-code is required!
+							</div>>
                         </div>
                         <div class="col-md-6 select_input">
                             <label for="review">Country *</label>
@@ -79,5 +158,15 @@
             </div>
         </div>
     </div>
+    <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="onChosenPos($event)">
+        <agm-marker [latitude]="lat" [longitude]="lng">
+        </agm-marker>
+    </agm-map>
+
+
 </section>
 <!-- Section ends -->
+
+<!-- this creates a google map on the page with the given lat/lng from -->
+<!-- the component as the initial center of the map: -->
+

@@ -86,6 +86,7 @@ export class NavService {
 		},
 		{
 			title: 'Deliveries', icon: 'clipboard', type: 'sub', active: false, children: [
+				{ path: '/pages/delivery-component', title: 'List deliveries', type: 'link' },
 				{ path: '/pages/list-page', title: 'List delivery man', type: 'link' },
 				{ path: '/pages/create-page', title: 'Create delivery man', type: 'link' },
 				{ path: '/pages/provider-location', title: 'Provider Location', type: 'link' },
@@ -121,6 +122,7 @@ export class NavService {
 				// tslint:disable-next-line:indent
 				{ path: '/vendors/all-stores', title: 'All Stores', type: 'link' },
 
+				{ path: '/vendors/add-post', title: 'Add Post', type: 'link' },
 
 
 

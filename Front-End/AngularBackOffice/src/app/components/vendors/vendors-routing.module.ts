@@ -6,10 +6,11 @@ import { CreateVendorsComponent } from './create-vendors/create-vendors.componen
 
 
 import {CreateStorecatalogComponent} from './create-storecatalog/create-storecatalog.component';
-import {ListCatlComponent} from "./list-catl/list-catl.component";
+import {ListCatlComponent} from './list-catl/list-catl.component';
 
-import {StoreDetailComponent} from "./store-detail/store-detail.component";
 import {AllStoresComponent} from './all-stores/all-stores.component';
+import {AddPostComponent} from "./add-post/add-post.component";
+import {StoreDetailComponent} from "./store-detail/store-detail.component";
 
 
 const routes: Routes = [
@@ -31,7 +32,8 @@ const routes: Routes = [
           title: 'Create Store',
           breadcrumb: 'Create Store'
         }
-      },{
+      },
+      {
        path: 'store-detail',
         component: StoreDetailComponent,
         data: {
@@ -64,7 +66,14 @@ const routes: Routes = [
           breadcrumb: 'list StoreCatalog'
         }
       },
-
+      {
+        path: 'add-post',
+        component: AddPostComponent,
+        data: {
+          title: 'Add Post',
+          breadcrumb: 'Create Post'
+        }
+      },
     ]
   }
 ];

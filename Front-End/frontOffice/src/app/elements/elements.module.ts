@@ -14,6 +14,7 @@ import { ProductSliderComponent } from './product/product-slider/product-slider.
 import { BannersComponent } from './product/banners/banners.component';
 import { ProductTabsComponent } from './product/product-tabs/product-tabs.component';
 import { MultiSliderComponent } from './product/multi-slider/multi-slider.component';
+import {AgmCoreModule} from "@agm/core";
 
 @NgModule({
   declarations: [
@@ -27,10 +28,11 @@ import { MultiSliderComponent } from './product/multi-slider/multi-slider.compon
     ProductTabsComponent,
     MultiSliderComponent
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    ElementsRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        ElementsRoutingModule,
+        AgmCoreModule
+    ]
 })
 export class ElementsModule { }
