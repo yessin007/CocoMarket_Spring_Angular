@@ -1,0 +1,23 @@
+.Image{
+  display: flex;
+  border-radius: 50%;
+  box-shadow: 0 1px 0px 0px var(--white);
+  height: 200px;
+  width: 200px;
+
+}
+.Image:hover{
+  transform: scale(1.07);
+  transition: 1s ease-out;
+}
+ul{
+  font-size: 13px;
+  list-style: none;
+  margin: 0 0 0 -0.8125em;
+  padding-left: 0;
+
+}
+li{
+  position: relative;
+  padding-left: 11px;
+}

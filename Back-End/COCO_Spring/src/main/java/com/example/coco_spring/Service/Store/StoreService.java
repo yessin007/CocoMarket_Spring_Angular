@@ -4,7 +4,8 @@ import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Repository.*;
 import com.example.coco_spring.Service.*;
 
-
+import com.vader.sentiment.analyzer.SentimentAnalyzer;
+import com.vader.sentiment.analyzer.SentimentPolarities;
 
 import com.example.coco_spring.Service.Delivery.LocationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -17,13 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 
-import java.awt.image.BufferedImage;
 import java.util.*;
 
-import javax.imageio.ImageIO;
 import javax.mail.MessagingException;
 import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
@@ -73,8 +71,6 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
 
         return storeRepository.save(store);
     }
-
-    
 
     @Override
     public void delete(Long storeId) {
@@ -311,7 +307,7 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
 
     }
 
-/*
+
     final SentimentPolarities sentimentPolarities =
             SentimentAnalyzer.getScoresFor("that's a rare and valuable feature.");
     public Map<String, Map<String,Float>> analizeSentimentOfComments(){
@@ -328,7 +324,7 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
         }
         return  result;
     }
-*/
+
 
     public ResponseEntity<Map<String, Object>> setLatLngToStore(Long storeId) {
         try {

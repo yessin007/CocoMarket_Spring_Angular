@@ -16,15 +16,15 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class LikeDislikeProduct
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Enumerated(EnumType.STRING)
-    ProductRate productRate;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JsonIgnore
-    User user;
-    @ManyToOne
-    @JsonIgnore
-    Product product;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@Enumerated(EnumType.STRING)
+	ProductRate productRate;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
+	User user;
+	@ManyToOne
+	@JsonIgnore
+	Product product;
 }

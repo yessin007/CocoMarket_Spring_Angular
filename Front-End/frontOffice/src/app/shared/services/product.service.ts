@@ -5,6 +5,7 @@ import { map, startWith, delay } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from '../classes/product';
 import {ImageProcessingService} from './image-processing.service';
+
 import {Review} from '../classes/review';
 import {User} from '../models/User';
 import {AuthService} from './auth.service';
@@ -63,13 +64,11 @@ export class ProductService {
     ---------------------------------------------
   */
 
-
   // Product
   private get products(): Observable<Product[]> {
     this.Products = this.httpClient.get<Product[]>(this.GET_ALL_PRODUCTS_API_URL);
     return this.Products;
   }
-
 
   public addToCart(productId){
     return this.httpClient.get('http://localhost:8089/radhwen/api/cart/addToCart/' + productId );
@@ -240,27 +239,27 @@ export class ProductService {
   }
 
   // Add to Cart
-  // public addToCart(product): any {
-  //   const cartItem = state.cart.find(item => item.id === product.id);
-  //   const qty = product.quantity ? product.quantity : 1;
-  //   const items = cartItem ? cartItem : product;
-  //   const stock = this.calculateStockCounts(items, qty);
-  //
-  //   if (!stock) { return false; }
-  //
-  //   if (cartItem) {
-  //       cartItem.quantity += qty;
-  //   } else {
-  //     state.cart.push({
-  //       ...product,
-  //       quantity: qty
-  //     });
-  //   }
-  //
-  //   this.OpenCart = true; // If we use cart variation modal
-  //   localStorage.setItem('cartItems', JSON.stringify(state.cart));
-  //   return true;
-  // }
+  public addToCart(product): any {
+    const cartItem = state.cart.find(item => item.id === product.id);
+    const qty = product.quantity ? product.quantity : 1;
+    const items = cartItem ? cartItem : product;
+    const stock = this.calculateStockCounts(items, qty);
+
+    if (!stock) { return false; }
+
+    if (cartItem) {
+        cartItem.quantity += qty;
+    } else {
+      state.cart.push({
+        ...product,
+        quantity: qty
+      });
+    }
+
+    this.OpenCart = true; // If we use cart variation modal
+    localStorage.setItem('cartItems', JSON.stringify(state.cart));
+    return true;
+  }
 
   // Update Cart Quantity
   public updateCartQuantity(product: Product, quantity: number): Product | boolean {

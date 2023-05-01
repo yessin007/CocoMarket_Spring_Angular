@@ -29,6 +29,7 @@ import java.util.*;
 @RequestMapping("/api/product")
 @CrossOrigin("*")
 public class ProductController {
+
     ProductServices productServices;
     ProductRepository productRepository;
     public List<String> collection = new ArrayList<>();
@@ -134,7 +135,7 @@ public class ProductController {
         return productServices.calculateProductInsurance(productId,idUser);
     }
     @GetMapping("/gettotalpriceproducts")
-    public  double getTotAlPriceProducts(){
+    public  double getTotAflPriceProducts(){
         return productServices.productTotalPrice();
     }
     @GetMapping ("/topfivemostlikedproducts")

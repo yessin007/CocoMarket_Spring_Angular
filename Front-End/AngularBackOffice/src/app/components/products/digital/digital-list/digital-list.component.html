@@ -36,7 +36,7 @@
                                     <td>{{ catgory.productCategory }}</td>
                                     <td>{{ catgory.quantity }}</td>
                                     <td>{{ catgory.price}}</td>
-                                    <td>{{ catgory.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td>{{ catgory.createdAt}}</td>
                                     <td>
                                         <a (click)="editProductDetails(catgory.productId)" href="javascript:void(0)"><i class='fa fa-edit f-12'></i></a>&nbsp;
                                         <a (click)="deleteProduct(catgory.productId)" href="javascript:void(0)"><i class="fa fa-trash-o"></i></a>

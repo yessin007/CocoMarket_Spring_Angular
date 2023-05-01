@@ -20,10 +20,12 @@
 
                                 </tr>
 
-                            </thead>
-                            <tbody>
+
+
+
+                                </thead>
+                                <tbody>
                                 <tr *ngFor="let item of providerList ">
-                                    <th></th>
                                     <th scope="row">
                                    {{ item.firstName }}
                                     </th>
@@ -33,12 +35,15 @@
                                     <th scope="row">
                                         {{item.phoneNumber}}
                                     </th>
+
                                     <th scope="row">
                                         <a (click)="editProvider(item.id)" href="javascript:void(0)"><i class='fa fa-edit f-12'></i></a>&nbsp;
                                         <a (click)="deleteProvider(item.id)" href="javascript:void(0)"><i class="fa fa-trash-o" ></i> &nbsp;&nbsp;&nbsp;</a>
                                         <a (click)="(setLatLngToProvider(item.id))" href="javascript:void(0)"><i class="fa fa-map-marker"></i></a>
                                     </th>
+
                                 </tr>
+
 
                             </tbody>
                         </table>

@@ -57,8 +57,8 @@ public class User implements UserDetails {
     @JsonIgnore
     @OneToOne
     Cart cart;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<Review> reviews;
 
 
@@ -132,9 +132,10 @@ public class User implements UserDetails {
         return true;
     }
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    @JsonIgnore
-    List<LikeDislikeProduct> likeDislikeProductList;
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+	@JsonIgnore
+	List<LikeDislikeProduct> likeDislikeProductList;
+
     @OneToMany(mappedBy = "user")
             @JsonIgnore
     List<Subscription> subscriptions;

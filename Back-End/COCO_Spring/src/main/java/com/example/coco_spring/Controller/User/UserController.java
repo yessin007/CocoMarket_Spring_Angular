@@ -19,14 +19,22 @@ import java.util.Random;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/users")
+@CrossOrigin(origins = "*")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
     @GetMapping("/")
+	@CrossOrigin(origins = "*")
     public List<User> getAllUsers() {
         return userService.getAllUsers();
+    }
+
+	@GetMapping("/web")
+	@CrossOrigin(origins = "*")
+    public List<UserSummary> getAllUsersWeb() {
+        return userService.getAllUserSummaries();
     }
 
     @GetMapping("/{id}")

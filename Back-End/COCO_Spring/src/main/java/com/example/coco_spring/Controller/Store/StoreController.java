@@ -25,10 +25,8 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @RestController
 @AllArgsConstructor
@@ -39,38 +37,11 @@ public class StoreController {
     StoreRepository storeRepository;
     ProductServices productServices;
 
-    @PostMapping(value="/addStore",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public Store add(@RequestPart("store") Store store,
-                     @RequestPart("imageFile") MultipartFile[] file)  {
-
-        try {
-            Set<ImageSModel> images = uploadImage(file);
-            store.setStoreImages(images);
-            return storeService.add(store);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            return null ;
-        }
-
+    @PostMapping(value ="/addStore",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Store add(@RequestBody Store store) throws IOException, WriterException {
+        return storeService.add(store);
     }
-    public Set<ImageSModel> uploadImage(MultipartFile[] multipartFiles)  throws IOException {
-        Set<ImageSModel> imageSModels = new HashSet<>();
-        for(MultipartFile file : multipartFiles){
-            ImageSModel imageSModel =new ImageSModel(
-                    file.getOriginalFilename(),
-                    file.getContentType(),
-                    file.getBytes()
-            );
-            imageSModels.add(imageSModel);
-        }
-        return imageSModels ;
-    }
-  /*  @PostMapping("/add-Post-image/{idpost}")
-    @ResponseBody
-    public ResponseEntity<?> addpostimage(@RequestParam MultipartFile image,@PathVariable("idpost") Long idpost) throws IOException {
-        return storeService.addimagepost(image,idpost);
 
-    }*/
     @GetMapping("/get_all_Stores")
     public List<Store> findAll() {
         return storeService.findAll();
@@ -80,10 +51,7 @@ public class StoreController {
     public Store update(@RequestBody Store store) {
         return storeService.update(store);
     }
-    @GetMapping("/retrive_Store/{storeId}")
-    public Store retrieveStore(@PathVariable("storeId") Long storeId) {
-        return storeService.retrieveItem(storeId);
-    }
+
     @DeleteMapping("/deleteStore/{storeId}")
     public void delete(@PathVariable("storeId") Long storeId) {
         storeService.delete(storeId);
@@ -200,7 +168,7 @@ public class StoreController {
         return storeService.add(store);
     }
 
-/*
+
     @GetMapping("/AnalyzePostComments")
     public Map<String, Map<String,Float>> analizeSentimentOfComments() {
         return storeService.analizeSentimentOfComments();
@@ -211,6 +179,6 @@ public class StoreController {
     public ResponseEntity<Map<String, Object>> setLatLngToStore(@PathVariable("storeId") Long storeId) {
         return storeService.setLatLngToStore(storeId);
 
-    }*/
+    }
 }
 

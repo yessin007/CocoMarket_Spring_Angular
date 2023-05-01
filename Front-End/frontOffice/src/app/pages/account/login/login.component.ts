@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {GetCurrentLocation} from "../../../shared/services/GetCurrentLocation";
 import {User} from "../../../shared/models/User";
 import {UntypedFormGroup} from "@angular/forms";
 import {AuthService} from "../../../shared/services/auth.service";
@@ -11,14 +10,15 @@ import {Router} from "@angular/router";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-	currentUser: User = new User();
+	// tslint:disable-next-line:new-parens
+	currentUser: User = new User;
 	isLoggedIn = false;
 	isLoginFailed = false;
 	form: any = {
 		username: null,
 		password: null
 	};
-	constructor( private authService: AuthService, private router: Router, private getCurrentLocationn: GetCurrentLocation) {
+	constructor( private authService: AuthService, private router: Router/*, private getCurrentLocationn: GetCurrentLocation*/) {
 		this.authService.currentUser.subscribe(data => {
 			this.currentUser = data;
 		});
@@ -38,9 +38,9 @@ export class LoginComponent implements OnInit {
 		console.log('login page open');
 	}
 
-  getCurrentLocation() {
+  /*getCurrentLocation() {
     console.log(this.getCurrentLocationn.getCurrentLocation());
-  }
+  }*/
 	onSubmit(): void {
 		// tslint:disable-next-line:indent
 		const { username, password } = this.form;

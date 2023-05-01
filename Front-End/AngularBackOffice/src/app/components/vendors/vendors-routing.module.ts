@@ -3,14 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { ListVendorsComponent } from './list-vendors/list-vendors.component';
 import { CreateVendorsComponent } from './create-vendors/create-vendors.component';
 
-
-
 import {CreateStorecatalogComponent} from './create-storecatalog/create-storecatalog.component';
-import {ListCatlComponent} from './list-catl/list-catl.component';
+import {ListCatlComponent} from "./list-catl/list-catl.component";
 
-import {AllStoresComponent} from './all-stores/all-stores.component';
-import {AddPostComponent} from "./add-post/add-post.component";
 import {StoreDetailComponent} from "./store-detail/store-detail.component";
+import {AllStoresComponent} from './all-stores/all-stores.component';
+import {CatalogDetailComponent} from './catalog-detail/catalog-detail.component';
+
 
 
 const routes: Routes = [
@@ -32,8 +31,7 @@ const routes: Routes = [
           title: 'Create Store',
           breadcrumb: 'Create Store'
         }
-      },
-      {
+      },{
        path: 'store-detail',
         component: StoreDetailComponent,
         data: {
@@ -67,13 +65,14 @@ const routes: Routes = [
         }
       },
       {
-        path: 'add-post',
-        component: AddPostComponent,
+        path: 'catalog-detail',
+        component: CatalogDetailComponent,
         data: {
-          title: 'Add Post',
-          breadcrumb: 'Create Post'
+          title: 'catalog detail',
+          breadcrumb: 'catalog detail'
         }
       },
+
     ]
   }
 ];

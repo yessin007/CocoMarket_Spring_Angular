@@ -3,7 +3,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>Store Lists</h5>
+                    <h5>Product Lists</h5>
                 </div>
                 <div class="card-body">
                     <div id="batchDelete" class="custom-datatable">
@@ -11,7 +11,7 @@
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th scope="col">Store Name</th>
+                                    <th scope="col">Product Name</th>
                                     <th scope="col" sortable="img"   >Image</th>
                                     <th scope="col" sortable="st" >Store Name</th>
                                     <th scope="col" sortable="entry_type" >Store Description</th>
@@ -40,6 +40,10 @@
                                     <td>
                                         <a (click)="editStoreDetails(catgory.storeId)" href="javascript:void(0)"><i class='fa fa-edit f-12'></i></a>&nbsp;
                                         <a (click)="deleteStore(catgory.storeId)" href="javascript:void(0)"><i class="fa fa-trash-o"></i></a>
+
+                                    </td>
+                                    <td>
+                                        <button  (click)="showAffect(catgory.storeId)" type="button" class="btn btn-info">Info</button>
                                     </td>
                                 </tr>
                                 </tbody>

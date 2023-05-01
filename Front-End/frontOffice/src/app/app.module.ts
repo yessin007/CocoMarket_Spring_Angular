@@ -15,10 +15,11 @@ import { AppComponent } from './app.component';
 import { ShopComponent } from './shop/shop.component';
 import { PagesComponent } from './pages/pages.component';
 import { ElementsComponent } from './elements/elements.component';
-import {AgmCoreModule} from "@agm/core";
+
 
 import { NgxStarRatingModule } from 'ngx-star-rating';
 import {MatDialogModule} from '@angular/material/dialog';
+
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
    return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -29,8 +30,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     ShopComponent,
     PagesComponent,
-    ElementsComponent,
-    
+    ElementsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -39,8 +39,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgbModule,
     LoadingBarHttpClientModule,
     LoadingBarRouterModule,
+
     NgxStarRatingModule,
     MatDialogModule,
+
     ToastrModule.forRoot({
       timeOut: 3000,
       progressBar: false,
@@ -54,14 +56,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         }
     }),
     SharedModule,
-    AppRoutingModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAvHALSEQwNE3b-b7eHSZIDv-KK1wr7CRQ'
-    }),
-
-
+    AppRoutingModule
   ],
-
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review,Long> {
-    @Query("SELECT AVG(r.rating) FROM Review r WHERE r.product.productId = :productId")
-    Double getAverageRatingByProductId(@Param("productId") Long productId);
+	@Query("SELECT AVG(r.rating) FROM Review r WHERE r.product.productId = :productId")
+	Double getAverageRatingByProductId(@Param("productId") Long productId);
 }

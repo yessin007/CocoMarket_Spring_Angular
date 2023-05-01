@@ -17,14 +17,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.IOException;
 import javax.mail.MessagingException;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @AllArgsConstructor
@@ -47,14 +46,30 @@ StoreCatalogRepository storeCatalogRepository ;
 
 
     @PostMapping("/addStoreCatalog")
-    public StoreCatalog add(@RequestBody StoreCatalog class1){
+    public StoreCatalog add(@RequestBody StoreCatalog storeCatalog,
+                            @RequestPart("imageFile") MultipartFile[] file){
 
-        Notification notif = new Notification();
-        notif.setCreatedAt(new Date());
-        notif.setMessage(class1 + " new cataloq");
-        notif.setRead(false);
-        notificationRepository.save(notif);
-        return storeCatalogService.add(class1);
+        try {
+            Set<ImageAM> images = uploadImage(file);
+            storeCatalog.setCatalogImages(images);
+            return storeCatalogService.add(storeCatalog);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null ;
+        }
+    }
+
+    public Set<ImageAM> uploadImage(MultipartFile[] multipartFiles)  throws IOException {
+        Set<ImageAM> ImageAMs = new HashSet<>();
+        for(MultipartFile file : multipartFiles){
+            ImageAM ImageAM =new ImageAM(
+                    file.getOriginalFilename(),
+                    file.getContentType(),
+                    file.getBytes()
+            );
+            ImageAMs.add(ImageAM);
+        }
+        return ImageAMs ;
     }
 
     @GetMapping("/get_all_StoreCatalog")
@@ -141,6 +156,11 @@ StoreCatalogRepository storeCatalogRepository ;
         User user = userRepository.findById(userId).get();
         List<String> interests = userService.findtheinterestsofbuyers(user.getId());
         emailService.sendEmailToStoreCatalog(user,interests,productId,catalogId,subject,message);
+    }
+
+    @GetMapping("findStoreId/{catalogId}")
+    public Store findStoreId(@PathVariable("catalogId") Long catalogId){
+        return storeCatalogService.findStoreId(catalogId);
     }
 
 

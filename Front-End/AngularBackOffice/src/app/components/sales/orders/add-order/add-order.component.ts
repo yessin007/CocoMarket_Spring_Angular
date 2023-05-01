@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import {UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import {NgbCalendar, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import {Order} from 'src/app/models/order';
-import {Store} from '../../../../models/store';
-
-import {OrderService} from '../../../../services/order/order.service';
-import {AuthService} from '../../../../services/auth.service';
-import {User} from '../../../../models/User';
-import {ActivatedRoute} from '@angular/router';
+import {Store} from "../../../../models/store";
+import {Product} from "../../../../models/product";
+import {Provider} from "../../../../models/provider";
+import {OrderService} from "../../../../services/order/order.service";
+import {AuthService} from "../../../../services/auth.service";
+import {User} from "../../../../models/User";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-add-order',
@@ -82,7 +83,7 @@ export class AddOrderComponent {
   onSubmit() {
     console.log(this.currentToken);
     this.orderService.addOrder( this.order ).subscribe((order: Order) => {console.log('Order added successfully', order);
-                                                                          this.order = new Order(); } ,
+      this.order = new Order();} ,
         (error) => { console.error('Failed to add Order', error); }
         );
   }
