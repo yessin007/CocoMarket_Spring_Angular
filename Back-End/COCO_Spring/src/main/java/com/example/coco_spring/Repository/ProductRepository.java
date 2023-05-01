@@ -23,5 +23,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     public List<Product> findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String key1, String key2);
     List<Product> findByCreatedAtBetween(Date startDate, Date endDate);
+    List<Product> findByProductIdNotAndPriceLessThan(Long productId, float maxPrice);
 
 }

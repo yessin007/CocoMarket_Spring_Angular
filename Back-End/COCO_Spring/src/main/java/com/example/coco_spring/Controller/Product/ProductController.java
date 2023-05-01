@@ -37,8 +37,8 @@ public class ProductController {
     private ObjectMapper jsonMapper;
     @Autowired private OpenAiApiClient client;
 
-    @GetMapping("/findmatchingaiproducts")
-    public ResponseEntity<List<Product>> chatWithGpt3(@RequestParam String message) throws Exception {
+    @GetMapping("/findmatchingaiproducts/{input}")
+    public ResponseEntity<List<Product>> chatWithGpt3(@PathVariable("input") String message) throws Exception {
         var completion = CompletionRequest.defaultWith("give me a list products which description is"+message);
         var postBodyJson = jsonMapper.writeValueAsString(completion);
         var responseBody = client.postToOpenAiApi(postBodyJson, OpenAiApiClient.OpenAiService.GPT_3);
@@ -56,6 +56,18 @@ public class ProductController {
             }
         }
         return ResponseEntity.ok(resultRes);
+    }
+    @GetMapping("/gbt3/{input}")
+    public ResponseEntity<List<String>> chatWithGpt3NoProduct(@PathVariable("input") String message) throws Exception {
+        var completion = CompletionRequest.defaultWith("give me a list products which description is"+message);
+        var postBodyJson = jsonMapper.writeValueAsString(completion);
+        var responseBody = client.postToOpenAiApi(postBodyJson, OpenAiApiClient.OpenAiService.GPT_3);
+        var completionResponse = jsonMapper.readValue(responseBody, CompletionResponse.class);
+
+        var result = completionResponse.firstAnswer().trim();
+        List<String> resultList = Arrays.asList(result.split("\n"));
+        resultList.replaceAll(s -> s.replaceAll("^\\d+\\.\\s*", ""));
+        return ResponseEntity.ok(resultList);
     }
 
     @PostMapping(value = "/addproduct",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})

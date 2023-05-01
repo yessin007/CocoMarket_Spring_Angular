@@ -20,25 +20,14 @@ import java.util.Random;
 public class TimeUpdater {
     SubscripttionRepository subscripttionRepository;
     SubsciptionService subsciptionService;
-    @Scheduled(cron = "* 59 23 * * *")
-    public void updateSubStatus(){
-        List<Subscription> subscriptions=subscripttionRepository.findAll();
 
-        for(Subscription subscription:subscriptions){
-            if (subscription.getRemainingDaysINMonth()>0){
-                subscription.setRemainingDaysINMonth(subscription.getRemainingDaysINMonth()-1);
-            }
-            else if(subscription.getSubMonths()>0 && subscription.getRemainingDaysINMonth()==0) {
-                subscription.setSubMonths(subscription.getSubMonths()-1);
-            }
-            else if (subscription.getRemainingDaysINMonth()==0&&subscription.getSubMonths()==0) {
-                Map<ProductCategory,List<Product>> top10RatedProductByCategory=subsciptionService.top10RatedProductByCategory();
-                List<Product> prizes=top10RatedProductByCategory.get(subscription.getProduct().getProductCategory()).stream().filter(p-> p.getPrice()<p.getPrice()*0.2).toList();
-                Random rand = new Random();
-                Product prize=prizes.get(rand.nextInt(prizes.size()));
-                subscription.setPrize(prize);
-            }
-        }
-        subscripttionRepository.saveAll(subscriptions);
+    public Product getPrize(Long subId){
+        Subscription subscription = subscripttionRepository.findById(subId).get();
+        Map<ProductCategory,List<Product>> top10RatedProductByCategory=subsciptionService.top10RatedProductByCategory();
+        List<Product> prizes=top10RatedProductByCategory.get(subscription.getProduct().getProductCategory()).stream().filter(p-> p.getPrice()<p.getPrice()*0.2).toList();
+        Random rand = new Random();
+        Product prize=prizes.get(rand.nextInt(prizes.size()));
+        subscription.setPrize(prize);
+        return prize;
     }
 }

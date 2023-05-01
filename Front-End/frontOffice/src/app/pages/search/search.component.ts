@@ -12,8 +12,11 @@ import {Route, Router} from "@angular/router";
 })
 export class SearchComponent implements OnInit {
   public productCollections: any[] = [];
+  public aiProductCollections: any[] = [];
   public active;
+  public activeA;
   public products: Product[] = [];
+  public aiProducts: Product[] = [];
   constructor( public productService: ProductService, private imageProcessingService: ImageProcessingService, private router: Router) { }
   public searchByKeyWord(searchKeyWord){
     console.log(searchKeyWord);
@@ -34,6 +37,24 @@ export class SearchComponent implements OnInit {
       this.active = this.productCollections[0];
     });
   }
+  AiSearchWithGBT(searchKey: string = ''){
+    this.productService.findProductWithGBT3(searchKey).subscribe(response => {
+      console.log(response);
+      // tslint:disable-next-line:triple-equals no-shadowed-variable
+      response.forEach((p) => this.productService.searchByKeyWord(p).pipe(
+          map((x: Product[], i) => x.map((product: Product) => this.imageProcessingService.createImages(product)))
+      ).subscribe((res) => res.forEach((pl) => this.aiProducts.push(pl)))
+      );
+
+      // Get Product Collection
+      this.aiProducts.filter((item) => {
+        const index = this.aiProductCollections.indexOf(item.productCategory);
+        if (index === -1) { this.aiProductCollections.push(item.productCategory); }
+      });
+      this.activeA = this.aiProductCollections[0];
+    });
+  }
+
   public getCollectionProducts(collection) {
     return this.products.filter((item) => {
       if (item.productCategory === collection) {

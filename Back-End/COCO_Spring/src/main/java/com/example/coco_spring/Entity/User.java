@@ -61,9 +61,10 @@ public class User implements UserDetails {
     @JsonIgnore
     List<Review> reviews;
 
-    @JsonIgnore
+
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Token> tokens;
 
     @OneToOne
@@ -135,5 +136,6 @@ public class User implements UserDetails {
     @JsonIgnore
     List<LikeDislikeProduct> likeDislikeProductList;
     @OneToMany(mappedBy = "user")
+            @JsonIgnore
     List<Subscription> subscriptions;
 }
