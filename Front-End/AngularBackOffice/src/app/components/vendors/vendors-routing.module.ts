@@ -8,6 +8,8 @@ import {ListCatlComponent} from "./list-catl/list-catl.component";
 
 import {StoreDetailComponent} from "./store-detail/store-detail.component";
 import {AllStoresComponent} from './all-stores/all-stores.component';
+import {CatalogDetailComponent} from './catalog-detail/catalog-detail.component';
+
 
 
 const routes: Routes = [
@@ -60,6 +62,14 @@ const routes: Routes = [
         data: {
           title: 'list Catalog',
           breadcrumb: 'list StoreCatalog'
+        }
+      },
+      {
+        path: 'catalog-detail',
+        component: CatalogDetailComponent,
+        data: {
+          title: 'catalog detail',
+          breadcrumb: 'catalog detail'
         }
       },
 

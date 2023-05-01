@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -42,5 +43,15 @@ public class StoreCatalog implements Serializable {
     @JsonIgnore
     @ManyToMany(mappedBy = "favories")
     List<User> users;
+
+    @ManyToMany(fetch= FetchType.EAGER ,cascade = CascadeType.ALL)
+    @JoinTable(name="storecatalog_images",
+            joinColumns = {
+                    @JoinColumn(name="catalog_id")
+            },inverseJoinColumns = {
+            @JoinColumn(name = "image_id")
+    }
+    )
+    private Set<ImageAM> catalogImages;
 
 }

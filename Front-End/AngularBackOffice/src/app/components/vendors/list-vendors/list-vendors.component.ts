@@ -57,4 +57,8 @@ export class ListVendorsComponent implements OnInit {
                 (error: HttpErrorResponse) => {console.log(error); }
             );
     }
+
+    showAffect(storeId) {
+        this.route.navigate(['/vendors/create-storecatalog', {storeId}]);
+    }
 }
