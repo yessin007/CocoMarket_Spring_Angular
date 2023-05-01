@@ -17,6 +17,9 @@ import { PagesComponent } from './pages/pages.component';
 import { ElementsComponent } from './elements/elements.component';
 
 
+import { NgxStarRatingModule } from 'ngx-star-rating';
+import {MatDialogModule} from '@angular/material/dialog';
+
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
    return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -36,6 +39,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgbModule,
     LoadingBarHttpClientModule,
     LoadingBarRouterModule,
+
+    NgxStarRatingModule,
+    MatDialogModule,
+
     ToastrModule.forRoot({
       timeOut: 3000,
       progressBar: false,

@@ -20,6 +20,8 @@ public class Product {
     private Long productId;
     private String reference;
     private String title;
+    @Lob
+    @Column(name = "CONTENT", length = 10000)
     private String description;
     private Long quantity;
     private String model;
@@ -57,8 +59,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "cart_id")
     @JsonIgnore
-
     Cart cart;
+    @OneToOne(mappedBy = "product")
+    Subscription subscription;
 
 
 

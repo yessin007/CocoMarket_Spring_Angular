@@ -61,9 +61,10 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<Review> reviews;
 
-    @JsonIgnore
+
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Token> tokens;
 
     @OneToOne
@@ -136,5 +137,6 @@ public class User implements UserDetails {
 	List<LikeDislikeProduct> likeDislikeProductList;
 
     @OneToMany(mappedBy = "user")
+            @JsonIgnore
     List<Subscription> subscriptions;
 }
