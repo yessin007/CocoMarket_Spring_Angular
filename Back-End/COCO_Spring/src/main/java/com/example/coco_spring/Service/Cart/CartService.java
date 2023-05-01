@@ -8,7 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -128,25 +130,6 @@ public class CartService implements ICRUDService<Cart,Long> , ICartService {
             }
             return totalPrice;
         }
-
-        public Cart addToCart(Long productId, Long userId){
-            Product product =productRepository.findById(productId).orElse(null);
-            User user = userRepository.findById(userId).orElse(null);
-
-
-
-            if(product!=null && user!=null){
-                Cart cart = new Cart(product,user);
-                cartRepsitory.save(cart);
-            }
-        return  null;
-        }
-
-        public  List<Cart> getCartDetails() {
-
-            return null;
-        }
-
 
 }
 

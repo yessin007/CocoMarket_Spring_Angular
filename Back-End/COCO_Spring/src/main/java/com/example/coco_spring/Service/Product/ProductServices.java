@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -73,13 +72,6 @@ public class ProductServices implements IProductServices {
         }
         return premium;
     }
-    public List<Product> getAllProducts(String searchKey){
-        if (searchKey.equals("")) {
-            return productRepository.findAll();
-        }else{
-            return productRepository.findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(searchKey, searchKey);
-        }
-    }
     /* "The premium is calculated based on the number of years of warranty provided with the product."
      - (Source: https://www.thebalance.com/what-is-insurance-premium-4163879)
 "If the product has a warranty of one year or less, the premium is increased by 5% of the product's price."
@@ -124,6 +116,8 @@ Regarding the calculation of the premium based on the price and date:
 
         return top4ProductsByCategory;
     }
+<<<<<<< HEAD
+=======
     public double productTotalPrice(){
         Calendar startOfMonth = Calendar.getInstance();
         startOfMonth.set(Calendar.DAY_OF_MONTH, 1);
@@ -175,4 +169,5 @@ Regarding the calculation of the premium based on the price and date:
                 .findByUser_IdAndProduct_ProductIdAndProductRate(userId, productId, ProductRate.DISLIKE);
         return !likeDislikeProducts.isEmpty();
     }
+>>>>>>> main
 }

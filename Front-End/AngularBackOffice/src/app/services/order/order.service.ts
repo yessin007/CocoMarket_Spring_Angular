@@ -2,16 +2,17 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Order} from '../../models/order';
-
-import {RequestBaseService} from '../request-base.service';
-import {AuthService} from '../auth.service';
+import {Provider} from "../../models/provider";
+import {Product} from "../../models/product";
+import {RequestBaseService} from "../request-base.service";
+import {AuthService} from "../auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
 
   export class OrderService extends RequestBaseService{
-  readonly ADD_ORDERS = 'http://localhost:8089/maram/api/order/add_order';
+  readonly ADD_ORDERS = 'http://165.227.171.67:9092/COCO/api/order/add_order';
   // readonly ADD_ORDERS = 'http://localhost:9092/COCO/api/order/add_order';
 
   readonly UPDATE_ORDERS = 'http://165.227.171.67:9092/COCO/api/order/update_order';

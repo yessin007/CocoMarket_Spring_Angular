@@ -2,20 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../../shared/services/auth.service";
 import {Router} from "@angular/router";
 import {User} from '../../../shared/models/User';
-import {AgmMap} from "@agm/core";
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+	selector: 'app-profile',
+	templateUrl: './profile.component.html',
+	styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
 
 	currentUser: User = new User;
 	isLoggedIn = false;
-  lat = 35.9038537;
-  lng = 10.542212;
-  constructor() { }
 
 	rform: any ={
 		name: null,
@@ -28,9 +24,9 @@ export class ProfileComponent implements OnInit {
 
 	aform: any = {
 		address: null,
-		zipCode: null,
-        city: null,
-        country: null,
+		zip: 0,
+		city: null,
+		country: null,
 	};
 	constructor( private authService: AuthService, private router: Router) {
 		this.authService.currentUser.subscribe(data => {
@@ -54,7 +50,7 @@ export class ProfileComponent implements OnInit {
 		this.rform.cin = this.currentUser.cin;
 
 		this.aform.address = this.currentUser.address;
-		this.aform.zipCode = this.currentUser.zipCode;
+		this.aform.zip = this.currentUser.zipCode;
 		console.log('zipCode: '+this.aform.zipCode + ' from ' + this.currentUser.zipCode);
 		this.aform.city = this.currentUser.city;
 		console.log('city' +this.aform.city +'from '+ this.currentUser.city);
@@ -66,8 +62,4 @@ export class ProfileComponent implements OnInit {
 	onSubmit() {
 		console.log("test edit");
 	}
-  onChosenPos(event: google.maps.MapMouseEvent){
-    console.log('Map clicked', event);
-
-  }
 }

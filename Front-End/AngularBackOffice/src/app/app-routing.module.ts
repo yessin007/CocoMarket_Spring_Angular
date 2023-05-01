@@ -30,8 +30,8 @@ const routes: Routes = [
    path: '',
     component: ContentLayoutComponent,
       children: [
-            {path: 'products/physical/product-detail' , component: ProductDetailComponent,  resolve : {
-                    product: ProductResolverService
+          {path: 'products/physical/product-detail' , component: ProductDetailComponent,  resolve : {
+                  product: ProductResolverService
               }}
       ],
   },

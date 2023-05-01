@@ -41,7 +41,7 @@ public class Product {
     @Enumerated(EnumType.STRING)
     ProductCategory productCategory;
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL)
     List<Review> reviews;
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
@@ -52,7 +52,7 @@ public class Product {
     List<Store> stores;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL)
     List<LikeDislikeProduct> likeDislikeProducts;
     @ManyToOne
     @JoinColumn(name = "cart_id")

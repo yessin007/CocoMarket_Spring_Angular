@@ -4,10 +4,15 @@
     <div class="container">
       <div class="checkout-page">
         <div class="checkout-form">
+<<<<<<< HEAD
+          <form>
+            <div class="row">
+=======
 
 
           <form (ngSubmit)="onSubmit()">
 
+>>>>>>> main
               <div class="col-lg-6 col-sm-12 col-xs-12">
                 <div class="checkout-title">
                   <h3>Billing Details</h3>
@@ -15,7 +20,7 @@
 
                   <div class="form-group col-md-6 col-sm-6 col-xs-12">
                     <div class="field-label">First Name</div>
-                    <input type="text" name="field-name" value="" placeholder="" [(ngModel)]="delivery.clientAddress">
+                    <input type="text" name="field-name" value="" placeholder="">
                   </div>
                   <div class="form-group col-md-6 col-sm-6 col-xs-12">
                     <div class="field-label">Last Name </div>
@@ -29,6 +34,34 @@
                     <div class="field-label">Email Address</div>
                     <input type="text" name="field-name" value="" placeholder="">
                   </div>
+<<<<<<< HEAD
+                  <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <div class="field-label">Country</div>
+                    <select>
+                      <option>India</option>
+                      <option>South Africa</option>
+                      <option>United State</option>
+                      <option>Australia</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <div class="field-label">Address</div>
+                    <input type="text" name="field-name" value="" placeholder="Street address">
+                  </div>
+                  <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <div class="field-label">Town/City</div>
+                    <input type="text" name="field-name" value="" placeholder="">
+                  </div>
+                  <div class="form-group col-md-12 col-sm-6 col-xs-12">
+                    <div class="field-label">State / County</div>
+                    <input type="text" name="field-name" value="" placeholder="">
+                  </div>
+                  <div class="form-group col-md-12 col-sm-6 col-xs-12">
+                    <div class="field-label">Postal Code</div>
+                    <input type="text" name="field-name" value="" placeholder="">
+                  </div>
+                </div>
+=======
                   <button id="toggle-button" class="btn-solid btn" (click)="hideContent() ; getCurrentLocation()" >Use Current Location</button>
                   <div id="page-content" *ngIf="!isContentHidden">
                     <div style="width: 100%; height: 500px;">
@@ -67,6 +100,7 @@
 
                     </div>
                   </div>
+>>>>>>> main
                 <div class="row">
                   <div class="col-12">
                     <div class="stripe-section">
@@ -140,12 +174,12 @@
                       </div>
                       </li>
                     </ul>
-
+  
                     <ul class="total">
                       <li>Total <span class="count">$620.00</span></li>
                     </ul>
                   </div>
-
+  
                   <div class="payment-box">
                     <div class="upper-box">
                       <div class="payment-options">
@@ -156,7 +190,7 @@
                               <label for="payment-1">Check Payments<span class="small-text">Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</span></label>
                             </div>
                           </li>
-
+  
                           <li>
                             <div class="radio-option">
                               <input type="radio" name="payment-group" id="payment-2">
@@ -173,7 +207,7 @@
                       </div>
                     </div>
                     <div class="text-end">
-                      <button  type="submit" class="btn-solid btn" >Place Order</button>
+                      <a [routerLink]="['shop/checkout']" class="btn-solid btn">Place Order</a>
                     </div>
                   </div>
                 </div>

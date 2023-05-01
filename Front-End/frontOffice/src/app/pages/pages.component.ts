@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import {Deliveries} from "../shared/services/Deliveries";
 
 @Component({
   selector: 'app-pages',
   templateUrl: './pages.component.html',
-  styleUrls: ['./pages.component.scss'],
-  providers: [Deliveries] // add the provider here
-
+  styleUrls: ['./pages.component.scss']
 })
 export class PagesComponent implements OnInit {
 
@@ -23,6 +20,5 @@ export class PagesComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 
 }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Image } from '@ks89/angular-modal-gallery';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
-
 import {Product} from '../../../../models/product';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ImageProcessingService} from '../../../../services/image-processing.service';
@@ -20,6 +19,8 @@ import {ProductService} from '../../../../services/product/product.service';
 })
 export class ProductDetailComponent implements OnInit {
   public closeResult: string;
+  public counter: number = 1;
+  currentRate = 8;
 
   currentRate = 0;
 
@@ -27,15 +28,12 @@ export class ProductDetailComponent implements OnInit {
 
   product: Product;
   image: File[] = [];
-  stores: Store[];
-  store: Store;
 
   public imagesRect: Image[] = [
     new Image(0, { img: 'assets/images/pro3/2.jpg' }, { img: 'assets/images/pro3/1.jpg' }),
     new Image(1, { img: 'assets/images/pro3/27.jpg' }, { img: 'assets/images/pro3/27.jpg' }),
     new Image(2, { img: 'assets/images/pro3/1.jpg' }, { img: 'assets/images/pro3/1.jpg' }),
     new Image(3, { img: 'assets/images/pro3/2.jpg' }, { img: 'assets/images/pro3/2.jpg' })];
-  selectedStoreId: number;
 
 
   constructor(private modalService: NgbModal, config: NgbRatingConfig, private activatedRoute: ActivatedRoute,
@@ -75,26 +73,8 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit() {
     this.product = this.activatedRoute.snapshot.data.product;
-    this.productService.getAverageLikesOfProduct(this.product.productId).subscribe((resp) => this.product.avgLikes = resp);
+    this.productservice.getAverageLikesOfProduct(this.product.productId).subscribe((resp) => this.product.avgLikes = resp);
     console.log(this.product);
-    const id = +this.route.snapshot.paramMap.get('id'); // Récupérer l'ID du produit à partir des paramètres de l'URL
-    this.productservice.getProduct(id)
-        .subscribe(product => this.product = product);
-    this.storeService.getAllStores()
-        .subscribe(stores => this.stores = stores);
   }
-  getAllProducts(): void {
-    // const id = // récupérer l'ID du produit à partir de l'URL
-        // this.productservice.getProduct(id)
-         //   .subscribe(product => this.product = product);
-  }
-  getStores(): void {
-    this.storeService.getAllStores()
-        .subscribe(store => this.stores = store);
-  }
-  addProductToStore(): void {
-    const storeId = // récupérer l'ID du magasin sélectionné
-        this.storeService.addProductStore(this.store.storeId, this.product.productId)
-            .subscribe(() => console.log('Product added to store'));
-  }
+
 }

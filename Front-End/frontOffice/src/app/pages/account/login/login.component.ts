@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {GetCurrentLocation} from "../../../shared/services/GetCurrentLocation";
 import {User} from "../../../shared/models/User";
 import {UntypedFormGroup} from "@angular/forms";
 import {AuthService} from "../../../shared/services/auth.service";
@@ -11,7 +10,13 @@ import {Router} from "@angular/router";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+<<<<<<< HEAD
+
+	// tslint:disable-next-line:new-parens
+	currentUser: User = new User;
+=======
 	currentUser: User = new User();
+>>>>>>> main
 	isLoggedIn = false;
 	isLoginFailed = false;
 	form: any = {
