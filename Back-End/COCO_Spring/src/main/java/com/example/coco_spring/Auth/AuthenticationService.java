@@ -1,13 +1,13 @@
 package com.example.coco_spring.Auth;
 
 
+import com.example.coco_spring.Config.JwtService;
 import com.example.coco_spring.Entity.Token;
 import com.example.coco_spring.Entity.TokenType;
 import com.example.coco_spring.Entity.User;
 import com.example.coco_spring.Repository.TokenRepository;
 import com.example.coco_spring.Repository.UserRepository;
 import com.example.coco_spring.Service.EmailService;
-import com.example.coco_spring.config.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;

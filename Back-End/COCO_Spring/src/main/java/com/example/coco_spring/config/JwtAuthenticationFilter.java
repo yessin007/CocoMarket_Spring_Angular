@@ -1,4 +1,4 @@
-package pidev.afarshop.Config;
+package com.example.coco_spring.Config;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import pidev.afarshop.Repository.TokenRepository;
+import com.example.coco_spring.Repository.TokenRepository;
 
 
 import javax.servlet.FilterChain;

@@ -22,11 +22,14 @@ export class ListUserComponent implements OnInit {
   total$: Observable<number>;
 
 	constructor(public service: TableService, private auth: AuthService, private userService: UserService) {
-		this.userService.getAllUsers().subscribe(users => {
-			this.tableItem$ = of(users);
-			this.service.setUserData(this.tableItem$);
-		});
+
 		//this.total$ = service.total$;
+			/*this.userService.getAllUsers().then(res => {
+				console.log(res);
+				this.tableItem$ = res.data;
+			});*/
+
+		this.getUsers();
 	}
 
 
@@ -45,8 +48,24 @@ export class ListUserComponent implements OnInit {
 
   }
 
+  getUsers(){
+	  this.userService.getAllUsers().subscribe(users => {
+		  this.tableItem$ = of(users);
+		  this.service.setUserData(this.tableItem$);
+	  });
+  }
+
   ngOnInit() {
   }
+
+	deleteUser(id: number) {
+		this.userService.deleteUser(id).subscribe(res => {
+			console.log(res);
+		});
+		this.getUsers();
+		window.location.reload();
+	}
+
 
 }
 
