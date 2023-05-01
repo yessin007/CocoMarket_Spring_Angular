@@ -8,7 +8,7 @@
 
           <form (ngSubmit)="onSubmit()">
 
-              <div class="col-lg-6 col-sm-12 col-xs-12">
+              <div >
                 <div class="checkout-title">
                   <h3>Billing Details</h3>
                 </div>
@@ -33,26 +33,17 @@
                   <div id="page-content" *ngIf="!isContentHidden">
                     <div style="width: 100%; height: 500px;">
 
-                      <iframe id="address-selection"
-                              src="https://storage.googleapis.com/maps-solutions-xk745ul9c5/address-selection/jgj1/address-selection.html"
-                              width="100%" height="100%"
-                              style="border:0;"
-                              loading="lazy"
-                      >
-                      </iframe>
 
-                      <script>
-                        window.addEventListener('message', event => {
-                          if (event.origin === 'https://storage.googleapis.com') {
-                            const { address, latitude, longitude } = event.data;
-                            console.log(`Address: ${address}, Latitude: ${latitude}, Longitude: ${longitude}`);
-                          }
-                        });
-                      </script>
-                      <p id="address"></p>
-
-
-                    </div>
+                      <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                        <div class="field-label">Latitude</div>
+                        <input type="text" name="field-name" value="" placeholder="">
+                      </div>
+                      <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                        <div class="field-label">Longitude</div>
+                        <input type="text" name="field-name" value="" placeholder="">
+                      </div>
+                      <app-geoCode></app-geoCode>
+                  </div>
                   </div>
                 <div class="row">
                   <div class="col-12">
