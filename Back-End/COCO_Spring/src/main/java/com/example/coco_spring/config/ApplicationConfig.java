@@ -1,8 +1,8 @@
-package com.example.coco_spring.config;
+package pidev.afarshop.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
-import com.example.coco_spring.Repository.UserRepository;
+import pidev.afarshop.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +23,7 @@ public class ApplicationConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> repository.findByUsername(username)
+        return username -> repository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 

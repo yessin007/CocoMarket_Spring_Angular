@@ -1,4 +1,4 @@
-package com.example.coco_spring.config;
+package pidev.afarshop.Config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -11,10 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
-
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -24,14 +20,11 @@ public class SecurityConfiguration {
     private final LogoutHandler logoutHandler;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-       http
-		   .cors()
-		   .and()
+     /*  http
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-//                .mvcMatchers("/**")
-                .mvcMatchers("/api/v1/auth/**")
+                .mvcMatchers("/api/auth/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -46,25 +39,22 @@ public class SecurityConfiguration {
                 .addLogoutHandler(logoutHandler)
                 .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext());
         return http.build();
+*/
 
+        http.authorizeRequests()
+                .antMatchers("/**").permitAll()
+                .and()
+                .csrf().disable();
+        return http.build();
+
+/*
+ /*       http.authorizeRequests()
+                .antMatchers("/register").permitAll()
+                .antMatchers("/confirm").permitAll();
+                 return http.build();
+*/
 
     }
-
-	@Bean
-	public CorsFilter corsFilter() {
-		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		final CorsConfiguration config = new CorsConfiguration();
-		config.setAllowCredentials(true);
-		config.addAllowedOrigin("*");
-		config.addAllowedHeader("*");
-		config.addAllowedMethod("OPTIONS");
-		config.addAllowedMethod("GET");
-		config.addAllowedMethod("POST");
-		config.addAllowedMethod("PUT");
-		config.addAllowedMethod("DELETE");
-		source.registerCorsConfiguration("/**", config);
-		return new CorsFilter(source);
-	}
 
 }
 

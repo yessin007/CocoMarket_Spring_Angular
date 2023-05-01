@@ -9,8 +9,8 @@ import { AuthService } from "../../services/auth.service";
 	providedIn: 'root'
 })
 export class UserService extends RequestBaseService {
-	// baseUrl = 'http://165.227.171.67:9092/COCO/api/users/';
-	baseUrl = 'http://localhost:9092/COCO/api/users/';
+	baseUrl = 'http://165.227.171.67:9092/COCO/api/users/';
+	// baseUrl = 'http://localhost:9092/COCO/api/users/';
 
 	constructor(private httpClient: HttpClient, private auth: AuthService) {
 		super(auth, httpClient);
