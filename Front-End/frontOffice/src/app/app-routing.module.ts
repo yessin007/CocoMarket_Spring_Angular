@@ -8,7 +8,7 @@ import { ElementsComponent } from './elements/elements.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home/fashion',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {

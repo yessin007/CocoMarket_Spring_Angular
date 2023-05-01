@@ -1,0 +1,74 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Page Details</h5>
+                </div>
+                <div class="card-body">
+                    <div class="custom-datatable">
+                        <div class="clearfix"></div>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th> </th>
+                                <th scope="col" sortable="name" (sort)="onSort($event)">Delivery ID</th>
+                                <th scope="col" sortable="name" (sort)="onSort($event)">Delivery Man</th>
+                                <th scope="col" sortable="status" (sort)="onSort($event)">Client Latitude</th>
+                                <th scope="col" sortable="created_on" (sort)="onSort($event)">Client Longitude</th>
+                                <th scope="col" sortable="created_on" (sort)="onSort($event)">Status</th>
+                                <th scope="col" sortable="action" (sort)="onSort($event)">Dispatch</th>
+
+                                <th scope="col" sortable="action" (sort)="onSort($event)">Change Status</th>
+                            </tr>
+
+                            </thead>
+                            <tbody>
+                            <tr> </tr>
+                            <tr *ngFor="let item of deliveryList " >
+                               <th></th>
+                                <th scope="row">
+                                    {{ item.id }}
+                                </th>
+                                <th scope="row">
+                                    {{ item.firstName }} {{ item.lastName }}
+
+                                </th>
+                                <th scope="row">
+                                    {{ item.clientLatitude }}
+                                </th>
+                                <th scope="row">
+                                    {{item.clientLongitude}}
+                                </th>
+
+                                <th scope="row">
+                                    {{item.statut}}
+                                </th>
+                                <th scope="row">
+                                    <div class="example-button-row" *ngIf="item.statut == 'PENDING'">
+                                    <button mat-button color="accent" (click)="dispatch(item.id)"  >Dispatch</button>
+                                    </div>
+                                </th>
+
+                                <th scope="row">
+                                    <div class="example-button-row" *ngIf="item.statut == 'IN_PROGRESS'">
+                                    <button mat-button color="accent"  (click)="changeStatusToDelivered(item.id)" >Change to Delivered</button>
+                                    </div>
+                                </th>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-center p-2">
+                            <ngb-pagination
+                                    [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">
+                            </ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->

@@ -10,6 +10,138 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<!--Google font-->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvHALSEQwNE3b-b7eHSZIDv-KK1wr7CRQ&callback=initMap&libraries=places" defer></script>
+    <script>
+        // This sample requires the Places library. Include the libraries=places
+        // parameter when you first load the API. For example:
+        // <script
+        // src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -33.8688, lng: 151.2195 },
+                zoom: 13,
+            });
+            const input = document.getElementById("pac-input");
+            // Specify just the place data fields that you need.
+            const autocomplete = new google.maps.places.Autocomplete(input, {
+                fields: ["place_id", "geometry", "name", "formatted_address"],
+            });
+
+            autocomplete.bindTo("bounds", map);
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            const infowindow = new google.maps.InfoWindow();
+            const infowindowContent = document.getElementById("infowindow-content");
+
+            infowindow.setContent(infowindowContent);
+
+            const geocoder = new google.maps.Geocoder();
+            const marker = new google.maps.Marker({ map: map });
+
+            marker.addListener("click", () => {
+                infowindow.open(map, marker);
+            });
+            autocomplete.addListener("place_changed", () => {
+                infowindow.close();
+
+                const place = autocomplete.getPlace();
+
+                if (!place.place_id) {
+                    return;
+                }
+
+                geocoder
+                    .geocode({ placeId: place.place_id })
+                    .then(({ results }) => {
+                        map.setZoom(11);
+                        map.setCenter(results[0].geometry.location);
+                        // Set the position of the marker using the place ID and location.
+                        // @ts-ignore TODO This should be in @typings/googlemaps.
+                        marker.setPlace({
+                            placeId: place.place_id,
+                            location: results[0].geometry.location,
+                        });
+                        marker.setVisible(true);
+                        infowindowContent.children["place-name"].textContent = place.name;
+                        infowindowContent.children["place-id"].textContent = place.place_id;
+                        infowindowContent.children["place-address"].textContent =
+                            results[0].formatted_address;
+                        infowindow.open(map, marker);
+                    })
+                    .catch((e) => window.alert("Geocoder failed due to: " + e));
+            });
+        }
+
+        window.initMap = initMap;
+    </script>
+
+
+    <style>
+        /*
+  * Always set the map height explicitly to define the size of the div element
+  * that contains the map.
+  */
+        #map {
+            height: 100%;
+        }
+
+        /*
+         * Optional: Makes the sample page fill the window.
+         */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .controls {
+            background-color: #fff;
+            border-radius: 2px;
+            border: 1px solid transparent;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            box-sizing: border-box;
+            font-family: Roboto;
+            font-size: 15px;
+            font-weight: 300;
+            height: 29px;
+            margin-left: 17px;
+            margin-top: 10px;
+            outline: none;
+            padding: 0 11px 0 13px;
+            text-overflow: ellipsis;
+            width: 400px;
+        }
+
+        .controls:focus {
+            border-color: #4d90fe;
+        }
+
+        .title {
+            font-weight: bold;
+        }
+
+        #infowindow-content {
+            display: none;
+        }
+
+        #map #infowindow-content {
+            display: inline;
+        }
+    </style>
+    <script>
+        const hideButton = document.getElementById('hide-button');
+        const pageContent = document.getElementById('page-content');
+
+        hideButton.addEventListener('click', function() {
+            pageContent.style.display = 'none';
+        });
+
+
+    </script>
+
 
 </head>
 
@@ -29,10 +161,19 @@
 	  }(document, 'script', 'facebook-jssdk'));
 	</script>
 
-	<!-- Your customer chat code -->
 	<div id="fb-chat" class="fb-customerchat" attribution=setup_tool page_id="2123438804574660" theme_color="#ff4c3b" logged_in_greeting="Hi! Welcome to PixelStrap Themes  How can we help you?" logged_out_greeting="Hi! Welcome to PixelStrap Themes  How can we help you?">
-	</div>
-	<!-- facebook chat section end -->
+    </div>
+    <div id="map"></div>
+    <script>
+        const hideButton = document.getElementById('hide-button');
+        const pageContent = document.getElementById('page-content');
+
+        hideButton.addEventListener('click', function() {
+            pageContent.style.display = 'none';
+        });
+
+
+    </script>
 </body>
 
 </html>

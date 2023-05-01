@@ -4,16 +4,18 @@
     <div class="container">
       <div class="checkout-page">
         <div class="checkout-form">
-          <form>
-            <div class="row">
+
+
+          <form (ngSubmit)="onSubmit()">
+
               <div class="col-lg-6 col-sm-12 col-xs-12">
                 <div class="checkout-title">
                   <h3>Billing Details</h3>
                 </div>
-                <div class="row">
+
                   <div class="form-group col-md-6 col-sm-6 col-xs-12">
                     <div class="field-label">First Name</div>
-                    <input type="text" name="field-name" value="" placeholder="">
+                    <input type="text" name="field-name" value="" placeholder="" [(ngModel)]="delivery.clientAddress">
                   </div>
                   <div class="form-group col-md-6 col-sm-6 col-xs-12">
                     <div class="field-label">Last Name </div>
@@ -27,32 +29,44 @@
                     <div class="field-label">Email Address</div>
                     <input type="text" name="field-name" value="" placeholder="">
                   </div>
-                  <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                    <div class="field-label">Country</div>
-                    <select>
-                      <option>India</option>
-                      <option>South Africa</option>
-                      <option>United State</option>
-                      <option>Australia</option>
-                    </select>
+                  <button id="toggle-button" class="btn-solid btn" (click)="hideContent() ; getCurrentLocation()" >Use Current Location</button>
+                  <div id="page-content" *ngIf="!isContentHidden">
+                    <div style="width: 100%; height: 500px;">
+                      <iframe src="https://storage.googleapis.com/maps-solutions-xk745ul9c5/address-selection/jgj1/address-selection.html"
+                              width="100%" height="100%"
+                              style="border:0;"
+                              loading="lazy"
+                              id="address-iframe">
+                      </iframe>
+
+                      <script>
+                        window.addEventListener('message', event => {
+                          // Handle the message from the iframe here
+                          console.log(event.data);
+                        });
+                      </script>
+
+                      <iframe id="address-selection"
+                              src="https://storage.googleapis.com/maps-solutions-xk745ul9c5/address-selection/jgj1/address-selection.html"
+                              width="100%" height="100%"
+                              style="border:0;"
+                              loading="lazy"
+
+                              
+                      >
+                      </iframe>
+
+                      <script>
+                        window.addEventListener('message', event => {
+                          if (event.origin === 'https://storage.googleapis.com') {
+                            const { address, latitude, longitude } = event.data;
+                            console.log(`Address: ${address}, Latitude: ${latitude}, Longitude: ${longitude}`);
+                          }
+                        });
+                      </script>
+
+                    </div>
                   </div>
-                  <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                    <div class="field-label">Address</div>
-                    <input type="text" name="field-name" value="" placeholder="Street address">
-                  </div>
-                  <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                    <div class="field-label">Town/City</div>
-                    <input type="text" name="field-name" value="" placeholder="">
-                  </div>
-                  <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                    <div class="field-label">State / County</div>
-                    <input type="text" name="field-name" value="" placeholder="">
-                  </div>
-                  <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                    <div class="field-label">Postal Code</div>
-                    <input type="text" name="field-name" value="" placeholder="">
-                  </div>
-                </div>
                 <div class="row">
                   <div class="col-12">
                     <div class="stripe-section">
@@ -102,7 +116,6 @@
                     </div>
                   </div>
                 </div>
-              </div>
               <div class="col-lg-6 col-sm-12 col-xs-12">
                 <div class="checkout-details">
                   <div class="order-box">
@@ -127,12 +140,12 @@
                       </div>
                       </li>
                     </ul>
-  
+
                     <ul class="total">
                       <li>Total <span class="count">$620.00</span></li>
                     </ul>
                   </div>
-  
+
                   <div class="payment-box">
                     <div class="upper-box">
                       <div class="payment-options">
@@ -143,7 +156,7 @@
                               <label for="payment-1">Check Payments<span class="small-text">Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</span></label>
                             </div>
                           </li>
-  
+
                           <li>
                             <div class="radio-option">
                               <input type="radio" name="payment-group" id="payment-2">
@@ -160,7 +173,7 @@
                       </div>
                     </div>
                     <div class="text-end">
-                      <a [routerLink]="['shop/checkout']" class="btn-solid btn">Place Order</a>
+                      <button  type="submit" class="btn-solid btn" >Place Order</button>
                     </div>
                   </div>
                 </div>
@@ -170,5 +183,10 @@
         </div>
       </div>
     </div>
+  <div class="checkout-container">
+    <!-- Other checkout content here -->
+  </div>
+
+
 </section>
 <!-- section End -->

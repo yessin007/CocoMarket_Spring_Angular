@@ -17,6 +17,7 @@ export class AppComponent {
     withLatestFrom(this.loader.progress$),
     map(v => v[1]),
   );
+
   
   constructor(@Inject(PLATFORM_ID) private platformId: Object,
     private loader: LoadingBarService, translate: TranslateService) {

@@ -65,8 +65,8 @@ export class ListPageComponent implements OnInit {
     });
   }
   
-  editProvider(id){
-    this.route.navigate(['/pages/create-page',  {id}]);
+  editProvider(ID){
+    this.route.navigate(['/pages/create-page',  {id:ID}]);
   }
 
   setLatLngToProvider(id) {

@@ -30,17 +30,25 @@ export class ProductService {
   getProductDetails(productId){
     return this.httpClient.get<Product>(this.GET_PRODUCT_DETAILS__API_URL + productId);
   }
+
   getTotalProductsPrice(): Observable<number>{
     return this.httpClient.get<number>(this.GET_TOTAL_PRODUCTS_PRICE);
   }
   getToopFiveMostLikeProducts(): Observable<Product[]>{
     return this.httpClient.get<Product[]>(this.GET_TOP_FIVE_MOST_LIKED_PRODUCTS);
   }
-  getNumberOfLikesOfProduct(productId: number): Observable<number>{
+  getNumberOfLikesOfProduct(productId: number): Observable<number> {
     return this.httpClient.get<number>(this.GET_NUMBER_OF_LIKES_OF_PRODUCT + productId);
   }
   public getAverageLikesOfProduct(productId){
     return this.httpClient.get<number>(this.GET_AVERAGE_LIKES_OF_PRODUCT + productId);
   }
+
+    getProduct(id: number): Observable<Product> {
+    const url = `${this.GET_PRODUCT_DETAILS__API_URL}/${id}`;
+    return this.httpClient.get<Product>(url);
+
+  }
+
 
 }

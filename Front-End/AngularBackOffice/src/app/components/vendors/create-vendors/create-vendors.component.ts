@@ -5,8 +5,8 @@ import {StoreService} from '../../../services/store/store.service';
 import {FileHandle} from '../../../models/FileHandle';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router';
-import {User} from "../../../models/User";
-import {AuthService} from "../../../services/auth.service";
+import {User} from '../../../models/User';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-create-vendors',
@@ -24,7 +24,11 @@ export class CreateVendorsComponent implements OnInit {
   currentUser: User = new User;
   // tslint:disable-next-line:ban-types
   protected currentToken!: String;
-  constructor(private formBuilder: UntypedFormBuilder, private sanitizer: DomSanitizer, private storeService: StoreService, private activatedRoute: ActivatedRoute, private auth: AuthService) {
+  constructor(private formBuilder: UntypedFormBuilder, private sanitizer: DomSanitizer
+              // tslint:disable-next-line:align
+              , private storeService: StoreService, private activatedRoute: ActivatedRoute
+              // tslint:disable-next-line:align
+              , private auth: AuthService) {
     this.createAccountForm();
     this.createPermissionForm();
     this.auth.currentUser.subscribe(data => {
