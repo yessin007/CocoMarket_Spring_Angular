@@ -131,8 +131,9 @@ public class User implements UserDetails {
         return true;
     }
 
-    @OneToOne
-    LikeDislikeProduct likeDislikeProduct;
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+	@JsonIgnore
+	List<LikeDislikeProduct> likeDislikeProductList;
 
     @OneToMany(mappedBy = "user")
     List<Subscription> subscriptions;
