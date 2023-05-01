@@ -29,22 +29,23 @@
                     <div class="field-label">Email Address</div>
                     <input type="text" name="field-name" value="" placeholder="">
                   </div>
-                  <button id="toggle-button" class="btn-solid btn" (click)="hideContent() ; getCurrentLocation()" >Use Current Location</button>
-                  <div id="page-content" *ngIf="!isContentHidden">
+
+                  <div *ngIf="!isContentHidden" id="page-content" >
                     <div style="width: 100%; height: 500px;">
 
 
                       <div class="form-group col-md-6 col-sm-6 col-xs-12">
                         <div class="field-label">Latitude</div>
-                        <input type="text" name="field-name" value="" placeholder="">
+                        <input type="text"  name="field-name" value="" id="latitude" [(ngModel)]="lat" placeholder="">
                       </div>
                       <div class="form-group col-md-6 col-sm-6 col-xs-12">
                         <div class="field-label">Longitude</div>
-                        <input type="text" name="field-name" value="" placeholder="">
+                        <input type="text" name="field-name"id="longitude" [(ngModel)]="lng" value="" placeholder="">
                       </div>
                       <app-geoCode></app-geoCode>
                   </div>
                   </div>
+                <button id="toggle-button" class="btn-solid btn" (click)="hideContent();getCurrentLocation()"  >Use Current Location</button>
                 <div class="row">
                   <div class="col-12">
                     <div class="stripe-section">

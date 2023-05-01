@@ -2,6 +2,7 @@ declare global {
     function initMap(): void;
 }
 
+
 export function initMap() {
     const map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: 33.8439408, lng: 9.400138 },

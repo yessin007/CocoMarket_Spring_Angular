@@ -38,9 +38,7 @@ export class LoginComponent implements OnInit {
 		console.log('login page open');
 	}
 
-  getCurrentLocation() {
-    console.log(this.getCurrentLocationn.getCurrentLocation());
-  }
+
 	onSubmit(): void {
 		// tslint:disable-next-line:indent
 		const { username, password } = this.form;

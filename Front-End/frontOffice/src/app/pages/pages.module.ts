@@ -46,8 +46,8 @@ import {AgmCoreModule} from '@agm/core';
 import { GoogleMapsModule } from '@angular/google-maps';
 import {BrowserModule} from '@angular/platform-browser';
 import { MapComponent } from './map/map.component';
-import {GooglemapComponent} from "../googlemap/googlemap.component";
-import {GetdirectionComponent} from "./geoCode/getdirection.component";
+import {GetdirectionComponent} from './geoCode/getdirection.component';
+import {AddDelivery} from "../shared/services/AddDelivery";
 
 
 @NgModule({

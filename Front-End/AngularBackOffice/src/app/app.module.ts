@@ -30,6 +30,7 @@ import { ShowProductImagesDialogComponent } from './components/show-product-imag
 import {MatGridListModule} from '@angular/material/grid-list';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { ListCatalogComponent } from './vendors/list-catalog/list-catalog.component';
+import { MapComponent } from './components/map/map.component';
 
 
 
@@ -38,6 +39,7 @@ import { ListCatalogComponent } from './vendors/list-catalog/list-catalog.compon
     AppComponent,
     ShowProductImagesDialogComponent,
     ListCatalogComponent,
+    MapComponent,
   ],
     imports: [
         BrowserAnimationsModule,
@@ -64,8 +66,9 @@ import { ListCatalogComponent } from './vendors/list-catalog/list-catalog.compon
         HttpClientModule,
         MatDialogModule,
         MatGridListModule,
-        CarouselModule.forRoot(),
+        CarouselModule.forRoot()
     ],
+    exports: [MapComponent],
   providers: [ProductService],
   bootstrap: [AppComponent]
 })

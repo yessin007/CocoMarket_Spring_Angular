@@ -1,54 +1,51 @@
-import {Component, Injectable, OnInit} from '@angular/core';
-import {GetCurrentLocation} from '../../../shared/services/GetCurrentLocation';
-import {AddDelivery} from '../../../shared/services/AddDelivery';
-import {Deliveries} from '../../../shared/services/Deliveries';
-import {response} from 'express';
+import { Component, Injectable, OnInit } from '@angular/core';
+import { GetCurrentLocation } from '../../../shared/services/GetCurrentLocation';
+import { AddDelivery } from '../../../shared/services/AddDelivery';
+import { Deliveries } from '../../../shared/services/Deliveries';
 
 @Injectable({
   providedIn: 'root'
 })
-
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss'],
-  providers: [Deliveries] // add the provider here
+  providers: [Deliveries, AddDelivery]
 })
 export class CheckoutComponent implements OnInit {
+  lat: number;
+  lng: number;
+  delivery: Deliveries = new Deliveries();
 
-  constructor(private getCurrentLocationn: GetCurrentLocation, private addDeliveries: AddDelivery) {}
+  constructor(private getCurrentLocationn: GetCurrentLocation, private addDelivery: AddDelivery) {}
   isContentHidden = false;
 
-  delivery: Deliveries = new  Deliveries();
-
-
-    ngOnInit() {
-      window.addEventListener('message', event => {
-        // Check that the event is from the correct origin
-        if (event.origin !== 'https://storage.googleapis.com') {
-          return;
-        }
-
-        // Handle the message from the iframe here
-        console.log(event.data);
-      });
-    }
-
-  hideContent() {
-      this.isContentHidden = !this.isContentHidden;
-
-  }
-  getCurrentLocation() {
-    console.log(this.getCurrentLocationn.getCurrentLocation());
-  }
-
-  onSubmit(){
-
-    this.addDeliveries.addDelivery(this.delivery).subscribe((resp) => {
-      console.log(resp);
+  ngOnInit() {
+    window.addEventListener('message', event => {
+      if (event.origin !== 'https://storage.googleapis.com') {
+        return;
+      }
+      console.log(event.data);
     });
   }
 
+  getCurrentLocation() {
+    this.getCurrentLocationn.getCurrentLocation().then((location) => {
+      this.lat = location.coords.latitude;
+      this.lng = location.coords.longitude;
+      console.log(`lat: ${this.lat}, lng: ${this.lng}`);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+  hideContent() {
+    this.isContentHidden = !this.isContentHidden;
 
+  }
 
+  onSubmit() {
+    this.addDelivery.addDeliveryWithLocation(this.delivery, this.lat, this.lng).subscribe((resp) => {
+        console.log(resp);
+      });
+    }
 }

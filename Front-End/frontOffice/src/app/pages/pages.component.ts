@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import {Deliveries} from '../shared/services/Deliveries';
+import {AddDelivery} from "../shared/services/AddDelivery";
 
 @Component({
   selector: 'app-pages',
   templateUrl: './pages.component.html',
   styleUrls: ['./pages.component.scss'],
-  providers: [Deliveries]
+  providers: [Deliveries, AddDelivery]
 
 })
 export class PagesComponent implements OnInit {

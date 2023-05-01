@@ -17,6 +17,7 @@ import {StoreDetailComponent} from './components/vendors/store-detail/store-deta
 import {AddOrderComponent} from './components/sales/orders/add-order/add-order.component';
 import {resolve} from '@angular/compiler-cli';
 import {OrderResolverServiceService} from './services/order-resolver/order-resolver-service.service';
+import {MapComponent} from "./components/map/map.component";
 
 
 
@@ -34,6 +35,13 @@ const routes: Routes = [
                     product: ProductResolverService
               }}
       ],
+  },
+  {
+    path: '',
+    component: MapComponent,
+    children: [
+      {path: 'map' , component: MapComponent}
+    ],
   },
 
   {
