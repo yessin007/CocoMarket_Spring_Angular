@@ -29,18 +29,18 @@
                                     <a href="javascript:void(0)"><i class="fa fa-trash-o"></i></a>
                                 </td>
                                 <td scope="row">
-                                    <img [src]="item.avatar" class="imgTable" style="width: 20px">
+<!--                                    <img [src]="item.avatar" class="imgTable" style="width: 20px">-->
                                 </td>
                                 <td>
-                                    {{item.fName}}
+                                    {{item.name}}
                                 </td>
-                                <td>{{item.lName}}</td>
+                                <td>{{item.lastName}}</td>
                                 <td>{{item.email}}</td>
-                                <td>{{item.last_login}}</td>
-                                <td>{{item.role}}</td>
+                                <td>{{item.cin}}</td>
+                                <td>{{item.roles}}</td>
                             </tr>
                         </tbody>
-                    </table> 
+                    </table>
                     <div class="d-flex justify-content-center p-2">
                         <ngb-pagination
                           [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">

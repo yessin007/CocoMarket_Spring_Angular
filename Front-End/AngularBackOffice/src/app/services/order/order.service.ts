@@ -20,7 +20,7 @@ import {AuthService} from "../auth.service";
   readonly DELETE_ORDERS = 'http://165.227.171.67:9092/COCO/api/order/delete_order/';
   readonly GET_ORDER_DETAILS_API_URL = 'http://165.227.171.67:9092/COCO/api/order/retrive_order/';
 
-  constructor(private httpClient: HttpClient,private auth:AuthService) {
+  constructor(private httpClient: HttpClient,private auth: AuthService) {
 	  super(auth,httpClient);
   }
 

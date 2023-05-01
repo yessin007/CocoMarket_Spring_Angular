@@ -21,12 +21,7 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.Map.Entry.comparingByValue;
@@ -48,8 +43,30 @@ public class UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+	public List<UserSummary> getAllUserSummaries() {
+		List<User> users = userRepository.findAll();
+		List<UserSummary> userSummaries = new ArrayList<>();
 
-    public Optional<User> getUserById(long id) {
+		for (User user : users) {
+			UserSummary userSummary = new UserSummary();
+			userSummary.setId(user.getId());
+			userSummary.setName(user.getName());
+			userSummary.setLastName(user.getLastName());
+			userSummary.setUsername(user.getUsername());
+			userSummary.setEmail(user.getEmail());
+			userSummary.setAddress(user.getAddress());
+			userSummary.setRoles(user.getRoles());
+			userSummary.setTeNum(user.getTelNum());
+			userSummary.setLocked(user.getLocked());
+			userSummary.setExpired(!user.isAccountNonExpired());
+			userSummaries.add(userSummary);
+		}
+
+		return userSummaries;
+	}
+
+
+	public Optional<User> getUserById(long id) {
         return userRepository.findById(id);
     }
 
