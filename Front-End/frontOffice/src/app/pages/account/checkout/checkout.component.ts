@@ -9,11 +9,7 @@ export class CheckoutComponent implements OnInit {
 
   constructor() { }
 
-<<<<<<< HEAD
-  ngOnInit(): void {
-  }
-=======
-  delivery : Deliveries = new  Deliveries();
+  //delivery : Deliveries = new  Deliveries();
 
 
     ngOnInit() {
@@ -27,6 +23,5 @@ export class CheckoutComponent implements OnInit {
         console.log(event.data);
       });
     }
->>>>>>> main
 
 }
