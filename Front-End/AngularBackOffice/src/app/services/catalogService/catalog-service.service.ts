@@ -14,6 +14,7 @@ export class CatalogServiceService {
   readonly FIND_BY_ID = 'http://localhost:9090/kaddem/StoreCatalog/getById_StoreCatalog/';
   readonly FIND_CATALOG_STORE = 'http://localhost:9090/kaddem/StoreCatalog/findStoreId/';
 
+  apiUrl = 'http://localhost:9090/kaddem/StoreCatalog';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -39,6 +40,11 @@ export class CatalogServiceService {
     return this.httpClient.get<StoreCatalog>(this.FIND_BY_ID + catalogId);
   }
   getCatalogStoreId(catalogId){
-    return this.httpClient.get<Store>(this.FIND_CATALOG_STORE + catalogId);
+    return this.httpClient.get<StoreCatalog>(this.FIND_CATALOG_STORE + catalogId);
+  }
+
+  addCatalogStore(catalogId: number, storeId: number): Observable<void> {
+    const url = `${this.apiUrl}/affecterStoreCatalogAStore/${catalogId}/${storeId}`;
+    return this.httpClient.post<void>(url, null);
   }
 }

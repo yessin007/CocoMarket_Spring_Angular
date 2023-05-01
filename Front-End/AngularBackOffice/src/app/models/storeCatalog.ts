@@ -1,4 +1,5 @@
-import {FileHandle} from './FileHandle';
+// @ts-ignore
+import {FileHandleMal} from './FileHandleMal';
 
 export class StoreCatalog{
     catalogId: number ;
@@ -6,9 +7,10 @@ export class StoreCatalog{
     date: Date ;
 
     catalogDescription: string;
-    catalogImages: FileHandle[];
+    catalogImages: FileHandleMal[];
 
     storeName?: string;
+    storeId?: number;
 
 
 

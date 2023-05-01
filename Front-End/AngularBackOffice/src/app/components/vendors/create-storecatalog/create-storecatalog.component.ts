@@ -3,9 +3,11 @@ import {NgForm, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 
 import {CatalogServiceService} from '../../../services/catalogService/catalog-service.service';
 import {StoreCatalog} from '../../../models/storeCatalog';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FileHandle} from '../../../models/FileHandle';
 import {DomSanitizer} from '@angular/platform-browser';
+import {FileHandleMal} from '../../../models/FlileHandleMal';
+import {Store} from "../../../models/store";
 
 
 @Component({
@@ -19,11 +21,15 @@ export class CreateStorecatalogComponent implements OnInit{
     public active = 1;
     array: FileHandle[] = [];
     files: File[] = [] ;
+    a: number;
+    b: number;
     catalogList: StoreCatalog[] = [];
   catalog: StoreCatalog = new StoreCatalog();
 
+  store: Store = new Store();
+
 // tslint:disable-next-line:max-line-length
-constructor(private formBuilder: UntypedFormBuilder, private sanitizer: DomSanitizer, private catalogservice: CatalogServiceService, private activatedRoute: ActivatedRoute) {
+constructor(private formBuilder: UntypedFormBuilder, private sanitizer: DomSanitizer, private catalogservice: CatalogServiceService, private activatedRoute: ActivatedRoute, private route: Router) {
       this.createGeneralForm();
       this.createSeoForm();
   }
@@ -61,13 +67,30 @@ constructor(private formBuilder: UntypedFormBuilder, private sanitizer: DomSanit
     );
   }
 
+    onAffect() {
+        this.catalog.catalogImages = this.array;
+        console.log(this.catalog);
+        const catalogFormData = this.prepareFormData(this.catalog);
+        this.catalogservice.addCatalog(catalogFormData).subscribe(
+            (catalog: StoreCatalog) => {
+                console.log('catalog added successfully', catalog);
+                this.catalogservice.addCatalogStore(catalog.catalogId, catalog.storeId).subscribe(resp => console.log('suucc'));
+                // Reset the form
+                this.catalog = new StoreCatalog();
+            },
+            (error) => {
+                console.error('Failed to add catalog', error);
+            }
+        );
+    }
+
   prepareFormData(catalog: StoreCatalog): FormData{
       const formData = new FormData();
 
       formData.append('storeCatalog', new Blob([JSON.stringify(catalog)], {type: 'application/json'}));
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < catalog.catalogImages.length ; i++) {
-          formData.append('imageFile', catalog.catalogImages[i].filefile, catalog.catalogImages[i].filefile.name);
+          formData.append('imageFile', catalog.catalogImages[i].filemal, catalog.catalogImages[i].filemal.name);
       }
       return formData;
 }
@@ -77,13 +100,14 @@ constructor(private formBuilder: UntypedFormBuilder, private sanitizer: DomSanit
         // this.files.push(...event.addedFiles);
         if (event.addedFiles){
             const file = event.addedFiles[0];
-            const fileHandle: FileHandle = {
-                filefile: file,
+            const fileHandleMal: FileHandleMal = {
+                filemal: file,
                 url: this.sanitizer.bypassSecurityTrustUrl(
                     window.URL.createObjectURL(file)
                 )
             };
-            this.array.push(fileHandle);
+            // @ts-ignore
+            this.array.push(fileHandleMal);
             this.catalog.catalogImages = this.array;
         }
     }
@@ -96,6 +120,10 @@ constructor(private formBuilder: UntypedFormBuilder, private sanitizer: DomSanit
         this.catalog = this.activatedRoute.snapshot.data.catalog;
         console.log(this.catalog);
     }
+
+
+
+
 
 }
 

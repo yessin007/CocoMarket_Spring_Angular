@@ -1,5 +1,6 @@
 package com.example.coco_spring.Service.StoreCatalog;
 
+import com.example.coco_spring.Entity.Store;
 import com.example.coco_spring.Entity.StoreCatalog;
 import com.example.coco_spring.Entity.User;
 
@@ -17,6 +18,8 @@ public interface IStoreCatalogService {
 
 
     public  StoreCatalog add1(String catalogName, String catalogDescription, Date date);
+
+    public Store findStoreId(Long catalogId);
 
 
 }

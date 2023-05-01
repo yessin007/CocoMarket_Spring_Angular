@@ -1,0 +1,6 @@
+<form #CatalogForm="ngForm" (ngSubmit)="onSubmit(CatalogForm)">
+    <h1>StoreId</h1>
+    <input type="number" [(ngModel)]="b">
+    <p>{{b}}</p>
+    <button type="submit" class="btn btn-primary">Confirm Affect</button>
+</form>

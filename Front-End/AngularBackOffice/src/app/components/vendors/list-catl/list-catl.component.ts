@@ -9,7 +9,7 @@ import {Provider} from '../../../models/provider';
 import {StoreCatalog} from '../../../models/storeCatalog';
 import {CatalogServiceService} from '../../../services/catalogService/catalog-service.service';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {ImageProcessingService} from '../../../services/str-cat/image-processing.service';
+import {ImageMalProcessingService} from '../../../services/str-cat/imageMal-processing.service';
 import {map} from 'rxjs/operators';
 import {Store} from '../../../models/store';
 import {DatePipe} from '@angular/common';
@@ -21,9 +21,9 @@ import {DatePipe} from '@angular/common';
 export class ListCatlComponent implements OnInit{
 
   catalogList: StoreCatalog[] = [];
-  store: Store = new Store();
+  catalog: StoreCatalog = new StoreCatalog();
   // tslint:disable-next-line:max-line-length
-  constructor(private catalogservice: CatalogServiceService, private route: Router, private http: HttpClient , private  imageProcessingService: ImageProcessingService){}
+  constructor(private catalogservice: CatalogServiceService, private route: Router, private http: HttpClient , private  imageProcessingService: ImageMalProcessingService){}
   ngOnInit(): void {
     this.getAllCatalogs();
 
@@ -33,7 +33,7 @@ export class ListCatlComponent implements OnInit{
     this.catalogservice.getAllCatalog()
         .pipe(
 
-            map((x: StoreCatalog[], i) => x.map((catalog: StoreCatalog) => this.imageProcessingService.createImages(catalog)))
+            map((x: StoreCatalog[], i) => x.map((catalog: StoreCatalog) => this.imageProcessingService.createImagesMal(catalog)))
         )
         .subscribe(
             (resp: StoreCatalog[]) => {console.log(resp); this.catalogList = resp;
@@ -55,9 +55,15 @@ export class ListCatlComponent implements OnInit{
   }
   public getStoreByCatalogId(catalogId){
     this.catalogservice.getCatalogStoreId(catalogId).subscribe((resp) => {
-      this.store = resp;
+      this.catalog = resp;
     });
-    return this.store.storeName;
+    return this.catalog.storeName;
+  }
+  showCatalogsDetails(catalogId) {
+    this.route.navigate(['/vendors/catalog-detail', {catalogId}]);
+  }
+  showAffect(catalogId) {
+    this.route.navigate(['/vendors/affect-store', {catalogId}]);
   }
 
 
