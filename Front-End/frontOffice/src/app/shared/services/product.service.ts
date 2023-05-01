@@ -5,13 +5,10 @@ import { map, startWith, delay } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from '../classes/product';
 import {ImageProcessingService} from './image-processing.service';
-<<<<<<< HEAD
-import {Review} from "../classes/review";
-=======
+
 import {Review} from '../classes/review';
 import {User} from '../models/User';
 import {AuthService} from './auth.service';
->>>>>>> main
 
 const state = {
   products: JSON.parse(localStorage.products || '[]'),
@@ -29,11 +26,6 @@ export class ProductService {
   public OpenCart = false;
   public Products;
   public Product;
-<<<<<<< HEAD
-  readonly GET_ALL_PRODUCTS_API_URL = 'http://localhost:8089/radhwen/api/product/getallproducts?searchKey=';
-  readonly GET_PRODUCT_DETAILS_API_URL = 'http://localhost:8089/radhwen/api/product/getproductdetails/';
-  readonly ADD_REVIEW_TO_PRODUCT = 'http://localhost:8089/radhwen/api/product/affectreviewtoproduct/1/';
-=======
   readonly GET_ALL_PRODUCTS_API_URL = 'http://localhost:9092/COCO/api/product/getallproducts?searchKey=';
   readonly GET_PRODUCT_DETAILS_API_URL = 'http://localhost:9092/COCO/api/product/getproductdetails/';
   readonly ADDTOCART = 'http://localhost:9092/radhwen/api/product/getproductdetails/';
@@ -47,7 +39,6 @@ export class ProductService {
   readonly GET_AVERAGE_LIKES_OF_PRODUCT = 'http://localhost:9092/COCO/api/product/getaveragelikesofproduct/';
   currentUser: User = new User();
   public id ;
->>>>>>> main
 
   constructor(private http: HttpClient,
               private toastrService: ToastrService, private httpClient: HttpClient, private imageProcessingService: ImageProcessingService,
@@ -105,9 +96,6 @@ export class ProductService {
   public reviewProduct(review: Review , productId){
     return  this.httpClient.post<Product>(this.ADD_REVIEW_TO_PRODUCT + this.id + '/' + productId, review);
   }
-<<<<<<< HEAD
-
-=======
   public getUserByReview(reviewId){
     return this.httpClient.get<User>(this.GET_USER_BY_REVIEW + reviewId);
   }
@@ -128,7 +116,6 @@ export class ProductService {
   public getAverageLikesOfProduct(productId){
     return this.httpClient.get<number>(this.GET_AVERAGE_LIKES_OF_PRODUCT + productId);
   }
->>>>>>> main
 
   /*
     ---------------------------------------------
