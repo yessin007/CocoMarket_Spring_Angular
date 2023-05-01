@@ -75,7 +75,7 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit() {
     this.product = this.activatedRoute.snapshot.data.product;
-    this.productService.getAverageLikesOfProduct(this.product.productId).subscribe((resp) => this.product.avgLikes = resp);
+    this.productservice.getAverageLikesOfProduct(this.product.productId).subscribe((resp) => this.product.avgLikes = resp);
     console.log(this.product);
     const id = +this.route.snapshot.paramMap.get('id'); // Récupérer l'ID du produit à partir des paramètres de l'URL
     this.productservice.getProduct(id)
