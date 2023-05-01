@@ -1,6 +1,7 @@
 package com.example.coco_spring.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.engine.internal.Cascade;
@@ -15,31 +16,41 @@ import java.util.List;
 @Setter
 @Table(name = "deliveries")
 public class Delivery {
-    @Id
+  @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "client_address")
+    private String clientAddress;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "deliveryman_id")
-    @JsonIgnore
-    Provider provider;
+    @Column(name = "client_latitude")
+    private Double clientLatitude;
 
-    @Enumerated(EnumType.STRING)
-    private Status statut;
-
-    @Enumerated(EnumType.STRING)
-    private DeliveryOption deliveryOption;
-
-    @OneToOne
-    TimeSlot timeSlot;
+    @Column(name = "client_longitude")
+    private Double clientLongitude;
 
     private boolean cancelled;
-
+    @OneToOne
+    TimeSlot timeSlot;
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+@JsonIgnore
+    Provider provider;
+    @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
-    @OneToMany(mappedBy = "delivery",cascade = CascadeType.ALL)
-    List<Order> orders;
+    ClientLocation clientLocation;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    List<Order> orders;
+    @JsonProperty("firstName")
+    public String getProviderName() {
+        return provider != null ? provider.getFirstName() : null;
+    }
+    @JsonProperty("lastName")
+    public String getProviderLastName() {
+        return provider != null ? provider.getLastName() : null;
+    }
+    @Enumerated(EnumType.STRING)
+    private Status statut;
     public Delivery() {
         this.statut = Status.PENDING;
     }

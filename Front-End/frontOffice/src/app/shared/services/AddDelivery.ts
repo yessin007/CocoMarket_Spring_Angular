@@ -7,7 +7,7 @@ import { Deliveries } from './Deliveries';
 })
 export class AddDelivery {
 
-    readonly ADD_DELIVERY_API = 'http://localhost:8083/kaddem/api/delivery/add_delivery';
+    readonly ADD_DELIVERY_API = 'http://localhost:9092/COCO/api/delivery/add_delivery';
 
     constructor(private httpClient: HttpClient) { }
 

@@ -56,7 +56,7 @@ public class OrderService implements ICRUDService<Order,Long> , IOrderService {
         List<String> findProviderNamesWithOrder = orderRepository.findProviderNamesWithOrder();
         Map<String, List<Order>> map = new HashMap<>();
         for (String obj : findProviderNamesWithOrder) {
-            map.put(obj,orderRepository.findByDelivery_Provider_ProviderName(obj));
+            map.put(obj,orderRepository.findByDelivery_Provider_FirstName(obj));
 
         }
         return map;

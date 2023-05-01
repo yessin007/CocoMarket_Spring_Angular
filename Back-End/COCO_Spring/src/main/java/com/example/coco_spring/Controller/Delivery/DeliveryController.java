@@ -42,11 +42,9 @@ public class DeliveryController {
         return deliveryService.retrieveItem(deliveryId);
     }
 
-    @PostMapping("/add_delivery")
-
-    public Delivery addDelivery(@RequestBody Delivery delivery ){
-
-        return deliveryService.add(delivery);
+   @PostMapping("/add_delivery/{lat}/{lng}")
+    public Delivery addDelivery(@RequestBody Delivery delivery,@PathVariable("lat") double lat,@PathVariable("lng") double lng ){
+        return deliveryService.addjjj(delivery,lat,lng);
     }
 
     @PutMapping("/update_delivery")
@@ -71,9 +69,9 @@ public class DeliveryController {
 
     }
 
-    @PostMapping("/dispatch/{userId}/{deliveryId}")
-    public Provider dispatchDeliveryToNearestDeliveryman(@PathVariable("userId")Long userId,@PathVariable("deliveryId") Long deliveryId) {
-        Delivery delivery = deliveryService.dispatchDeliveryToNearestDeliveryman(userId,deliveryId);
+    @PostMapping("/dispatch/{deliveryId}")
+    public Provider dispatchDeliveryToNearestDeliveryman(@PathVariable("deliveryId") Long deliveryId) {
+        Delivery delivery = deliveryService.dispatchDeliveryToNearestDeliveryman(deliveryId);
         return delivery.getProvider();
     }
     @PutMapping("/cancelDelivery/{id}")

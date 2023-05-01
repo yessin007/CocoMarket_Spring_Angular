@@ -8,9 +8,9 @@ import {Observable} from 'rxjs';
 })
 
 export class DeliveriesService {
-  readonly ALL_DELIVERIES = 'http://localhost:8083/kaddem/api/delivery/retrive_all_deliveries';
-  readonly CHANGE_STATUS = 'http://localhost:8083/kaddem/api/delivery/changeStatusToDelivered/';
-  readonly DISPATCH = 'http://localhost:8083/kaddem/api/delivery/dispatch/';
+  readonly ALL_DELIVERIES = 'http://localhost:9092/COCO/api/delivery/retrive_all_deliveries';
+  readonly CHANGE_STATUS = 'http://localhost:9092/COCO/api/delivery/changeStatusToDelivered/';
+  readonly DISPATCH = 'http://localhost:9092/COCO/api/delivery/dispatch/';
 
   constructor(private httpClient: HttpClient) { }
 

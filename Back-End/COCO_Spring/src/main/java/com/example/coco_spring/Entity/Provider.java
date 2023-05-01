@@ -20,19 +20,19 @@ public class Provider {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long providerId;
-    private String providerName;
-    private long providerPrice;
-    private long providerNumber;
+    private String firstName;
+    private String lastName;
+    private long phoneNumber;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "provider",cascade = CascadeType.ALL)
-    List<Delivery> deliveries;
 
-    @OneToOne
+
+     @OneToOne(cascade = CascadeType.ALL)
     ProviderLocation providerLocation;
 
-    @OneToMany(mappedBy = "provider",cascade = CascadeType.ALL)
-    private List<ProviderRating> providerRatings;
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "provider")
+            @JsonIgnore
+    List<Delivery> deliveries;
+    @OneToOne(cascade = CascadeType.ALL)
+    Order order;
 
 }

@@ -16,5 +16,5 @@ public interface ProviderRepository extends JpaRepository<Provider, Long> {
 
 
 
-    List<Provider> findAllByOrderByProviderNameAsc();
+    List<Provider> findAllByOrderByFirstNameAsc();
 }
