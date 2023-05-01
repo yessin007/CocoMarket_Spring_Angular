@@ -1,6 +1,7 @@
 package com.example.coco_spring.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,11 +16,15 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class LikeDislikeProduct
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Enumerated(EnumType.STRING)
-    ProductRate productRate;
-    @OneToOne(mappedBy = "likeDislikeProduct")
-    User user;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@Enumerated(EnumType.STRING)
+	ProductRate productRate;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
+	User user;
+	@ManyToOne
+	@JsonIgnore
+	Product product;
 }
