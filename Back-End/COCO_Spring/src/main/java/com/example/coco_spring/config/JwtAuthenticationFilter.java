@@ -1,4 +1,4 @@
-package com.example.coco_spring.config;
+package com.example.coco_spring.Config;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 import lombok.RequiredArgsConstructor;

@@ -5,7 +5,7 @@ import com.example.coco_spring.Entity.User;
 import com.example.coco_spring.Repository.TokenRepository;
 import com.example.coco_spring.Repository.UserRepository;
 import com.example.coco_spring.Service.User.UserService;
-import com.example.coco_spring.config.JwtService;
+import com.example.coco_spring.Config.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
