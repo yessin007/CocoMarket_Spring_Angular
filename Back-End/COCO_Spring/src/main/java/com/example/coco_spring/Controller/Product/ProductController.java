@@ -37,6 +37,8 @@ public class ProductController {
     private ObjectMapper jsonMapper;
     @Autowired private OpenAiApiClient client;
 
+
+
     @GetMapping("/findmatchingaiproducts")
     public ResponseEntity<List<Product>> chatWithGpt3(@RequestParam String message) throws Exception {
         var completion = CompletionRequest.defaultWith("give me a list products which description is"+message);
@@ -120,6 +122,7 @@ public class ProductController {
     public double calculateProductInsurance(@PathVariable("idprod") Long productId,@PathVariable("iduser") Long idUser) {
         return productServices.calculateProductInsurance(productId,idUser);
     }
+
     @GetMapping("/gettotalpriceproducts")
     public  double getTotAlPriceProducts(){
         return productServices.productTotalPrice();
@@ -144,4 +147,5 @@ public class ProductController {
     public boolean verifyIfDisiked(@PathVariable("productId") Long productId,@PathVariable("userId") Long userId){
         return productServices.verifyIfDisliked(userId,productId);
     }
+
 }

@@ -1,4 +1,5 @@
 import {FileHandle} from './FileHandle';
+import {StoreCatalog} from "./storeCatalog";
 export class  Store{
     storeId: number;
     storeName: string;
@@ -9,4 +10,5 @@ export class  Store{
     storeLocations: string;
     category: string;
     storeImages: FileHandle[];
+    storeCatalog: StoreCatalog;
 }
