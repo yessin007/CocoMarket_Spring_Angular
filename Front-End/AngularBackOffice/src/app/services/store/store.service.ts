@@ -11,7 +11,7 @@ export class StoreService {
   // tslint:disable-next-line:variable-name
   readonly ADD_Store = 'http://localhost:8089/kaddem/store/addStore';
   // tslint:disable-next-line:variable-name
-  readonly Get_Store = 'http://localhost:8089/kaddem/store/get_all_Stores';
+  readonly Get_Store = 'http://localhost:9090/kaddem/Store/getAllStores';
   // tslint:disable-next-line:variable-name
   readonly DELETE_Store = 'http://localhost:8089/kaddem/store/deleteStore/';
 

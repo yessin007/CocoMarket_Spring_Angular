@@ -9,7 +9,7 @@ import {ListCatlComponent} from "./list-catl/list-catl.component";
 import {StoreDetailComponent} from "./store-detail/store-detail.component";
 import {AllStoresComponent} from './all-stores/all-stores.component';
 import {CatalogDetailComponent} from './catalog-detail/catalog-detail.component';
-import {AffectStoreComponent} from "./affect-store/affect-store.component";
+
 
 
 const routes: Routes = [
@@ -72,14 +72,7 @@ const routes: Routes = [
           breadcrumb: 'catalog detail'
         }
       },
-      {
-        path: 'affect-store',
-        component: AffectStoreComponent,
-        data: {
-          title: 'affect-store',
-          breadcrumb: 'affect-store'
-        }
-      },
+
     ]
   }
 ];

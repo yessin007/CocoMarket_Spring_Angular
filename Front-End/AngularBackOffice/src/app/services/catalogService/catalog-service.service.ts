@@ -44,7 +44,7 @@ export class CatalogServiceService {
   }
 
   addCatalogStore(catalogId: number, storeId: number): Observable<void> {
-    const url = `${this.apiUrl}/affecterStoreCatalogAStore/${catalogId}/${storeId}`;
+    const url = `${this.apiUrl}/affecterStoreCatalogAStore/${storeId}/${catalogId}`;
     return this.httpClient.post<void>(url, null);
   }
 }

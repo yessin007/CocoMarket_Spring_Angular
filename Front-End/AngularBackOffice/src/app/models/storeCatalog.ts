@@ -1,5 +1,6 @@
 // @ts-ignore
 import {FileHandleMal} from './FileHandleMal';
+import {Store} from "./store";
 
 export class StoreCatalog{
     catalogId: number ;
@@ -10,7 +11,7 @@ export class StoreCatalog{
     catalogImages: FileHandleMal[];
 
     storeName?: string;
-    storeId?: number;
+    store: Store;
 
 
 

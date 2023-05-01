@@ -66,22 +66,25 @@ constructor(private formBuilder: UntypedFormBuilder, private sanitizer: DomSanit
         }
     );
   }
-
-    onAffect() {
-        this.catalog.catalogImages = this.array;
-        console.log(this.catalog);
+    addCatalogToStore(): void {
         const catalogFormData = this.prepareFormData(this.catalog);
         this.catalogservice.addCatalog(catalogFormData).subscribe(
             (catalog: StoreCatalog) => {
                 console.log('catalog added successfully', catalog);
-                this.catalogservice.addCatalogStore(catalog.catalogId, catalog.storeId).subscribe(resp => console.log('suucc'));
+                this.a = catalog.catalogId ;
+                this.catalogservice.addCatalogStore(this.store.storeId, catalog.catalogId).subscribe(resp => console.log('affected succ '));
                 // Reset the form
                 this.catalog = new StoreCatalog();
             },
             (error) => {
-                console.error('Failed to add catalog', error);
+                console.error('Failed to add product', error);
             }
         );
+
+        // this.storeservice.addProductStore()
+
+
+
     }
 
   prepareFormData(catalog: StoreCatalog): FormData{
