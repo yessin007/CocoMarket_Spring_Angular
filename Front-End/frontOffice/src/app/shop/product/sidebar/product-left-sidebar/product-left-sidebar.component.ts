@@ -21,10 +21,19 @@ export class ProductLeftSidebarComponent implements OnInit {
   public counter: number = 1;
   public activeSlide: any = 0;
   public selectedSize: any;
+<<<<<<< HEAD
   public mobileSidebar: boolean = false;
 
   rating:number = 3;
   starCount:number = 5;
+=======
+  public mobileSidebar = false;
+  public liked;
+  public disliked;
+  rating = 3;
+  starCount = 5;
+  public reviews: Review[] = [];
+>>>>>>> main
   public active = 1;
 
 
@@ -39,6 +48,13 @@ export class ProductLeftSidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.product = this.route.snapshot.data.product;
+<<<<<<< HEAD
+=======
+    this.router.navigate(['shop/product/left/sidebar/', {productId: this.product.productId}]);
+    this.getAllReviews();
+    this.verifyDislikeProduct();
+    this.verifyLikeProduct();
+>>>>>>> main
     console.log(this.product);
   }
   reload(productID){
@@ -65,6 +81,23 @@ export class ProductLeftSidebarComponent implements OnInit {
     }
     return uniqSize
   }
+<<<<<<< HEAD
+=======
+  verifyDislikeProduct(){
+    this.productService.verifyDisikeProduct(this.product.productId).subscribe((resp) => {
+      this.disliked = resp;
+     // console.log(resp);
+      console.log(this.disliked)
+    }) ;
+  }
+  verifyLikeProduct(){
+    this.productService.verifyLikeProduct(this.product.productId).subscribe((resp) => {
+      this.liked = resp;
+    //  console.log(resp);
+      console.log(this.liked);
+    }) ;
+  }
+>>>>>>> main
   reviewProduct(review: Review){
     this.productService.reviewProduct(review, this.product.productId).subscribe((product: Product) => {
           console.log('review added successfully', product);
@@ -115,8 +148,21 @@ export class ProductLeftSidebarComponent implements OnInit {
   // Add to Wishlist
   addToWishlist(product: any) {
     this.productService.addToWishlist(product);
+    this.router.navigateByUrl('/home/fashion', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['shop/product/left/sidebar/', {productId: this.product.productId}]);
+    });
   }
+<<<<<<< HEAD
 
+=======
+  dislikeProduct(product: Product) {
+    this.productService.disLikeProduct(product.productId).subscribe((resp) => {
+      console.log('dislike product successfully'); });
+    this.router.navigateByUrl('/home/fashion', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['shop/product/left/sidebar/', {productId: this.product.productId}]);
+    });
+  }
+>>>>>>> main
   // Toggle Mobile Sidebar
   toggleMobileSidebar() {
     this.mobileSidebar = !this.mobileSidebar;

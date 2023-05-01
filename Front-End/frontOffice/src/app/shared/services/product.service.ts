@@ -5,7 +5,13 @@ import { map, startWith, delay } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from '../classes/product';
 import {ImageProcessingService} from './image-processing.service';
+<<<<<<< HEAD
 import {Review} from "../classes/review";
+=======
+import {Review} from '../classes/review';
+import {User} from '../models/User';
+import {AuthService} from './auth.service';
+>>>>>>> main
 
 const state = {
   products: JSON.parse(localStorage.products || '[]'),
@@ -23,12 +29,34 @@ export class ProductService {
   public OpenCart = false;
   public Products;
   public Product;
+<<<<<<< HEAD
   readonly GET_ALL_PRODUCTS_API_URL = 'http://localhost:8089/radhwen/api/product/getallproducts?searchKey=';
   readonly GET_PRODUCT_DETAILS_API_URL = 'http://localhost:8089/radhwen/api/product/getproductdetails/';
   readonly ADD_REVIEW_TO_PRODUCT = 'http://localhost:8089/radhwen/api/product/affectreviewtoproduct/1/';
+=======
+  readonly GET_ALL_PRODUCTS_API_URL = 'http://localhost:9092/COCO/api/product/getallproducts?searchKey=';
+  readonly GET_PRODUCT_DETAILS_API_URL = 'http://localhost:9092/COCO/api/product/getproductdetails/';
+  readonly ADDTOCART = 'http://localhost:9092/radhwen/api/product/getproductdetails/';
+  readonly ADD_REVIEW_TO_PRODUCT = 'http://localhost:9092/COCO/api/review/affectreviewtoproduct/';
+  readonly GET_USER_BY_REVIEW = 'http://localhost:9092/COCO/api/review/getuserbyreview/';
+  readonly GET_ALL_REVIEWS = 'http://localhost:9092/COCO/api/review/getallreviews/';
+  readonly DISLIKE_PRODUCT = 'http://localhost:9092/COCO/api/review';
+  readonly LIKE_PRODUCT = 'http://localhost:9092/COCO/api/review';
+  readonly VERIFY_LIKE_PRODUCT = 'http://localhost:9092/COCO/api/product';
+  readonly VERIFY_DISLIKE_PRODUCT = 'http://localhost:9092/COCO/api/product';
+  readonly GET_AVERAGE_LIKES_OF_PRODUCT = 'http://localhost:9092/COCO/api/product/getaveragelikesofproduct/';
+  currentUser: User = new User();
+  public id ;
+>>>>>>> main
 
   constructor(private http: HttpClient,
-              private toastrService: ToastrService, private httpClient: HttpClient, private imageProcessingService: ImageProcessingService) { }
+              private toastrService: ToastrService, private httpClient: HttpClient, private imageProcessingService: ImageProcessingService,
+              private authService: AuthService) {
+    this.authService.currentUser.subscribe(data => {
+      this.currentUser = data;
+      this.id = this.currentUser.id;
+    });
+  }
 
   /*
     ---------------------------------------------
@@ -75,9 +103,32 @@ export class ProductService {
     return  this.httpClient.get<Product>(this.GET_PRODUCT_DETAILS_API_URL + productId);
   }
   public reviewProduct(review: Review , productId){
-    return  this.httpClient.post<Product>(this.ADD_REVIEW_TO_PRODUCT + productId, review);
+    return  this.httpClient.post<Product>(this.ADD_REVIEW_TO_PRODUCT + this.id + '/' + productId, review);
   }
+<<<<<<< HEAD
 
+=======
+  public getUserByReview(reviewId){
+    return this.httpClient.get<User>(this.GET_USER_BY_REVIEW + reviewId);
+  }
+  public getAllReviews(productId): Observable<Review[]> {
+   return this.httpClient.get<Review[]>(this.GET_ALL_REVIEWS + productId);
+  }
+  public likeProduct(productId){
+    return this.httpClient.post(this.LIKE_PRODUCT + '/' + this.id + '/like/' + productId , {});
+  }
+  public verifyLikeProduct(productId): Observable<boolean>{
+    return this.httpClient.get<boolean>(this.VERIFY_LIKE_PRODUCT + '/verifyifliked/' + this.id + '/' + productId );
+  }
+  public verifyDisikeProduct(productId): Observable<boolean>{
+    return this.httpClient.get<boolean>(this.VERIFY_DISLIKE_PRODUCT + '/verifyifdisliked/' + this.id + '/' + productId); }
+  public disLikeProduct(productId){
+    return this.httpClient.post(this.DISLIKE_PRODUCT + '/' + this.id + '/dislike/' + productId , {});
+  }
+  public getAverageLikesOfProduct(productId){
+    return this.httpClient.get<number>(this.GET_AVERAGE_LIKES_OF_PRODUCT + productId);
+  }
+>>>>>>> main
 
   /*
     ---------------------------------------------

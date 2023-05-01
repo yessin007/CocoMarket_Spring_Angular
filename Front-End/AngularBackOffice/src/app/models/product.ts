@@ -17,4 +17,7 @@ export class Product {
     createdAt: Date;
     productCategory: string;
     image: FileHandle[];
+    numberOfLikes?: number;
+    avgLikes?: number;
+    collection?: string[];
 }

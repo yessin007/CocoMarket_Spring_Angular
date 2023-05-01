@@ -14,7 +14,7 @@
                 <div class="product-page-details product-right mb-0">
                     <h2>{{product.title}}</h2>
                     <h1>{{product.brand}}</h1>
-                    <ngb-rating class="ratings-sec"  [(rate)]="currentRate">
+                    <ngb-rating class="ratings-sec" [readonly]="true" [(rate)]="product.avgLikes">
                         <ng-template let-fill="fill" let-index="index">
                             <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3"><i class='fa fa-star'></i> </span>
                         </ng-template>
