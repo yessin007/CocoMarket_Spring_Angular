@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {HttpClient, HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
@@ -32,14 +32,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     ShopComponent,
     PagesComponent,
     ElementsComponent,
-      
-
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     HttpClientModule,
     NgbModule,
+    HttpClientJsonpModule,
+      GoogleMapsModule,
     LoadingBarHttpClientModule,
     LoadingBarRouterModule,
     NgxStarRatingModule,

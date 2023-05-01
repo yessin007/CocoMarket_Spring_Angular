@@ -46,6 +46,8 @@ import {AgmCoreModule} from '@agm/core';
 import { GoogleMapsModule } from '@angular/google-maps';
 import {BrowserModule} from '@angular/platform-browser';
 import { MapComponent } from './map/map.component';
+import {GooglemapComponent} from "../googlemap/googlemap.component";
+import {GetdirectionComponent} from "./geoCode/getdirection.component";
 
 
 @NgModule({
@@ -83,6 +85,7 @@ import { MapComponent } from './map/map.component';
     MasonryGridFourComponent,
     MasonryFullWidthComponent,
     MapComponent,
+      GetdirectionComponent
 
   ],
   imports: [
@@ -94,7 +97,11 @@ import { MapComponent } from './map/map.component';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAvHALSEQwNE3b-b7eHSZIDv-KK1wr7CRQ'
     }),
-    GoogleMapsModule
+
+  ],
+  exports: [
+      MapComponent,
+      GetdirectionComponent
   ]
 
 })

@@ -6,7 +6,7 @@ import {Deliveries} from '../shared/services/Deliveries';
   selector: 'app-pages',
   templateUrl: './pages.component.html',
   styleUrls: ['./pages.component.scss'],
-  providers: [Deliveries] // add the provider here
+  providers: [Deliveries]
 
 })
 export class PagesComponent implements OnInit {

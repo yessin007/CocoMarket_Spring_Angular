@@ -33,7 +33,7 @@ import { MasonryGridTwoComponent } from './portfolio/masonry-grid-two/masonry-gr
 import { MasonryGridThreeComponent } from './portfolio/masonry-grid-three/masonry-grid-three.component';
 import { MasonryGridFourComponent } from './portfolio/masonry-grid-four/masonry-grid-four.component';
 import { MasonryFullWidthComponent } from './portfolio/masonry-full-width/masonry-full-width.component';
-import {MapComponent} from './map/map.component';
+import {MapComponent} from "./map/map.component";
 
 const routes: Routes = [
   {
@@ -65,13 +65,10 @@ const routes: Routes = [
     component: ProfileComponent
   },
   {
-    path: 'map',
-    component: MapComponent
-  },
-  {
     path: 'contact',
     component: ContactComponent
   },
+
   {
     path: 'checkout',
     component: CheckoutComponent
@@ -95,6 +92,10 @@ const routes: Routes = [
   {
     path: 'order/success',
     component: OrderSuccessComponent
+  },
+  {
+    path: 'map',
+    component: MapComponent
   },
   {
     path: 'compare/one',
@@ -164,7 +165,6 @@ const routes: Routes = [
     path: 'portfolio/masonry/grid/four',
     component: MasonryGridFourComponent
   },
-    
   {
     path: 'portfolio/masonry/full-width',
     component: MasonryFullWidthComponent
