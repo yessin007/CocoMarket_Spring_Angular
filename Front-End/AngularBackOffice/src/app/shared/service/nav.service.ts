@@ -1,6 +1,8 @@
 import { Injectable, HostListener, Inject } from '@angular/core';
 import { BehaviorSubject, Observable, Subscriber } from 'rxjs';
 import { WINDOW } from './windows.service';
+import {AuthService} from '../../services/auth.service';
+import {User} from "../../models/User";
 // Menu
 export interface Menu {
 	path?: string;
@@ -13,30 +15,36 @@ export interface Menu {
 	bookmark?: boolean;
 	children?: Menu[];
 }
-
+export interface MenuA {
+	path?: string;
+	title?: string;
+	icon?: string;
+	type?: string;
+	badgeType?: string;
+	badgeValue?: string;
+	active?: boolean;
+	bookmark?: boolean;
+	children?: MenuA[];
+}
 @Injectable({
 	providedIn: 'root'
 })
 
 export class NavService {
 
-	public  screenWidth:any
-	public collapseSidebar: boolean = false
-
-	constructor(@Inject(WINDOW) private window) {
+	currentUser: User = new User;
+	constructor(@Inject(WINDOW) private window,private auth: AuthService) {
 		this.onResize();
 		if (this.screenWidth < 991) {
 			this.collapseSidebar = true;
 		}
+		this.auth.currentUser.subscribe(data => {
+			this.currentUser = data;
+		});
 	}
 
-
-	
-	// Windows width
-	@HostListener('window:resize', ['$event'])
-	onResize(event?) {
-		this.screenWidth = window.innerWidth;
-	}
+	public  screenWidth: any;
+	public collapseSidebar = false;
 
 
 	MENUITEMS: Menu[] = [
@@ -147,9 +155,36 @@ export class NavService {
 		{
 			title: 'Login', path: '/auth/login', icon: 'log-in', type: 'link', active: false
 		}
-	];
+	]
+
+	/*MENUADMINITEMS: MenuA[] = [
+		{
+			path: '/dashboard/default', title: 'Dashboard', icon: 'home', type: 'link', badgeType: 'primary', active: false
+		},
+		{
+			title: 'Users', icon: 'user-plus', type: 'sub', active: false, children: [
+				{ path: '/users/list-user', title: 'User List', type: 'link' },
+				{ path: '/users/create-user', title: 'Create User', type: 'link' },
+			]
+		},
+	]
+
+
+	if (this.currentUser.role === 'ROLE_ADMIN') {
 	// Array
-	items = new BehaviorSubject<Menu[]>(this.MENUITEMS);
+	items = new BehaviorSubject<Menu[]>(this.MENUADMINITEMS);
+} else {*/
+	items = new BehaviorSubject<Menu[]>(this.MENUITEMS);/*
+}*/
+
+
+
+
+// Windows width
+	@HostListener('window:resize', ['$event'])
+	onResize(event?) {
+		this.screenWidth = window.innerWidth;
+	} // Windows
 
 
 
