@@ -1,12 +1,8 @@
 export class RegisterRequest {
-    name!: string;
-    lastName!: string;
-    username!: string;
-    email!: string;
+	username!: string;
+	firstname!: string;
+	lastname!: string;
+	email!: string;
     password!: string;
-    address!: string;
-    dayOfBirth!: Date;
-    cin!: string;
-    telNum!: string;
-    locked!: boolean;
+    role!: string;
 }

@@ -26,11 +26,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ShowProductImagesDialogComponent } from './components/show-product-images-dialog/show-product-images-dialog.component';
-
+import { CommonModule, DecimalPipe } from '@angular/common';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { ListCatalogComponent } from './vendors/list-catalog/list-catalog.component';
-
+import {TableService} from './shared/service/table.service';
+import { BarRatingModule } from 'ngx-bar-rating';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { ListCatalogComponent } from './vendors/list-catalog/list-catalog.compon
         SettingModule,
         ReportsModule,
         AuthModule,
+        CommonModule,
         SharedModule,
         LocalizationModule,
         ProductsModule,
@@ -64,9 +66,10 @@ import { ListCatalogComponent } from './vendors/list-catalog/list-catalog.compon
         HttpClientModule,
         MatDialogModule,
         MatGridListModule,
+        BarRatingModule,
         CarouselModule.forRoot(),
     ],
-  providers: [ProductService],
+  providers: [ProductService, TableService, DecimalPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

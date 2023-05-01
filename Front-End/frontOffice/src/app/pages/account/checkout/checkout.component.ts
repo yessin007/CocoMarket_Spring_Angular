@@ -9,7 +9,19 @@ export class CheckoutComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  //delivery : Deliveries = new  Deliveries();
+
+
+    ngOnInit() {
+      window.addEventListener('message', event => {
+        // Check that the event is from the correct origin
+        if (event.origin !== 'https://storage.googleapis.com') {
+          return;
+        }
+
+        // Handle the message from the iframe here
+        console.log(event.data);
+      });
+    }
 
 }

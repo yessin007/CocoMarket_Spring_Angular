@@ -23,6 +23,8 @@ public class ProductServices implements IProductServices {
     ProductRepository productRepository;
     UserRepository userRepository;
     OrderRepository orderRepository;
+    ReviewRepository reviewRepository;
+    LikeDislikeRepository likeDislikeProductRepository;
 
     @Override
     public List<Product> retrieveAllProducts() {
@@ -114,4 +116,58 @@ Regarding the calculation of the premium based on the price and date:
 
         return top4ProductsByCategory;
     }
+<<<<<<< HEAD
+=======
+    public double productTotalPrice(){
+        Calendar startOfMonth = Calendar.getInstance();
+        startOfMonth.set(Calendar.DAY_OF_MONTH, 1);
+        Calendar endOfMonth = Calendar.getInstance();
+        endOfMonth.set(Calendar.DAY_OF_MONTH, endOfMonth.getActualMaximum(Calendar.DAY_OF_MONTH));
+
+        List<Product> products = productRepository.findByCreatedAtBetween(startOfMonth.getTime(), endOfMonth.getTime());
+        double price= 0;
+        for(Product product:products){
+            price+=product.getStock()*product.getPrice();
+        }
+        return price;
+    }
+    public int numberOfLikes(Long productId){
+        Product product=productRepository.findById(productId).get();
+        int likes=0;
+        for (LikeDislikeProduct e:product.getLikeDislikeProducts()){
+            if(e.getProductRate().equals(ProductRate.LIKE)){
+                likes++;
+            }
+        }
+        return  likes;
+    }
+    public List<Product> top5MostLikedProducts(){
+        List<Product> top5MostLikedProducts= productRepository.findAll()
+                .stream()
+                .sorted((a,b)->this.numberOfLikes(b.getProductId())-this.numberOfLikes(a.getProductId()))
+                .limit(5)
+                .collect(Collectors.toList());
+        return top5MostLikedProducts;
+    }
+    public double getAverageRatingByProduct(Long productId){
+        Product product = productRepository.findById(productId).get();
+        for(Review review:reviewRepository.findAll()){
+            if(review.getProduct().equals(product)){
+                return reviewRepository.getAverageRatingByProductId(productId);
+            }
+        }
+
+        return 0;
+    }
+    public boolean verifyIfLiked(Long userId, Long productId){
+        List<LikeDislikeProduct> likeDislikeProducts = likeDislikeProductRepository
+                .findByUser_IdAndProduct_ProductIdAndProductRate(userId, productId, ProductRate.LIKE);
+        return !likeDislikeProducts.isEmpty();
+    }
+    public boolean verifyIfDisliked(Long userId, Long productId){
+        List<LikeDislikeProduct> likeDislikeProducts = likeDislikeProductRepository
+                .findByUser_IdAndProduct_ProductIdAndProductRate(userId, productId, ProductRate.DISLIKE);
+        return !likeDislikeProducts.isEmpty();
+    }
+>>>>>>> main
 }

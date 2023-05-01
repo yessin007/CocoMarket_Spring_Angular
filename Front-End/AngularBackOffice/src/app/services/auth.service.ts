@@ -91,12 +91,14 @@ export class AuthService {
 		address: null,
 		dayOfBirth: null,
 		cin: null,
-		telNum: null*/
-  register(username: string, password: string, name: string, lastName: string, email: string, address: string, dayOfBirth: Date, cin: string, telNum: string): Observable<any> {
-    this.rr = {username, password, name, lastName, email, address, dayOfBirth, cin, telNum};
+	// 	telNum: null*/
+  // private role: string ="ROLE_SELLER";
+  register(username: string, firstname: string, lastname: string, email: string, password: string): Observable<any> {
+    const role = 'ROLE_SELLER';
+    const rr: RegisterRequest = {username, firstname, lastname, email, password, role};
     return this.http.post(
         `${this.API_URL}register`,
-        this.rr,
+        rr,
         httpOptions
     );
   }

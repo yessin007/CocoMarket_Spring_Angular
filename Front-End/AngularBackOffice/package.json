@@ -51,6 +51,7 @@
     "ng2-completer": "^9.0.1",
     "ng2-google-charts": "^7.0.0",
     "ng2-search-filter": "^0.5.1",
+    "ngx-bar-rating": "^5.0.0",
     "ngx-bootstrap": "^10.2.0",
     "ngx-dropzone": "^3.1.0",
     "ngx-dropzone-wrapper": "^11.0.0",

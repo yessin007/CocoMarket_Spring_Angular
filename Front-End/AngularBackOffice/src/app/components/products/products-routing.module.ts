@@ -54,6 +54,9 @@ const routes: Routes = [
           title: "Add Products",
           breadcrumb: "Add Product"
         },
+        resolve : {
+          product: ProductResolverService
+        }
       },
       {
         path: 'digital/digital-category',

@@ -63,16 +63,9 @@ public class ProductController {
     @PostMapping(value = "/addproduct",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     Product addProduct(@RequestPart("product") Product product, @RequestPart("imageFile") MultipartFile[] files){
         //return productRepository.save(product);
-        collection.add("featured products");
-        collection.add("on sale");
-        collection.add("new arrival");
-        collection.add("best sellers");
-        collection.add("all products");
-
         try {
             Set<ProductImages> productImagesSet=uploadImages(files);
             product.setImage(productImagesSet);
-            product.setCollection(collection);
             product.setQuantity(product.getStock());
             return productRepository.save(product);
         }catch (Exception e){
@@ -130,5 +123,29 @@ public class ProductController {
         return productServices.calculateProductInsurance(productId,idUser);
     }
 
+    @GetMapping("/gettotalpriceproducts")
+    public  double getTotAlPriceProducts(){
+        return productServices.productTotalPrice();
+    }
+    @GetMapping ("/topfivemostlikedproducts")
+    public List<Product> top5MostLikedProducts(){
+        return productServices.top5MostLikedProducts();
+    }
+    @GetMapping ("/getnumberoflikes/{productId}")
+    public int getNumberOflikes(@PathVariable("productId") Long productId){
+        return productServices.numberOfLikes(productId);
+    }
+    @GetMapping("/getaveragelikesofproduct/{productId}")
+    public double getAverageLikesOfProduct(@PathVariable("productId") Long productId){
+        return productServices.getAverageRatingByProduct(productId);
+    }
+    @GetMapping("/verifyifliked/{userId}/{productId}")
+    public boolean verifyIfLiked(@PathVariable("productId") Long productId,@PathVariable("userId") Long userId){
+        return productServices.verifyIfLiked(userId,productId);
+    }
+    @GetMapping("/verifyifdisliked/{userId}/{productId}")
+    public boolean verifyIfDisiked(@PathVariable("productId") Long productId,@PathVariable("userId") Long userId){
+        return productServices.verifyIfDisliked(userId,productId);
+    }
 
 }

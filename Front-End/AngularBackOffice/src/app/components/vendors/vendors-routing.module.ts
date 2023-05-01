@@ -8,7 +8,12 @@ import {ListCatlComponent} from "./list-catl/list-catl.component";
 
 import {StoreDetailComponent} from "./store-detail/store-detail.component";
 import {AllStoresComponent} from './all-stores/all-stores.component';
+
 import {CatalogDetailComponent} from './catalog-detail/catalog-detail.component';
+
+
+import {AddPostComponent} from "./add-post/add-post.component";
+import {StoreDetailComponent} from "./store-detail/store-detail.component";
 
 
 

@@ -14,12 +14,12 @@ import {Router} from "@angular/router";
 export class ProductBoxOneComponent implements OnInit {
 
   @Input() product: Product;
-  @Input() currency: any = this.productService.Currency; // Default Currency 
-  @Input() thumbnail: boolean = false; // Default False 
+  @Input() currency: any = this.productService.Currency; // Default Currency
+  @Input() thumbnail: boolean = false; // Default False
   @Input() onHowerChangeImage: boolean = false; // Default False
   @Input() cartModal: boolean = false; // Default False
   @Input() loader: boolean = false;
-  
+
   @ViewChild("quickView") QuickView: QuickViewComponent;
   @ViewChild("cartModal") CartModal: CartModalComponent;
 
@@ -29,6 +29,7 @@ export class ProductBoxOneComponent implements OnInit {
   constructor(private productService: ProductService, private imageProcessinService: ImageProcessingService, private router: Router) { }
 
   ngOnInit(): void {
+    // this.getAvgLike(this.product.productId);
     if(this.loader) {
       setTimeout(() => { this.loader = false; }, 2000); // Skeleton Loader
     }
@@ -36,6 +37,9 @@ export class ProductBoxOneComponent implements OnInit {
   showProductDetails(productID) {
     this.router.navigate(['shop/product/left/sidebar/', {productId: productID}]);
   }
+  /*getAvgLike(productId){
+    this.productService.getAverageLikesOfProduct(productId).subscribe((prod => this.product.productAvgLike = prod));
+  }*/
   // Get Product Color
   Color(variants) {
     const uniqColor = [];

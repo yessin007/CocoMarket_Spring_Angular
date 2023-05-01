@@ -1,0 +1,31 @@
+.checkboxes {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.checkboxes label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 16px;
+}
+
+.checkboxes input[type="checkbox"] {
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  appearance: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: background-color 0.2s;
+}
+
+.checkboxes input[type="checkbox"]:checked {
+  background-color: gold;
+}
+.checkboxes label .label-text {
+  font-size: 18px;
+  font-weight: bold;
+}
