@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { AgGridModule } from '@ag-grid-community/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,6 +30,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { ListCatalogComponent } from './vendors/list-catalog/list-catalog.component';
 import { MapComponent } from './components/map/map.component';
+import {AgGridModule} from "ag-grid-angular";
 
 
 

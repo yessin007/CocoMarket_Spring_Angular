@@ -1,3 +1,4 @@
+/// <reference types="@types/googlemaps" />
 declare global {
     function initMap(): void;
 }

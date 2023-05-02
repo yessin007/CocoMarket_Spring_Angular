@@ -3,7 +3,7 @@ import {NgForm, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import { Provider } from 'src/app/models/provider';
 import {Product} from '../../../models/product';
 import {ProviderService} from '../../../services/provider/provider.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-create-page',
