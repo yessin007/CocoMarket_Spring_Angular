@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
 import { content } from './shared/routes/content-routes';
 import { ContentLayoutComponent } from './shared/layout/content-layout/content-layout.component';
 import { LoginComponent } from './components/auth/login/login.component';
@@ -18,6 +17,7 @@ import {AddOrderComponent} from './components/sales/orders/add-order/add-order.c
 import {resolve} from '@angular/compiler-cli';
 import {OrderResolverServiceService} from './services/order-resolver/order-resolver-service.service';
 import {MapComponent} from './components/map/map.component';
+import {RouterModule, Routes} from "@angular/router";
 
 
 

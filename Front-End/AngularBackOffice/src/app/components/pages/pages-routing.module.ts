@@ -1,10 +1,9 @@
 import { NgModule, Component } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
 import { ListPageComponent } from './list-page/list-page.component';
 import { CreatePageComponent } from './create-page/create-page.component';
-import {ProviderLocationComponent} from './provider-location/provider-location.component';
 import {DeliveryComponentComponent} from './delivery-component/delivery-component.component';
 import {ProviderResolverService} from '../../services/provider-resolver/provider-resolver.service';
+import {RouterModule, Routes} from "@angular/router";
 
 const routes: Routes = [
   {
@@ -37,14 +36,7 @@ const routes: Routes = [
           breadcrumb: 'Deliveries List'
         }
       },
-      {
-        path: 'provider-location',
-        component: ProviderLocationComponent,
-        data: {
-          title: 'Provider Location',
-          breadcrumb: 'Provider Location'
-        }
-      }
+
     ]
   }
 ];

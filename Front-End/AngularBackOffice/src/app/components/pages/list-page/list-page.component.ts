@@ -6,8 +6,7 @@ import { TableService } from 'src/app/shared/service/table.service';
 import { LISTPAGEDB, ListPagesDB } from 'src/app/shared/tables/list-pages';
 import {ProviderService} from '../../../services/provider/provider.service';
 import {Provider} from '../../../models/provider';
-import {response} from 'express';
-import {Router} from '@angular/router';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-list-page',
