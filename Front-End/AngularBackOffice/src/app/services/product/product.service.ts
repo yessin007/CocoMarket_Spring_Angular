@@ -7,7 +7,7 @@ import {Product} from '../../models/product';
   providedIn: 'root'
 })
 export class ProductService {
-  readonly PRODUCT_API_URL = 'http://localhost:9092/COCO/api/product/addproduct';
+  readonly PRODUCT_API_URL = 'http://localhost:8089/maram/api/product/addproduct';
   readonly GET_ALL_PRODUCTS_API_URL = 'http://localhost:9092/COCO/api/product/getallproducts?searchKey=';
   readonly DELETE_PRODUCT_API_URL = 'http://localhost:9092/COCO/api/product/deleteproduct/';
   readonly GET_PRODUCT_DETAILS__API_URL = 'http://localhost:9092/COCO/api/product/getproductdetails/';

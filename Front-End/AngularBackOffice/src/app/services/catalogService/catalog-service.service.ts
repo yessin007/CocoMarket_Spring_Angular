@@ -8,13 +8,13 @@ import {Store} from '../../models/store';
   providedIn: 'root'
 })
 export class CatalogServiceService {
-  readonly ADD_CATALOG = 'http://localhost:9090/kaddem/StoreCatalog/addStoreCatalog';
-  readonly GET_ALL_CATALOG = 'http://localhost:9090/kaddem/StoreCatalog/get_all_StoreCatalog';
-  readonly DELETE_CATALOG = 'http://localhost:9090/kaddem/StoreCatalog/deleteStoreCatalog/';
-  readonly FIND_BY_ID = 'http://localhost:9090/kaddem/StoreCatalog/getById_StoreCatalog/';
-  readonly FIND_CATALOG_STORE = 'http://localhost:9090/kaddem/StoreCatalog/findStoreId/';
+  readonly ADD_CATALOG = 'http://localhost:8089/maram/StoreCatalog/addStoreCatalog';
+  readonly GET_ALL_CATALOG = 'http://localhost:8089/maram/StoreCatalog/get_all_StoreCatalog';
+  readonly DELETE_CATALOG = 'http://localhost:8089/maram/StoreCatalog/deleteStoreCatalog/';
+  readonly FIND_BY_ID = 'http://localhost:8089/maram/StoreCatalog/getById_StoreCatalog/';
+  readonly FIND_CATALOG_STORE = 'http://localhost:8089/maram/StoreCatalog/findStoreId/';
 
-  apiUrl = 'http://localhost:9090/kaddem/StoreCatalog';
+  apiUrl = 'http://localhost:8089/maram/StoreCatalog';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -43,7 +43,7 @@ export class CatalogServiceService {
     return this.httpClient.get<StoreCatalog>(this.FIND_CATALOG_STORE + catalogId);
   }
 
-  addCatalogStore(catalogId: number, storeId: number): Observable<void> {
+  addCatalogStore(storeId: number, catalogId: number ): Observable<void> {
     const url = `${this.apiUrl}/affecterStoreCatalogAStore/${storeId}/${catalogId}`;
     return this.httpClient.post<void>(url, null);
   }

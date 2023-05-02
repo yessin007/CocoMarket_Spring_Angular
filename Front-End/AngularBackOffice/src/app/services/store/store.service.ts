@@ -9,9 +9,9 @@ import {Observable} from 'rxjs';
 })
 export class StoreService {
   // tslint:disable-next-line:variable-name
-  readonly ADD_Store = 'http://localhost:8089/kaddem/store/addStore';
+  readonly ADD_Store = 'http://localhost:8089/maram/store/addStore';
   // tslint:disable-next-line:variable-name
-  readonly Get_Store = 'http://localhost:9090/kaddem/Store/getAllStores';
+  readonly Get_Store = 'http://localhost:8089/maram/store/get_all_Stores';
   // tslint:disable-next-line:variable-name
   readonly DELETE_Store = 'http://localhost:8089/kaddem/store/deleteStore/';
 

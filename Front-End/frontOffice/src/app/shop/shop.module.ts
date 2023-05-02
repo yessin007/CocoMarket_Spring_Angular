@@ -44,6 +44,7 @@ import { SuccessComponent } from './checkout/success/success.component';
 
 import {RouterModule} from '@angular/router';
 import {ElementsModule} from "../elements/elements.module";
+import { CatalogComponent } from './collection/catalog/catalog.component';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import {ElementsModule} from "../elements/elements.module";
     WishlistComponent,
     CompareComponent,
     CheckoutComponent,
-    SuccessComponent
+    SuccessComponent,
+    CatalogComponent
   ],
     imports: [
         CommonModule,

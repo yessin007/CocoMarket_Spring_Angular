@@ -5,6 +5,7 @@ import {StoreService} from '../../../services/store/store.service';
 import {FileHandle} from '../../../models/FileHandle';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-vendors',

@@ -7,7 +7,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FileHandle} from '../../../models/FileHandle';
 import {DomSanitizer} from '@angular/platform-browser';
 import {FileHandleMal} from '../../../models/FlileHandleMal';
-import {Store} from "../../../models/store";
+import {Store} from '../../../models/store';
+import {ToastrModule, ToastrService} from 'ngx-toastr';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class CreateStorecatalogComponent implements OnInit{
   store: Store = new Store();
 
 // tslint:disable-next-line:max-line-length
-constructor(private formBuilder: UntypedFormBuilder, private sanitizer: DomSanitizer, private catalogservice: CatalogServiceService, private activatedRoute: ActivatedRoute, private route: Router) {
+constructor(private toaster: ToastrService, private formBuilder: UntypedFormBuilder, private sanitizer: DomSanitizer, private catalogservice: CatalogServiceService, private activatedRoute: ActivatedRoute, private route: Router) {
       this.createGeneralForm();
       this.createSeoForm();
   }
@@ -57,14 +58,17 @@ constructor(private formBuilder: UntypedFormBuilder, private sanitizer: DomSanit
     const catalogFormData = this.prepareFormData(this.catalog);
     this.catalogservice.addCatalog(catalogFormData).subscribe(
         (catalog: StoreCatalog) => {
-          console.log('catalog added successfully', catalog);
+          // console.log('catalog added successfully', catalog);
           // Reset the form
-          this.catalog = new StoreCatalog();
+
+
+            this.catalog = new StoreCatalog();
         },
         (error) => {
           console.error('Failed to add catalog', error);
         }
     );
+
   }
     addCatalogToStore(): void {
         const catalogFormData = this.prepareFormData(this.catalog);
@@ -72,6 +76,7 @@ constructor(private formBuilder: UntypedFormBuilder, private sanitizer: DomSanit
             (catalog: StoreCatalog) => {
                 console.log('catalog added successfully', catalog);
                 this.a = catalog.catalogId ;
+
                 this.catalogservice.addCatalogStore(this.store.storeId, catalog.catalogId).subscribe(resp => console.log('affected succ '));
                 // Reset the form
                 this.catalog = new StoreCatalog();
@@ -120,7 +125,8 @@ constructor(private formBuilder: UntypedFormBuilder, private sanitizer: DomSanit
         this.array.splice(this.array.indexOf(event), 1);
     }
     ngOnInit(): void {
-        this.catalog = this.activatedRoute.snapshot.data.catalog;
+      //  this.catalog = this.activatedRoute.snapshot.data.catalog;
+        this.store = this.activatedRoute.snapshot.data.store;
         console.log(this.catalog);
     }
 

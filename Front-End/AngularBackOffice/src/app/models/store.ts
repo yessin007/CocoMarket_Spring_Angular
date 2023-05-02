@@ -10,5 +10,5 @@ export class  Store{
     storeLocations: string;
     category: string;
     storeImages: FileHandle[];
-    storeCatalog: StoreCatalog;
+    storeCatalog: StoreCatalog[];
 }

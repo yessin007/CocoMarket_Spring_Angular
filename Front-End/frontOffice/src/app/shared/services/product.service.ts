@@ -26,17 +26,17 @@ export class ProductService {
   public OpenCart = false;
   public Products;
   public Product;
-  readonly GET_ALL_PRODUCTS_API_URL = 'http://localhost:9092/COCO/api/product/getallproducts?searchKey=';
-  readonly GET_PRODUCT_DETAILS_API_URL = 'http://localhost:9092/COCO/api/product/getproductdetails/';
-  readonly ADDTOCART = 'http://localhost:9092/radhwen/api/product/getproductdetails/';
-  readonly ADD_REVIEW_TO_PRODUCT = 'http://localhost:9092/COCO/api/review/affectreviewtoproduct/';
-  readonly GET_USER_BY_REVIEW = 'http://localhost:9092/COCO/api/review/getuserbyreview/';
-  readonly GET_ALL_REVIEWS = 'http://localhost:9092/COCO/api/review/getallreviews/';
-  readonly DISLIKE_PRODUCT = 'http://localhost:9092/COCO/api/review';
-  readonly LIKE_PRODUCT = 'http://localhost:9092/COCO/api/review';
-  readonly VERIFY_LIKE_PRODUCT = 'http://localhost:9092/COCO/api/product';
-  readonly VERIFY_DISLIKE_PRODUCT = 'http://localhost:9092/COCO/api/product';
-  readonly GET_AVERAGE_LIKES_OF_PRODUCT = 'http://localhost:9092/COCO/api/product/getaveragelikesofproduct/';
+  readonly GET_ALL_PRODUCTS_API_URL = 'http://localhost:8089/maram/api/product/getallproducts?searchKey=';
+  readonly GET_PRODUCT_DETAILS_API_URL = 'http://localhost:8089/maram/api/product/getproductdetails/';
+  readonly ADDTOCART = 'http://localhost:8089/maram/api/product/getproductdetails/';
+  readonly ADD_REVIEW_TO_PRODUCT = 'http://localhost:8089/maram/api/review/affectreviewtoproduct/';
+  readonly GET_USER_BY_REVIEW = 'http://localhost:8089/maram/api/review/getuserbyreview/';
+  readonly GET_ALL_REVIEWS = 'http://localhost:8089/maram/api/review/getallreviews/';
+  readonly DISLIKE_PRODUCT = 'http://localhost:8089/maram/api/review';
+  readonly LIKE_PRODUCT = 'http://localhost:8089/maram/api/review';
+  readonly VERIFY_LIKE_PRODUCT = 'http://localhost:8089/maram/api/product';
+  readonly VERIFY_DISLIKE_PRODUCT = 'http://localhost:8089/maram/api/product';
+  readonly GET_AVERAGE_LIKES_OF_PRODUCT = 'http://localhost:8089/maram/api/product/getaveragelikesofproduct/';
   currentUser: User = new User();
   public id ;
 

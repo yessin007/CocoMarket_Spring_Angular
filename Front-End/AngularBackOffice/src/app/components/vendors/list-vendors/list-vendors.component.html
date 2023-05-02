@@ -11,15 +11,12 @@
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th scope="col">Product Name</th>
-                                    <th scope="col" sortable="img"   >Image</th>
                                     <th scope="col" sortable="st" >Store Name</th>
+                                    <th scope="col" sortable="img"   >Image</th>
+
                                     <th scope="col" sortable="entry_type" >Store Description</th>
-                                    <th scope="col" sortable="entry_type" >Contact Information</th>
-                                    <th scope="col" sortable="email" >Store Email Address</th>
-                                    <th scope="col" sortable="category" >Category</th>
-                                    <th scope="col" sortable="location" >Store Locations</th>
                                     <th scope="col" sortable="action" >Link</th>
+                                    <th scope="col" sortable="img">QRCode</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -31,11 +28,13 @@
                                         </div>
                                     </td>
                                     <td>{{ catgory.storeDescription }}</td>
-                                    <td>{{ catgory.contactInformation }}</td>
-                                    <td>{{ catgory.storeEmailAddress }}</td>
-                                    <td>{{ catgory.category}}</td>
-                                    <td>{{ catgory.storeLocations}}</td>
+
+
+
+
                                     <td>{{ catgory.link}}</td>
+                                    <td><img src="../../../../assets/images/null-QRCODE.png" height="70" width="70"/></td>
+
 
                                     <td>
                                         <a (click)="editStoreDetails(catgory.storeId)" href="javascript:void(0)"><i class='fa fa-edit f-12'></i></a>&nbsp;

@@ -19,8 +19,8 @@ import {ProductService} from '../../../../services/product/product.service';
 })
 export class ProductDetailComponent implements OnInit {
   public closeResult: string;
-  public counter: number = 1;
-  currentRate = 8;
+
+
 
   currentRate = 0;
 

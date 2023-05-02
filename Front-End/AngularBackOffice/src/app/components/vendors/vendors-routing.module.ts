@@ -10,10 +10,11 @@ import {StoreDetailComponent} from "./store-detail/store-detail.component";
 import {AllStoresComponent} from './all-stores/all-stores.component';
 
 import {CatalogDetailComponent} from './catalog-detail/catalog-detail.component';
+import {StoreResolverService} from "../../services/store-resolver/store-resolver.service";
 
 
-import {AddPostComponent} from "./add-post/add-post.component";
-import {StoreDetailComponent} from "./store-detail/store-detail.component";
+
+
 
 
 
@@ -59,6 +60,9 @@ const routes: Routes = [
         data: {
           title: 'Create Store Catalog',
           breadcrumb: 'Create StoreCatalog'
+        },
+        resolve: {
+          store: StoreResolverService
         }
       },
       {

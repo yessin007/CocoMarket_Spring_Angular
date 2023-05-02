@@ -32,6 +32,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { ListCatalogComponent } from './vendors/list-catalog/list-catalog.component';
 import {TableService} from './shared/service/table.service';
 import { BarRatingModule } from 'ngx-bar-rating';
+import {ToastrModule} from "ngx-toastr";
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { BarRatingModule } from 'ngx-bar-rating';
         SharedModule,
         LocalizationModule,
         ProductsModule,
+        ToastrModule.forRoot(),
         SalesModule,
         VendorsModule,
         CouponsModule,
