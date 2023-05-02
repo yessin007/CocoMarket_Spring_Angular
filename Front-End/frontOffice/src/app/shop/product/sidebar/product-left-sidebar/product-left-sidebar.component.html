@@ -17,8 +17,8 @@
             <div class="collection-filter-block">
                 <app-services></app-services>
             </div>
-                <app-product-box-vertical-slider 
-                  [title]="'New product'" 
+                <app-product-box-vertical-slider
+                  [title]="'New product'"
                   [type]="product?.productCategory"
                   [product]="product">
                 </app-product-box-vertical-slider>
@@ -38,19 +38,19 @@
             <div class="row">
               <div class="col-lg-6">
                 <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar  class="product-slick">
-                  <ng-container *ngFor="let image of product?.image; index as i">
-                    <ng-template carouselSlide [id]="i">
+                  <ng-container *ngFor="let image of product.image; index as i">
+                    <ng-template carouselSlide [id ]= "i">
                       <div>
-                        <img [src]="image.url" class="img-fluid">
+                        <img [src]="image.url" class="img-fluid" height="200px" width="200px">
                       </div>
                     </ng-template>
                   </ng-container>
                 </owl-carousel-o>
-                <div class="col-12 p-0" *ngIf="product?.image.length > 1">
+                <div class="col-12 p-0" *ngIf="product.image.length > 1">
                   <div class="slider-nav">
                     <owl-carousel-o [options]="ProductDetailsThumbConfig" class="product-slick">
                       <ng-container *ngFor="let image of product?.image; index as i">
-                        <ng-template carouselSlide [id]="i">
+                        <ng-template carouselSlide [id ] = "i">
                           <div class="owl-thumb" [class.active]="i == activeSlide">
                             <img [src]="image.url" class="img-fluid"
                                  (click)="owlCar.to(activeSlide = i.toString())">
@@ -71,10 +71,12 @@
                   <h3>
                       {{ (product?.price | discount:product) * productService.Currency?.price | currency: productService.Currency?.currency:'symbol' }}
                   </h3>
-                  <app-stock-inventory [stock]="product?.stock"></app-stock-inventory>
+                  <app-stock-inventory [stock]="product?.quantity"></app-stock-inventory>
                   <div class="product-description border-product">
-                    <h5 class="avalibility" *ngIf="counter <= product.stock"><span>In Stock</span></h5>
-                    <h5 class="avalibility" *ngIf="counter > product.stock"><span>Out of Stock</span></h5>
+                    <h5 class="avalibility" *ngIf="counter <= product.quantity"><span>In Stock</span></h5>
+                    <h5 class="avalibility" *ngIf="counter > product.quantity"><span>Out of Stock</span></h5>
+
+
                     <h6 class="product-title">quantity</h6>
                     <div class="qty-box">
                       <div class="input-group">
@@ -93,8 +95,10 @@
                     </div>
                   </div>
                   <div class="product-buttons">
-                    <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="addToCart(product.productId)">add to cart</a>
-                    <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="buyNow(product)">buy now</a>
+
+                    <a  [routerLink]="['/shop/cart']" href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.quantity  " (click)="addProductToCartItem(1, product.productId,counter)" >add to cart</a>
+                    <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.quantity" (click)="buyNow(product)">buy now</a>
+
                   </div>
                   <div class="border-product">
                     <h6 class="product-title">product details</h6>

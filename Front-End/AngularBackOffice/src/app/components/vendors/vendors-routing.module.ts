@@ -10,6 +10,7 @@ import {ListCatlComponent} from "./list-catl/list-catl.component";
 
 import {StoreDetailComponent} from "./store-detail/store-detail.component";
 import {AllStoresComponent} from './all-stores/all-stores.component';
+import {AddPaymentComponent} from "../sales/payment/add-payment/add-payment.component";
 
 
 const routes: Routes = [
@@ -64,6 +65,7 @@ const routes: Routes = [
           breadcrumb: 'list StoreCatalog'
         }
       },
+
 
     ]
   }

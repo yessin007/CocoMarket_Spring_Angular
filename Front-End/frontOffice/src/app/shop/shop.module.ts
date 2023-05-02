@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // import { NgxPayPalModule } from 'ngx-paypal';
+import { FormsModule } from '@angular/forms';
 import { Ng5SliderModule } from 'ng5-slider';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SharedModule } from '../shared/shared.module';
@@ -78,6 +79,7 @@ import {ElementsModule} from "../elements/elements.module";
   ],
     imports: [
         CommonModule,
+        FormsModule,
         // NgxPayPalModule,
         Ng5SliderModule,
         InfiniteScrollModule,

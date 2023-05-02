@@ -1,0 +1,11 @@
+<form #orderForm="ngForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+        <label for="validationCustom9"><span>wiwww</span>
+            Product Refernece</label>       <input class="form-control" id="validationCustom9"[(ngModel)]="payement.banktransferstatus "name="banktransferstatus" type="text" required="">
+
+    </div>
+    <div class="product-buttons text-end mt-3">
+        <button type="submit" class="btn btn-primary">Confirm Add</button>
+    </div>
+</form>

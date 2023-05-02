@@ -70,14 +70,15 @@ export class NavService {
 					title: 'Orders', type: 'sub', children: [
 						{ path: '/sales/orders/add-order', title: 'Add Order', type: 'link' },
 						{ path: '/sales/orders', title: 'Orders List', type: 'link' },
+
 					]
 				},
 				{ path: '/sales/transactions', title: 'Transactions', type: 'link' },
 				{path: '/sales/orders', title: 'Orders', type: 'link' },
 				{
-					title: 'Transaction', type: 'sub', children: [
-						{ path: '/sales/transaction/add-transaction', title: 'Add Order', type: 'link' },
-						{ path: '/sales/transaction/transaction-list', title: 'Transaction List', type: 'link' },
+					title: 'Payment', type: 'sub', children: [
+						{ path: '/sales/payment/add-payment', title: 'Add Payment', type: 'link' },
+						{ path: '/sales/payment/list-paym', title: 'Payment List', type: 'link' },
 					]
 				}
 			]

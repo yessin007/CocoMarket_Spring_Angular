@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/payement/")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PayementController {
 
     PayementService payementService;

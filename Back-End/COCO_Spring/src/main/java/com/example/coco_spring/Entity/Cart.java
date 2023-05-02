@@ -52,9 +52,7 @@ public class Cart implements Serializable {
         this.user = userAngular;
     }
 
-    public Cart() {
 
-    }
 
     public Long getCartId() {
         return cartId;

@@ -10,6 +10,7 @@ const state = {
   providedIn: 'root'
 })
 export class OrderService {
+  readonly GET_ALL_PRODUCTS_API_URL = 'http://localhost:8089/radhwen/api/product/getallproducts?searchKey=';
 
   constructor(private router: Router) { }
 

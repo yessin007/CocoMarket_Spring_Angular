@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/payement/sms/")
+@CrossOrigin("*")
 public class SMSController {
 
     @Autowired
