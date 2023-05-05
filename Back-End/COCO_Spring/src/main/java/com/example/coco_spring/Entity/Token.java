@@ -33,5 +33,6 @@ public class Token {
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     public User user;
 }

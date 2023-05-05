@@ -1,0 +1,16 @@
+
+<h2 mat-dialog-title>Gongratulations</h2>
+    <mat-dialog-content class="mat-typography">
+        <h4>Thank you for yours subscribtion</h4>
+        <p>Congratulations on considering subscribing to our product</p>
+        <h2>{{prize.title}}</h2>
+        <app-product-box-one
+                [product]="prize"
+                [currency]="productService?.Currency"
+                [thumbnail]="true"
+                [cartModal]="true">
+        </app-product-box-one>
+        <mat-dialog-actions align="end">
+            <a href="javascrip:void(0)" class="btn btn-solid" (click)="deleteProduct()" mat-dialog-close="true" >Thank you!</a>
+        </mat-dialog-actions>
+    </mat-dialog-content>

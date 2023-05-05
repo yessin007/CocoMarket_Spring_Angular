@@ -32,24 +32,10 @@ public class SubsciptionService {
         List<Product> allProducts=productRepository.findAll();
         List<List<Product>> topChosen=new ArrayList<>();
         Map<ProductCategory,List<Product>> topRatedProductByCategoryMap=new HashMap<>();
-        List<Product> colthingAndApparelProducts= allProducts.stream().filter(p -> p.getProductCategory().equals(ProductCategory.fashion)).sorted((a,b)->reviewServices.numberOfLikes(a.getProductId())-reviewServices.numberOfLikes(b.getProductId())).limit(10).toList();
+        List<Product> colthingAndApparelProducts= allProducts.stream().filter(p -> p.getProductCategory().equals(ProductCategory.fashion)).sorted((b,a)->reviewServices.numberOfLikes(a.getProductId())-reviewServices.numberOfLikes(b.getProductId())).limit(10).collect(Collectors.toList());
         topChosen.add(colthingAndApparelProducts);
-        List<Product> homeGoodsProducts= allProducts.stream().filter(p -> p.getProductCategory().equals(ProductCategory.HomeGoods)).sorted((a,b)->reviewServices.numberOfLikes(a.getProductId())-reviewServices.numberOfLikes(b.getProductId())).limit(10).toList();
-        topChosen.add(homeGoodsProducts);
-        List<Product> electronicsProducts= allProducts.stream().filter(p -> p.getProductCategory().equals(ProductCategory.electronics)).sorted((a,b)->reviewServices.numberOfLikes(a.getProductId())-reviewServices.numberOfLikes(b.getProductId())).limit(10).toList();
+        List<Product> electronicsProducts= allProducts.stream().filter(p -> p.getProductCategory().equals(ProductCategory.electronics)).sorted((b,a)->reviewServices.numberOfLikes(a.getProductId())-reviewServices.numberOfLikes(b.getProductId())).limit(10).collect(Collectors.toList());
         topChosen.add(electronicsProducts);
-        List<Product> beautyAndPersonalCareProducts= allProducts.stream().filter(p -> p.getProductCategory().equals(ProductCategory.BeautyAndPersonalCare)).sorted((a,b)->reviewServices.numberOfLikes(a.getProductId())-reviewServices.numberOfLikes(b.getProductId())).limit(10).toList();
-        topChosen.add(beautyAndPersonalCareProducts);
-        List<Product> sportingGoodsProducts= allProducts.stream().filter(p -> p.getProductCategory().equals(ProductCategory.SportingGoods)).sorted((a,b)->reviewServices.numberOfLikes(a.getProductId())-reviewServices.numberOfLikes(b.getProductId())).limit(10).toList();
-        topChosen.add(sportingGoodsProducts);
-        List<Product> petSuppliesProducts= allProducts.stream().filter(p -> p.getProductCategory().equals(ProductCategory.PetSupplies)).sorted((a,b)->reviewServices.numberOfLikes(a.getProductId())-reviewServices.numberOfLikes(b.getProductId())).limit(10).toList();
-        topChosen.add(petSuppliesProducts);
-        List<Product> servicesProducts= allProducts.stream().filter(p -> p.getProductCategory().equals(ProductCategory.Services)).sorted((a,b)->reviewServices.numberOfLikes(a.getProductId())-reviewServices.numberOfLikes(b.getProductId())).limit(10).toList();
-        topChosen.add(servicesProducts);
-        List<Product> foodGroceryProducts= allProducts.stream().filter(p -> p.getProductCategory().equals(ProductCategory.FoodAndGrocery)).sorted((a,b)->reviewServices.numberOfLikes(a.getProductId())-reviewServices.numberOfLikes(b.getProductId())).limit(10).toList();
-        topChosen.add(foodGroceryProducts);
-        List<Product> industrialProducts= allProducts.stream().filter(p -> p.getProductCategory().equals(ProductCategory.Industrial)).sorted((a,b)->reviewServices.numberOfLikes(a.getProductId())-reviewServices.numberOfLikes(b.getProductId())).limit(10).toList();
-        topChosen.add(industrialProducts);
         for(List<Product> productList:topChosen){
             if(!productList.isEmpty()){
                 topRatedProductByCategoryMap.put(productList.get(0).getProductCategory(),productList);
@@ -71,7 +57,7 @@ public class SubsciptionService {
         return getUserWishlistMap;
     }
 
-    public void subscribeToProduct(Long userId,Long productId,int months){
+    public Subscription subscribeToProduct(Long userId,Long productId,int months){
         User user=userRepository.getReferenceById(userId);
         Product product=productRepository.getReferenceById(productId);
         Date dateOfCreation=new Date();
@@ -81,9 +67,36 @@ public class SubsciptionService {
         subscription.setUser(user);
         subscription.setDateOfSubCreation(dateOfCreation);
         subscription.setSubMonths(months);
-         subscripttionRepository.save(subscription);
+        //subscripttionRepository.save(subscription);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(subscription.getDateOfSubCreation());
+        calendar.add(Calendar.MONTH, months);
+        Date endDate = calendar.getTime();
+        subscription.setDateEndOfSubscription(endDate);
+        return subscripttionRepository.save(subscription);
     }
 
-
-
+    public void updateSubscriptionEndDate(Subscription subscription) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(subscription.getDateOfSubCreation());
+        calendar.add(Calendar.MONTH, subscription.getSubMonths());
+        Date endDate = calendar.getTime();
+        subscription.setDateEndOfSubscription(endDate);
+        subscripttionRepository.save(subscription);
+    }
+    public Product getPrize(Long subId){
+        Subscription subscription = subscripttionRepository.findById(subId).get();
+        float priceMax=subscription.getProduct().getPrice();
+        Map<ProductCategory,List<Product>> top10RatedProductByCategory=this.top10RatedProductByCategory();
+        List<Product> prizes = top10RatedProductByCategory.get(ProductCategory.electronics)
+                .stream()
+                .filter(p -> p.getPrice() > 0 && p.getPrice() < priceMax*0.2)
+                .toList();
+        System.out.println(prizes);
+        Random rand = new Random();
+       Product prize=prizes.get(rand.nextInt(prizes.size()));
+       subscription.setPrize(prize);
+       subscripttionRepository.save(subscription);
+        return prize;
+    }
 }

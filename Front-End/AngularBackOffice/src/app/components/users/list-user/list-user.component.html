@@ -13,34 +13,37 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th scope="col" >Actions</th>
-                                <th scope="col" sortable="avatar" (sort)="onSort($event)">Avtar</th>
+                                <th scope="col" >Actions</th><!--
+                                <th scope="col" sortable="avatar" (sort)="onSort($event)">Avtar</th>-->
+                                <th scope="col" sortable="fName" (sort)="onSort($event)">Username</th>
                                 <th scope="col" sortable="fName" (sort)="onSort($event)">First Name</th>
                                 <th scope="col" sortable="lName" (sort)="onSort($event)">Last Name</th>
                                 <th scope="col" sortable="email" (sort)="onSort($event)">Email</th>
-                                <th scope="col" sortable="last_login" (sort)="onSort($event)">Last Login</th>
+                                <th scope="col" sortable="email" (sort)="onSort($event)">Address</th>
+                                <th scope="col" sortable="last_login" (sort)="onSort($event)">Tel Num</th>
                                 <th scope="col" sortable="role" (sort)="onSort($event)">Role</th>
+                                <th scope="col" sortable="role" (sort)="onSort($event)">Locked</th>
+                                <th scope="col" sortable="role" (sort)="onSort($event)">Expired</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of tableItem$ | async ">
                                 <td>
                                     <a href="javascript:void(0)"><i class='fa fa-edit f-12'></i></a>&nbsp;
-                                    <a href="javascript:void(0)"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                                <td scope="row">
-                                    <img [src]="item.avatar" class="imgTable" style="width: 20px">
-                                </td>
-                                <td>
-                                    {{item.fName}}
-                                </td>
-                                <td>{{item.lName}}</td>
+                                    <a href="javascript:void(0)" (click)="deleteUser(item.id)"><i class="fa fa-trash-o"></i></a>
+                                </td><!-- <td scope="row"><img [src]="item.avatar" class="imgTable" style="width: 20px">&ndash;&gt;</td>-->
+								<td>{{item.username}}</td>
+								<td>{{item.name}}</td>
+                                <td>{{item.lastName}}</td>
                                 <td>{{item.email}}</td>
-                                <td>{{item.last_login}}</td>
-                                <td>{{item.role}}</td>
+                                <td>{{item.address}}</td>
+                                <td>{{item.telNum}}</td>
+                                <td>{{item.roles}}</td>
+                                <td>{{item.locked}}</td>
+                                <td>{{item.expired}}</td>
                             </tr>
                         </tbody>
-                    </table> 
+                    </table>
                     <div class="d-flex justify-content-center p-2">
                         <ngb-pagination
                           [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">

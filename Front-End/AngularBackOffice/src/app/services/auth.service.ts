@@ -48,8 +48,8 @@ export class AuthService {
     this.currentToken = this.currentTokenSubject.asObservable();
   }
 
-  private readonly API_URL = 'http://165.227.171.67:9092/COCO/api/v1/auth/';
-  // private readonly API_URL = 'http://localhost:9092/COCO/api/v1/auth/';
+  // private readonly API_URL = 'http://165.227.171.67:9092/COCO/api/v1/auth/';
+  private readonly API_URL = 'http://localhost:9092/COCO/api/v1/auth/';
   ar!: AuthenticationRequest;
   rr!: {
     lastName: string;

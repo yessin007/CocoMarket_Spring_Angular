@@ -22,10 +22,6 @@ export class ProductDetailComponent implements OnInit {
 
 
 
-  currentRate = 0;
-
-  public counter = 1;
-
   product: Product;
   image: File[] = [];
 

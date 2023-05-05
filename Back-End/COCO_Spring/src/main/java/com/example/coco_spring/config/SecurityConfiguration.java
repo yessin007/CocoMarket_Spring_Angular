@@ -1,4 +1,4 @@
-package com.example.coco_spring.config;
+package com.example.coco_spring.Config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -20,12 +20,11 @@ public class SecurityConfiguration {
     private final LogoutHandler logoutHandler;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-       http
+     /*  http
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .mvcMatchers("/**")
-//                .mvcMatchers("/api/v1/auth/**")
+                .mvcMatchers("/api/auth/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -40,7 +39,20 @@ public class SecurityConfiguration {
                 .addLogoutHandler(logoutHandler)
                 .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext());
         return http.build();
+*/
 
+        http.authorizeRequests()
+                .antMatchers("/**").permitAll()
+                .and()
+                .csrf().disable();
+        return http.build();
+
+/*
+ /*       http.authorizeRequests()
+                .antMatchers("/register").permitAll()
+                .antMatchers("/confirm").permitAll();
+                 return http.build();
+*/
 
     }
 

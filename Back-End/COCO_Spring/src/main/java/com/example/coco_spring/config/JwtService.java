@@ -1,4 +1,4 @@
-package com.example.coco_spring.config;
+package com.example.coco_spring.Config;
 import org.springframework.stereotype.Service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

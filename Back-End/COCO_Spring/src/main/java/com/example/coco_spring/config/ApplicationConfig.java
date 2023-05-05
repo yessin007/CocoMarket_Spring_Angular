@@ -1,4 +1,4 @@
-package com.example.coco_spring.config;
+package com.example.coco_spring.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;

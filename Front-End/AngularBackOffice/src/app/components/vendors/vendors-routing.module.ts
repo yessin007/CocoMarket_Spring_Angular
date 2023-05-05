@@ -8,10 +8,8 @@ import {ListCatlComponent} from "./list-catl/list-catl.component";
 
 import {StoreDetailComponent} from "./store-detail/store-detail.component";
 import {AllStoresComponent} from './all-stores/all-stores.component';
-
 import {CatalogDetailComponent} from './catalog-detail/catalog-detail.component';
 import {StoreResolverService} from "../../services/store-resolver/store-resolver.service";
-
 
 
 
