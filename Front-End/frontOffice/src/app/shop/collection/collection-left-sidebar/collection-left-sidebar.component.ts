@@ -1,8 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+  import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
 import { ProductService } from "../../../shared/services/product.service";
 import { Product } from '../../../shared/classes/product';
+  import {map} from "rxjs/operators";
+  import {StoreCatalog} from "../../../shared/models/StoreCatalog";
+  import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+  import {ImageMalProcessingService} from "../../../shared/services/str-cat/imageMal-processing.service";
+  import {CatalogService} from "../../../services/catalog.service";
 
 @Component({
   selector: 'app-collection-left-sidebar',
@@ -10,6 +15,8 @@ import { Product } from '../../../shared/classes/product';
   styleUrls: ['./collection-left-sidebar.component.scss']
 })
 export class CollectionLeftSidebarComponent implements OnInit {
+
+  storeCatalog: StoreCatalog = new StoreCatalog();
   
   public grid: string = 'col-xl-3 col-md-6';
   public layoutView: string = 'grid-view';
@@ -26,9 +33,10 @@ export class CollectionLeftSidebarComponent implements OnInit {
   public sortBy: string; // Sorting Order
   public mobileSidebar: boolean = false;
   public loader: boolean = true;
+  catalogList: StoreCatalog[] = [];
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private viewScroller: ViewportScroller, public productService: ProductService) {   
+    private viewScroller: ViewportScroller, public productService: ProductService, private catalogservice: CatalogService,  private http: HttpClient , private  imageProcessingService: ImageMalProcessingService) {
       // Get Query params..
       this.route.queryParams.subscribe(params => {
 
@@ -60,6 +68,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAllCatalogs();
   }
 
 
@@ -156,6 +165,22 @@ export class CollectionLeftSidebarComponent implements OnInit {
   // Mobile sidebar
   toggleMobileSidebar() {
     this.mobileSidebar = !this.mobileSidebar;
+  }
+
+  public getAllCatalogs(){
+    this.catalogservice.getAllCatalog()
+        .pipe(
+
+            map((x: StoreCatalog[], i) => x.map((catalog: StoreCatalog) => this.imageProcessingService.createImagesMal(catalog)))
+        )
+        .subscribe(
+            (resp: StoreCatalog[]) => {console.log(resp); this.catalogList = resp;
+              this.catalogList.forEach(catalog => {
+                this.catalogservice.getCatalogStoreId(catalog.catalogId).subscribe(store => catalog.storeName = store.storeName);
+              });
+            },
+            (error: HttpErrorResponse) => {console.log(error); }
+        );
   }
 
 }

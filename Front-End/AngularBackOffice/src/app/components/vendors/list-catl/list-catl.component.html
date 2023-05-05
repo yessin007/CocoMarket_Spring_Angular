@@ -19,7 +19,7 @@
                                 <th>Date</th>
                                 <th  >Store Name</th>
                                 <th >Update/Delete</th>
-                                <th>Details</th>
+                                <th></th>
 
                             </tr>
 
@@ -54,11 +54,9 @@
                                     <a (click)="deleteCatalog(item.catalogId)" href="javascript:void(0)"><i class="fa fa-trash-o" ></i> &nbsp;&nbsp;&nbsp;</a>
                                 </td>
                                 <td>
-                                    <button  (click)="showCatalogsDetails(item.catalogId)" type="button" class="btn btn-info">Info</button> &nbsp;&nbsp;&nbsp;
+                                    <button  (click)="showCatalogsDetails(item.catalogId)" type="button" class="btn btn-info">details</button> &nbsp;&nbsp;&nbsp;
                                 </td>
-                                <td>
-                                    <button  (click)="showAffect(item.catalogId)" type="button" class="btn btn-info">Info</button>
-                                </td>
+
 
                             </tr>
 
