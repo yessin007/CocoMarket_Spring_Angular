@@ -1,6 +1,7 @@
 package com.example.coco_spring.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.engine.internal.Cascade;
@@ -18,10 +19,20 @@ public class Delivery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "client_address")
+    private String clientAddress;
 
+    @Column(name = "client_latitude")
+    private Double clientLatitude;
+
+    @Column(name = "client_longitude")
+    private Double clientLongitude;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
+    ClientLocation clientLocation;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "deliveryman_id")
     @JsonIgnore
     Provider provider;
 
@@ -39,7 +50,14 @@ public class Delivery {
     @JsonIgnore
     @OneToMany(mappedBy = "delivery",cascade = CascadeType.ALL)
     List<Order> orders;
-
+    @JsonProperty("firstName")
+    public String getProviderName() {
+        return provider != null ? provider.getFirstName() : null;
+    }
+    @JsonProperty("lastName")
+    public String getProviderLastName() {
+        return provider != null ? provider.getLastName() : null;
+    }
     public Delivery() {
         this.statut = Status.PENDING;
     }

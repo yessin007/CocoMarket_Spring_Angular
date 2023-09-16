@@ -13,8 +13,7 @@ import java.util.Map;
 @AllArgsConstructor
 @RequestMapping("/api/order/")
 
-@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "Requestor-Type", exposedHeaders = "X-Get-Header")
-
+@CrossOrigin("*")
 public class OrderController {
 
     DiscountCodeService discountCodeService;

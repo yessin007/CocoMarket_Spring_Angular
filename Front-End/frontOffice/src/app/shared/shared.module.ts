@@ -53,6 +53,8 @@ import { TapToTopComponent } from './components/tap-to-top/tap-to-top.component'
 
 // Pipes
 import { DiscountPipe } from './pipes/discount.pipe';
+import { AnnouncementBarComponent } from './announcement-bar/announcement-bar.component';
+import { ScoreComponent } from './score/score.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +88,9 @@ import { DiscountPipe } from './pipes/discount.pipe';
     SkeletonProductBoxComponent,
     LayoutBoxComponent,
     TapToTopComponent,
-    DiscountPipe
+    DiscountPipe,
+    AnnouncementBarComponent,
+    ScoreComponent
   ],
   imports: [
     CommonModule,

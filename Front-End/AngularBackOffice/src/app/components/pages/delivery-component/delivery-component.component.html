@@ -1,0 +1,80 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Page Details</h5>
+                </div>
+                <div class="card-body">
+                    <div class="custom-datatable">
+                        <div class="clearfix"></div>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th> </th>
+                                <th scope="col" sortable="name" class="text-center"(sort)="onSort($event)">Delivery ID</th>
+                                <th scope="col" sortable="name" class="text-center"(sort)="onSort($event)">Delivery Man</th>
+                                <th scope="col" sortable="status" class="text-center"(sort)="onSort($event)">Client Latitude</th>
+                                <th scope="col" sortable="created_on" class="text-center"(sort)="onSort($event)">Client Longitude</th>
+                                <th scope="col" sortable="created_on" class="text-center"(sort)="onSort($event)">Get Map Link</th>
+
+                                <th scope="col" sortable="created_on" class="text-center"(sort)="onSort($event)">Status</th>
+                                <th scope="col" sortable="action"class="text-center" (sort)="onSort($event)">Dispatch</th>
+
+                                <th scope="col" sortable="action" class="text-center"(sort)="onSort($event)">Change Status</th>
+                            </tr>
+
+                            </thead>
+                            <tbody>
+                            <tr> </tr>
+                            <tr *ngFor="let item of deliveryList " >
+                                <th></th>
+                                <th class="text-center" scope="row">
+                                    {{ item.id }}
+                                </th>
+                                <th class="text-center" scope="row">
+                                    {{ item.firstName }} {{ item.lastName }}
+
+                                </th>
+                                <th class="text-center" scope="row">
+                                    {{ item.clientLatitude }}
+                                </th>
+                                <th class="text-center" scope="row">
+                                    {{item.clientLongitude}}
+                                </th>
+                                <th  scope="row">
+                                    <button class="btn btn-primary me-1 mb-3" style="float: right;" (click)="onClick(item.id)" >Click</button>
+
+                                </th>
+
+                                <th class="text-center" scope="row">
+                                    {{item.statut}}
+                                </th>
+                                <th class="text-center" scope="row">
+                                    <div class="example-button-row" *ngIf="item.statut == 'PENDING'">
+                                        <button mat-button color="accent" (click)="dispatch(item.id)"  >Dispatch</button>
+                                    </div>
+                                </th>
+
+                                <th class="text-center" scope="row">
+                                    <div class="example-button-row" *ngIf="item.statut == 'IN_PROGRESS'">
+                                        <button  (click)="changeStatusToDelivered(item.id)" >Change to Delivered</button>
+                                    </div>
+                                </th>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-center p-2">
+                            <ngb-pagination
+                                    [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">
+                            </ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->

@@ -40,9 +40,9 @@ export class ListVendorsComponent implements OnInit {
   }
 
 
-  showStoreDetails(storeId) {
-    this.route.navigate(['/vendors/store-detail', {storeId}]);
-  }
+    showStoreDetails(storeId) {
+        this.route.navigate(['/vendors/store-detail', {storeId}]);
+    }
   public editStoreDetails(storeId) {
     this.route.navigate(['/vendors/create-vendors', { storeId}]);
   }

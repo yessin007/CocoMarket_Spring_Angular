@@ -42,48 +42,59 @@ import { MasonryGridTwoComponent } from './portfolio/masonry-grid-two/masonry-gr
 import { MasonryGridThreeComponent } from './portfolio/masonry-grid-three/masonry-grid-three.component';
 import { MasonryGridFourComponent } from './portfolio/masonry-grid-four/masonry-grid-four.component';
 import { MasonryFullWidthComponent } from './portfolio/masonry-full-width/masonry-full-width.component';
+import { MapComponent } from './map/map.component';
+import {GetdirectionComponent} from './geo-code/getdirection.component';
+import { VerificationComponent } from './account/verification/verification.component';
 
 @NgModule({
-  declarations: [
-    WishlistComponent,
-    CartComponent,
-    DashboardComponent,
-    LoginComponent,
-    RegisterComponent,
-    ForgetPasswordComponent,
-    ProfileComponent,
-    ContactComponent,
-    CheckoutComponent,
-    AboutUsComponent,
-    SearchComponent,
-    TypographyComponent,
-    ReviewComponent,
-    OrderSuccessComponent,
-    CompareOneComponent,
-    CompareTwoComponent,
-    CollectionComponent,
-    LookbookComponent,
-    ErrorComponent,
-    ComingSoonComponent,
-    FaqComponent,
-    BlogLeftSidebarComponent,
-    BlogRightSidebarComponent,
-    BlogNoSidebarComponent,
-    BlogDetailsComponent,
-    GridTwoComponent,
-    GridThreeComponent,
-    GridFourComponent,
-    MasonryGridTwoComponent,
-    MasonryGridThreeComponent,
-    MasonryGridFourComponent,
-    MasonryFullWidthComponent
-  ],
-  imports: [
-    CommonModule,
-    GalleryModule,
-    LightboxModule,
-    SharedModule,
-    PagesRoutingModule
-  ]
+    declarations: [
+        WishlistComponent,
+        CartComponent,
+        DashboardComponent,
+        LoginComponent,
+        RegisterComponent,
+        ForgetPasswordComponent,
+        ProfileComponent,
+        ContactComponent,
+        CheckoutComponent,
+        AboutUsComponent,
+        SearchComponent,
+        TypographyComponent,
+        ReviewComponent,
+        OrderSuccessComponent,
+        CompareOneComponent,
+        CompareTwoComponent,
+        CollectionComponent,
+        LookbookComponent,
+        ErrorComponent,
+        ComingSoonComponent,
+        FaqComponent,
+        BlogLeftSidebarComponent,
+        BlogRightSidebarComponent,
+        BlogNoSidebarComponent,
+        BlogDetailsComponent,
+        GridTwoComponent,
+        GridThreeComponent,
+        GridFourComponent,
+        MasonryGridTwoComponent,
+        MasonryGridThreeComponent,
+        MasonryGridFourComponent,
+        MasonryFullWidthComponent,
+        MapComponent,
+        GetdirectionComponent,
+        VerificationComponent    ],
+    exports: [
+        ReviewComponent,
+        MapComponent,
+        GetdirectionComponent
+    ],
+    imports: [
+        CommonModule,
+        GalleryModule,
+        LightboxModule,
+        SharedModule,
+        PagesRoutingModule
+    ]
+
 })
 export class PagesModule { }

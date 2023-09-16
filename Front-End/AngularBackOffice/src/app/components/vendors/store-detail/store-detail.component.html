@@ -50,7 +50,10 @@
 
                     <hr>
                     <div class="m-t-15">
-                        <button  (click)="AddProduct()"  class="btn btn-primary m-r-10" type="button">Add Products</button>
+                        <button  (click)="AddProduct(store.storeId)"  class="btn btn-primary m-r-10" type="button">Add Products</button>
+                    </div>
+                    <div class="m-t-15">
+                        <button (click)="showAffect(store.storeId)" type="button" class="btn btn-light">affect catalog</button>
                     </div>
                 </div>
             </div>

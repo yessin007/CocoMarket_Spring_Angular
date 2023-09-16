@@ -37,6 +37,9 @@ public class User implements UserDetails {
     private String password;
     private Integer codeReset;
     private String address;
+    private Integer zipCode;
+    private String city;
+    private String country;
     @Temporal(TemporalType.DATE)
     private Date dayOfBirth;
     private String cin;
@@ -58,9 +61,10 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<Review> reviews;
 
-    @JsonIgnore
+
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Token> tokens;
 
     @OneToOne
@@ -128,9 +132,11 @@ public class User implements UserDetails {
         return true;
     }
 
-    @OneToOne
-    LikeDislikeProduct likeDislikeProduct;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @JsonIgnore
+    List<LikeDislikeProduct> likeDislikeProductList;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     List<Subscription> subscriptions;
 }

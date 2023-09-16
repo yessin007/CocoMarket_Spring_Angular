@@ -1,0 +1,26 @@
+.post-body {
+  background-color: #fffbe6;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.post-buttons button.liked {
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
+
+.post-buttons button.disliked {
+  background-color: #343a40;
+  border-color: #343a40;
+}
+.rating-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn {
+  margin-left: 10px; /* Espacement entre le dernier étoile et le bouton */
+  font-size: 14px;
+  padding: 6px 12px;
+}

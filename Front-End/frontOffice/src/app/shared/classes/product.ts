@@ -20,6 +20,7 @@ export interface Product {
     createdAt?: Date;
     productCategory?: string;
     image?: FileHandle[];
+    productAvgLike?: number;
 }
 
 export interface FileHandle{

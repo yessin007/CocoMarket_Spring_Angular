@@ -2,14 +2,8 @@ package com.example.coco_spring.Entity;
 
 public enum
 ProductCategory {
-    ClothingAndApparel,
-    HomeGoods,
+    fashion,
     electronics,
-    BeautyAndPersonalCare,
-    SportingGoods,
-    PetSupplies,
-    Services,
-    FoodAndGrocery,
-    Industrial
+
 
 }

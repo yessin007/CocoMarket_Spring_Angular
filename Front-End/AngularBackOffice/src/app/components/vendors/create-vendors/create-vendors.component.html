@@ -14,8 +14,8 @@
                                                                   type="text" required=""[(ngModel)]="store.storeName"name="storeName"></div>
                             <div class="form-group ">
                                 <div class="col-xl-3 col-md-4"><label for="validationCustom1"><span>*</span> Store Description</label></div>
-                                <div class="col-xl-8 col-md-7"><input class="form-control" id="validationCustom1"
-                                                                      type="text" required=""[(ngModel)]="store.storeDescription"name="storeDescription"></div>
+                                <textarea class="form-control" name="reviewText"  [(ngModel)]="store.storeDescription" placeholder="Enter your description here" id="validationCustom1" rows="6"></textarea>
+
                             </div>
                             <div class="form-group ">
                                 <div class="col-xl-3 col-md-4"><label for="validationCustom2"><span>*</span>
@@ -45,22 +45,11 @@
                                 <label class="col-form-label"><span>*</span> Categories</label>
                                 <select class="custom-select form-select" name="option"  required=""name="category"[(ngModel)]="store.category">
                                     <option value="">--Select--</option>
-                                    <option value="1">ClothingAndApparel</option>
-                                    <option value="2">HomeGoods</option>
-                                    <option value="3">Electronics</option>
-                                    <option value="4">BeautyAndPersonalCare</option>
-                                    <option value="5">SportingGoods</option>
-                                    <option value="6">PetSupplies</option>
-                                    <option value="7"> FoodAndGrocery</option>
-                                    <option value="8">Industrial</option>
+                                    <option value="fashion">fashion</option>
+                                    <option value="electronics">electronics</option>
                                 </select>
                             </div>
-                            <div >
-                                <h3>Image Preview</h3>
-                                <div *ngFor="let url of store.storeImages">
-                                    <img [src]="url.url" width="300px" height="300px">
-                                </div>
-                            </div>
+
                             <label class="col-form-label pt-0"> Store Upload</label>
                             <div class="card-body dropzone-custom p-0">
                                 <ngx-dropzone class="dropzone-border" (change)="onSelect($event)">
@@ -70,9 +59,9 @@
                                             <h4 class="mb-0 f-w-600">Drop files here or click to upload.</h4>
                                         </div>
                                     </ngx-dropzone-label>
-                                    <ngx-dropzone-preview *ngFor="let f of array" [removable]="true" (removed)="onRemove(f)">
-                                        <ngx-dropzone-label>{{ f.filefile.name }} ({{ f.filefile.type }})</ngx-dropzone-label>
-                                    </ngx-dropzone-preview>
+                                    <ngx-dropzone-image-preview [file]="f.filefile" *ngFor="let f of array" [removable]="true" (removed)="onRemove(f)">
+                                        <img [src]="f.url">
+                                    </ngx-dropzone-image-preview>
                                 </ngx-dropzone>
                             </div>
             <div class="form-group mb-0">

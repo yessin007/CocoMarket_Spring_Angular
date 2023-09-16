@@ -1,26 +1,23 @@
 package com.example.coco_spring.Service.Payement;
 
-import java.math.BigDecimal;
+
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.Charge;
+import com.stripe.model.PaymentIntent;
+import com.stripe.param.ChargeCreateParams;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Service;
+import com.example.coco_spring.Entity.*;
+import com.example.coco_spring.Service.*;
+import com.example.coco_spring.Repository.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.lang.String;
-
-import com.example.coco_spring.Entity.*;
-import com.stripe.model.Charge;
-import com.stripe.param.ChargeCreateParams;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
-import com.stripe.Stripe;
-import com.stripe.exception.StripeException;
-import com.stripe.model.PaymentIntent;
 @Service
 @Slf4j
 
@@ -31,13 +28,13 @@ public class StripePayment {
     @Value("${stripe.key.secret}")
      String secretKey;
 
-   /* private StripePayment stripePayment;
+    private StripePayment stripePayment;
 
     public StripePayment() {
         this.stripePayment = new StripePayment();
     }
 
-    */
+
 
     public PaymentIntent paymentIntent(Payment paymentIntent) throws StripeException {
         Stripe.apiKey = "sk_test_51MfpbjFZqNx8XmmhC1sHRKoes1AgZ98bQTRXs27ztbjZ6X4mBaV5X2oAif5LaLmSkQSqZEi7bUyFe4ukscn5Jjy200DlYLAV3X";

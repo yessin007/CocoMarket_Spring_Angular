@@ -1,30 +1,42 @@
 package com.example.coco_spring.Service.Cart;
 
+
 import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Service.*;
 import com.example.coco_spring.Repository.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
+
 
 import java.util.*;
 
 @Service
 @Slf4j
 @AllArgsConstructor
-public class CartService implements ICRUDService<Cart,Long> , ICartService {
+public class CartService implements ICRUDService<Cart,Long> {
 
     CartRepsitory cartRepsitory;
+
+    CartItemRepository cartItemRepository;
 
     ProductRepository productRepository;
 
     UserRepository userRepository;
 
+
+    public int getindexCart(){
+       return cartItemRepository.findAll().size();
+    }
+
     @Override
     public List<Cart> findAll() {
 
         return cartRepsitory.findAll();
+    }
+
+    public List<CartItem> retrieveCartItemList(){
+        return cartItemRepository.findAll();
     }
 
     @Override
@@ -49,45 +61,55 @@ public class CartService implements ICRUDService<Cart,Long> , ICartService {
         return cartRepsitory.save(cart);
     }
 
-/*
-    @Override
-    public List<Product> AddProductToCart(Long idcart, Long idproduct) {
-        Cart cart = cartRepsitory.findById(idcart).orElse(null);
-        Product product = productRepository.findById(idproduct).orElse(null);
 
 
+    /////////////////////////////////////////////////////////////////
 
-        cart.setProducts(product);
-
-
-        return null;
-    }
-*/
-    @Override
-    public List<Product> addProductToCart(Long cartId, Long productId) {
-        Cart cart = cartRepsitory.findById(cartId)
-                .orElseThrow(() -> new NotFoundException("Cart not found with id " + cartId));
-
-        Product product = productRepository.findById(productId).orElse(null);
-
-        cart.getProducts().add(product);
-        product.setCart(cart);
-        cartRepsitory.save(cart);
-
-        return cart.getProducts();
+    public void deleteCARTITEM(Long cartItemId){
+        cartItemRepository.deleteById(cartItemId);
     }
 
-    @Override
-    public Cart AssignCartToUser(Long cartid, Long userId) {
-        Cart cart = cartRepsitory.findById(cartid).orElse(null);
-        User user = userRepository.findById(userId).orElse(null);
+
+//    @Override
+//    public List<Product> AddProductToCart(Long idcart, Long idproduct) {
+//        Cart cart = cartRepsitory.findById(idcart).orElse(null);
+//        Product product = productRepository.findById(idproduct).orElse(null);
+//
+//
+//
+//        cart.setProducts(product);
+//
+//
+//        return null;
+//    }
+
+//    @Override
+//    public List<Product> addProductToCart(Long cartId, Long productId) {
+//        Cart cart = cartRepsitory.findById(cartId)
+//                .orElseThrow(() -> new NotFoundException("Cart not found with id " + cartId));
+//
+//        Product product = productRepository.findById(productId).orElse(null);
+//
+//        cart.getProducts().add(product);
+//        //product.setCart(cart);
+//        cartRepsitory.save(cart);
+//
+//        return cart.getProducts();
+//    }
 
 
-        user.getCart().setUser(user);
-        userRepository.save(user);
 
-        return cart;
-    }
+//    @Override
+//    public Cart AssignCartToUser(Long cartid, Long userId) {
+//        Cart cart = cartRepsitory.findById(cartid).orElse(null);
+//        User user = userRepository.findById(userId).orElse(null);
+//
+//
+//        user.getCart().setUser(user);
+//        userRepository.save(user);
+//
+//        return cart;
+//    }
 
 
 
@@ -129,23 +151,71 @@ public class CartService implements ICRUDService<Cart,Long> , ICartService {
             return totalPrice;
         }
 
-        public Cart addToCart(Long productId, Long userId){
-            Product product =productRepository.findById(productId).orElse(null);
-            User user = userRepository.findById(userId).orElse(null);
+//        public Cart addToCart(Long productId){
+//            Product product =productRepository.findById(productId).orElse(null);
+//            //User user = userRepository.findById(userId).orElse(null);
+//
+//
+//
+//            if(product!=null ){
+//                Cart cart = new Cart(product);
+//                cartRepsitory.save(cart);
+//            }
+//        return  null;
+//        }
 
-
-
-            if(product!=null && user!=null){
-                Cart cart = new Cart(product,user);
-                cartRepsitory.save(cart);
-            }
-        return  null;
+        public List<Cart> getCartDetails(){
+            return  cartRepsitory.findAll();
         }
 
-        public  List<Cart> getCartDetails() {
 
-            return null;
+
+    public void addProductToCart(Long cartId, Long productId, Long quantity) {
+        Cart cart = cartRepsitory.findById(cartId)
+                .orElseThrow(() -> new RuntimeException("Cart not found with id " + cartId));
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found with id " + productId));
+        CartItem cartItem = new CartItem();
+        cartItem.setCart(cart);
+        cartItem.setProduct(product);
+        cartItem.setQuantity(quantity);
+        cartItemRepository.save(cartItem);
+    }
+
+    public Product getProductById(Long productId) {
+        Product product = productRepository.findById(productId).get();
+        return mapProductToProductDTO(product);
+    }
+
+    private Product mapProductToProductDTO(Product product) {
+        Product productDTO = new Product();
+        productDTO.setProductId(product.getProductId());
+        productDTO.setQuantity(product.getQuantity());
+
+        productDTO.setPrice(product.getPrice());
+        return productDTO;
+    }
+
+    public List<CartItem> getCartItemsWithProducts(Long cartId) {
+        Cart cart = cartRepsitory.findById(cartId).get();
+        List<CartItem> cartItems = cart.getItems();
+        List<CartItem> cartItemDTOs = new ArrayList<>();
+        for (CartItem cartItem : cartItems) {
+            Product productDTO = getProductById(cartItem.getProduct().getProductId());
+            CartItem cartItemDTO = mapCartItemToCartItemDTO(cartItem);
+            cartItemDTO.setProduct(productDTO);
+            cartItemDTOs.add(cartItemDTO);
         }
+        return cartItemDTOs;
+    }
+
+    private CartItem mapCartItemToCartItemDTO(CartItem cartItem) {
+        CartItem cartItemDTO = new CartItem();
+        cartItemDTO.setId(cartItem.getId());
+        cartItemDTO.setQuantity(cartItem.getQuantity());
+        return cartItemDTO;
+    }
+
 
 
 }

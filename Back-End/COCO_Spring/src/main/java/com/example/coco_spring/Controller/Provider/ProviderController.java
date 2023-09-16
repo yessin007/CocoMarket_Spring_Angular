@@ -2,6 +2,7 @@ package com.example.coco_spring.Controller.Provider;
 
 import com.example.coco_spring.Entity.Provider;
 import com.example.coco_spring.Entity.ProviderRating;
+import com.example.coco_spring.Repository.ProviderRepository;
 import com.example.coco_spring.Service.Provider.ProviderService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +14,15 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/provider/")
-public class ProviderController {
+@CrossOrigin("*")
 
+public class ProviderController {
+    ProviderRepository providerRepository;
     ProviderService providerService;
-    @GetMapping("/retrive_all_providers")
+    @GetMapping("/getAllProviders")
     public List<Provider> retrieveDeliveryList(){
 
-        return providerService.findAll();
+        return providerRepository.findAll();
     }
 
     @GetMapping("/retrive_provider/{providerId}")
@@ -28,10 +31,10 @@ public class ProviderController {
         return providerService.retrieveItem(providerId);
     }
 
-    @PostMapping("/add_provider")
+    @PostMapping("/add-provider")
     public Provider addProvider(@RequestBody Provider provider){
 
-        return providerService.add(provider);
+        return providerRepository.save(provider);
     }
 
     @PutMapping("/update_provider")
@@ -39,11 +42,16 @@ public class ProviderController {
 
         return providerService.update(provider);
     }
+    @GetMapping("/getProviderDetails/{id}")
+    public Provider getProviderDeatails (@PathVariable("id") Long id){
+        return providerRepository.findById(id).get();
+    }
 
-    @DeleteMapping("/delete_provider/{providerId}")
+
+    @DeleteMapping("/deleteProvider/{providerId}")
     public void deleteProvider(@PathVariable("providerId") Long providerId){
 
-        providerService.delete(providerId);
+        providerRepository.deleteById(providerId);
     }
     /*@PostMapping("/rateProvider/{providerId}/{nb_etouile}")
     public Provider rateProvider(@PathVariable("providerId") Long providerId,@PathVariable("nb_etouile") int nb_etouile){

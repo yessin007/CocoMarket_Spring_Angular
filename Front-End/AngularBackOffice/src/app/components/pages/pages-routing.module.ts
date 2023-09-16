@@ -2,7 +2,7 @@ import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ListPageComponent } from './list-page/list-page.component';
 import { CreatePageComponent } from './create-page/create-page.component';
-import {ProviderLocationComponent} from "./provider-location/provider-location.component";
+import {DeliveryComponentComponent} from "./delivery-component/delivery-component.component";
 
 const routes: Routes = [
   {
@@ -12,24 +12,25 @@ const routes: Routes = [
         path: 'list-page',
         component: ListPageComponent,
         data: {
-          title: "List Page",
-          breadcrumb: "List Page"
+          title: 'List Page',
+          breadcrumb: 'List Page'
         }
       },
       {
         path: 'create-page',
         component: CreatePageComponent,
         data: {
-          title: "Create Page",
-          breadcrumb: "Create Page"
+          title: 'Create Page',
+          breadcrumb: 'Create Page'
         }
-      },
+      }
+      ,
       {
-        path: 'provider-location',
-        component: ProviderLocationComponent,
+        path: 'delivery-component',
+        component: DeliveryComponentComponent,
         data: {
-          title: "Provider Location",
-          breadcrumb: "Provider Location"
+          title: 'Deliveries List',
+          breadcrumb: 'Deliveries List'
         }
       }
     ]

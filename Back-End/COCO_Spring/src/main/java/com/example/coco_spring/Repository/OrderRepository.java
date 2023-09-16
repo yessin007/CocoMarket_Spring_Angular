@@ -12,14 +12,14 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<Order,Long> {
 
     // Show Provider name with their orders
-    @Query("SELECT p.providerName as n FROM Provider p JOIN p.deliveries d JOIN d.orders ")
-    List<String> findProviderNamesWithOrder();
+    //@Query("SELECT p.firstName as n FROM Provider p JOIN p.deliveries d JOIN d.orders ")
+    //  List<String> findProviderNamesWithOrder();
 
     @Query("SELECT o FROM Order o")
     List<Order> findAllOrders();
 
     //Show Orders list of every Provider
-    List<Order> findByDelivery_Provider_ProviderName(String name);
+    // List<Order> findByDelivery_Provider_FirstName(String name);
 
 
 }

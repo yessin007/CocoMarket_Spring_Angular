@@ -1,5 +1,5 @@
 <app-header-one [sticky]="true"></app-header-one>
-
+<app-announcement-bar></app-announcement-bar>
 <!-- Home slider start-->
 <section class="p-0">
   <app-slider
@@ -33,6 +33,20 @@
 </section>
 <!-- collection banner End -->
 
+<!--  logo section start-->
+<section class="section-b-space">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <app-logo [logos]="images"></app-logo>
+        <br>
+      </div>
+      <a (click)="goToStoresPage()" class="btn btn-solid me-3">show all stores</a>
+    </div>
+  </div>
+
+</section>
+<!--  logo section End-->
 <!-- Product slider start-->
 <div class="title1 section-t-space">
   <h4>special offer</h4>
@@ -55,7 +69,7 @@
     <div class="row">
       <div class="col">
         <owl-carousel-o class="product-m no-arrow" [options]="ProductSliderConfig">
-          <ng-container *ngFor="let product of products | slice:0:16">
+          <ng-container *ngFor="let product of premiumProducts | slice:0:16">
             <ng-template carouselSlide>
               <div class="product-box">
                 <app-product-box-one
@@ -74,17 +88,19 @@
 </section>
 <!-- Product slider End -->
 
+<canvas #canvas></canvas>
+
 <!-- Parallax banner start-->
 <section class="p-0">
   <div class="full-banner parallax-banner1 parallax text-center p-left"
-    [ngStyle]="{'background-image': 'url(assets/images/parallax/1.jpg)'}">
+    [ngStyle]="{'background-image': 'url(assets/images/slider/shoecoco.jpeg)'}">
     <div class="container">
       <div class="row">
         <div class="col">
           <div class="banner-contain">
-            <h2>2018</h2>
-            <h3>fashion trends</h3>
-            <h4>special offer</h4>
+            <h2>2023</h2>
+            <h3 style="color: white">Challenge the darkness</h3>
+            <h4 style="color: lightgrey">Lace up your shoes and go out on the trail. Hiking shoes offer a great balance between weight, water protection, blister prevention, comfort, durability, and traction for those who need stable and protective trail footwear</h4>
           </div>
         </div>
       </div>
@@ -98,29 +114,30 @@
   <h4>exclusive products</h4>
   <h2 class="title-inner1">special products</h2>
 </div>
-<section class="section-b-space p-t-0">
+<section class="section-b-space">
   <div class="container">
     <div class="row">
-      <div class="col theme-tab">
-        <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="tabs tab-title justify-content-center nav nav-pills" >
-          <li *ngFor="let collection of productCollections" [ngbNavItem]="collection">
-            <a ngbNavLink>
-               {{ collection }}
-            </a>
-            <ng-template ngbNavContent>
-              <div class="no-slider row">
+      <div class="col">
+        <div class="theme-tab">
+          <ul ngbNav  #nav="ngbNav" [(activeId)]="activePremium" class="tabs tab-title justify-content-center nav nav-pills" >
+            <li *ngFor="let collection of premiumProductCollections" [ngbNavItem]="collection">
+              <a ngbNavLink>
+                {{ collection }}
+              </a>
+              <ng-template ngbNavContent>
+                <div class="no-slider row">
                   <ng-container *ngFor="let product of getCollectionProducts(collection) | slice:0:8">
-                      <div class="product-box">
-                          <app-product-box-one [product]="product" [currency]="productService?.Currency">
-                          </app-product-box-one>
-                      </div>
+                    <div class="product-box">
+                      <app-product-box-three [product]="product" [currency]="productService?.Currency">
+                      </app-product-box-three>
+                    </div>
                   </ng-container>
-              </div>
-
-            </ng-template>
-          </li>
-        </ul>
-        <div [ngbNavOutlet]="nav" class="mt-2"></div>
+                </div>
+              </ng-template>
+            </li>
+          </ul>
+          <div [ngbNavOutlet]="nav" class="mt-2"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -135,37 +152,8 @@
 </div>
 <!-- services End -->
 
-<!-- blog section start-->
-<section class="blog p-t-0">
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <div class="title1 section-t-space">
-          <h4>Recent Story</h4>
-          <h2 class="title-inner1">from the blog</h2>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <app-blog [blogs]="blog"></app-blog>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- blog section End -->
 
-<!--  logo section start-->
-<section class="section-b-space">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <app-logo [logos]="logo"></app-logo>
-      </div>
-    </div>
-  </div>
-</section>
-<!--  logo section End-->
+
 
 <app-newsletter></app-newsletter>
 <app-footer-one></app-footer-one>

@@ -1,174 +1,238 @@
 <app-breadcrumb [title]="'Checkout'" [breadcrumb]="'Checkout'"></app-breadcrumb>
 <!-- section start -->
 <section class="section-b-space">
-    <div class="container">
-      <div class="checkout-page">
-        <div class="checkout-form">
-          <form>
-            <div class="row">
-              <div class="col-lg-6 col-sm-12 col-xs-12">
-                <div class="checkout-title">
-                  <h3>Billing Details</h3>
-                </div>
-                <div class="row">
-                  <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                    <div class="field-label">First Name</div>
-                    <input type="text" name="field-name" value="" placeholder="">
-                  </div>
-                  <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                    <div class="field-label">Last Name </div>
-                    <input type="text" name="field-name" value="" placeholder="">
-                  </div>
-                  <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                    <div class="field-label">Phone</div>
-                    <input type="text" name="field-name" value="" placeholder="">
-                  </div>
-                  <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                    <div class="field-label">Email Address</div>
-                    <input type="text" name="field-name" value="" placeholder="">
-                  </div>
-                  <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                    <div class="field-label">Country</div>
-                    <select>
-                      <option>India</option>
-                      <option>South Africa</option>
-                      <option>United State</option>
-                      <option>Australia</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                    <div class="field-label">Address</div>
-                    <input type="text" name="field-name" value="" placeholder="Street address">
-                  </div>
-                  <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                    <div class="field-label">Town/City</div>
-                    <input type="text" name="field-name" value="" placeholder="">
-                  </div>
-                  <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                    <div class="field-label">State / County</div>
-                    <input type="text" name="field-name" value="" placeholder="">
-                  </div>
-                  <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                    <div class="field-label">Postal Code</div>
-                    <input type="text" name="field-name" value="" placeholder="">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-12">
-                    <div class="stripe-section">
-                      <h5>stripe js</h5>
-                      <div class="content">
-                        <h5>dummy test</h5>
-                        <table>
-                          <tr>
-                            <td>cart number</td>
-                            <td>4242424242424242</td>
-                          </tr>
-                          <tr>
-                            <td>mm/yy</td>
-                            <td>2/2020</td>
-                          </tr>
-                          <tr>
-                            <td>cvc</td>
-                            <td>2222</td>
-                          </tr>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row margin-cls">
-                  <div class="col-12">
-                    <div class="stripe-section">
-                      <h5>paypal</h5>
-                      <div class="content">
-                        <h5>dummy test</h5>
-                        <h5>I set total payment to $0.01 for static demo</h5>
-                        <table>
-                          <tr>
-                            <td>cart number</td>
-                            <td>4152521541244</td>
-                          </tr>
-                          <tr>
-                            <td>mm/yy</td>
-                            <td>11/18</td>
-                          </tr>
-                          <tr>
-                            <td>cvc</td>
-                            <td>521</td>
-                          </tr>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+  <div class="container">
+    <div class="checkout-page">
+      <div class="checkout-form">
+
+
+        <form >
+
+          <div >
+            <div class="checkout-title">
+              <h3>Billing Details</h3>
+            </div>
+
+            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+              <div class="field-label">First Name</div>
+              <input  type="text" [(ngModel)]="order1.FirstName" name="firstname" [formControl]="checkoutForm.controls['firstname']" value="" placeholder="Enter Your First Name" >
+
+            </div>
+            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+              <div class="field-label">Last Name </div>
+              <input type="text" [(ngModel)]="order1.LastName" name="lastname" [formControl]="checkoutForm.controls['lastname']" value="" placeholder="Enter Your Last Name" autocomplete="off">
+            </div>
+            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+              <div class="field-label">Phone</div>
+              <input type="text" [(ngModel)]="order1.Phone" name="phone" [formControl]="checkoutForm.controls['phone']" value="" placeholder="Enter Your Phone Number" autocomplete="off">
+            </div>
+            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+              <div class="field-label">Email Address</div>
+              <input type="text" [(ngModel)]="order1.EmailAddress" name="email" [formControl]="checkoutForm.controls['email']" value="" placeholder="Enter Your Email Address" autocomplete="off">
+            </div>
+
+            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+              <div class="field-label">Country</div>
+              <select name="country" [formControl]="checkoutForm.controls['country']">
+                <option value="" selected>Select Country</option>
+                <option value="Tunisia">Tunisia</option>
+                <option value="Qatar">Qatar</option>
+                <option value="UAE">UAE</option>
+                <option value="Canada">Canada</option>
+                <option value="India">India</option>
+                <option value="USA">USA</option>
+                <option value="Australia">Australia</option>
+              </select>
+              <div *ngIf="checkoutForm.controls.country.touched && checkoutForm.controls.country.errors?.required" class="text text-danger">
+                Country is required
               </div>
-              <div class="col-lg-6 col-sm-12 col-xs-12">
-                <div class="checkout-details">
-                  <div class="order-box">
-                    <div class="title-box">
-                      <div>Product <span> Total</span></div>
-                    </div>
-                    <ul class="qty">
-                      <li>Pink Slim Shirt × 1 <span>$25.10</span></li>
-                      <li>SLim Fit Jeans × 1 <span>$555.00</span></li>
-                    </ul>
-                    <ul class="sub-total">
-                      <li>Subtotal <span class="count">$380.10</span></li>
-                      <li>Shipping <div class="shipping">
-                        <div class="shopping-option">
-                          <input type="checkbox" name="free-shipping" id="free-shipping">
-                          <label for="free-shipping">Free Shipping</label>
-                        </div>
-                        <div class="shopping-option">
-                          <input type="checkbox" name="local-pickup" id="local-pickup">
-                          <label for="local-pickup">Local Pickup</label>
-                        </div>
-                      </div>
-                      </li>
-                    </ul>
-  
-                    <ul class="total">
-                      <li>Total <span class="count">$620.00</span></li>
-                    </ul>
-                  </div>
-  
-                  <div class="payment-box">
-                    <div class="upper-box">
-                      <div class="payment-options">
-                        <ul>
-                          <li>
-                            <div class="radio-option">
-                              <input type="radio" name="payment-group" id="payment-1" checked>
-                              <label for="payment-1">Check Payments<span class="small-text">Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</span></label>
-                            </div>
-                          </li>
-  
-                          <li>
-                            <div class="radio-option">
-                              <input type="radio" name="payment-group" id="payment-2">
-                              <label for="payment-2">Cash On Delivery<span class="small-text">Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</span></label>
-                            </div>
-                          </li>
-                          <li>
-                            <div class="radio-option paypal">
-                              <input type="radio" name="payment-group" id="payment-3">
-                              <label for="payment-3">PayPal<span class="image"><img src="assets/images/paypal.png" alt="" /></span></label>
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="text-end">
-                      <a [routerLink]="['shop/checkout']" class="btn-solid btn">Place Order</a>
-                    </div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <div class="field-label">Town/City</div>
+            <input type="text" [(ngModel)]="order1.City" name="town" [formControl]="checkoutForm.controls['town']" value="" placeholder="Enter Your City " autocomplete="off">
+            <div *ngIf="checkoutForm.controls.town.touched && checkoutForm.controls.town.errors?.required" class="text text-danger">
+              City is required
+            </div>
+          </div>
+
+
+          <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <div class="field-label">Address</div>
+            <input type="text" name="field-name" value="" placeholder="Enter Your Address" [(ngModel)]="delivery.clientAddress">
+
+          </div>
+
+
+
+
+          <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <div class="field-label">Postal Code</div>
+           <input type="text" [(ngModel)]="order1.PostalCode" name="postalcode" [formControl]="checkoutForm.controls['postalcode']"  placeholder="Enter Your Postal Code" autocomplete="off">
+            <div *ngIf="checkoutForm.controls.postalcode.touched && checkoutForm.controls.postalcode.errors?.required" class="text text-danger">
+              Postalcode is required
+            </div>
+
+
+            <div *ngIf="!isContentHidden" id="page-content" >
+              <div style="width: 100%; height: 500px;">
+
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                  <div class="field-label">Latitude</div>
+                  <input type="text"  name="field-name" value="" id="latitude" [(ngModel)]="lat" placeholder="Click The Map">
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                  <div class="field-label">Longitude</div>
+                  <input type="text" name="field-name"id="longitude" [(ngModel)]="lng" value="" placeholder="Click The Map">
+                </div>
+                <app-geoCode></app-geoCode>
+              </div>
+            </div>
+            <button id="toggle-button" class="btn-solid btn" (click)="hideContent();getCurrentLocation()"  >Use Current Location</button>
+            <div class="row">
+              <div class="col-12">
+                <div class="stripe-section">
+                  <h5>stripe js</h5>
+                  <div class="content">
+                    <h5>dummy test</h5>
+                    <table>
+                      <tr>
+                        <td>cart number</td>
+                        <td>4242424242424242</td>
+                      </tr>
+                      <tr>
+                        <td>mm/yy</td>
+                        <td>2/2020</td>
+                      </tr>
+                      <tr>
+                        <td>cvc</td>
+                        <td>2222</td>
+                      </tr>
+                    </table>
                   </div>
                 </div>
               </div>
             </div>
-          </form>
-        </div>
+            <div class="row margin-cls">
+              <div class="col-12">
+                <div class="stripe-section">
+                  <h5>paypal</h5>
+                  <div class="content">
+                    <h5>dummy test</h5>
+                    <h5>I set total payment to $0.01 for static demo</h5>
+                    <table>
+                      <tr>
+                        <td>cart number</td>
+                        <td>4152521541244</td>
+                      </tr>
+                      <tr>
+                        <td>mm/yy</td>
+                        <td>11/18</td>
+                      </tr>
+                      <tr>
+                        <td>cvc</td>
+                        <td>521</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-lg-16 col-sm-12 col-xs-12">
+              <div class="checkout-details">
+                <div class="order-box">
+                  <div class="title-box">
+                    <div>Product <span> Total</span></div>
+                  </div>
+                  <ul class="qty" *ngIf='cartItems.length'>
+                    <li *ngFor="let cartItem of cartItems">
+                      {{ cartItem.product.title }} × {{ cartItem.quantity }}
+                      <span>{{ cartItem.product.price | currency:productService?.Currency.currency:'symbol' }}</span>
+                    </li>
+                  </ul>
+                  <ul class="qty" *ngIf='!cartItems.length'>
+                    <li class="empty-checkout"> There are no products in cart </li>
+                  </ul>
+                  <ul class="total">
+                    <li>
+                      Discount <span class="count"> - {{ (getTotalD() | currency:productService?.Currency.currency:'symbol') }}</span>
+                    </li>
+                  </ul>
+
+                  <ul class="sub-total">
+
+                    <ul class="total">
+                      <li>
+                        Discount <span class="count"> - {{ (getTotalD() | currency:productService?.Currency.currency:'symbol') }}</span>
+                      </li>
+                    </ul>
+
+                    <li>Shipping <div class="shipping">
+                      <div class="shopping-option">
+                        <input type="checkbox" name="free-shipping" id="free-shipping">
+                        <label for="free-shipping">Free Shipping</label>
+                      </div>
+                      <div class="shopping-option">
+                        <input type="checkbox" name="local-pickup" id="local-pickup">
+                        <label for="local-pickup">Local Pickup</label>
+                      </div>
+                    </div>
+                    </li>
+                  </ul>
+
+                  <ul class="total">
+                    <li>Total <span class="count">{{ getTotal | currency:productService?.Currency.currency:'symbol'}}</span></li>
+                  </ul>
+                </div>
+
+                <div class="payment-box">
+                  <div class="upper-box">
+                    <div class="payment-options">
+                      <ul>
+                        <li>
+                          <div class="radio-option">
+                            <input type="radio" [(ngModel)]="payment" [value]="'Stripe'"  name="payment-group" id="payment-2">
+                            <label for="payment-2">Stripe
+                              <span class="small-text">Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</span></label>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="radio-option paypal">
+                            <input type="radio" [(ngModel)]="payment" [value]="'Paypal'" name="payment-group" id="payment-3">
+                            <label for="payment-3">PayPal<span class="image"><img src="assets/images/paypal.png" alt="" /></span></label>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="text-end">
+                    <button type="submit" class="btn-solid btn"  (click)="stripeCheckout()" >
+                      Place Payment
+                    </button>
+
+                  </div>
+
+
+
+
+                  <div class="text-end">
+                    <button  type="submit" class="btn-solid btn" (click)="onSubmit(delivery,order1)">Place Order</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
+  </div>
+
+
+
 </section>
 <!-- section End -->

@@ -50,6 +50,7 @@ export class ImageProcessingService {
     cartItem.product.image = productImagesToFileHandle;
     return cartItem.product;
   }
+
   public dataURItoBlob(picBytes, imageType){
     const byteString = window.atob(picBytes);
     const arrayBuffer = new ArrayBuffer(byteString.length);

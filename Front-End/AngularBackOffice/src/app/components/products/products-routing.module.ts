@@ -10,6 +10,7 @@ import { DigitalListComponent } from './digital/digital-list/digital-list.compon
 import { DigitalAddComponent } from './digital/digital-add/digital-add.component';
 import { ProductDetailComponent } from './physical/product-detail/product-detail.component';
 import {ProductResolverService} from "../../services/product-resolver/product-resolver.service";
+import {StoreResolverService} from "../../services/store-resolver/store-resolver.service";
 
 const routes: Routes = [
   {
@@ -37,6 +38,9 @@ const routes: Routes = [
         data: {
           title: "Product List",
           breadcrumb: "Product List"
+        },
+        resolve : {
+          store: StoreResolverService
         }
       },
       {
@@ -54,6 +58,10 @@ const routes: Routes = [
           title: "Add Products",
           breadcrumb: "Add Product"
         },
+        resolve : {
+          product: ProductResolverService,
+          store: StoreResolverService
+        }
       },
       {
         path: 'digital/digital-category',
@@ -77,6 +85,9 @@ const routes: Routes = [
         data: {
           title: "Product List",
           breadcrumb: "Product List"
+        },
+        resolve : {
+          store: StoreResolverService
         }
       },
       {

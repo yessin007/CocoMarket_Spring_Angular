@@ -69,6 +69,10 @@ public class StoreController {
     public List<Store> findAll() {
         return storeService.findAll();
     }
+    @GetMapping("/Get-all-Post")
+    public List<PostStore> findAllS() {
+        return storeService.findAllS();
+    }
 
     @PutMapping("/updateStore")
     public Store update(@RequestBody Store store) {
@@ -89,14 +93,18 @@ public class StoreController {
     public Store findStore(@PathVariable("storeId") Long storeId, String storeName) {
         return storeService.findStoreByName(storeName);
     }
+    @GetMapping("/retrive_Store/{storeId}")
+    public Store retrieveStore(@PathVariable("storeId") Long storeId){
+        return storeService.retrieveItem(storeId);
+    }
 
 
-    @PutMapping("/affectproducttostore/{ids}/{idp}")
+    @PostMapping("/affectproducttostore/{ids}/{idp}")
     public void AffectProductToStore(@PathVariable("ids") Long storeId, @PathVariable("idp") Long productId) {
         storeService.AffectProductToStore(storeId, productId);
     }
 
-    @PutMapping("/getProductsByStore/{storeId}")
+    @GetMapping("/getProductsByStore/{storeId}")
     public List<Product> getProductsByStore(@PathVariable("storeId") Long storeId) {
         return storeService.getProductsByStore(storeId);
         //return "test";

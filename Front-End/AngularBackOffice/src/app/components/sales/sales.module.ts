@@ -8,14 +8,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AddOrderComponent } from './orders/add-order/add-order.component';
-import { PaymentListComponent } from './payment/payment-list/payment-list.component';
-import { AddPaymentComponent } from './payment/add-payment/add-payment.component';
-import {ListPaymComponent} from "./payment/list-paym/list-paym.component";
 
 
 @NgModule({
 
-  declarations: [OrdersComponent, TransactionsComponent, AddOrderComponent, PaymentListComponent, AddPaymentComponent, ListPaymComponent],
+  declarations: [OrdersComponent, TransactionsComponent, AddOrderComponent],
     imports: [
         CommonModule,
         SalesRoutingModule,

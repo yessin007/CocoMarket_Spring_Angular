@@ -16,8 +16,10 @@ import {
 } from "../../../show-product-images-dialog/show-product-images-dialog.component";
 import {ImageProcessingService} from "../../../../services/image-processing.service";
 import {map} from "rxjs/operators";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {FileHandle} from "../../../../models/FileHandle";
+import {Store} from "../../../../models/store";
+import {StoreService} from "../../../../services/store/store.service";
 
 
 @Component({
@@ -30,9 +32,13 @@ export class DigitalListComponent implements OnInit {
   tableItem$: Observable<DigitalListDB[]>;
   public digitalCategories: Product[] = [];
   array: FileHandle[] = [];
+  public productByStore: Product[] = [];
+  store: Store = new Store();
 
+  // tslint:disable-next-line:max-line-length
   constructor(public service: TableService, private modalService: NgbModal, private productService: ProductService, private imagediag: MatDialog,
-              private  imageProcessingService: ImageProcessingService, private route: Router ) {
+              private  imageProcessingService: ImageProcessingService, private route: Router, private activatedRoute: ActivatedRoute,
+              private storeService: StoreService) {
   }
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
@@ -55,8 +61,8 @@ export class DigitalListComponent implements OnInit {
   public getAllProducts(){
     this.productService.getAllProducts()
         .pipe(
-            map((x: Product[], i) => x.map((product: Product) => this.imageProcessingService.createImages(product)))
-        )
+            map((x: Product[], i) => x.filter(product => product.productCategory === 'electronics')
+                .map((product: Product) => this.imageProcessingService.createImages(product))))
         .subscribe(
         (resp: Product[]) => {console.log(resp); this.digitalCategories = resp; },
         (error: HttpErrorResponse) => {console.log(error); }
@@ -89,7 +95,19 @@ export class DigitalListComponent implements OnInit {
   showProductDetails(productID) {
     this.route.navigate(['/products/physical/product-detail', {productId: productID}]);
   }
+  public getPrductsByStore(){
+    if (this.store.storeId > 0){
+      this.storeService.getProductsByStore(this.store.storeId).pipe(
+          map((x: Product[], i) => x.map((product: Product) => this.imageProcessingService.createImages(product)))
+      )
+          .subscribe((resp) => {
+            this.productByStore = resp;
+          });
+    }
+  }
   ngOnInit() {
     this.getAllProducts();
+    this.store = this.activatedRoute.snapshot.data.store ;
+    this.getPrductsByStore();
   }
 }

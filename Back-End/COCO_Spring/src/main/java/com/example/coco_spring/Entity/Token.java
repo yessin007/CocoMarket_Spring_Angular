@@ -30,8 +30,9 @@ public class Token {
     public boolean expired;
 
 
-    @JsonBackReference
+
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     public User user;
 }

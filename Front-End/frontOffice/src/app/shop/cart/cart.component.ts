@@ -41,7 +41,7 @@ export class CartComponent implements OnInit {
 
   public cartId: number = 1;
 
-  //public cartItemProduct:cartItems.product[] = []
+  //public cartItemProduct:cartItems.product[] = [];
 
 
   constructor(public productService: ProductService, private imageProcessingService: ImageProcessingService) {
@@ -145,13 +145,18 @@ export class CartComponent implements OnInit {
 
 
   public removeItemCART(id: number) {
-    this.productService.removeCartItemm(id);
+    this.productService.removeCartItemm(id).subscribe(
+        (response) => {
+          this.getCartItemsWithProducts();
+        }
+    );
+
   }
 
   getCartDetails(){
     this.productService.getCartDetails().subscribe(( response : any[]) => {console.log(response);
-        this.cart = response;
-    },
+          this.cart = response;
+        },
         (error) => {console.log(error); }
     );
   }

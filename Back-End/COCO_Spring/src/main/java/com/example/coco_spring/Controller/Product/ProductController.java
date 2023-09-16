@@ -10,6 +10,7 @@ import com.example.coco_spring.Repository.*;
 
 import com.example.coco_spring.Service.Product.ProductServices;
 import com.example.coco_spring.Service.Store.StoreService;
+import com.example.coco_spring.Service.Subsciption.SubsciptionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +34,13 @@ public class ProductController {
     ProductRepository productRepository;
     public List<String> collection = new ArrayList<>();
     StoreService storeService;
+    SubsciptionService subsciptionService;
     @Autowired
     private ObjectMapper jsonMapper;
     @Autowired private OpenAiApiClient client;
 
-    @GetMapping("/findmatchingaiproducts")
-    public ResponseEntity<List<Product>> chatWithGpt3(@RequestParam String message) throws Exception {
+    @GetMapping("/findmatchingaiproducts/{input}")
+    public ResponseEntity<List<Product>> chatWithGpt3(@PathVariable("input") String message) throws Exception {
         var completion = CompletionRequest.defaultWith("give me a list products which description is"+message);
         var postBodyJson = jsonMapper.writeValueAsString(completion);
         var responseBody = client.postToOpenAiApi(postBodyJson, OpenAiApiClient.OpenAiService.GPT_3);
@@ -57,20 +59,25 @@ public class ProductController {
         }
         return ResponseEntity.ok(resultRes);
     }
+    @GetMapping("/gbt3/{input}")
+    public ResponseEntity<List<String>> chatWithGpt3NoProduct(@PathVariable("input") String message) throws Exception {
+        var completion = CompletionRequest.defaultWith("give me a list products which description is"+message);
+        var postBodyJson = jsonMapper.writeValueAsString(completion);
+        var responseBody = client.postToOpenAiApi(postBodyJson, OpenAiApiClient.OpenAiService.GPT_3);
+        var completionResponse = jsonMapper.readValue(responseBody, CompletionResponse.class);
+
+        var result = completionResponse.firstAnswer().trim();
+        List<String> resultList = Arrays.asList(result.split("\n"));
+        resultList.replaceAll(s -> s.replaceAll("^\\d+\\.\\s*", ""));
+        return ResponseEntity.ok(resultList);
+    }
 
     @PostMapping(value = "/addproduct",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    Product addProduct(@RequestPart("product") Product product, @RequestPart("imageFile") MultipartFile[] files){
+    Product addProduct(@RequestPart("product") Product product, @RequestPart("imageFile") MultipartFile [] files){
         //return productRepository.save(product);
-        collection.add("featured products");
-        collection.add("on sale");
-        collection.add("new arrival");
-        collection.add("best sellers");
-        collection.add("all products");
-
         try {
             Set<ProductImages> productImagesSet=uploadImages(files);
             product.setImage(productImagesSet);
-            product.setCollection(collection);
             product.setQuantity(product.getStock());
             return productRepository.save(product);
         }catch (Exception e){
@@ -87,9 +94,10 @@ public class ProductController {
         return productImagesSet;
     }
     @GetMapping("/getallproducts")
-    List<Product> getAllProducts() {
-        return productRepository.findAll();
+    List<Product> getAllProducts(@RequestParam(defaultValue = "") String searchKey) {
+        return productServices.getAllProducts(searchKey);
     }
+
     @DeleteMapping("/deleteproduct/{productId}")
     public  void deleteProduct(@PathVariable("productId") Long prodId){
         Product product=productRepository.findById(prodId).get();
@@ -126,5 +134,33 @@ public class ProductController {
     @GetMapping("/insuranceprice/{idprod}/{iduser}")
     public double calculateProductInsurance(@PathVariable("idprod") Long productId,@PathVariable("iduser") Long idUser) {
         return productServices.calculateProductInsurance(productId,idUser);
+    }
+    @GetMapping("/premiumproducts")
+    public List<Product> getPremeiumProducts(){
+        return subsciptionService.premiumProducts();
+    }
+    @GetMapping("/gettotalpriceproducts")
+    public  double getTotAlPriceProducts(){
+        return productServices.productTotalPrice();
+    }
+    @GetMapping ("/topfivemostlikedproducts")
+    public List<Product> top5MostLikedProducts(){
+        return productServices.top5MostLikedProducts();
+    }
+    @GetMapping ("/getnumberoflikes/{productId}")
+    public int getNumberOflikes(@PathVariable("productId") Long productId){
+        return productServices.numberOfLikes(productId);
+    }
+    @GetMapping("/getaveragelikesofproduct/{productId}")
+    public double getAverageLikesOfProduct(@PathVariable("productId") Long productId){
+        return productServices.getAverageRatingByProduct(productId);
+    }
+    @GetMapping("/verifyifliked/{userId}/{productId}")
+    public boolean verifyIfLiked(@PathVariable("productId") Long productId,@PathVariable("userId") Long userId){
+        return productServices.verifyIfLiked(userId,productId);
+    }
+    @GetMapping("/verifyifdisliked/{userId}/{productId}")
+    public boolean verifyIfDisiked(@PathVariable("productId") Long productId,@PathVariable("userId") Long userId){
+        return productServices.verifyIfDisliked(userId,productId);
     }
 }

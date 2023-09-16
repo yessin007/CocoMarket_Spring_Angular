@@ -1,14 +1,15 @@
 package com.example.coco_spring.Service.Order;
 
-import com.example.coco_spring.Entity.*;
-import com.example.coco_spring.Service.*;
-import com.example.coco_spring.Repository.*;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import com.example.coco_spring.Entity.*;
+import com.example.coco_spring.Service.*;
+import com.example.coco_spring.Repository.*;
 
-import java.util.*;
+import java.util.Random;
 
 
 
@@ -18,7 +19,7 @@ import java.util.*;
 
 public class DiscountCodeService {
 
-    private  DiscountCodeRepository discountCodeRepository;
+    private DiscountCodeRepository discountCodeRepository;
 
 
 

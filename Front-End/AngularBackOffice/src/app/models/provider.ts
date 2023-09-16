@@ -1,5 +1,5 @@
 export class Provider {
-    id: number;
+    providerId: number;
     firstName: string;
     lastName: string;
     phoneNumber: number;

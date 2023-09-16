@@ -16,6 +16,7 @@ import { ToolsComponent } from './tools/tools.component';
 import { ShoesComponent } from './shoes/shoes.component';
 import { BagsComponent } from './bags/bags.component';
 import { MarijuanaComponent } from './marijuana/marijuana.component';
+import {StoreResolverService} from "../shared/services/store/store-resolver/store-resolver.service";
 
 const routes: Routes = [
   {
@@ -52,7 +53,10 @@ const routes: Routes = [
   },
   {
     path: 'electronics',
-    component: ElectronicsComponent
+    component: ElectronicsComponent,
+    resolve: {
+      store: StoreResolverService
+    }
   },
   {
     path: 'pets',

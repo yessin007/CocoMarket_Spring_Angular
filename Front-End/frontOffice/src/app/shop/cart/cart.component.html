@@ -61,36 +61,30 @@
                             </h2>
                         </td>
                         <td>
-
-
                             <div class="qty-box">
                                 <div class="input-group">
-    <span class="input-group-prepend">
-      <button type="button" class="btn quantity-left-minus" data-type="minus" (click)="decrementQuantity(cartItem)">
-  <i class="ti-angle-left"></i>
-</button>
+                                    <span class="input-group-prepend">
+                                        <button type="button" class="btn quantity-left-minus" data-type="minus" (click)="decrementQuantity(cartItem)">
+                                            <i class="ti-angle-left"></i>
+                                        </button>
 
-    </span>
+                                    </span>
                                     <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="cartItem.quantity">
                                     <span class="input-group-prepend">
                                         <button type="button" class="btn quantity-right-plus" data-type="plus" (click)="incrementQuantity(cartItem)" [disabled]="cartItem.quantity >= cartItem.product.quantity">
-  <i class="ti-angle-right"></i>
-</button>
+                                            <i class="ti-angle-right"></i>
+                                        </button>
 
 
-    </span>
+                                    </span>
                                 </div>
                             </div>
-
                         </td>
                         <td>
-                            <a [routerLink]="'/shop/cart/'"  (click)="removeItemCART(cartItem.id)" >
-                                <i class="fa fa-trash">delete</i>
-                            </a>
+                            <a  (click)="removeItemCART(cartItem.id)" href="javascript:void(0)"><i class="fa fa-trash-o"> Delete</i></a>
                         </td>
                         <td>
                             <h2 class="td-color">
-
                                 {{ (cartItem.product.price)*(1- cartItem.product.discount/100) * cartItem.quantity   | currency:productService?.Currency.currency:'symbol' }}
                             </h2>
                         </td>
@@ -115,7 +109,7 @@
                 <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continue shopping</a>
             </div>
             <div class="col-6">
-                <a [routerLink]="['/shop/checkout']" class="btn btn-solid">check out</a>
+                <a [routerLink]="['/pages/checkout']" class="btn btn-solid">check out</a>
             </div>
         </div>
     </div>

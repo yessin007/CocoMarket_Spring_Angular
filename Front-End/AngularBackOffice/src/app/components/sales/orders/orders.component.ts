@@ -96,6 +96,10 @@ export class OrdersComponent implements OnInit {
     });
   }
 
+
+
+
+
   deleteOrder(id){
     this.orderService.deleteOrder(id).subscribe((response) => {
       this.getAllOrders();

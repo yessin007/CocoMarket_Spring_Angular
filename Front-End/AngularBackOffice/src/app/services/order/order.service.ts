@@ -6,36 +6,28 @@ import {Provider} from "../../models/provider";
 import {Product} from "../../models/product";
 import {RequestBaseService} from '../request-base.service';
 import {AuthService} from '../auth.service';
-import {Payement} from "../../models/Payement";
 
 @Injectable({
   providedIn: 'root'
 })
 
-  export class OrderService extends RequestBaseService{
-  readonly ADD_ORDERS = 'http://localhost:8089/radhwen/api/order/add_order';
-  readonly UPDATE_ORDERS = 'http://localhost:8089/radhwen/api/order/update_order';
-  readonly GETALL_ORDERS = 'http://localhost:8089/radhwen/api/order/retrive_all_orders';
-  readonly DELETE_ORDERS = 'http://localhost:8089/radhwen/api/order/delete_order/';
-  readonly GET_ORDER_DETAILS_API_URL = 'http://localhost:8089/radhwen/api/order/retrive_order/';
-  readonly GETALLPAYMENT = 'http://localhost:8089/radhwen/api/payement/retrive_all_payements';
+  export class OrderService {
+  readonly ADD_ORDERS = 'http://localhost:9092/COCO/api/order/add_order';
+  // readonly ADD_ORDERS = 'http://localhost:9092/COCO/api/order/add_order';
 
-  //////////////////////////////////
-  readonly ADD_PAYEMENT = 'http://localhost:8089/radhwen/api/payement/add_payement';
-  constructor(private httpClient: HttpClient, private auth: AuthService) {
-	  super(auth, httpClient);
+  readonly UPDATE_ORDERS = 'http://localhost:9092/COCO/api/order/update_order';
+  readonly GETALL_ORDERS = 'http://localhost:9092/COCO/api/order/retrive_all_orders';
+  readonly DELETE_ORDERS = 'http://localhost:9092/COCO/api/order/delete_order/';
+  readonly GET_ORDER_DETAILS_API_URL = 'http://localhost:9092/COCO/api/order/retrive_order/';
+
+  constructor(private httpClient: HttpClient,private auth:AuthService) {
+
   }
 
   addOrder(order: Order): Observable<any> {
 	  // debugger
-    return this.httpClient.post(this.ADD_ORDERS, order,{headers: this.getHeaders});
+    return this.httpClient.post(this.ADD_ORDERS, order);
   }
-
-  addPayement(payement: Payement): Observable<any> {
-    // debugger
-    return this.httpClient.post(this.ADD_PAYEMENT, payement,{headers: this.getHeaders});
-  }
-
 
 
   getAllOrders(){

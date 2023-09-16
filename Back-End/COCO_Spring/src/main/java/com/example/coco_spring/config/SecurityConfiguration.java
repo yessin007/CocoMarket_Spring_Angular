@@ -24,7 +24,8 @@ public class SecurityConfiguration {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .mvcMatchers("/**")
+                .mvcMatchers("/api/product/**","/api/store/**","/api/storecatalog/**","/api/review/getallreviews/**","/api/review/getuserbyreview/**",
+                        "/api/review/getnbrlikesrev/**", "/api/review/getnbrdislikesrev/**")
 //                .mvcMatchers("/api/v1/auth/**")
                 .permitAll()
                 .anyRequest()

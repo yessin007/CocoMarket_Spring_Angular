@@ -4,10 +4,9 @@ import { Observable } from 'rxjs';
 import { NgbdSortableHeader, SortEvent } from 'src/app/shared/directives/NgbdSortableHeader';
 import { TableService } from 'src/app/shared/service/table.service';
 import { LISTPAGEDB, ListPagesDB } from 'src/app/shared/tables/list-pages';
-import {ProviderService} from "../../../services/provider/provider.service";
-import {Provider} from "../../../models/provider";
-import {response} from "express";
-import {Router} from "@angular/router";
+import {ProviderService} from '../../../services/provider/provider.service';
+import {Provider} from '../../../models/provider';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-list-page',
@@ -21,12 +20,12 @@ export class ListPageComponent implements OnInit {
   public searchText;
   total$: Observable<number>;
   providerList: Provider[] = [];
-  
+
 
   constructor(public service: TableService, private providerService: ProviderService, private route: Router) {
     this.tableItem$ = service.tableItem$;
     this.total$ = service.total$;
-    this.service.setUserData(LISTPAGEDB)
+    this.service.setUserData(LISTPAGEDB);
   }
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
@@ -54,7 +53,7 @@ export class ListPageComponent implements OnInit {
   }
   getAllProviders(){
     // tslint:disable-next-line:no-shadowed-variable
-      this.providerService.getAllProvider().subscribe((response) => {
+    this.providerService.getAllProvider().subscribe((response) => {
       this.providerList = response;
     });
   }
@@ -64,9 +63,9 @@ export class ListPageComponent implements OnInit {
       this.getAllProviders();
     });
   }
-  
-  editProvider(id){
-    this.route.navigate(['/pages/create-page',  {id}]);
+
+  editProvider(ID){
+    this.route.navigate(['/pages/create-page',  {id: ID}]);
   }
 
   setLatLngToProvider(id) {

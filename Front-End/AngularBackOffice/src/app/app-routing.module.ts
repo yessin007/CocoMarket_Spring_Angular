@@ -17,6 +17,7 @@ import {StoreDetailComponent} from "./components/vendors/store-detail/store-deta
 import {AddOrderComponent} from "./components/sales/orders/add-order/add-order.component";
 import {resolve} from "@angular/compiler-cli";
 import {OrderResolverServiceService} from "./services/order-resolver/order-resolver-service.service";
+import {MapComponent} from "./components/map/map.component";
 
 
 
@@ -30,8 +31,8 @@ const routes: Routes = [
    path: '',
     component: ContentLayoutComponent,
       children: [
-          {path: 'products/physical/product-detail' , component: ProductDetailComponent,  resolve : {
-                  product: ProductResolverService
+            {path: 'products/physical/product-detail' , component: ProductDetailComponent,  resolve : {
+                    product: ProductResolverService
               }}
       ],
   },
@@ -41,10 +42,18 @@ const routes: Routes = [
     component: ContentLayoutComponent,
     children: [
       {path: 'products/digital/digital-add-product' , component: DigitalAddComponent, resolve : {
-          product: ProductResolverService
+          product: ProductResolverService , store: StoreResolverService
         }  }
     ],
-  }, {
+  },
+  {
+    path: '',
+    component: MapComponent,
+    children: [
+      {path: 'map' , component: MapComponent}
+    ],
+  },
+  {
     path: '',
     component: ContentLayoutComponent,
     children: [
@@ -76,7 +85,7 @@ const routes: Routes = [
     component: ContentLayoutComponent,
     children: [
       {path: 'vendors/create-storecatalog' , component: CreateStorecatalogComponent, resolve : {
-          catalog: StrCtlgResolverService
+          catalog: StrCtlgResolverService, store: StoreResolverService
         }  }
     ],
   },

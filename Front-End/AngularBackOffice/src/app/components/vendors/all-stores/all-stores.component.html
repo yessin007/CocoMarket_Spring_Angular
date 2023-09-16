@@ -12,14 +12,14 @@
                     </div>
                     <div class="store-detail">
                         <h2>{{store.storeName}}</h2>
-                        <h4>{{store.storeDescription}}</h4>
                         <h4>{{store.storeLocations}}</h4>
                         <h4>{{store.contactInformation}}</h4>
 
 
                     </div>
                     <div class="m-t-15">
-                        <button class="btn btn-primary m-r-10" type="button">MY Products</button>
+                        <button class="btn btn-primary m-r-10" (click)="getStoreDetails(store.storeId);getStoreProducts(store.storeId)" type="button">MY Products</button>
+
                         <button (click)="SHoxStoreDetails(store.storeId)"  class="btn btn-secondary" type="button">SHOW MORE</button>
                     </div>
                 </div>

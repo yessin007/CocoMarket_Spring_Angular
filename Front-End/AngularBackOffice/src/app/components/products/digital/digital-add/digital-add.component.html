@@ -1,4 +1,3 @@
-
 <form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)">
     <div class="container-fluid">
         <div class="row product-adding">
@@ -21,19 +20,6 @@
                                 <label for="validationCustombrand" class="col-form-label pt-0"><span>*</span> Brand</label>
                                 <input class="form-control" id="validationCustombrand" name="ref" [(ngModel)]="product.brand" type="text" required="">
                             </div>
-                            <div class="form-group">
-                                <label class="col-form-label"><span>*</span> Categories</label>
-                                <select class="custom-select form-select" id="option"  name="option" [(ngModel)]="product.productCategory" required="">
-                                    <option value="">--Select--</option>
-                                    <option value="1">HomeGoods</option>
-                                    <option value="2">electronics</option>
-                                    <option value="3">BeautyAndPersonalCare</option>
-                                    <option value="4">SportingGoods</option>
-                                    <option value="5">PetSupplies</option>
-                                    <option value="6">FoodAndGrocery</option>
-                                    <option value="7">Industrial</option>
-                                </select>
-                            </div>
                             <div class="form-group row">
                                 <div class="col-xl-3 col-sm-4">
                                     <label for="validationstock" class="col-form-label pt-0"><span>*</span> Stock</label>
@@ -51,11 +37,6 @@
                                 <label for="validationdiscount" class="col-form-label pt-0"><span>*</span> Discount<span>%</span></label>
                                 <input class="form-control" id="validationdiscount" name="dicount" [(ngModel)]="product.discount" type="number" required="">
                             </div>
-                            <h3>Image Preview</h3>
-                            <div *ngFor="let f of product.image">
-                                <h4>{{f.filefile.name}}</h4>
-                                <img height="300px" width="300px" [src]="f.url">
-                            </div>
                             <label class="col-form-label pt-0"> Product Upload</label>
                             <div class="card-body dropzone-custom p-0">
                                 <ngx-dropzone class="dropzone-border" (change)="onSelect($event)">
@@ -65,9 +46,9 @@
                                             <h4 class="mb-0 f-w-600">Drop files here or click to upload.</h4>
                                         </div>
                                     </ngx-dropzone-label>
-                                    <ngx-dropzone-preview *ngFor="let f of array" [removable]="true" (removed)="onRemove(f)">
-                                        <ngx-dropzone-label>{{ f.filefile.name }} ({{ f.filefile.type }})</ngx-dropzone-label>
-                                    </ngx-dropzone-preview>
+                                    <ngx-dropzone-image-preview [file]="f.filefile" *ngFor="let f of array" [removable]="true" (removed)="onRemove(f)">
+                                        <img [src]="f.url" alt="">
+                                    </ngx-dropzone-image-preview>
                                 </ngx-dropzone>
                             </div>
                         </div>
@@ -83,7 +64,7 @@
                         <div class="digital-add needs-validation">
                             <div class="form-group mb-0">
                                 <div class="description-sm">
-                                    <ckeditor [editor]="Editor" name="desc" (click)="clearDescription()" [(ngModel)]="product.description" data="<p>Put your description here...</p>"></ckeditor>
+                                    <textarea class="form-control" name="reviewText" [(ngModel)]="product.description" placeholder="Enter your description here" id="exampleFormControlTextarea1" rows="6"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -111,10 +92,18 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="form-group mb-0">
                                 <div class="product-buttons text-end mt-3">
-                                    <button type="submit" class="btn btn-primary">Confirm Add</button>
+                                    <div *ngIf="store.storeId==null">
+                                        <button type="submit" class="btn btn-primary me-1">Add</button>
+                                    </div>
                                     <button type="button" class="btn btn-light">Discard</button>
+                                    <div *ngIf="store.storeId > 0">
+                                        <button (click)="addProductToStore()" type="submit" class="btn btn-primary me-1">Affect To Store</button>
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>
@@ -124,3 +113,14 @@
         </div>
     </div>
 </form>
+<div class="checkboxes">
+    <label>
+        <input type="checkbox" [(ngModel)]="isNew" (change)="onCheckboxChange('on sale', isNew)">
+        <span class="label-text">On Sale</span>
+    </label>
+    <label>
+        <input type="checkbox"  [(ngModel)]="isTrending" (change)="onCheckboxChange('new arrival', isTrending)">
+        <span class="label-text">Trending</span>
+    </label>
+
+</div>

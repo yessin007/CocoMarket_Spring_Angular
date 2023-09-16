@@ -8,10 +8,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { SharedModule } from '../../shared/shared.module';
+import { VerifyComponent } from './verify/verify.component';
 
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, VerifyComponent],
     imports: [
         CommonModule,
         AuthRoutingModule,

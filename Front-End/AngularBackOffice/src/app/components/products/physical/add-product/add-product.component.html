@@ -8,24 +8,19 @@
         </div>
         <div class="card-body">
           <div class="row product-adding">
-            <div class="col-xl-5">
-              <div class="add-product">
-                <div class="row">
-                  <div class="col-xl-9 xl-50 col-sm-6 col-9">
-                    <img src="assets/images/pro3/1.jpg" alt="" class="img-fluid image_zoom_1">
+            <label class="col-form-label pt-0"> Product Upload</label>
+            <div class="card-body dropzone-custom p-0">
+              <ngx-dropzone class="dropzone-border" (change)="onSelect($event)">
+                <ngx-dropzone-label>
+                  <div class="dz-message needsclick">
+                    <i class="fa fa-cloud-upload"></i>
+                    <h4 class="mb-0 f-w-600">Drop files here or click to upload.</h4>
                   </div>
-                  <div class="col-xl-3 xl-50 col-sm-6 col-3">
-                    <ul class="file-upload-product">
-                      <li *ngFor="let item of url; let i=index">
-                        <div class="box-input-file">
-                          <input class="upload" type="file" (change)="readUrl($event,i)">
-                          <img class="imgUpload" alt="" [src]="item.img">
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+                </ngx-dropzone-label>
+                  <ngx-dropzone-image-preview [file]="f.filefile"*ngFor="let f of array" [removable]="true" (removed)="onRemove(f)">
+                    <img [src]="f.url" alt="">
+                  </ngx-dropzone-image-preview>
+              </ngx-dropzone>
             </div>
             <div class="col-xl-7">
               <form class="needs-validation" [formGroup]="productForm" novalidate>
@@ -37,7 +32,7 @@
                     </div>
                     <div class="col-xl-8 col-sm-7">
                       <input class="form-control" id="validationCustom01" type="text"
-                        [formControl]="productForm.controls['name']" required>
+                        [formControl]="productForm.controls['name']" name="title" [(ngModel)]="product.title" required>
                       <div *ngIf="productForm.controls.name.touched && productForm.controls.name.errors?.required"
                         class="text text-danger">
                         Title Name is required.
@@ -50,7 +45,7 @@
                     </div>
                     <div class="col-xl-8 col-sm-7">
                       <input class="form-control" id="validationCustom02" type="number"
-                        [formControl]="productForm.controls['price']" required="">
+                        [formControl]="productForm.controls['price']" name="price" [(ngModel)]="product.price" required="">
                     </div>
                     <div *ngIf="productForm.controls.price.touched && productForm.controls.price.errors?.required"
                       class="text text-danger">
@@ -59,32 +54,21 @@
                   </div>
                   <div class="form-group row">
                     <div class="col-xl-3 col-sm-4">
-                      <label for="validationCustom03" class="mb-0">Product Code
+                      <label for="validationCustom03" class="mb-0">Product Reference
                         :</label>
                     </div>
                     <div class="col-xl-8 col-sm-7">
-                      <input class="form-control" id="validationCustom03" type="number"
-                        [formControl]="productForm.controls['code']" required="">
+                      <input class="form-control" id="validationCustom03" type="text"
+                        [formControl]="productForm.controls['code']" name="ref" [(ngModel)]="product.reference" required="">
                     </div>
                     <div *ngIf="productForm.controls.code.touched && productForm.controls.code.errors?.required"
                       class="text text-danger">
-                      Product <Code></Code> is required.
+                      Product <Code>reference</Code> is required.
                     </div>
                   </div>
-                  <div class="form-group row">
-                    <div class="col-xl-3 col-sm-4">
-                      <label for="exampleFormControlSelect1" class="mb-0">Select
-                        Size
-                        :</label>
-                    </div>
-                    <div class="col-xl-8 col-sm-7">
-                      <select class="form-control digits" id="exampleFormControlSelect1">
-                        <option>Small</option>
-                        <option>Medium</option>
-                        <option>Large</option>
-                        <option>Extra Large</option>
-                      </select>
-                    </div>
+                  <div class="form-group">
+                    <label for="validationdiscount" class="col-form-label pt-0">Discount<span>%</span></label>
+                    <input class="form-control" id="validationdiscount" name="dicount" [ngModelOptions]="{standalone: true}" [(ngModel)]="product.discount" type="number" required="">
                   </div>
                   <div class="form-group row">
                     <div class="col-xl-3 col-sm-4">
@@ -94,7 +78,7 @@
                       <div class="qty-box1">
                         <div class="input-group">
                           <i class="fa fa-minus btnGtr1" (click)=decrement()></i>
-                          <input class="touchspin1 text-center" name="counter" [value]="counter" type="text">
+                          <input class="touchspin1 text-center" name="counter"   [formControl]="productForm.controls['stock']" [(ngModel)]="product.stock" [value]="counter" type="text">
                           <i class="fa fa-plus btnLess1" (click)=increment()></i>
                         </div>
                       </div>
@@ -103,18 +87,35 @@
                   <div class="form-group row">
                     <div class="col-xl-3 col-sm-4"><label>Add Description :</label></div>
                     <div class="col-xl-8 col-sm-7">
-                      <div class="ps-0 description-sm">
-                        <ckeditor [editor]="Editor" data="<p>Hello, world!</p>"></ckeditor>
+                      <div class="description-sm">
+                        <textarea class="form-control" name="reviewText"[formControl]="productForm.controls['desc']" [(ngModel)]="product.description" placeholder="Enter your description here" id="exampleFormControlTextarea1" rows="6"></textarea>
                       </div>
                     </div>
                   </div>
                 </div>
               </form>
               <div class="form-group row mb-0">
+                <div class="checkboxes">
+                  <label>
+                    <input type="checkbox" [(ngModel)]="isNew" (change)="onCheckboxChange('on sale', isNew)">
+                    <span class="label-text">On Sale</span>
+                  </label>
+                  <label>
+                    <input type="checkbox" [(ngModel)]="isTrending" (change)="onCheckboxChange('new arrival', isTrending)">
+                    <span class="label-text">Trending</span>
+                  </label>
+                </div>
                   <div class="col-sm-8 offset-xl-3 offset-sm-4">
                     <div class="product-buttons">
-                        <button type="button" class="btn btn-primary me-1">Add</button>
-                        <button type="button" class="btn btn-light">Discard</button>
+                      <div *ngIf="store.storeId==null">
+                        <button type="submit" (click)="onSubmit()" class="btn btn-primary me-1">Add</button>
+                      </div>
+
+                      <div *ngIf="store.storeId > 0">
+                        <button (click)="addProductToStore()" type="submit" class="btn btn-primary me-1">Affect To Store</button>
+                      </div>
+
+                      <button type="button" class="btn btn-light">Discard</button>
                       </div>
                   </div>
               </div>

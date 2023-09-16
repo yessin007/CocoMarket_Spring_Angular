@@ -4,6 +4,7 @@ import { CartModalComponent } from "../../modal/cart-modal/cart-modal.component"
 import { Product } from "../../../classes/product";
 import { ProductService } from "../../../services/product.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {CartItem} from "../../../classes/CartItem";
 
 @Component({
   selector: 'app-product-box-three',
@@ -12,6 +13,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class ProductBoxThreeComponent implements OnInit {
 
+  public cartItems: CartItem[] = [];
   @Input() product: Product;
   @Input() currency: any = this.productService.Currency; // Default Currency
   @Input() cartModal: boolean = false; // Default False
@@ -22,7 +24,14 @@ export class ProductBoxThreeComponent implements OnInit {
   constructor(private productService: ProductService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+    this.getAvgLike(this.product.productId);
+  }
 
+  addProductToCartItem(cartId, productId, quantity){
+    this.productService.addProductToCartItem(cartId, productId, quantity).subscribe();
+  }
+  getAvgLike(productId){
+    this.productService.getAverageLikesOfProduct(productId).subscribe((prod => this.product.productAvgLike = prod));
   }
 
   addToCart(product: any) {

@@ -1,0 +1,34 @@
+<div class="container-fluid">
+    <div class="row stores-admin ratio_asos">
+        <div class="col-xl-3 col-sm-6" *ngFor="let p of listPost">
+            <div class="card">
+                <div class="card-body store-box">
+                    <div class="store-detail">
+                        <h2>{{ p.postTitle }}</h2>
+                        <div class="post-body">
+                            <p>{{ p.body }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body text-center post-buttons">
+                    <button type="button" class="btn btn-primary btn-icon-only rounded-circle" [ngClass]="{'liked': p.postLikes}" (click)="addLikePost(p.postId.toString())">
+                        <span class="btn-inner--icon"><i class="fa fa-thumbs-up"></i></span>
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-icon-only rounded-circle" [ngClass]="{'disliked': p.postLikes}" (click)="addDisLikePost(p.postId.toString())">
+                        <span class="btn-inner--icon"><i class="fa fa-thumbs-down"></i></span>
+                    </button>
+                </div>
+                <div class="rating-container">
+                    <div class="rating mt-3">
+                    <span class="star" [class.filled]="p.nb_etoil >= 1" (click)="ratePost(p.postId.toString(),'1')">★</span>
+                    <span class="star" [class.filled]="p.nb_etoil >= 2" (click)="ratePost(p.postId.toString(),'2')">★</span>
+                    <span class="star" [class.filled]="p.nb_etoil >= 3" (click)="ratePost(p.postId.toString(),'3')">★</span>
+                    <span class="star" [class.filled]="p.nb_etoil >= 4" (click)="ratePost(p.postId.toString(),'4')">★</span>
+                    <span class="star" [class.filled]="p.nb_etoil >= 5" (click)="ratePost(p.postId.toString(),'5')">★</span>
+                </div>
+                    <button (click)="showPostDetails(p.postId)"  class="btn btn-yellow ml-auto">Show More</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

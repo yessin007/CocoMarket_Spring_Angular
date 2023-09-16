@@ -1,0 +1,24 @@
+<div class="container-fluid">
+    <div class="row stores-admin ratio_asos">
+        <div class="col-xl-3 col-sm-6" *ngFor="let store of storeList">
+            <div class="card">
+                <div class="card-body store-box">
+                    <div class="img-wrapper">
+                        <div class="front">
+                            <a href="javascript:void(0)">
+                                <img [src]="store.storeImages[0].url" class="img-fluid blur-up lazyload bg-img" alt="" height="200px" width="200px"></a>
+
+                        </div>
+                    </div>
+                    <div class="store-detail">
+                        <h2>{{store.storeName}}</h2>
+                    </div>
+                    <button (click)="showPostes(store.storeId)" type="submit" class="btn btn-light">Show Posts</button>
+                    <button (click)="showStoreDetails(store.storeId)" type="submit" class="btn btn-light">Show Products</button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

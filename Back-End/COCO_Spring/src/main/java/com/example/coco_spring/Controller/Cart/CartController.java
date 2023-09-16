@@ -1,17 +1,19 @@
 package com.example.coco_spring.Controller.Cart;
 
+
 import com.example.coco_spring.Entity.*;
+import com.example.coco_spring.Service.*;
 import com.example.coco_spring.Repository.*;
-import com.example.coco_spring.Service.Cart.CartService;
+
+import com.example.coco_spring.Service.Cart.*;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.webjars.NotFoundException;
-
-import java.security.Principal;
+import com.example.coco_spring.Entity.*;
+import com.example.coco_spring.Service.*;
+import com.example.coco_spring.Repository.*;
 import java.util.List;
-import java.util.Map;
 
+@CrossOrigin("*")
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/cart/")
@@ -48,50 +50,88 @@ public class CartController {
     }
 
 
-    @PostMapping("/addProductToCart/{cartId}/{productid}")
-    public List<Product> addProductToCart(@PathVariable("cartId") Long cartId,@PathVariable("productid") Long productId){
-        return  cartService.addProductToCart(cartId, productId);
-    }
 
-    @PostMapping("/users")
-    public List<Product> addProductToCartByUser(@RequestParam("userId") Long userId,
-                                                 @RequestParam("productId") Long productId,
-                                                    @RequestParam("quantity") Long quantity) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException("User not found with id " + userId));
-        Cart cart = user.getCart();
+    ///////////////////////////////////////////////////////////////////////////////////////
 
-        if (cart == null) {
-            cart = new Cart();
-            user.setCart(cart);
-        }
-        Product product = productRepository.findById(productId).orElse(null);
-        product.setCart(cart);
-        cart.getProducts().add(product);
-        cart.setProductQuantity(quantity);
-        cartRepsitory.save(cart);
 
-        return cart.getProducts();
+    @DeleteMapping("/delete_cartItem/{cartItemId}")
+    public void deleteCartItem(@PathVariable("cartItemId") Long cartItemId){
+        cartService.deleteCARTITEM(cartItemId);
     }
 
 
-    @PostMapping("/QuantityProductToCart/{productId}/{quantity}")
-    public Long AssignQunatityToProductInCart(@PathVariable("productId") Long productId,
-                                           @PathVariable("quantity") int quantity,
-                                           Principal principal) {
-        String username = principal.getName();
-        User user = userRepository.findByUsername(username).get();
-        Product product = productRepository.findById(productId).orElseThrow();
-        Cart cart = user.getCart();
-        cartService.addItem(product, quantity);
-        cartRepsitory.save(cart);
-        return user.getId();
+//    @PostMapping("/addProductToCart/{cartId}/{productid}")
+//    public List<Product> addProductToCart(@PathVariable("cartId") Long cartId,@PathVariable("productid") Long productId){
+//        return  cartService.addProductToCart(cartId, productId);
+//    }
+
+//    @PostMapping("/users")
+//    public List<Product> addProductToCartByUser(@RequestParam("userId") Long userId,
+//                                                 @RequestParam("productId") Long productId,
+//                                                    @RequestParam("quantity") Long quantity) {
+//        User user = userRepository.findById(userId)
+//                .orElseThrow(() -> new NotFoundException("User not found with id " + userId));
+//        Cart cart = user.getCart();
+//
+//        if (cart == null) {
+//            cart = new Cart();
+//            user.setCart(cart);
+//        }
+//        Product product = productRepository.findById(productId).orElse(null);
+//        product.setCart(cart);
+//        cart.getProducts().add(product);
+//        cart.setProductQuantity(quantity);
+//        cartRepsitory.save(cart);
+//
+//        return cart.getProducts();
+//    }
+
+
+//    @PostMapping("/QuantityProductToCart/{productId}/{quantity}")
+//    public Long AssignQunatityToProductInCart(@PathVariable("productId") Long productId,
+//                                           @PathVariable("quantity") int quantity,
+//                                           Principal principal) {
+//        String username = principal.getName();
+//        //User user = userRepository.findByUsername(username).get();
+//        Product product = productRepository.findById(productId).orElseThrow();
+//        Cart cart = username.getCart();
+//        cartService.addItem(product, quantity);
+//        cartRepsitory.save(cart);
+//        return user.getId();
+//    }
+
+//    @GetMapping("/addToCart/{productId}")
+//    public Cart addToCart(@PathVariable("productId") Long productId){
+//        return cartService.addToCart(productId);
+//    }
+
+    @GetMapping("/getCartDetails")
+    public List<Cart> getCartDetails(){
+        return cartService.getCartDetails();
     }
 
-    @GetMapping("/addToCart/{productId}/{userId}")
-    public Cart addToCart(@PathVariable("productId") Long productId,@PathVariable("userId") Long userId){
-        return cartService.addToCart(productId,userId);
+    @PostMapping("/cartItem/{cartId}/{productId}/{quantity}")
+    public void addProductToCart(@PathVariable("cartId") Long cartId, @PathVariable("productId") Long productId, @PathVariable("quantity") Long quantity) {
+        cartService.addProductToCart(cartId,productId,quantity);
     }
+
+    @GetMapping("/getallCartItem")
+    public List<CartItem> retrieveCartItemList(){
+        return cartService.retrieveCartItemList();
+    }
+
+
+    @GetMapping("/getCartItemsWithProducts/{cartId}")
+    public List<CartItem> getCartItemsWithProducts(@PathVariable Long cartId) {
+        return cartService.getCartItemsWithProducts(cartId);
+    }
+
+
+    @GetMapping("/getindexCart")
+    public int getindexCart(){
+        return cartService.getindexCart();
+    }
+
 
 
 

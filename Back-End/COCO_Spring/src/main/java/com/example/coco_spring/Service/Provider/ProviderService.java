@@ -18,7 +18,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,12 +94,25 @@ public class ProviderService implements ICRUDService<Provider,Long>, IProviderSe
             throw new RuntimeException(e);
         }
     }
-
     public void AssignLocationtoProvider(Long locationId, Long providerId) {
         Provider provider = providerRepository.findById(providerId).get();
         ProviderLocation providerLocation = providerLocationRepository.findById(locationId).get();
         provider.setProviderLocation(providerLocation);
         providerRepository.save(provider);
+    }
+    public String getAddressToCoordinates(String origin,String destination) throws IOException {
+
+        String apiKey = "AIzaSyDhfIOs9AylSRMc-WGwfuDWwQa_jy2RUj0";
+
+        WebClient webClient = WebClient.create();
+        String urrl = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + origin + "&destinations=" + destination + "&key=" + apiKey;
+        Mono<String> result = webClient.post()
+                .uri(urrl)
+                .retrieve()
+                .bodyToMono(String.class);
+        String response = result.block();
+
+        return response;
     }
 
 

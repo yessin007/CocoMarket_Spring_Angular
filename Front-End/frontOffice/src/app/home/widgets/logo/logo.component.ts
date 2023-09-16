@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { LogoSlider } from '../../../shared/data/slider';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-logo',
@@ -7,14 +8,20 @@ import { LogoSlider } from '../../../shared/data/slider';
   styleUrls: ['./logo.component.scss']
 })
 export class LogoComponent implements OnInit {
+
+  constructor(private rr: Router) { }
   
   @Input() logos: any[] = [];
-
-  constructor() { }
+  public LogoSliderConfig: any = LogoSlider;
 
   ngOnInit(): void {
   }
-
-  public LogoSliderConfig: any = LogoSlider;
+ // redirectToStore
+  gotoElectronicStoreProducts(id){
+    this.rr.navigate(['/home/electronics', {storeId: id}]);
+  }
+  gotoFashionStoreProducts(id){
+    this.rr.navigate(['/home/fashion-2', {storeId: id}]);
+  }
 
 }

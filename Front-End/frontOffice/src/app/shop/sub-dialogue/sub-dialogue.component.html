@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>Subscription</h2>
+<mat-dialog-content class="mat-typography">
+    <h4>Upgrade Your Lifestyle: Subscribe to Our Product and Get a Gift</h4>
+    <p>Congratulations on considering subscribing to our product!
+        We believe that our subscription service can greatly benefit
+        you and enhance your lifestyle. By subscribing to our service,
+        you will receive our high-quality product delivered to your doorstep
+        on a weekly basis, without the hassle of having to purchase it every
+        time you need it. Not only will you save time and effort,
+        but you will also save money by taking advantage of our exclusive subscription pricing
+        . Moreover, as a token of our appreciation, at the end of your trial subscription period,
+        you will receive a special gift that we know you will love. We are confident that once you try
+        our product, you will not want to go back to your previous routine. So, what are you waiting for?
+        Subscribe now and enjoy the convenience, savings, and rewards that come with being a valued member
+        of our community.</p>
+    <form>
+        <div class="form-group">
+            <label class="col-form-label"><span>*</span> Select Period (Months)</label>
+            <select class="custom-select form-select" [(ngModel)]="subscription.subMonths" name="option" required="">
+                <option value="">--Select--</option>
+                <option value="3">3 Months</option>
+                <option value="6">6 Months</option>
+            </select>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close="true">Cancel</button>
+    <a href="javascrip:void(0)" class="btn btn-solid" mat-dialog-close="true" (click)="addSubscription()" >subscribe now!</a>
+</mat-dialog-actions>

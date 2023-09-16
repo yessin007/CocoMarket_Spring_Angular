@@ -4,20 +4,24 @@
 <div class="container banner-slider">
     <div class="row">
         <div class="col-md-7">
-            <img src="assets/images/banner/1.jpg" class="img-fluid height-banner" alt="electronics">
+            <div class="title2">
+                <h4>{{store.category}}</h4>
+                <h1 class="title-inner2">{{store.storeName}}</h1>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <img src="assets/electronics/laptop.jpg" class="img-fluid height-banner" alt="electronics">
         </div>
         <div class="col-md-5">
             <div class="row home-banner">
                 <div class="col-12">
-                    <a [routerLink]="['/shop/collection/left/sidebar']" 
-                       [queryParams]="{ category: 'electronics'}">
-                        <img src="assets/images/banner/2.jpg" class="img-fluid" alt="electronics">
+                    <a>
+                        <img src="assets/electronics/camera.jpg" class="img-fluid" alt="electronics">
                     </a>
                 </div>
                 <div class="col-12">
-                    <a [routerLink]="['/shop/collection/left/sidebar']"
-                       [queryParams]="{ category: 'electronics'}">
-                        <img src="assets/images/banner/3.jpg" class="img-fluid" alt="electronics">
+                    <a>
+                        <img src="assets/electronics/iphone.jpg" class="img-fluid" alt="electronics">
                     </a>
                 </div>
             </div>
@@ -62,7 +66,7 @@
                           </a>
                           <ng-template ngbNavContent>
                             <div class="no-slider row">
-                                <ng-container *ngFor="let product of getCollectionProducts(collection) | slice:0:8">
+                                <ng-container *ngFor="let product of getCollectionProducts(collection) | slice:0:200">
                                     <div class="product-box">
                                         <app-product-box-three [product]="product" [currency]="productService?.Currency">
                                         </app-product-box-three>

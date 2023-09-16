@@ -4,6 +4,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { ShopComponent } from './shop/shop.component';
 import { PagesComponent } from './pages/pages.component';
 import { ElementsComponent } from './elements/elements.component';
+import {ShopCollectionComponent} from "./shop/shop-collection/shop-collection.component";
+import {PostStoreComponent} from "./shop/collection/post-store/post-store.component";
+import {CollectionComponent} from "./pages/collection/collection.component";
 
 const routes: Routes = [
   {
@@ -14,6 +17,29 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+  },
+
+  {
+    path: '',
+    component: ShopComponent,
+    children: [
+      {path: 'shop/collection/shop-collection', component: ShopCollectionComponent}
+    ]
+  },
+  {
+    path: '',
+    component: ShopComponent,
+    children: [
+      {path: 'pages/collection', component: CollectionComponent}
+    ]
+  },
+
+  {
+    path: '',
+    component: PostStoreComponent,
+    children: [
+      {path: 'shop/collection/post-store', component: PostStoreComponent}
+    ]
   },
   {
     path: 'shop',

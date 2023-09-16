@@ -1,0 +1,54 @@
+<app-breadcrumb [title]="'verify'" [breadcrumb]="'verify'"></app-breadcrumb>
+<!-- section start -->
+<section class="register-page section-b-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>verification account</h3>
+                <div class="theme-card">
+                    <form class="theme-form"
+                          name="rform"
+                          (ngSubmit)="f.form.valid && onSubmit()"
+                          #f="ngForm"
+                          novalidate>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Your Email</label>
+                                <input type="text" class="form-control" placeholder="Enter your mail"
+                                       name="verifmail"
+                                       [(ngModel)]="rform.email"
+                                       required
+                                       #email="ngModel"
+                                       [ngClass]="{ 'is-invalid': f.submitted && email.errors }">
+                                <div *ngIf="email.errors && f.submitted" class="invalid-feedback">
+                                    Email is required!
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Code</label>
+                                <input type="text" class="form-control" placeholder="Enter the Code"
+                                       name="verifcode"
+                                       [(ngModel)]="rform.code"
+                                       required
+                                       #code="ngModel"
+                                       [ngClass]="{ 'is-invalid': f.submitted && code.errors }">
+                                <div *ngIf="code.errors && f.submitted" class="invalid-feedback">
+                                    Code is required!
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6" style="padding-top: 1.7em">
+                                <button class="btn btn-solid">Send</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Section ends-->

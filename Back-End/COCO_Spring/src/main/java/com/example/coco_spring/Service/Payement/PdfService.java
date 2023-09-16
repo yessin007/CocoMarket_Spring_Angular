@@ -1,17 +1,23 @@
 package com.example.coco_spring.Service.Payement;
 
-import com.example.coco_spring.Entity.Payement;
-import com.example.coco_spring.Entity.User;
-import com.example.coco_spring.Repository.PayementRepository;
-import com.example.coco_spring.Repository.UserRepository;
+
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.example.coco_spring.Entity.*;
+import com.example.coco_spring.Service.*;
+import com.example.coco_spring.Repository.*;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+
+//import java.io.IOException;
+//import java.net.URI;
+//import java.net.http.HttpClient;
+//import java.net.http.HttpRequest;
+//import java.net.http.HttpResponse;
 
 @Service
 @AllArgsConstructor

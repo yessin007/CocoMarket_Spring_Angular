@@ -61,8 +61,8 @@ export class StoreDetailComponent implements OnInit{
     this.store = this.activatedRoute.snapshot.data.store;
     console.log(this.store);
   }
-  public AddProduct() {
-    this.route.navigate(['/products/digital/digital-add-product', { }]);
+  public AddProduct(storeID) {
+    this.route.navigate(['/products/digital/digital-add-product',  {storeId: storeID}]);
   }
   affectProductToStore() {
     const storeId = 1; // l'identifiant du magasin
@@ -70,6 +70,10 @@ export class StoreDetailComponent implements OnInit{
     this.storeService.affectProductToStore(storeId, productId).subscribe(() => {
       console.log('Le produit a été affecté au magasin.');
     });
+  }
+
+  showAffect(storeId) {
+    this.route.navigate(['/vendors/create-storecatalog', {storeId}]);
   }
 
 }

@@ -17,7 +17,7 @@ export class SidebarComponent {
 	public fileurl: any;
 	isLoggedIn = false;
 	// tslint:disable-next-line:new-parens
-	currentUser: User = new User;
+	currentUser: User = new User();
 
 	constructor(private router: Router, public navServices: NavService, private authService: AuthService) {
 		this.navServices.items.subscribe(menuItems => {
@@ -50,6 +50,7 @@ export class SidebarComponent {
 	}
 	// tslint:disable-next-line:use-lifecycle-interface
 	ngOnInit() {
+		console.log(this.currentUser);
 		console.log(this.currentUser.username);
 		if (this.authService.isLoggedIn()) {
 			this.isLoggedIn = true;

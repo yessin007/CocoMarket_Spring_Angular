@@ -1,5 +1,6 @@
 package com.example.coco_spring.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,4 +18,7 @@ public class ProviderLocation {
     private String address;
     private double latitude;
     private double longitude;
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "providerLocation")
+    @JsonIgnore
+    Provider provider;
 }

@@ -48,7 +48,7 @@ public class LocationService {
         return response;
     }
 
-    public Map<String , StoreLocations> getNearestStorewithproduct(String productname, double clientLatitude,
+   /* public Map<String , StoreLocations> getNearestStorewithproduct(String productname, double clientLatitude,
                                                                    double clientLongitude){
 
         List<Product> products = productRepository.findByTitle(productname);
@@ -63,12 +63,12 @@ public class LocationService {
                 if (distance < shortestDistance) {
                     shortestDistance = distance;
                     storeName = product1.getStoress().getStoreName();
-                    storeLocations =product1.getStoress().getStoreLocations();
+                   // storeLocations =product1.getStoress().getStoreLocations();
                 }
             }
         map.put(storeName, storeLocations);
         return map;
-    }
+    } */
     private double distanceInKm(double lat1, double lon1, double lat2, double lon2) {
         double theta = lon1 - lon2;
         double dist = Math.sin(Math.toRadians(lat1)) * Math.sin(Math.toRadians(lat2))

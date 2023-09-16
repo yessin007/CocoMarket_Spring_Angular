@@ -6,8 +6,8 @@
         <div class="col-lg-6">
           <div class="header-contact">
             <ul>
-              <li>Welcome to Our store Multikart</li>
-              <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: 123 - 456 - 7890</li>
+              <li>Welcome to Our store Coco Market</li>
+              <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: +216 71 150 000</li>
             </ul>
           </div>
         </div>
@@ -27,6 +27,11 @@
                     Login
                   </a>
                 </li>
+				  <li *ngIf="!isLoggedIn">
+					  <a data-lng="en" [routerLink]="['/pages/register']">
+						  Register
+					  </a>
+				  </li>
                 <li *ngIf="isLoggedIn">
                   <a data-lng="es" (click)="logout()">
                     Logout

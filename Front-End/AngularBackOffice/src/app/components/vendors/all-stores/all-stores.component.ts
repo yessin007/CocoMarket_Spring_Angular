@@ -5,7 +5,8 @@ import {map} from 'rxjs/operators';
 import {Store} from '../../../models/store';
 import {HttpErrorResponse} from '@angular/common/http';
 import {ImageProceesingsService} from '../../../services/img/image-proceesings.service';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
+import {response} from 'express';
 
 @Component({
   selector: 'app-all-stores',
@@ -15,8 +16,8 @@ import {Router} from "@angular/router";
 export class AllStoresComponent  implements OnInit {
   // tslint:disable-next-line:variable-name
   public storeList: Store[] = [];
-
-  constructor( private  storeservice : StoreService, private  imageProcessingService: ImageProceesingsService, private route: Router  ) {
+  public store: Store = new Store();
+  constructor( private  storeservice: StoreService, private  imageProcessingService: ImageProceesingsService, private route: Router  ) {
   }
   ngOnInit(): void {
     this.getAllStores();
@@ -34,6 +35,10 @@ export class AllStoresComponent  implements OnInit {
   public SHoxStoreDetails(storeId) {
     this.route.navigate(['/vendors/store-detail', { storeId}]);
   }
-
-
+  public getStoreDetails(storeId){
+    this.storeservice.getStoreDetails(storeId).subscribe((resp) => {this.store = resp; });
+  }
+  public getStoreProducts(storeID){
+      this.route.navigate(['/products/physical/product-list', {storeId: storeID}]);
+  }
 }

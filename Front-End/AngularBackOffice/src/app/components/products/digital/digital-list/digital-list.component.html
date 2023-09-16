@@ -1,12 +1,12 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-12">
+    <div *ngIf="store.storeId == null" class="row">
+        <div class="col-sm-12" >
             <div class="card">
                 <div class="card-header">
                     <h5>Product Lists</h5>
                 </div>
                 <div class="card-body">
-                    <div id="batchDelete" class="custom-datatable">
+                    <div id="batchDelete2" class="custom-datatable">
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
@@ -36,7 +36,7 @@
                                     <td>{{ catgory.productCategory }}</td>
                                     <td>{{ catgory.quantity }}</td>
                                     <td>{{ catgory.price}}</td>
-                                    <td>{{ catgory.createdAt}}</td>
+                                    <td>{{ catgory.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                     <td>
                                         <a (click)="editProductDetails(catgory.productId)" href="javascript:void(0)"><i class='fa fa-edit f-12'></i></a>&nbsp;
                                         <a (click)="deleteProduct(catgory.productId)" href="javascript:void(0)"><i class="fa fa-trash-o"></i></a>
@@ -50,4 +50,56 @@
             </div>
         </div>
     </div>
+    <div *ngIf="store" class="row">
+        <div class="col-sm-12" >
+            <div class="card">
+                <div class="card-header">
+                    <h5>{{store.storeName}}</h5>
+                </div>
+                <div class="card-body">
+                    <div id="batchDelete" class="custom-datatable">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Product Name</th>
+                                    <th scope="col" sortable="img"   (sort)="onSort($event)">Image</th>
+                                    <th scope="col" sortable="title" (sort)="onSort($event)">Reference</th>
+                                    <th scope="col" sortable="title" (sort)="onSort($event)">Brand</th>
+                                    <th scope="col" sortable="entry_type" (sort)="onSort($event)">Category</th>
+                                    <th scope="col" sortable="entry_type" (sort)="onSort($event)">Stock</th>
+                                    <th scope="col" sortable="quantity" (sort)="onSort($event)">Price Of Unit</th>
+                                    <th scope="col" sortable="action" (sort)="onSort($event)">Added Date</th>
+                                    <th scope="col" sortable="action" (sort)="onSort($event)">Update/Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let catgory of productByStore">
+                                    <a (click)="showProductDetails(catgory.productId)" href="javascript:void(0)"><th scope="row">{{ catgory.title }}</th></a>
+                                    <td>
+                                        <div *ngFor="let image of catgory.image">
+                                            <img [src]="image.url"   style="width: 70px">
+                                        </div>
+                                    </td>
+                                    <td>{{ catgory.reference }}</td>
+                                    <td>{{ catgory.brand }}</td>
+
+                                    <td>{{ catgory.productCategory }}</td>
+                                    <td>{{ catgory.quantity }}</td>
+                                    <td>{{ catgory.price}}</td>
+                                    <td>{{ catgory.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td>
+                                        <a (click)="editProductDetails(catgory.productId)" href="javascript:void(0)"><i class='fa fa-edit f-12'></i></a>&nbsp;
+                                        <a (click)="deleteProduct(catgory.productId)" href="javascript:void(0)"><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

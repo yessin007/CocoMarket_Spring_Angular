@@ -74,45 +74,43 @@ public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliverySe
         delivery.setProvider(provider);
         deliveryRepository.save(delivery);
     }
-
     @Transactional
-    public Delivery dispatchDeliveryToNearestDeliveryman(Long userId,Long deliveryId) {
-        User user = userRepository.findById(userId).get();
+    public Delivery dispatchDeliveryToNearestDeliveryman(Long deliveryId) {
         Delivery delivery = deliveryRepository.findById(deliveryId).get();
 
-        List<Provider> deliverymen = getDeliverymenWithinRadius(user.getClientLocation().getLatitude(),
-                user.getClientLocation().getLongitude(), 150); // 15 km radius
+        List<Provider> providers = getDeliverymenWithinRadius(delivery.getClientLatitude(),
+                delivery.getClientLongitude(), 20); // 20 km radius
 
-        Provider nearestDeliveryman = getNearestDeliveryman(deliverymen, user.getClientLocation().getLatitude(),
-                user.getClientLocation().getLatitude());
+        Provider nearestDeliveryman = getNearestDeliveryman(providers, delivery.getClientLatitude(),
+                delivery.getClientLongitude());
 
         delivery.setProvider(nearestDeliveryman);
-        delivery.setStatut(Status.PENDING);
+        delivery.setStatut(Status.IN_PROGRESS);
         return deliveryRepository.save(delivery);
 
     }
     private List<Provider> getDeliverymenWithinRadius(double latitude, double longitude, int radiusInKm) {
-        List<Provider> deliverymen = providerRepository.findAllDeliverymen();
+        List<Provider> providers = providerRepository.findAll();
         List<Provider> deliverymenWithinRadius = new ArrayList<>();
-        for (Provider deliveryman : deliverymen) {
-            double distance = distanceInKm(latitude, longitude, deliveryman.getProviderLocation().getLatitude(), deliveryman.getProviderLocation().getLongitude());
+        for (Provider provider : providers) {
+            double distance = distanceInKm(latitude, longitude, provider.getProviderLocation().getLatitude(), provider.getProviderLocation().getLongitude());
             if (distance <= radiusInKm) {
-                deliverymenWithinRadius.add(deliveryman);
+                deliverymenWithinRadius.add(provider);
             }
         }
         return deliverymenWithinRadius;
     }
 
-    private Provider getNearestDeliveryman(List<Provider> deliverymen, double clientLatitude,
+    private Provider getNearestDeliveryman(List<Provider> providers, double clientLatitude,
                                            double clientLongitude) {
         Provider nearestDeliveryman = null;
         double shortestDistance = Double.MAX_VALUE;
-        for (Provider deliveryman : deliverymen) {
-            double distance = distanceInKm(clientLatitude, clientLongitude, deliveryman.getProviderLocation().getLatitude(),
-                    deliveryman.getProviderLocation().getLongitude());
+        for (Provider provider : providers) {
+            double distance = distanceInKm(clientLatitude, clientLongitude, provider.getProviderLocation().getLatitude(),
+                    provider.getProviderLocation().getLongitude());
             if (distance < shortestDistance) {
                 shortestDistance = distance;
-                nearestDeliveryman = deliveryman;
+                nearestDeliveryman = provider;
             }
         }
         return nearestDeliveryman;
@@ -125,8 +123,17 @@ public class DeliveryService implements ICRUDService<Delivery,Long>, IDeliverySe
         dist = Math.acos(dist);
         dist = Math.toDegrees(dist);
         dist = dist * 60 * 1.1515;
-        dist = dist * 1.609344; // convert to kilometers
+        dist = dist * 1.609344;
         return dist;
+    }
+    @Transactional
+    public Delivery addjjj(Delivery delivery, double lat, double lng) {
+        ClientLocation clientLocation = new ClientLocation();
+        clientLocation.setLongitude(lng);
+        clientLocation.setLatitude(lat);
+        delivery.setClientLocation(clientLocation);
+        return deliveryRepository.save(delivery);
+
     }
     public Delivery cancelDelivery(Long id) {
         Delivery delivery = deliveryRepository.findById(id).get();

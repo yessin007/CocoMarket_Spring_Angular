@@ -48,7 +48,7 @@ export class AuthService {
 		this.currentToken = this.currentTokenSubject.asObservable();
 	}
 
-	private readonly API_URL = 'http://165.227.171.67:9092/COCO/api/v1/auth/';
+	private readonly API_URL = 'http://localhost:9092/COCO/api/v1/auth/';
 	ar!: AuthenticationRequest;
 	rr!: RegisterRequest;
 
@@ -72,6 +72,16 @@ export class AuthService {
 				)
 			);
 	}
+	register(username: string, firstname: string, lastname: string, email: string, password: string): Observable<any> {
+		const role = 'ROLE_BUYER';
+		// @ts-ignore
+		const rr: RegisterRequest = {username, firstname, lastname, email, password, role};
+		return this.http.post(
+			`${this.API_URL}register`,
+			rr,
+			httpOptions
+		);
+	}
 	logOut(){
 		localStorage.removeItem('currentUser');
 		localStorage.removeItem('token');
@@ -93,4 +103,19 @@ export class AuthService {
 			{ observe: 'response' } // observe the response to get the status code
 		);
 	}
+
+	/*verifAccount(mail: string, code: number): Observable<string> {
+		const url = `${this.API_URL}verif/${mail}/${code}`;
+		return this.http.post<string>(url, null);
+	}*/
+
+	// tslint:disable-next-line:ban-types
+	verifAccount(mail: string, code: number): Observable<Map<String, String>> {
+		const url = `${this.API_URL}verif/${mail}/${code}`;
+		return this.http.post<{ [key: string]: string }>(url, null).pipe(
+			map(response => new Map(Object.entries(response)))
+		);
+	}
+
+
 }

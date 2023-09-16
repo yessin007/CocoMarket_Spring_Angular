@@ -7,7 +7,7 @@ import {Store} from '../../../../models/store';
 import {OrderService} from '../../../../services/order/order.service';
 import {AuthService} from '../../../../services/auth.service';
 import {User} from '../../../../models/User';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-order',
@@ -31,7 +31,7 @@ export class AddOrderComponent {
   protected currentToken!: String;
 
   constructor(private formBuilder: UntypedFormBuilder, private calendar: NgbCalendar,
-              private orderService: OrderService, private auth: AuthService, private route: ActivatedRoute) {
+              private orderService: OrderService, private auth: AuthService, private route: ActivatedRoute, private  router:Router) {
     this.createGeneralForm();
     this.createRestrictionForm();
     this.createUsageForm();
@@ -85,5 +85,6 @@ export class AddOrderComponent {
                                                                           this.order = new Order(); } ,
         (error) => { console.error('Failed to add Order', error); }
         );
+    this.router.navigate(['/sales/orders']);
   }
 }

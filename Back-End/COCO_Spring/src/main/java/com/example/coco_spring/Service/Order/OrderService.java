@@ -1,22 +1,21 @@
 package com.example.coco_spring.Service.Order;
+
+
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import com.example.coco_spring.Entity.*;
 import com.example.coco_spring.Service.*;
 import com.example.coco_spring.Repository.*;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
+
 
 import java.util.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 @Service
 @Slf4j
 @AllArgsConstructor
-public class OrderService implements ICRUDService<Order,Long> , IOrderService {
+public class OrderService implements ICRUDService<Order,Long> {
 
     OrderRepository orderRepository;
 
@@ -51,18 +50,22 @@ public class OrderService implements ICRUDService<Order,Long> , IOrderService {
     }
 
 
-
-    public Map<String,List<Order>> displayOrdersByProvider() {
-        List<String> findProviderNamesWithOrder = orderRepository.findProviderNamesWithOrder();
-        Map<String, List<Order>> map = new HashMap<>();
-        for (String obj : findProviderNamesWithOrder) {
-            map.put(obj,orderRepository.findByDelivery_Provider_ProviderName(obj));
-
-        }
-        return map;
+    public Map<String, List<Order>> displayOrdersByProvider() {
+        return null;
     }
 
-    @Override
+
+//    public Map<String,List<Order>> displayOrdersByProvider() {
+//        List<String> findProviderNamesWithOrder = orderRepository.findProviderNamesWithOrder();
+//        Map<String, List<Order>> map = new HashMap<>();
+//        for (String obj : findProviderNamesWithOrder) {
+//            map.put(obj,orderRepository.findByDelivery_Provider_ProviderName(obj));
+//
+//        }
+//        return map;
+//    }
+
+
     public Order AssignCartToOrder(Long orderId, Long cartId) {
         Cart cart = cartRepsitory.findById(cartId).orElse(null);
         Order order = orderRepository.findById(orderId).orElse(null);

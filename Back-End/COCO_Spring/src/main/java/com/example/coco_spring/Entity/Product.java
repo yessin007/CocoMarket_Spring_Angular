@@ -20,6 +20,8 @@ public class Product {
     private Long productId;
     private String reference;
     private String title;
+    @Lob
+    @Column( length = 100000)
     private String description;
     private Long quantity;
     private String model;
@@ -41,7 +43,7 @@ public class Product {
     @Enumerated(EnumType.STRING)
     ProductCategory productCategory;
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
     List<Review> reviews;
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
@@ -52,13 +54,14 @@ public class Product {
     List<Store> stores;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product")
     List<LikeDislikeProduct> likeDislikeProducts;
     @ManyToOne
     @JoinColumn(name = "cart_id")
     @JsonIgnore
-
     Cart cart;
+    @OneToOne(mappedBy = "product")
+    Subscription subscription;
 
 
 

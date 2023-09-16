@@ -1,0 +1,15 @@
+<p>post-detail works!</p>
+<div class="accordion-body text-sm opacity-8">
+    <form class="align-items-center">
+        <div class="input-group input-group-outline  is-filled">
+            <div class="col-xl-3 col-sm-6" *ngFor ="let p of listPost">
+
+            <label class="form-label">Type your Comment</label>
+            <input type="text" [(ngModel)]= "commenttest" [(ngModel)]= "comment.commentBody" name="{{p.postId.toString()}}" class="form-control ">
+            <button class="btn bg-gradient-primary mb-0" (click)="addComment(p.postId.toString())" >
+                <i class="material-icons">send</i>
+            </button>
+        </div>
+        </div>
+    </form>
+</div>

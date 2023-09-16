@@ -1,5 +1,6 @@
 package com.example.coco_spring.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,21 +21,25 @@ public class Subscription {
     private Long subscriptionId;
 
     @ManyToOne
+            @JsonIgnore
     User user;
 
     @Temporal(TemporalType.DATE)
     Date dateOfSubCreation;
-
-    @OneToOne(cascade = CascadeType.ALL)
+    @Temporal(TemporalType.DATE)
+    Date dateEndOfSubscription;
+    @OneToOne
     @JoinColumn(name = "subbedproduct")
+            @JsonIgnore
     Product product;
 
     int subMonths;
 
     int remainingDaysINMonth;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "prize")
+            @JsonIgnore
     Product prize;
 
 }

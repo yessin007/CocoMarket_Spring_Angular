@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Observable, Subscriber} from 'rxjs';
 import { map, startWith, delay } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from '../classes/product';
-
-import { Order1 } from '../classes/order1';
-import { ProductCart } from '../classes/productcart';
 import {ImageProcessingService} from './image-processing.service';
 import {Review} from '../classes/review';
-import {CartItem} from "../classes/CartItem";
-import {SmsPojo} from "../classes/SmsPojo";
-import {RequestBaseService} from "../../services/RequestBaseService.service";
-import {AuthService} from "../../services/auth.service";
+import {User} from '../models/User';
+import {AuthService} from './auth.service';
+import {Subscription} from '../classes/subscription';
+import {types} from 'sass';
+import { Order1 } from '../classes/order1';
+import {CartItem} from '../classes/CartItem';
+import {SmsPojo} from '../classes/SmsPojo';
+import List = types.List;
 
 const state = {
   products: JSON.parse(localStorage.products || '[]'),
@@ -24,77 +25,88 @@ const state = {
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService extends RequestBaseService  {
+export class ProductService {
 
   public Currency = { name: 'Dinar', currency: 'TND', price: 1 }; // Default Currency
   public OpenCart = false;
   public Products;
   public Product;
+  readonly GET_ALL_PRODUCTS_API_URL = 'http://localhost:9092/COCO/api/product/getallproducts?searchKey=';
+  readonly GET_PRODUCT_DETAILS_API_URL = 'http://localhost:9092/COCO/api/product/getproductdetails/';
+  readonly ADDTOCART = 'http://localhost:9092/radhwen/api/product/getproductdetails/';
+  readonly ADD_REVIEW_TO_PRODUCT = 'http://localhost:9092/COCO/api/review/affectreviewtoproduct/';
+  readonly GET_USER_BY_REVIEW = 'http://localhost:9092/COCO/api/review/getuserbyreview/';
+  readonly GET_ALL_REVIEWS = 'http://localhost:9092/COCO/api/review/getallreviews/';
+  readonly DISLIKE_PRODUCT = 'http://localhost:9092/COCO/api/review';
+  readonly LIKE_PRODUCT = 'http://localhost:9092/COCO/api/review';
+  readonly DISLIKE_REVIEW = 'http://localhost:9092/COCO/api/review';
+  readonly LIKE_REVIEW = 'http://localhost:9092/COCO/api/review';
+  readonly VERIFY_LIKE_PRODUCT = 'http://localhost:9092/COCO/api/product';
+  readonly VERIFY_DISLIKE_PRODUCT = 'http://localhost:9092/COCO/api/product';
+  readonly GET_AVERAGE_LIKES_OF_PRODUCT = 'http://localhost:9092/COCO/api/product/getaveragelikesofproduct/';
+  readonly SUBSCIBE_PRODUCT = 'http://localhost:9092/COCO/api/sub/subscribe/';
+  readonly FIND_SUB = 'http://localhost:9092/COCO/api/sub/findsub/';
+  readonly UPDATE_ENDDATE_SUB = 'http://localhost:9092/COCO/api/sub/updatedateendsub';
+  readonly WIN_PRIZE = 'http://localhost:9092/COCO/api/sub/winprize/';
+  readonly DEL_SUB = 'http://localhost:9092/COCO/api/sub/deletesub/';
+  readonly GBT3_PRODUCT_GEN = 'http://localhost:9092/COCO/api/product/gbt3/';
+  readonly GET_TOP_FIVE_MOST_LIKED_PRODUCTS = 'http://localhost:9092/COCO/api/product/topfivemostlikedproducts';
+  readonly GET_SOLDE = 'http://localhost:9092/COCO/api/product/insuranceprice/';
+  readonly GET_PREMIUM_PRODUCTS = 'http://localhost:9092/COCO/api/product/premiumproducts';
+  readonly GET_NUMBER_OF_LIKES_OF_REVIEW = 'http://localhost:9092/COCO/api/product/getnumberoflikesrev/';
+  readonly GET_NUMBER_OF_DISLIKES_OF_REVIEW = 'http://localhost:9092/COCO/api/product/getnumberofdislikesrev/';
 
-  public ProductCart;
-  readonly GET_ALL_PRODUCTS_API_URL = 'http://localhost:8089/radhwen/api/product/getallproducts?searchKey=';
-  readonly GET_PRODUCT_DETAILS_API_URL = 'http://localhost:8089/radhwen/api/product/getproductdetails/';
-
-  readonly ADDTOCART = 'http://localhost:8089/radhwen/api/product/getproductdetails/';
-
-  readonly ADD_REVIEW_TO_PRODUCT = 'http://localhost:8089/radhwen/api/product/affectreviewtoproduct/1/';
-
-  readonly GET_ALL_PRODUCTS_API_URLL = 'http://localhost:8089/radhwen/api/product/getallproducts';
-
-
-
-  ///////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-  readonly PRODUCTCART_API_URL = 'http://localhost:8089/radhwen/api/productCart/addproduct';
-  readonly GET_ALL_PRODUCTSCART_API_URL = 'http://localhost:8089/radhwen/api/productCart/getallproducts';
-  readonly DELETE_PRODUCTCART_API_URL = 'http://localhost:8089/radhwen/api/productCart/deleteproduct/';
-  readonly GET_PRODUCTCART_DETAILS__API_URL = 'http://localhost:8089/radhwen/api/productCart/getproductdetails/';
   //////////////////////////////////////////////////////////////////////
 
-  readonly CARTITEM = 'http://localhost:8089/radhwen/api/cart/cartItem';
-  readonly GET_CART_ITEM_WITH_PRODUCTS = 'http://localhost:8089/radhwen/api/cart/getCartItemsWithProducts';
-  readonly DELETE_CARTITEM = 'http://localhost:8089/radhwen/api/cart/delete_cartItem/';
+  readonly CARTITEM = 'http://localhost:9092/COCO/api/cart/cartItem';
+  readonly GET_CART_ITEM_WITH_PRODUCTS = 'http://localhost:9092/COCO/api/cart/getCartItemsWithProducts';
+  readonly DELETE_CARTITEM = 'http://localhost:9092/COCO/api/cart/delete_cartItem/';
+
+  readonly GET_CART_INDEX = 'http://localhost:9092/COCO/api/cart/getindexCart';
+
+
   /////////////////////////////////////////////////////////////////////////
 
-  readonly ADD_ORDERS = 'http://localhost:8089/radhwen/api/order1/add_order';
-  readonly UPDATE_ORDERS = 'http://localhost:8089/radhwen/api/order/update_order';
-  readonly GETALL_ORDERS = 'http://localhost:8089/radhwen/api/order/retrive_all_orders';
-  readonly DELETE_ORDERS = 'http://localhost:8089/radhwen/api/order/delete_order/';
-  readonly GET_ORDER_DETAILS_API_URL = 'http://localhost:8089/radhwen/api/order/retrive_order/';
-
+  readonly ADD_ORDERS = 'http://localhost:9092/COCO/api/order1/add_order';
+  readonly UPDATE_ORDERS = 'http://localhost:9092/COCO/api/order/update_order';
+  readonly GETALL_ORDERS = 'http://localhost:9092/COCO/api/order/retrive_all_orders';
+  readonly DELETE_ORDERS = 'http://localhost:9092/COCO/api/order/delete_order/';
+  readonly GET_ORDER_DETAILS_API_URL = 'http://localhost:9092/COCO/api/order/retrive_order/';
 
 
   ///////////////////////////////////////////////////////////////////////////////////////
-  // /*            SMS
+  // /           SMS
   ///////////////////////////////////////////////////////////////////////////////////////////
 
-  readonly SMS = 'localhost:9092/COCO/api/payement/sms/SubmitSms';
+  readonly SMS = 'http://localhost:9092/COCO/api/payement/sms/SubmitSms';
+  readonly GET_ALL_PRODUCTS_API_URLL = 'http://localhost:8089/radhwen/api/product/getallproducts';
 
+  ///////////////////////////////////////////////////////////////////////////////////
+  currentUser: User = new User();
+  public id ;
 
-
-  // constructor(private authenticationService: AuthService, private http: HttpClient,
-  //             private toastrService: ToastrService, private httpClient: HttpClient, private imageProcessingService: ImageProcessingService) {
-  //   super( authenticationService, http);
-  // }
-
-  constructor(
-      protected authenticationService: AuthService,
-      protected http: HttpClient, private toastrService: ToastrService, private httpClient: HttpClient, private imageProcessingService: ImageProcessingService
-  ) {
-    super(authenticationService, http);
+  constructor(private http: HttpClient,
+              private toastrService: ToastrService, private httpClient: HttpClient, private imageProcessingService: ImageProcessingService,
+              private authService: AuthService) {
+    this.authService.currentUser.subscribe(data => {
+      this.currentUser = data;
+      this.id = this.currentUser.id;
+    });
   }
-  
-  /* Order */
 
+  /*
+    ---------------------------------------------
+    ---------------  Product  -------------------
+    ---------------------------------------------
+  */
 
   sms(smsPojo: SmsPojo){
-    const url = `localhost:9092/COCO/api/payement/sms/SubmitSms`;
-    return this.http.post<SmsPojo>(url, smsPojo,{headers: this.getHeaders});
+    const url = `http://localhost:9092/COCO/api/payement/sms/SubmitSms`;
+    return this.http.post<SmsPojo>(url, smsPojo);
   }
+  /////////////////////////////////////////////////////
 
-
-  addOrder(order1: Order1): Observable<any> {
+  addOrder(order1: Order1) {
     // debugger
     return this.httpClient.post(this.ADD_ORDERS, order1);
   }
@@ -114,36 +126,19 @@ export class ProductService extends RequestBaseService  {
   }
 
 
-
+///////////////////////////////////////////////////////////////////////////
 
 
   getOrderDetails(orderId){
     return this.httpClient.get<Order1>(this.GET_ORDER_DETAILS_API_URL + orderId);
   }
-  
-  
-  
-  
-  
-  
-  
-  
-  /* End Order */
-  /*
-    ---------------------------------------------
-    ---------------  Product  -------------------
-    ---------------------------------------------
-  */
 
-  // public addProductToCartItem(cartId, productId, quantity){
-  //   return this.httpClient.post(this.CARTITEM + cartId , + '/' + productId , + '/' + quantity);
-  // }
   public getCartItemsWithProducts(cartId: number): Observable<CartItem[]> {
     return this.httpClient.get<CartItem[]>(`${this.GET_CART_ITEM_WITH_PRODUCTS}/${cartId}`);
   }
 
   getProduct(productId: number): Observable<Product> {
-    const url = `http://localhost:8089/radhwen/api/product/getproductdetails/${productId}`;
+    const url = `http://localhost:9092/COCO/api/product/getproductdetails/${productId}`;
     return this.httpClient.get<Product>(url);
   }
 
@@ -151,39 +146,68 @@ export class ProductService extends RequestBaseService  {
     return this.httpClient.get<Product[]>(this.GET_ALL_PRODUCTS_API_URLL);
   }
 
+
+  public getCartIndex(){
+    return this.httpClient.get<number>(this.GET_CART_INDEX);
+  }
+
   public addProductToCartItem(cartId, productId, quantity){
     const url = `${this.CARTITEM}/${cartId}/${productId}/${quantity}`;
-       return this.httpClient.post(url, null);
+    return this.httpClient.post(url, null);
   }
-  // addProductStore(storeId: number, productId: number): Observable<void> {
-  //   const url = ${this.apiUrl}/affectproducttostore/${storeId}/${productId};
-  //   return this.http.post<void>(url, null);
 
 
-  // }
 
-  public addProductCart(productCart: ProductCart): Observable<any> {
-    // return this.httpClient.post<Product>(this.PRODUCT_API_URL, product);
-    return this.httpClient.post(this.PRODUCTCART_API_URL , productCart );
+  public getCartDetails(){
+    return this.httpClient.get('http://localhost:9092/COCO/api/cart/getCartDetails');
   }
+
+  public removeCartItemm(id: number) {
+    return this.httpClient.delete(this.DELETE_CARTITEM + id);
+  }
+
+  public getCartTotalAmount(cartItems: CartItem[]): number {
+    let totalAmount = 0;
+    for (const cartItem of cartItems) {
+      let price = cartItem.product.price;
+      if (cartItem.product.discount) {
+        price = cartItem.product.price - (cartItem.product.price * cartItem.product.discount / 100);
+      }
+      totalAmount += price * cartItem.product.quantity;
+    }
+    return totalAmount;
+  }
+
+
+
+  //////////////////////////////////////////////////////////
+
+
   // Product
-
   private get products(): Observable<Product[]> {
     this.Products = this.httpClient.get<Product[]>(this.GET_ALL_PRODUCTS_API_URL);
     return this.Products;
   }
-
+  private get premiumProducts(): Observable<Product[]> {
+    this.Products = this.httpClient.get<Product[]>(this.GET_PREMIUM_PRODUCTS);
+    return this.Products;
+  }
+  getToopFiveMostLikeProducts(): Observable<Product[]>{
+    return this.httpClient.get<Product[]>(this.GET_TOP_FIVE_MOST_LIKED_PRODUCTS);
+  }
 
   public addToCart(productId){
     return this.httpClient.get('http://localhost:8089/radhwen/api/cart/addToCart/' + productId );
   }
-
-
-  public getCartDetails(){
-    return this.httpClient.get('http://localhost:8089/radhwen/api/cart/getCartDetails');
+  public deleteSub(subId){
+    return this.httpClient.delete(this.DEL_SUB + subId + '/' + this.id );
   }
-
-
+  public findProductWithGBT3(input: string){
+    return this.httpClient.get<string[]>(this.GBT3_PRODUCT_GEN + input );
+  }
+  public winPrize(subId){
+    return this.httpClient.get<Product>(this.WIN_PRIZE + subId );
+  }
   /*public getAllProducts(){
     this.getproducts()
         .pipe(
@@ -202,6 +226,18 @@ export class ProductService extends RequestBaseService  {
     );
 
   }
+  public get getPremiumProducts(): Observable<Product[]> {
+    return this.premiumProducts.pipe(
+        map((x: Product[], i) => x.map((product: Product) => this.imageProcessingService.createImages(product)))
+    );
+
+  }
+  getNumberOfLikesOfReview(reviewId: number): Observable<number>{
+    return this.httpClient.get<number>(this.GET_NUMBER_OF_LIKES_OF_REVIEW + reviewId);
+  }
+  getNumberOfDislikesOfReview(reviewId: number): Observable<number>{
+    return this.httpClient.get<number>(this.GET_NUMBER_OF_DISLIKES_OF_REVIEW + reviewId);
+  }
 
   // Get Products By Slug
   public getProductBySlug(slug: string): Observable<Product> {
@@ -218,21 +254,57 @@ export class ProductService extends RequestBaseService  {
     return  this.httpClient.get<Product>(this.GET_PRODUCT_DETAILS_API_URL + productId);
   }
   public reviewProduct(review: Review , productId){
-    return  this.httpClient.post<Product>(this.ADD_REVIEW_TO_PRODUCT + productId, review);
+    return  this.httpClient.post<Product>(this.ADD_REVIEW_TO_PRODUCT + this.id + '/' + productId, review);
+  }
+  public getUserByReview(reviewId){
+    return this.httpClient.get<User>(this.GET_USER_BY_REVIEW + reviewId);
+  }
+  public getAllReviews(productId): Observable<Review[]> {
+   return this.httpClient.get<Review[]>(this.GET_ALL_REVIEWS + productId);
+  }
+  public likeProduct(productId){
+    return this.httpClient.post(this.LIKE_PRODUCT + '/' + this.id + '/like/' + productId , {});
+  }
+  public likeReview(reviewId){
+    return this.httpClient.post(this.LIKE_REVIEW + '/' + this.id + '/likerev/' + reviewId , {});
+  }
+  public verifyLikeProduct(productId): Observable<boolean>{
+    return this.httpClient.get<boolean>(this.VERIFY_LIKE_PRODUCT + '/verifyifliked/' + this.id + '/' + productId );
+  }
+  public getSoldeOfUser(productId): Observable<number>{
+    return this.httpClient.get<number>(this.GET_SOLDE + productId + '/' + this.id );
+  }
+  public subscribeToProduct(productId, months): Observable<Subscription>{
+    // tslint:disable-next-line:max-line-length
+    return this.httpClient.post<Subscription>(this.SUBSCIBE_PRODUCT + this.id + '/' + productId + '/subbedmonths/' + months, {} );
+  }
+  public findSub(productId): Observable<Subscription>{
+    // tslint:disable-next-line:max-line-length
+    return this.httpClient.get<Subscription>(this.FIND_SUB + this.id + '/' + productId );
+  }
+  public verifyDisikeProduct(productId): Observable<boolean>{
+    return this.httpClient.get<boolean>(this.VERIFY_DISLIKE_PRODUCT + '/verifyifdisliked/' + this.id + '/' + productId); }
+  public disLikeProduct(productId){
+    return this.httpClient.post(this.DISLIKE_PRODUCT + this.id + '/dislike/' + productId , {});
+  }
+  public dislikeReview(reviewId){
+    return this.httpClient.post(this.DISLIKE_REVIEW + this.id + '/dislikerev/' + reviewId , {});
+  }
+  public getAverageLikesOfProduct(productId){
+    return this.httpClient.get<number>(this.GET_AVERAGE_LIKES_OF_PRODUCT + productId);
+  }
+  public updateEndOfSubDate(subscription){
+    return this.httpClient.post<Subscription>(this.UPDATE_ENDDATE_SUB, subscription);
   }
 
-
-  public removeCartItemm(id: number) {
-    return this.httpClient.delete(this.DELETE_CARTITEM + id);
-  }
 
   /*
     ---------------------------------------------
     ---------------  Wish List  -----------------
     ---------------------------------------------
   */
-  // Get Wishlist Items
 
+  // Get Wishlist Items
   public get wishlistItems(): Observable<Product[]> {
     const itemsStream = new Observable(observer => {
       observer.next(state.wishlist);
@@ -240,8 +312,8 @@ export class ProductService extends RequestBaseService  {
     });
     return itemsStream as Observable<Product[]>;
   }
-  // Add to Wishlist
 
+  // Add to Wishlist
   public addToWishlist(product): any {
     const wishlistItem = state.wishlist.find(item => item.id === product.id);
     if (!wishlistItem) {
@@ -253,8 +325,8 @@ export class ProductService extends RequestBaseService  {
     localStorage.setItem('wishlistItems', JSON.stringify(state.wishlist));
     return true;
   }
-  // Remove Wishlist items
 
+  // Remove Wishlist items
   public removeWishlistItem(product: Product): any {
     const index = state.wishlist.indexOf(product);
     state.wishlist.splice(index, 1);
@@ -267,8 +339,8 @@ export class ProductService extends RequestBaseService  {
     -------------  Compare Product  -------------
     ---------------------------------------------
   */
-  // Get Compare Items
 
+  // Get Compare Items
   public get compareItems(): Observable<Product[]> {
     const itemsStream = new Observable(observer => {
       observer.next(state.compare);
@@ -276,8 +348,8 @@ export class ProductService extends RequestBaseService  {
     });
     return itemsStream as Observable<Product[]>;
   }
-  // Add to Compare
 
+  // Add to Compare
   public addToCompare(product): any {
     const compareItem = state.compare.find(item => item.id === product.id);
     if (!compareItem) {
@@ -289,8 +361,8 @@ export class ProductService extends RequestBaseService  {
     localStorage.setItem('compareItems', JSON.stringify(state.compare));
     return true;
   }
-  // Remove Compare items
 
+  // Remove Compare items
   public removeCompareItem(product: Product): any {
     const index = state.compare.indexOf(product);
     state.compare.splice(index, 1);
@@ -303,8 +375,8 @@ export class ProductService extends RequestBaseService  {
     -----------------  Cart  --------------------
     ---------------------------------------------
   */
-  // Get Cart Items
 
+  // Get Cart Items
   public get cartItems(): Observable<Product[]> {
     const itemsStream = new Observable(observer => {
       observer.next(state.cart);
@@ -312,6 +384,7 @@ export class ProductService extends RequestBaseService  {
     });
     return itemsStream as Observable<Product[]>;
   }
+
   // Add to Cart
   // public addToCart(product): any {
   //   const cartItem = state.cart.find(item => item.id === product.id);
@@ -333,10 +406,9 @@ export class ProductService extends RequestBaseService  {
   //   this.OpenCart = true; // If we use cart variation modal
   //   localStorage.setItem('cartItems', JSON.stringify(state.cart));
   //   return true;
-
   // }
-  // Update Cart Quantity
 
+  // Update Cart Quantity
   public updateCartQuantity(product: Product, quantity: number): Product | boolean {
     return state.cart.find((items, index) => {
       if (items.id === product.productId) {
@@ -350,8 +422,8 @@ export class ProductService extends RequestBaseService  {
       }
     });
   }
-  // Calculate Stock Counts
 
+    // Calculate Stock Counts
   public calculateStockCounts(product, quantity) {
     const qty = product.quantity + quantity;
     const stock = product.stock;
@@ -361,8 +433,8 @@ export class ProductService extends RequestBaseService  {
     }
     return true;
   }
-  // Remove Cart items
 
+  // Remove Cart items
   public removeCartItem(product: Product): any {
     const index = state.cart.indexOf(product);
     state.cart.splice(index, 1);
@@ -381,18 +453,6 @@ export class ProductService extends RequestBaseService  {
         return (prev + price * curr.quantity) * this.Currency.price;
       }, 0);
     }));
-  }
-
-  public getCartTotalAmount(cartItems: CartItem[]): number {
-    let totalAmount = 0;
-    for (let cartItem of cartItems) {
-      let price = cartItem.product.price;
-      if (cartItem.product.discount) {
-        price = cartItem.product.price - (cartItem.product.price * cartItem.product.discount / 100);
-      }
-      totalAmount += price * cartItem.product.quantity;
-    }
-    return totalAmount;
   }
 
   /*
@@ -520,9 +580,5 @@ export class ProductService extends RequestBaseService  {
       pages
     };
   }
-
-
-  
-
 
 }

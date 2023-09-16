@@ -9,13 +9,18 @@
                     <div class="card-body">
                         <div class="digital-add needs-validation">
                             <div class="col-xl-3 col-md-4"><label for="validationCustom0"><span>*</span>
-                                StoreCatalog Name</label></div>
+                                Name</label></div>
                             <div class="col-xl-8 col-md-7"><input class="form-control" id="validationCustom0" [(ngModel)]="catalog.catalogName" name="catalogName"
                                                                   type="text" ></div>
                             <div class="form-group ">
-                                <div class="col-xl-3 col-md-4"><label for="validationCustom1"><span>*</span> StoreCatalog Description</label></div>
+                                <div class="col-xl-3 col-md-4"><label for="validationCustom1"><span>*</span> Description</label></div>
                                 <div class="col-xl-8 col-md-7"><input class="form-control" id="validationCustom1" [(ngModel)]="catalog.catalogDescription" name="catalogDescription"
                                                                       type="text" ></div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="col-xl-3 col-md-4"><label for="validationCustom1"><span>*</span> Date</label></div>
+                                <div class="col-xl-8 col-md-7"><input class="form-control" id="validationCustom2" [(ngModel)]="catalog.date" name="date"
+                                                                      type="date" ></div>
                             </div>
                             <div >
                                 <h3>Image Preview</h3>
@@ -23,7 +28,7 @@
                                     <img [src]="url.url" width="400px" height="400px">
                                 </div>
                             </div>
-                            <label class="col-form-label pt-0"> Store Upload</label>
+                            <label class="col-form-label pt-0"> Image Upload</label>
                             <div class="card-body dropzone-custom p-0">
                                 <ngx-dropzone class="dropzone-border" (change)="onSelect($event)">
                                     <ngx-dropzone-label>
@@ -33,13 +38,14 @@
                                         </div>
                                     </ngx-dropzone-label>
                                     <ngx-dropzone-preview *ngFor="let f of array" [removable]="true" (removed)="onRemove(f)">
-                                        <ngx-dropzone-label>{{ f.filefile.name }} ({{ f.filefile.type }})</ngx-dropzone-label>
+                                        <ngx-dropzone-label>{{ f.filemal.name }} ({{ f.filemal.type }})</ngx-dropzone-label>
                                     </ngx-dropzone-preview>
                                 </ngx-dropzone>
                             </div>
                             <div class="form-group mb-0">
                                 <div class="product-buttons text-end mt-3">
                                     <button type="submit" class="btn btn-primary">Confirm Add</button>
+                                    <button (click)="addCatalogToStore()" type="submit" class="btn btn-primary">Confirm affect</button>
                                     <button type="button" class="btn btn-light">Clear</button>
                                 </div>
                             </div>

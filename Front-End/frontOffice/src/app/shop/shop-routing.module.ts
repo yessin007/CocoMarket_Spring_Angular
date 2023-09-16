@@ -13,7 +13,6 @@ import { CollectionLeftSidebarComponent } from './collection/collection-left-sid
 import { CollectionRightSidebarComponent } from './collection/collection-right-sidebar/collection-right-sidebar.component';
 import { CollectionNoSidebarComponent } from './collection/collection-no-sidebar/collection-no-sidebar.component';
 import { CollectionInfinitescrollComponent } from './collection/collection-infinitescroll/collection-infinitescroll.component';
-
 import { CartComponent } from './cart/cart.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { CompareComponent } from './compare/compare.component';
@@ -21,6 +20,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { SuccessComponent } from './checkout/success/success.component';
 
 import { Resolver } from '../shared/services/resolver.service';
+import {PostStoreComponent} from './collection/post-store/post-store.component';
+import {ShopCollectionComponent} from './shop-collection/shop-collection.component';
 
 const routes: Routes = [
   {
@@ -87,6 +88,14 @@ const routes: Routes = [
   {
     path: 'collection/infinitescroll',
     component: CollectionInfinitescrollComponent
+  },
+  {
+    path: 'shop/collection/post-store',
+    component: PostStoreComponent
+  },
+  {
+    path: 'shop/collection/shop-collection',
+    component: ShopCollectionComponent
   },
   {
     path: 'cart',

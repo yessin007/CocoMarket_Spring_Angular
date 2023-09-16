@@ -20,7 +20,7 @@ export class CreateVendorsComponent implements OnInit {
   files: File[] = [];
   array: FileHandle[] = [];
   store: Store = new Store();
-  // tslint:disable-next-line:new-parenssa
+  // tslint:disable-next-line:new-parens
   currentUser: User = new User;
   // tslint:disable-next-line:ban-types
   protected currentToken!: String;

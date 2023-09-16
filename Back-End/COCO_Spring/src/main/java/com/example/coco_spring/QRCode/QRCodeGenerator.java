@@ -1,7 +1,6 @@
 package com.example.coco_spring.QRCode;
 
 import com.example.coco_spring.Entity.Store;
-import com.example.coco_spring.Entity.StoreCatalog;
 import com.example.coco_spring.Repository.StoreCatalogRepository;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;

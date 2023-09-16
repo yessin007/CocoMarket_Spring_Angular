@@ -17,4 +17,6 @@ public class ClientLocation {
     private String address;
     private double latitude;
     private double longitude;
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "clientLocation")
+    Delivery delivery;
 }

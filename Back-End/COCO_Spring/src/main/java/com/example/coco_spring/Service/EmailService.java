@@ -1,21 +1,16 @@
 package com.example.coco_spring.Service;
 
 import com.example.coco_spring.Entity.Product;
-import com.example.coco_spring.Entity.StoreCatalog;
 import com.example.coco_spring.Entity.User;
 
 import com.example.coco_spring.Repository.ProductRepository;
 
-import com.example.coco_spring.Repository.UserRepository;
 import com.example.coco_spring.Service.StoreCatalog.StoreCatalogService;
-import com.example.coco_spring.Service.User.UserService;
-import com.sun.mail.smtp.SMTPTransport;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -23,7 +18,6 @@ import org.springframework.util.StringUtils;
 import org.thymeleaf.TemplateEngine;
 import org.slf4j.Logger;
 
-import javax.annotation.PostConstruct;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -91,6 +85,23 @@ public class EmailService {
         context.setVariable("name", u.getName());
         //String content = templateEngine.process("email-template", context);
         String content = templateEngine.process("welcomeMail", context);
+
+
+        messageHelper.setText(content, true);
+        mailSender.send(mimeMessage);
+    }
+
+    public void sendWelcomeEmailB(User u) throws MessagingException {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
+        messageHelper.setSubject("Welcome");
+        messageHelper.setTo(u.getEmail());
+
+        Context context = new Context();
+        context.setVariable("code", u.getCodeActivation());
+        context.setVariable("name", u.getName());
+        //String content = templateEngine.process("email-template", context);
+        String content = templateEngine.process("welcomeMailB", context);
 
 
         messageHelper.setText(content, true);

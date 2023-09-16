@@ -1,7 +1,10 @@
 package com.example.coco_spring.Service.Payement;
 
-import com.example.coco_spring.Entity.Order;
-import com.example.coco_spring.Entity.Payement;
+
+
+import com.example.coco_spring.Entity.*;
+import com.example.coco_spring.Service.*;
+import com.example.coco_spring.Repository.*;
 
 import java.util.Date;
 import java.util.List;

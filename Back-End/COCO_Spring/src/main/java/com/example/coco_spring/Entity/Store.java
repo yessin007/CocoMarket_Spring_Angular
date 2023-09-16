@@ -25,6 +25,8 @@ public class Store implements Serializable {
     private Long storeId;
     private  String storeName ;
     private Integer contactInformation ;
+    @Lob
+    @Column( length = 1000000)
     private String storeDescription ;
     @Enumerated(EnumType.STRING)
     private Category category ;
@@ -44,13 +46,13 @@ public class Store implements Serializable {
 
 
 
-    @OneToOne
-    StoreLocations storeLocations;
+
+    private String storeLocations;
 
 
     @JsonIgnore
-    @OneToOne
-    private StoreCatalog storeCatalog;
+    @ManyToMany
+    List<StoreCatalog>  storeCatalog;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)

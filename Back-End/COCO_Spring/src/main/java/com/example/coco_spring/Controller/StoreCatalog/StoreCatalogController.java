@@ -1,40 +1,44 @@
 package com.example.coco_spring.Controller.StoreCatalog;
 
-import com.example.coco_spring.Entity.*;
-
+import com.example.coco_spring.Entity.ImageAM;
+import com.example.coco_spring.Entity.StoreCatalog;
+import com.example.coco_spring.Entity.StoreCatalogLike;
+import com.example.coco_spring.Entity.User;
 import com.example.coco_spring.Repository.NotificationRepository;
 import com.example.coco_spring.Repository.StoreCatalogRepository;
-
 import com.example.coco_spring.Repository.UserRepository;
 import com.example.coco_spring.Service.EmailService;
-
+import com.example.coco_spring.Service.StoreCatalog.IStoreCatalogService;
 import com.example.coco_spring.Service.StoreCatalog.StoreCatalogService;
 import com.example.coco_spring.Service.User.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-
-import java.io.IOException;
 import javax.mail.MessagingException;
-
+import java.io.IOException;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/storecatalog")
+@CrossOrigin("*")
 public class StoreCatalogController {
 
     StoreCatalogService storeCatalogService;
 
 NotificationRepository notificationRepository ;
 StoreCatalogRepository storeCatalogRepository ;
+
+IStoreCatalogService iStoreCatalogService;
 
     @Autowired
     EmailService emailService;
@@ -46,15 +50,34 @@ StoreCatalogRepository storeCatalogRepository ;
 
 
 
-    @PostMapping("/addStoreCatalog")
-    public StoreCatalog add(@RequestBody StoreCatalog class1){
+    @PostMapping(value="/addStoreCatalog",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public StoreCatalog add(@RequestPart("storeCatalog") StoreCatalog storeCatalog,
+                            @RequestPart("imageFile") MultipartFile[] file)  {
 
-        Notification notif = new Notification();
-        notif.setCreatedAt(new Date());
-        notif.setMessage(class1 + " new cataloq");
-        notif.setRead(false);
-        notificationRepository.save(notif);
-        return storeCatalogService.add(class1);
+
+        //storeCatalogService.sendEmail("ahmed.mellouli@esprit.tn","this is a test","mailtester");
+        try {
+            Set<ImageAM> images = uploadImage(file);
+            storeCatalog.setCatalogImages(images);
+            return storeCatalogService.add(storeCatalog);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null ;
+        }
+
+    }
+
+    public Set<ImageAM> uploadImage(MultipartFile[] multipartFiles)  throws IOException {
+        Set<ImageAM> ImageAMs = new HashSet<>();
+        for(MultipartFile file : multipartFiles){
+            ImageAM ImageAM =new ImageAM(
+                    file.getOriginalFilename(),
+                    file.getContentType(),
+                    file.getBytes()
+            );
+            ImageAMs.add(ImageAM);
+        }
+        return ImageAMs ;
     }
 
     @GetMapping("/get_all_StoreCatalog")
@@ -76,10 +99,6 @@ StoreCatalogRepository storeCatalogRepository ;
         return storeCatalogService.retrieveItem(idItem);
     }
 
-    @PutMapping("/affecterStoreCatalogAStore/{catalogId}/{storeId}")
-    public void affecterStoreCatalogAStore(@PathVariable("catalogId") Long catalogId,@PathVariable("storeId") Long storeId){
-        storeCatalogService.affecterStoreCatalogAStore(catalogId,storeId);
-    }
 
     @GetMapping("/findStoreCatalogByName/{catalogName}")
     public StoreCatalog findStoreCatalogByName(@PathVariable("catalogName") String catalogName){
@@ -143,8 +162,16 @@ StoreCatalogRepository storeCatalogRepository ;
         emailService.sendEmailToStoreCatalog(user,interests,productId,catalogId,subject,message);
     }
 
-
-
-
-
+    @PostMapping("/affecterStoreCatalogAStore/{storeId}/{catalogId}")
+    public void affecterStoreCatalogAStore(@PathVariable("storeId") Long storeId ,@PathVariable("catalogId") Long catalogId){
+        iStoreCatalogService.affecterStoreCatalogAStore(storeId,catalogId);
     }
+
+
+
+
+
+
+
+
+}

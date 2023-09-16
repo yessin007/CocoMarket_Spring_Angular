@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// import { NgxPayPalModule } from 'ngx-paypal';
 import { FormsModule } from '@angular/forms';
+// import { NgxPayPalModule } from 'ngx-paypal';
 import { Ng5SliderModule } from 'ng5-slider';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SharedModule } from '../shared/shared.module';
@@ -45,6 +45,16 @@ import { SuccessComponent } from './checkout/success/success.component';
 
 import {RouterModule} from '@angular/router';
 import {ElementsModule} from "../elements/elements.module";
+import {NgxStarRatingModule} from "ngx-star-rating";
+import {PagesModule} from "../pages/pages.module";
+import { SubDialogueComponent } from './sub-dialogue/sub-dialogue.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatDialogModule} from "@angular/material/dialog";
+import { WinDialogueComponent } from './win-dialogue/win-dialogue.component';
+import {PostStoreComponent} from "./collection/post-store/post-store.component";
+import {PostDetailComponent} from "./collection/post-detail/post-detail.component";
+import { ShopCollectionComponent } from './shop-collection/shop-collection.component';
+
 
 
 @NgModule({
@@ -75,18 +85,27 @@ import {ElementsModule} from "../elements/elements.module";
     WishlistComponent,
     CompareComponent,
     CheckoutComponent,
-    SuccessComponent
+    SuccessComponent,
+    SubDialogueComponent,
+    WinDialogueComponent,
+      PostStoreComponent,
+      PostDetailComponent,
+      ShopCollectionComponent,
   ],
     imports: [
         CommonModule,
-        FormsModule,
         // NgxPayPalModule,
         Ng5SliderModule,
         InfiniteScrollModule,
         SharedModule,
         ShopRoutingModule,
         RouterModule,
-        ElementsModule
+        ElementsModule,
+        NgxStarRatingModule,
+        PagesModule,
+        MatButtonModule,
+        FormsModule,
+        MatDialogModule
     ]
 })
 export class ShopModule { }

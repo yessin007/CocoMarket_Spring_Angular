@@ -10,7 +10,7 @@
         <button title="Add to cart" (click)="CartModal.openModal(product)" *ngIf="cartModal">
         	<i class="ti-shopping-cart"></i> 
         </button>
-        <button title="Add to cart" (click)="addToCart(product)" *ngIf="!cartModal">
+        <button [routerLink]="['/shop/cart']" [class.disabled]="1 > product.quantity " title="Add to cart" (click)="addProductToCartItem(1, product.productId,1)" *ngIf="!cartModal">
         	<i class="ti-shopping-cart"></i> 
         </button>
         <a href="javascript:void(0)" (click)="addToWishlist(product)" title="Add to Wishlist">
@@ -30,7 +30,7 @@
     </div> -->
 </div>
 <div class="product-info">
-    <bar-rating [rate]="2.7" [readOnly]="true"></bar-rating>
+    <bar-rating [rate]="product.productAvgLike" [readOnly]="true"></bar-rating>
     <a [routerLink]="['/shop/product/left/sidebar/', product?.title.replace(' ', '-')]">
     	<h6>{{ product?.title | titlecase }}</h6>
     </a>

@@ -113,6 +113,8 @@ export class LoginComponent implements OnInit {
 				.subscribe(
 					response => {
 						console.log(response);
+						alert("Registration successful! Please check your email for confirmation.");
+						this.reloadPage();
 						// handle successful registration response here
 					},
 					error => {

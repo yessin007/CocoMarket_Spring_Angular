@@ -55,9 +55,10 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
     PostLikeRepo postLikeRepo ;
     @Autowired
     EmailService emailService ;
+
+
     @Override
     public List<Store> findAll() {
-
         return storeRepository.findAll();
     }
 
@@ -102,6 +103,11 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
     public List<Product> getProductsByStore(Long storeId) {
         Store store = storeRepository.findById(storeId).orElseThrow();
         return store.getProducts();
+    }
+
+    @Override
+    public List<PostStore> findAllS() {
+        return postRepo.findAll();
     }
 
 
@@ -351,8 +357,8 @@ public class StoreService implements ICRUDService<Store,Long> , IMPCocoService {
     }
     public Store AssignLocationtoStore(Long locationId, Long  StoreId) {
         Store store = storeRepository.findById(StoreId).get();
-        StoreLocations storeLocations = storeLocationsRepository.findById(locationId).get();
-        store.setStoreLocations(storeLocations);
+        //StoreLocations storeLocations = storeLocationsRepository.findById(locationId).get();
+      //  store.setStoreLocations(storeLocations);
         return storeRepository.save(store);
     }
 

@@ -20,9 +20,6 @@ export interface Menu {
 
 export class NavService {
 
-	public  screenWidth:any
-	public collapseSidebar: boolean = false
-
 	constructor(@Inject(WINDOW) private window) {
 		this.onResize();
 		if (this.screenWidth < 991) {
@@ -30,13 +27,8 @@ export class NavService {
 		}
 	}
 
-
-	
-	// Windows width
-	@HostListener('window:resize', ['$event'])
-	onResize(event?) {
-		this.screenWidth = window.innerWidth;
-	}
+	public  screenWidth: any;
+	public collapseSidebar = false;
 
 
 	MENUITEMS: Menu[] = [
@@ -53,11 +45,7 @@ export class NavService {
 				},
 				{
 					title: 'Consult Product', type: 'sub', children: [
-						{ path: '/products/physical/category', title: 'Clothing Products Brands', type: 'link' },
-						{ path: '/products/physical/sub-category', title: 'ClothingProducts Category', type: 'link' },
 						{ path: '/products/physical/product-list', title: 'Clothing Products List', type: 'link' },
-						{ path: '/products/physical/product-detail', title: 'Clothing Product Detail', type: 'link' },
-						{ path: '/products/digital/digital-category', title: 'Digital Product Category', type: 'link' },
 						{ path: '/products/digital/digital-product-list', title: 'Digital Products List', type: 'link' },
 
 					]
@@ -70,15 +58,14 @@ export class NavService {
 					title: 'Orders', type: 'sub', children: [
 						{ path: '/sales/orders/add-order', title: 'Add Order', type: 'link' },
 						{ path: '/sales/orders', title: 'Orders List', type: 'link' },
-
 					]
 				},
 				{ path: '/sales/transactions', title: 'Transactions', type: 'link' },
 				{path: '/sales/orders', title: 'Orders', type: 'link' },
 				{
-					title: 'Payment', type: 'sub', children: [
-						{ path: '/sales/payment/add-payment', title: 'Add Payment', type: 'link' },
-						{ path: '/sales/payment/list-paym', title: 'Payment List', type: 'link' },
+					title: 'Transaction', type: 'sub', children: [
+						{ path: '/sales/transaction/add-transaction', title: 'Add Order', type: 'link' },
+						{ path: '/sales/transaction/transaction-list', title: 'Transaction List', type: 'link' },
 					]
 				}
 			]
@@ -91,10 +78,10 @@ export class NavService {
 		},
 		{
 			title: 'Deliveries', icon: 'clipboard', type: 'sub', active: false, children: [
+				{ path: '/pages/delivery-component', title: 'List deliveries', type: 'link' },
 				{ path: '/pages/list-page', title: 'List delivery man', type: 'link' },
 				{ path: '/pages/create-page', title: 'Create delivery man', type: 'link' },
-				{ path: '/pages/provider-location', title: 'Provider Location', type: 'link' },
-]
+			]
 		},
 		{
 			title: 'Media', path: '/media', icon: 'camera', type: 'link', active: false
@@ -113,7 +100,7 @@ export class NavService {
 		},
 		{
 			// tslint:disable-next-line:indent
-			title: 'Vendors', icon: 'users', type: 'sub', active: false, children: [
+			title: 'Stores', icon: 'users', type: 'sub', active: false, children: [
 				// tslint:disable-next-line:indent
 				{ path: '/vendors/list-vendors', title: 'Store List', type: 'link' },
 				// tslint:disable-next-line:indent
@@ -125,6 +112,7 @@ export class NavService {
 
 				// tslint:disable-next-line:indent
 				{ path: '/vendors/all-stores', title: 'All Stores', type: 'link' },
+				{ path: '/vendors/add-post', title: 'Add Post', type: 'link' },
 
 
 
@@ -155,6 +143,14 @@ export class NavService {
 	];
 	// Array
 	items = new BehaviorSubject<Menu[]>(this.MENUITEMS);
+
+
+
+	// Windows width
+	@HostListener('window:resize', ['$event'])
+	onResize(event?) {
+		this.screenWidth = window.innerWidth;
+	}
 
 
 
